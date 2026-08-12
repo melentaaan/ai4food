@@ -4,6 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>AI4Food - Bien manger. Moins gaspiller.</title>
+<meta name="description" content="AI4Food sauve les invendus des restaurants, hôtels, boulangeries et marchés de Dakar. Réservez un panier à petit prix, le commerçant jette moins.">
+<meta name="theme-color" content="#0A2E27" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#FBF7F0" media="(prefers-color-scheme: light)">
+<meta name="color-scheme" content="light dark">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="AI4Food">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;450;500;600&display=swap" rel="stylesheet">
@@ -12,6 +20,8 @@
   --ink:#14231F;--forest:#0E3D34;--forest2:#145143;--emerald:#2F6B4F;
   --mint:#A8D5B5;--mint2:#C6E4CE;--pale:#DFF0E2;--cream:#FBF7F0;--white:#fff;
   --muted:#6B7B75;--strike:#9AA8A2;--gold:#2F6B4F;
+  --water:#CFE2E4;--land:#FBF7F0;--mint-line:#BFD8CA;--danger:#B03A4C;--amber:#B8722A;
+  --glass:rgba(251,247,240,.96);--frost:rgba(255,255,255,.95);--page:#0A2E27;
   --line:rgba(20,35,31,.09);--line2:rgba(20,35,31,.16);
   --dp:'Plus Jakarta Sans',system-ui,sans-serif;--bd:'Inter',system-ui,sans-serif;
   --sh:0 1px 2px rgba(20,35,31,.04),0 8px 24px -12px rgba(20,35,31,.18);
@@ -105,13 +115,13 @@ button:focus-visible{outline:2.5px solid var(--emerald);outline-offset:2px}
 .thumb{width:110px;flex-shrink:0;border-radius:15px;position:relative;overflow:hidden;min-height:110px;background:var(--pale)}
 .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .thumb .scrim{position:absolute;inset:0;background:linear-gradient(to top,rgba(20,35,31,.42),transparent 55%)}
-.thumb .left{position:absolute;left:8px;bottom:8px;z-index:2;background:rgba(255,255,255,.95);color:var(--forest);
+.thumb .left{position:absolute;left:8px;bottom:8px;z-index:2;background:var(--frost);color:var(--forest);
   font-family:var(--dp);font-weight:700;font-size:9.5px;padding:4px 8px;border-radius:8px;letter-spacing:-.01em}
 .rc-body{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:2px;padding:2px 2px 2px 0}
 .rc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
 .rc-top h3{font-family:var(--dp);font-weight:700;font-size:15px;margin:0;letter-spacing:-.02em;line-height:1.25}
 .hbtn{background:none;border:none;padding:2px;color:var(--muted);flex-shrink:0}
-.hbtn.on{color:#B03A4C}
+.hbtn.on{color:var(--danger)}
 .mrc{margin:2px 0 0;font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .rate{display:inline-flex;align-items:center;gap:3px;color:var(--ink);font-weight:500}
 .rate svg{color:var(--gold)}
@@ -135,7 +145,7 @@ button:focus-visible{outline:2.5px solid var(--emerald);outline-offset:2px}
 .mapwrap{position:relative;margin:0 22px 14px;border-radius:22px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--sh)}
 .mapsvg{width:100%;height:300px;display:block}
 .zl{font-family:var(--dp);font-size:8.5px;font-weight:600;fill:var(--muted);text-anchor:middle;letter-spacing:.02em}
-.maplg{position:absolute;left:12px;bottom:12px;display:flex;gap:12px;background:rgba(251,247,240,.94);
+.maplg{position:absolute;left:12px;bottom:12px;display:flex;gap:12px;background:var(--glass);
   padding:7px 11px;border-radius:11px;font-size:10.5px;color:var(--muted);font-weight:500}
 .maplg span{display:flex;align-items:center;gap:5px}
 .maplg .d{width:9px;height:9px;border-radius:50%;background:#fff;border:1.8px solid var(--emerald);display:inline-block}
@@ -152,7 +162,7 @@ button:focus-visible{outline:2.5px solid var(--emerald);outline-offset:2px}
 .sub2{margin:-6px 22px 14px;font-size:12.5px;color:var(--muted)}
 
 /* ---------- tab bar ---------- */
-.tabs{display:flex;border-top:1px solid var(--line);background:rgba(251,247,240,.96);
+.tabs{display:flex;border-top:1px solid var(--line);background:var(--glass);
   backdrop-filter:blur(14px);padding:8px 8px 16px}
 .tab{flex:1;background:none;border:none;display:flex;flex-direction:column;align-items:center;gap:4px;
   font-size:9.5px;color:var(--muted);font-weight:500;padding:6px 0;border-radius:14px}
@@ -167,10 +177,10 @@ button:focus-visible{outline:2.5px solid var(--emerald);outline-offset:2px}
 .hero .sc{position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,35,31,.45) 0%,transparent 34%,transparent 62%,rgba(20,35,31,.35) 100%)}
 .hero .nav{position:absolute;z-index:4;top:54px;left:18px;right:18px;display:flex;justify-content:space-between}
 .hero .nav .g{display:flex;gap:9px}
-.circ{width:38px;height:38px;border-radius:13px;background:rgba(255,255,255,.94);border:none;
+.circ{width:38px;height:38px;border-radius:13px;background:var(--frost);border:none;
   display:grid;place-items:center;color:var(--forest);backdrop-filter:blur(6px)}
-.circ.on{color:#B03A4C}
-.hero .left{position:absolute;z-index:4;bottom:48px;left:20px;background:rgba(255,255,255,.95);color:var(--forest);
+.circ.on{color:var(--danger)}
+.hero .left{position:absolute;z-index:4;bottom:48px;left:20px;background:var(--frost);color:var(--forest);
   font-family:var(--dp);font-weight:700;font-size:11px;padding:6px 11px;border-radius:10px}
 .detail{flex:1;overflow-y:auto;scrollbar-width:none;background:var(--cream);border-radius:28px 28px 0 0;
   margin-top:-28px;padding:24px 22px 20px;position:relative;z-index:3}
@@ -197,7 +207,7 @@ button:focus-visible{outline:2.5px solid var(--emerald);outline-offset:2px}
 .stepper{display:flex;align-items:center;gap:15px;margin-top:4px}
 .stepper button{width:33px;height:33px;border-radius:11px;border:1px solid var(--line2);background:var(--white);display:grid;place-items:center}
 .stepper span{font-family:var(--dp);font-weight:700;font-size:15px;min-width:14px;text-align:center}
-.bar{padding:14px 22px 26px;background:rgba(251,247,240,.97);backdrop-filter:blur(12px);border-top:1px solid var(--line);flex-shrink:0}
+.bar{padding:14px 22px 26px;background:var(--glass);backdrop-filter:blur(12px);border-top:1px solid var(--line);flex-shrink:0}
 .btn{width:100%;border:none;border-radius:17px;padding:17px;font-family:var(--dp);font-weight:700;font-size:15.5px;
   letter-spacing:-.015em;display:flex;align-items:center;justify-content:center;gap:9px}
 .btn-main{background:var(--forest);color:#fff;box-shadow:0 14px 28px -16px rgba(14,61,52,.95)}
@@ -253,7 +263,7 @@ button:focus-visible{outline:2.5px solid var(--emerald);outline-offset:2px}
 .impact h3{font-family:var(--dp);font-weight:700;font-size:15.5px;margin:0 0 15px;color:#fff;display:flex;align-items:center;gap:8px;letter-spacing:-.02em}
 .irow{display:flex;gap:10px}
 .st{flex:1;background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.09);border-radius:16px;padding:12px}
-.st b{display:block;font-family:var(--dp);font-size:19px;font-weight:700;color:#fff;letter-spacing:-.03em}
+.st b{display:block;font-family:var(--dp);font-size:19px;font-weight:700;color:#fff;letter-spacing:-.03em;white-space:nowrap}
 .st span{font-size:10.5px;color:#A9C4BC;display:block;margin-top:4px;line-height:1.3}
 .rows{padding:0 22px 24px;display:flex;flex-direction:column;gap:1px}
 .srow{display:flex;justify-content:space-between;align-items:center;background:var(--white);border:1px solid var(--line);
@@ -326,29 +336,209 @@ button:focus-visible{outline:2.5px solid var(--emerald);outline-offset:2px}
   .chip:hover{border-color:var(--line2)}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ================= v2 ================= */
+
+/* ---------- dark theme ---------- */
+[data-theme="dark"]{
+  --ink:#E8F1EC;--cream:#0C201C;--white:#132E28;--pale:#173B32;--mint2:#245043;
+  --muted:#8FA9A0;--strike:#6E837C;--emerald:#8CCBA5;--forest:#1E5A4B;--forest2:#2A6E5C;
+  --water:#061419;--land:#16352D;--mint-line:#2E6B58;--danger:#E88497;--amber:#E0A867;
+  --glass:rgba(12,32,28,.94);--frost:rgba(19,46,40,.94);
+  --line:rgba(232,241,236,.10);--line2:rgba(232,241,236,.20);
+  --sh:0 1px 2px rgba(0,0,0,.3),0 10px 26px -14px rgba(0,0,0,.75);
+}
+[data-theme="dark"] .chip.on{background:var(--mint);color:#08221C;border-color:var(--mint)}
+[data-theme="dark"] .btn-main{background:var(--mint);color:#08221C;box-shadow:0 14px 28px -18px rgba(168,213,181,.9)}
+[data-theme="dark"] .btn-main:hover{background:#BCE2C7}
+[data-theme="dark"] .thumb .left,[data-theme="dark"] .hero .left,[data-theme="dark"] .circ{color:var(--mint)}
+[data-theme="dark"] .qr{background:#E8F1EC}
+[data-theme="dark"] .phone{border-color:#02110E}
+[data-theme="dark"] .pay .lg{filter:saturate(.9)}
+[data-theme="dark"] .mk.c{background:var(--white)}
+[data-theme="dark"] .prices b,[data-theme="dark"] .pline b,[data-theme="dark"] .tab.on,
+[data-theme="dark"] .round,[data-theme="dark"] .rate svg{color:var(--emerald)}
+[data-theme="dark"] .ainote{background:linear-gradient(120deg,var(--pale),var(--white));color:var(--emerald)}
+[data-theme="dark"] .good{background:linear-gradient(140deg,var(--pale),var(--white))}
+[data-theme="dark"] .good li{color:var(--ink)}
+[data-theme="dark"] .rb.on{background:var(--mint);color:#08221C;border-color:var(--mint)}
+[data-theme="dark"] .toast{background:var(--forest2)}
+[data-theme="dark"] .round .dot{border-color:var(--white)}
+[data-theme="dark"] .search{color:var(--muted)}
+[data-theme="dark"] .zl{fill:var(--muted)}
+
+/* ---------- accessible card hit area ---------- */
+.rc{position:relative}
+.rc-open{position:absolute;inset:0;z-index:1;background:none;border:0;border-radius:20px;padding:0}
+.rc .thumb,.rc .rc-body{pointer-events:none}
+.rc .rc-body button,.rc .rc-body .hbtn{pointer-events:auto;position:relative;z-index:3}
+.rc.sold{opacity:.58}
+.rc.sold .thumb img{filter:grayscale(.85)}
+.rc.pressed{transform:scale(.985)}
+
+/* ---------- status pills ---------- */
+.pill{display:inline-flex;align-items:center;gap:5px;font-family:var(--dp);font-weight:700;
+  font-size:10.5px;letter-spacing:-.01em;padding:4px 8px;border-radius:8px;
+  background:var(--pale);color:var(--emerald);white-space:nowrap}
+.pill.now{background:var(--forest);color:#fff}
+[data-theme="dark"] .pill.now{background:var(--mint);color:#08221C}
+.pill.soon{background:#FBEEDF;color:var(--amber)}
+[data-theme="dark"] .pill.soon{background:#3A2C18;color:var(--amber)}
+.pill.gone{background:rgba(20,35,31,.07);color:var(--strike)}
+[data-theme="dark"] .pill.gone{background:rgba(232,241,236,.08)}
+.pill.hot{background:#F7E4E7;color:var(--danger)}
+[data-theme="dark"] .pill.hot{background:#3B2028;color:var(--danger)}
+.pill i.bl{width:6px;height:6px;border-radius:50%;background:currentColor;display:inline-block}
+.pill.now i.bl{animation:blink 1.9s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+.metarow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:7px}
+.dist{display:inline-flex;align-items:center;gap:3px;font-size:11px;color:var(--muted);font-weight:500}
+
+/* ---------- sort / toolbar ---------- */
+.tools{display:flex;gap:8px;padding:0 22px 14px;align-items:center;overflow-x:auto;scrollbar-width:none}
+.tools::-webkit-scrollbar{display:none}
+.tools .lb{font-size:11px;color:var(--muted);white-space:nowrap;font-weight:500}
+.sortb{white-space:nowrap;border:1px solid var(--line);background:var(--white);border-radius:11px;
+  padding:7px 12px;font-size:11.5px;font-weight:600;font-family:var(--dp);color:var(--muted);box-shadow:var(--sh)}
+.sortb.on{background:var(--pale);color:var(--emerald);border-color:var(--mint2)}
+.countline{padding:0 22px 10px;font-size:11.5px;color:var(--muted)}
+
+/* ---------- search ---------- */
+.srchhead{padding:calc(18px + env(safe-area-inset-top)) 18px 12px;display:flex;gap:10px;align-items:center;
+  background:var(--cream);border-bottom:1px solid var(--line)}
+.srchbox{flex:1;display:flex;gap:9px;align-items:center;background:var(--white);border:1px solid var(--line2);
+  border-radius:14px;padding:12px 14px;box-shadow:var(--sh)}
+.srchbox svg{color:var(--emerald);flex-shrink:0}
+.srchbox input{flex:1;min-width:0;border:none;background:none;font-family:var(--bd);font-size:14px;
+  color:var(--ink);outline:none;padding:0}
+.srchbox input::placeholder{color:var(--muted)}
+.txtb{background:none;border:none;font-family:var(--dp);font-weight:600;font-size:13px;color:var(--emerald);padding:6px 2px;white-space:nowrap}
+.reslab{padding:14px 22px 8px;font-family:var(--dp);font-size:10px;font-weight:700;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--muted)}
+.recents{display:flex;flex-wrap:wrap;gap:8px;padding:0 22px 16px}
+
+/* ---------- notifications ---------- */
+.nrow{display:flex;gap:13px;align-items:flex-start;background:var(--white);border:1px solid var(--line);
+  border-radius:18px;padding:14px;width:100%;text-align:left;box-shadow:var(--sh)}
+.nrow.unread{border-color:var(--mint2);background:linear-gradient(120deg,var(--pale),var(--white))}
+.nrow .ni{width:38px;height:38px;border-radius:13px;background:var(--pale);color:var(--emerald);
+  display:grid;place-items:center;flex-shrink:0}
+.nrow b{display:block;font-family:var(--dp);font-size:13.5px;font-weight:700;letter-spacing:-.015em}
+.nrow p{margin:3px 0 0;font-size:12px;color:var(--muted);line-height:1.5}
+.nrow .ago{font-size:10.5px;color:var(--strike);margin-top:5px;display:block}
+.badge{position:absolute;top:6px;right:6px;min-width:17px;height:17px;padding:0 4px;border-radius:9px;
+  background:var(--danger);color:#fff;font-family:var(--dp);font-size:10px;font-weight:700;
+  display:grid;place-items:center;border:2px solid var(--cream)}
+
+/* ---------- forms ---------- */
+.fld{margin-bottom:13px}
+.fld label{display:block;font-family:var(--dp);font-size:11px;font-weight:700;letter-spacing:.04em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+.fld input,.fld select,.fld textarea{width:100%;border:1px solid var(--line2);background:var(--white);
+  border-radius:14px;padding:13px 14px;font-family:var(--bd);font-size:14px;color:var(--ink);
+  outline:none;box-shadow:var(--sh);-webkit-appearance:none;appearance:none}
+.fld textarea{resize:none;line-height:1.5}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--emerald);box-shadow:0 0 0 3px rgba(47,107,79,.12)}
+.fld select{background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);
+  background-position:calc(100% - 19px) 51%,calc(100% - 14px) 51%;background-size:5px 5px,5px 5px;background-repeat:no-repeat}
+.two{display:flex;gap:11px}.two .fld{flex:1}
+.hint{font-size:11.5px;color:var(--muted);margin:-4px 0 14px;line-height:1.5}
+.codein{font-family:var(--dp);font-weight:700;font-size:19px;letter-spacing:.12em;text-align:center;text-transform:uppercase}
+
+/* ---------- why / explainability ---------- */
+.why{background:linear-gradient(140deg,var(--pale),var(--white));border:1px solid var(--mint2);
+  border-radius:18px;padding:15px 17px;margin-bottom:16px}
+.why h4{font-family:var(--dp);font-size:13.5px;margin:0 0 10px;font-weight:700;color:var(--emerald);
+  display:flex;align-items:center;gap:7px;letter-spacing:-.015em}
+.wr{display:flex;align-items:center;gap:10px;margin-bottom:9px;font-size:12.5px;color:var(--ink)}
+.wr:last-child{margin-bottom:0}
+.wr .bar{flex:1;height:5px;border-radius:3px;background:rgba(20,35,31,.09);overflow:hidden;padding:0}
+[data-theme="dark"] .wr .bar{background:rgba(232,241,236,.12)}
+.wr .bar i{display:block;height:100%;background:var(--emerald);border-radius:3px}
+.wr .vl{font-family:var(--dp);font-size:11px;font-weight:700;color:var(--muted);min-width:26px;text-align:right}
+.wr .nm{min-width:96px;color:var(--muted);font-size:11.5px}
+
+/* ---------- onboarding v2 ---------- */
+#ob .obslide{display:flex;flex-direction:column;align-items:center;gap:14px;max-width:320px}
+#ob .obic{width:76px;height:76px;border-radius:26px;background:rgba(168,213,181,.14);
+  border:1px solid rgba(168,213,181,.22);color:var(--mint);display:grid;place-items:center;margin-bottom:4px}
+#ob .skip{position:absolute;top:calc(24px + env(safe-area-inset-top));right:22px;background:none;border:none;
+  color:#7FA79B;font-size:12.5px;font-family:var(--dp);font-weight:600;z-index:3}
+#ob .lgrow{position:absolute;top:calc(22px + env(safe-area-inset-top));left:22px;display:flex;gap:6px;z-index:3}
+#ob .lgb{background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.14);color:#CFE2DA;
+  border-radius:9px;padding:5px 9px;font-family:var(--dp);font-size:10.5px;font-weight:700;letter-spacing:.04em}
+#ob .lgb.on{background:var(--mint);color:#0A2E27;border-color:var(--mint)}
+#ob .dots{position:absolute;bottom:124px;left:0;right:0;justify-content:center}
+
+/* ---------- misc ---------- */
+.stat{display:inline-flex;align-items:center;gap:5px;font-family:var(--dp);font-size:11px;font-weight:700;
+  padding:4px 9px;border-radius:8px;background:var(--pale);color:var(--emerald)}
+.stat.wait{background:#FBEEDF;color:var(--amber)}
+[data-theme="dark"] .stat.wait{background:#3A2C18}
+.stat.dead{background:rgba(20,35,31,.07);color:var(--strike)}
+[data-theme="dark"] .stat.dead{background:rgba(232,241,236,.08)}
+.srow .tgl{width:44px;height:26px;border-radius:14px;background:var(--line2);position:relative;flex-shrink:0;transition:background .2s}
+.srow .tgl i{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;
+  box-shadow:0 1px 3px rgba(0,0,0,.3);transition:transform .2s}
+.srow .tgl.on{background:var(--emerald)}
+.srow .tgl.on i{transform:translateX(18px)}
+.picks{display:flex;gap:7px;padding:0 22px 16px}
+.picks button{flex:1;border:1px solid var(--line2);background:var(--white);border-radius:13px;padding:11px 6px;
+  font-family:var(--dp);font-weight:600;font-size:12.5px;color:var(--ink);box-shadow:var(--sh)}
+.picks button.on{background:var(--forest);border-color:var(--forest);color:#fff}
+[data-theme="dark"] .picks button.on{background:var(--mint);color:#08221C;border-color:var(--mint)}
+.zrow{display:flex;justify-content:space-between;align-items:center;background:var(--white);
+  border:1px solid var(--line);padding:15px 16px;font-size:13.5px;width:100%;text-align:left;gap:12px}
+.zrow:first-child{border-radius:17px 17px 0 0}.zrow:last-child{border-radius:0 0 17px 17px}
+.zrow.on{background:var(--pale);border-color:var(--mint2);color:var(--emerald);font-weight:600}
+.shhead{padding:calc(20px + env(safe-area-inset-top)) 22px 14px;display:flex;justify-content:space-between;
+  align-items:center;gap:12px;border-bottom:1px solid var(--line);background:var(--cream)}
+.shhead h2{font-family:var(--dp);font-weight:700;font-size:20px;margin:0;letter-spacing:-.03em}
+.shhead p{margin:3px 0 0;font-size:12px;color:var(--muted)}
+.shbody{flex:1;overflow-y:auto;scrollbar-width:none;padding-top:6px}
+.shbody::-webkit-scrollbar{display:none}
+.mini{display:flex;gap:9px;padding:0 22px 14px}
+.mini div{flex:1;background:var(--white);border:1px solid var(--line);border-radius:16px;padding:12px 13px;box-shadow:var(--sh)}
+.mini b{display:block;font-family:var(--dp);font-size:17px;font-weight:700;letter-spacing:-.03em}
+.mini span{font-size:10.5px;color:var(--muted);display:block;margin-top:3px;line-height:1.3}
+.spark{display:flex;align-items:flex-end;gap:3px;height:34px;margin-top:9px}
+.spark i{flex:1;background:var(--mint2);border-radius:2px 2px 0 0;min-height:2px}
+.spark i.hi{background:var(--emerald)}
+.ticker{display:flex;gap:7px;align-items:center;margin:0 22px 16px;padding:11px 14px;border-radius:14px;
+  background:var(--pale);border:1px solid var(--mint2);font-size:12px;color:var(--emerald);font-weight:500}
+.ticker svg{flex-shrink:0}
+.usr{fill:var(--forest);stroke:#fff;stroke-width:2}
+[data-theme="dark"] .usr{fill:var(--mint);stroke:#0C201C}
+.sheet[hidden]{display:none}
+.toast.err{background:var(--danger)}
+.toast.err svg{color:#fff}
+@media (max-width:760px){
+  .srchhead,.shhead{max-width:640px;margin-left:auto;margin-right:auto}
+  .tools,.mini,.picks,.ticker,.countline{max-width:640px;margin-left:auto;margin-right:auto}
+}
+@media (min-width:761px){
+  .pitch{display:block}
+  .stage{gap:58px}
+}
 </style>
 </head>
 <body>
 <div class="stage">
 
+  <aside class="pitch" id="pitch"></aside>
 
   <div class="phone">
     <div class="notch"></div>
-    <div id="ob">
-      <h2>AI<em>4</em>Food</h2>
-      <p class="t">Bien manger. Moins gaspiller.</p>
-      <p class="s">Sénégal d'abord, Afrique ensuite.</p>
-      <button class="start" onclick="startApp()">Commencer</button>
-    </div>
-    <div class="sbar dark" id="sb"><span>9:41</span><span class="rt">
+    <div id="ob"></div>
+    <div class="sbar dark" id="sb"><span id="clock">9:41</span><span class="rt">
       <svg width="16" height="12" viewBox="0 0 18 12" fill="currentColor"><rect x="0" y="7" width="3" height="5" rx="1"/><rect x="5" y="5" width="3" height="7" rx="1"/><rect x="10" y="2.5" width="3" height="9.5" rx="1"/><rect x="15" y="0" width="3" height="12" rx="1" opacity=".4"/></svg>
       <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><path d="M8 10.5a1.4 1.4 0 1 0 0-2.8 1.4 1.4 0 0 0 0 2.8Z"/><path d="M3.1 6.4a7 7 0 0 1 9.8 0l1.3-1.4a9 9 0 0 0-12.4 0l1.3 1.4Z" opacity=".85"/></svg>
       <svg width="22" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="3" stroke="currentColor" stroke-width="1.2" opacity=".5"/><rect x="3" y="3" width="14" height="6" rx="1.6" fill="currentColor"/><path d="M22 4.5v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".5"/></svg>
     </span></div>
-    <div class="view" id="view"></div>
-    <div class="toast" id="toast"></div>
-    <div class="sheet" id="sheet"></div>
-    <nav class="tabs" id="tabs"></nav>
+    <main class="view" id="view"></main>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-hidden="true"></div>
+    <nav class="tabs" id="tabs" role="tablist"></nav>
   </div>
 </div>
 
@@ -387,382 +577,1359 @@ const IC={
  bed:'<path d="M3 18v-9"/><path d="M3 13.5h18V18"/><path d="M21 18v-3.5a3 3 0 0 0-3-3H10.5V18"/><circle cx="7" cy="10" r="2.2"/>',
  cart:'<circle cx="9.5" cy="20" r="1.3"/><circle cx="17.5" cy="20" r="1.3"/><path d="M2.5 3h2.2l2.3 12.2a1.6 1.6 0 0 0 1.6 1.3h9.1a1.6 1.6 0 0 0 1.6-1.3L21 7H6"/>',
  bread:'<path d="M4.5 10.5c0-3 3.4-4.5 7.5-4.5s7.5 1.5 7.5 4.5c0 1.5-1.2 2.2-2.2 2.6-.6.3-.8.9-.8 1.5V18a2 2 0 0 1-2 2H9.5a2 2 0 0 1-2-2v-3.4c0-.6-.2-1.2-.8-1.5-1-.4-2.2-1.1-2.2-2.6Z"/>',
- fork:'<path d="M6 3v6a2.5 2.5 0 0 0 5 0V3"/><path d="M8.5 9v12"/><path d="M17 3c-1.5 1.2-2.2 3-2.2 5.2 0 1.6.8 2.6 2.2 3V21"/>'
+ fork:'<path d="M6 3v6a2.5 2.5 0 0 0 5 0V3"/><path d="M8.5 9v12"/><path d="M17 3c-1.5 1.2-2.2 3-2.2 5.2 0 1.6.8 2.6 2.2 3V21"/>',
+ sliders:'<path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2.2"/><circle cx="9" cy="17" r="2.2"/>',
+ sun:'<circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.2 5.2l1.4 1.4M17.4 17.4l1.4 1.4M18.8 5.2l-1.4 1.4M6.6 17.4l-1.4 1.4"/>',
+ moon:'<path d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8Z"/>',
+ target:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3"/>',
+ flame:'<path d="M12 21c3.6 0 6.2-2.3 6.2-5.7 0-4.6-4.4-6-3.6-11.3-3 1.4-5 4-5 6.4 0 1.6-.9 2.3-1.8 1.6-.7-.6-.9-1.6-.9-2.4-1.4 1.5-2.1 3.5-2.1 5.7C4.8 18.7 8.4 21 12 21Z"/>',
+ info:'<circle cx="12" cy="12" r="9"/><path d="M12 11.2v5.3"/><circle cx="12" cy="7.9" r="1.1" fill="currentColor" stroke="none"/>',
+ edit:'<path d="M4 20h4L19 9a2.5 2.5 0 0 0-3.5-3.5L4.5 16.5 4 20Z"/><path d="M14.5 6.5 17.5 9.5"/>',
+ trash:'<path d="M4 7h16"/><path d="M9.5 7V4.8A1.3 1.3 0 0 1 10.8 3.5h2.4A1.3 1.3 0 0 1 14.5 4.8V7"/><path d="M6 7v12.5A1.5 1.5 0 0 0 7.5 21h9a1.5 1.5 0 0 0 1.5-1.5V7"/>',
+ users:'<path d="M15.5 21v-1.5a4.5 4.5 0 0 0-4.5-4.5H7a4.5 4.5 0 0 0-4.5 4.5V21"/><circle cx="9" cy="7.5" r="3.6"/><path d="M17 4a4 4 0 0 1 0 7.4"/><path d="M21.5 21v-1.5a4.4 4.4 0 0 0-3-4.2"/>',
+ alert:'<path d="M10.3 3.9 2.6 17.2A2 2 0 0 0 4.3 20h15.4a2 2 0 0 0 1.7-2.8L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4.2"/><circle cx="12" cy="16.7" r="1" fill="currentColor" stroke="none"/>',
+ scan:'<path d="M3.5 8.5v-3a2 2 0 0 1 2-2h3M15.5 3.5h3a2 2 0 0 1 2 2v3M20.5 15.5v3a2 2 0 0 1-2 2h-3M8.5 20.5h-3a2 2 0 0 1-2-2v-3"/><path d="M3.5 12h17"/>',
+ calendar:'<rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M3.5 10h17M8.5 3v4M15.5 3v4"/>',
+ route:'<circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="5" r="2.5"/><path d="M8.5 19h6a3.5 3.5 0 0 0 0-7h-5a3.5 3.5 0 0 1 0-7h6"/>'
 };
 const I=(n,s=20,extra='')=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" ${extra}>${IC[n]}</svg>`;
 
-const F=n=>n.toLocaleString('fr-FR').replace(/\u202f|\u00a0/g,' ');
+/* =========================================================
+   i18n - fr (defaut), en, wo (wolof de Dakar)
+   ========================================================= */
+const LANGS=[["fr","FR","Français"],["en","EN","English"],["wo","WO","Wolof"]];
+let LI=0;
+const STR={
+/* chrome */
+greet_am:["Bonjour !","Good morning!","Naka suba si !"],
+greet_pm:["Bon après-midi !","Good afternoon!","Naka bëccëg bi !"],
+greet_ev:["Bonsoir !","Good evening!","Naka ngoon si !"],
+search_ph:["Rechercher un plat, un commerce...","Search a dish, a shop...","Seet ñam, seet butik..."],
+tab_home:["Découvrir","Discover","Gis"],
+tab_places:["Commerces","Shops","Butik yi"],
+tab_fav:["Favoris","Saved","Favoris"],
+tab_orders:["Suivi","Orders","Commande"],
+tab_profile:["Profil","Profile","Profil"],
+tab_mtoday:["Aujourd'hui","Today","Tey"],
+tab_mfc:["Prévision","Forecast","Prévision"],
+tab_mcodes:["Retraits","Pickups","Retrait"],
+tab_adash:["Tableau","Overview","Tablo"],
+tab_aorders:["Commandes","Orders","Commande yi"],
+/* home */
+ai_eyebrow:["Choisi par l'IA","Picked by AI","IA moo ko tànn"],
+ai_title:["Pour vous maintenant","For you right now","Ngir yow léegi"],
+ai_sub:["D'après vos commandes, l'heure et la distance","Based on your orders, the time and the distance","Ci sa commande yi, waxtu wi ak sori bi"],
+why_q:["Pourquoi ?","Why?","Lu tax ?"],
+near_you:["Près de vous","Near you","Ci sa wet"],
+map_link:["Carte des commerces","Shop map","Kart bi"],
+sort_lb:["Trier","Sort","Tëral"],
+sort_reco:["Recommandé","Recommended","Recommandé"],
+sort_price:["Prix","Price","Njëg"],
+sort_dist:["Distance","Distance","Sori"],
+sort_time:["Retrait","Pickup","Retrait"],
+n_offers:["{0} offres disponibles","{0} offers available","{0} offre yu am"],
+n_offer1:["1 offre disponible","1 offer available","1 offre bu am"],
+none_here:["Aucune offre dans ce filtre","No offer in this filter","Amul offre ci filtre bi"],
+none_here_p:["Essayez une autre catégorie ou revenez plus tard.","Try another category or come back later.","Jéemal beneen wàll walla ñëwaat."],
+legal_offers:["Commerces cités à titre d'illustration, sans partenariat existant.","Shops shown for illustration only, no existing partnership.","Butik yi ci misaal rekk lañu, amul kontraa."],
+/* card + time */
+left_1:["1 restant","1 left","1 rekk a des"],
+left_n:["{0} restants","{0} left","{0} yu des"],
+save_pct:["Économisez {0}%","Save {0}%","Yokk {0}%"],
+sold:["Épuisé","Sold out","Jeex na"],
+open_now:["À retirer maintenant","Pick up now","Retrait léegi"],
+closes_in:["Ferme dans {0}","Closes in {0}","Tëj ci {0}"],
+pickup_in:["Retrait dans {0}","Pickup in {0}","Retrait ci {0}"],
+pickup_at:["Retrait à {0}","Pickup at {0}","Retrait ci {0}"],
+tmr:["demain","tomorrow","suba"],
+pickup_at_tmr:["Retrait demain {0}","Pickup tomorrow {0}","Retrait suba {0}"],
+newb:["Nouveau","New","Bees"],
+hmin:["{0} min","{0} min","{0} min"],
+hhm:["{0} h {1}","{0}h {1}m","{0}w {1}"],
+hh:["{0} h","{0}h","{0} waxtu"],
+/* detail */
+know:["Bon à savoir","Good to know","Loo war a xam"],
+k1:["Préparé aujourd'hui, à consommer le jour même.","Made today, eat it the same day.","Tey lañu ko togg, lekk ko tey."],
+k2:["Apportez votre sac.","Bring your own bag.","Indil sa mbuus."],
+k3:["Annulation gratuite jusqu'à 2h avant.","Free cancellation up to 2h before.","Man nga koo bàyyi 2 waxtu balaa."],
+reserve:["Réserver","Reserve","Réserver"],
+qty:["Quantité","Quantity","Ñaata"],
+address:["Adresse","Address","Adres"],
+pickup_today:["À récupérer aujourd'hui","Pick up today","Retrait tey"],
+pickup_tmr:["À récupérer demain","Pick up tomorrow","Retrait suba"],
+between:["Entre {0} et {1}","Between {0} and {1}","Diggante {0} ak {1}"],
+see_map:["Voir sur la carte","See on map","Xool ci kart bi"],
+reviews:["({0} avis)","({0} reviews)","({0} avis)"],
+sold_out_btn:["Offre épuisée","Sold out","Jeex na"],
+away:["à {0}","{0} away","{0} sori"],
+/* why sheet */
+why_title:["Pourquoi cette offre ?","Why this offer?","Lu tax offre bi ?"],
+why_sub:["Le score est calculé sur votre appareil, à partir de vos commandes.","The score is computed on your device, from your own orders.","Score bi ci sa telefon lañu ko jël, ci sa commande yi."],
+why_match:["{0}% de correspondance","{0}% match","{0}% correspondance"],
+f_price:["Remise","Discount","Rabais"],
+f_taste:["Vos goûts","Your taste","Sa cin"],
+f_near:["Distance","Distance","Sori"],
+f_time:["Horaire","Timing","Waxtu"],
+f_rare:["Rareté","Scarcity","Néew"],
+f_rating:["Note","Rating","Not"],
+why_fav:["Vous avez mis ce commerce en favori","You saved this shop","Yaa ko def favori"],
+why_cat:["Vous commandez souvent en {0}","You often order in {0}","Dangay commande bu bare ci {0}"],
+why_merch:["{0} commandes déjà chez ce commerce","{0} past orders at this shop","{0} commande nga fa def ba tey"],
+why_near2:["À {0} de vous","{0} from you","{0} ci sa wet"],
+why_now:["Le retrait est ouvert maintenant","Pickup is open right now","Retrait bi ubbi na léegi"],
+why_soon:["Retrait dans moins de 2 h","Pickup in under 2h","Retrait ci lu néew 2 waxtu"],
+why_last:["Il ne reste presque plus rien","Almost nothing left","Lu tuuti rekk a des"],
+why_deal:["{0}% sous le prix magasin","{0}% below shop price","{0}% ci suuf njëg bi"],
+/* payment */
+payment:["Paiement","Payment","Payement"],
+subtotal:["Sous-total","Subtotal","Sous-total"],
+service_fee:["Frais de service","Service fee","Frais"],
+total:["Total","Total","Total"],
+pay_btn:["Payer {0} FCFA","Pay {0} FCFA","Fey {0} FCFA"],
+free_cancel:["Annulation gratuite jusqu'à 2h avant le retrait","Free cancellation up to 2h before pickup","Man nga koo bàyyi 2 waxtu balaa retrait bi"],
+pay_wave:["Solde 24 500 FCFA","Balance 24,500 FCFA","Bala 24 500 FCFA"],
+pay_om:["77 ••• 41 08","77 ••• 41 08","77 ••• 41 08"],
+pay_cash:["Vous payez le commerçant sur place","Pay the shop on pickup","Fey ko fa nga jëndee"],
+/* done */
+confirmed:["Commande confirmée","Order confirmed","Commande bi baax na"],
+thanks:["Jërëjëf. Présentez votre code chez {0}, entre {1} et {2}.","Jërëjëf. Show your code at {0}, between {1} and {2}.","Jërëjëf. Wonel sa kod ci {0}, diggante {1} ak {2}."],
+pickup_code:["Code de retrait","Pickup code","Kod bu retrait"],
+show_code:["Présentez ce code au comptoir. Apportez votre sac.","Show this code at the counter. Bring your bag.","Wonel kod bi ci komptuwaar bi. Indil sa mbuus."],
+co2_line:["Vous venez d'éviter {0} kg de CO₂e.","You just avoided {0} kg CO₂e.","Musal nga {0} kg CO₂e."],
+see_order:["Voir ma commande","See my order","Xool sama commande"],
+/* orders */
+tracking:["Suivi","Tracking","Suivi"],
+my_orders:["Mes commandes","My orders","Sama commande yi"],
+no_orders:["Aucune commande","No order yet","Amul commande"],
+no_orders_p:["Réservez une offre, puis présentez votre code au commerçant.","Reserve an offer, then show your code to the shop.","Réservel offre, wonel kod bi ci butik bi."],
+discover:["Découvrir les offres","Browse offers","Gis offre yi"],
+st_active:["À récupérer","To pick up","Retrait"],
+st_done:["Retiré","Picked up","Jël na ko"],
+st_expired:["Expiré","Expired","Waxtu wi wees na"],
+st_cancel:["Annulé","Cancelled","Bàyyi na ko"],
+paid_with:["Payé avec","Paid with","Fey na ak"],
+store_value:["Valeur en magasin","Shop value","Njëg ci butik bi"],
+saving:["Économie","Saving","Yokkute"],
+itinerary:["Itinéraire","Directions","Yoon wi"],
+cancel_order:["Annuler la commande","Cancel order","Bàyyi commande bi"],
+cancelled_toast:["Commande annulée, remboursement sous 24h","Order cancelled, refund within 24h","Bàyyi nañu ko, xaalis bi dina ñëw ci 24 waxtu"],
+mark_picked:["Marquer comme récupéré","Mark as picked up","Def ni jël naa ko"],
+picked_toast:["Retrait confirmé. Jërëjëf !","Pickup confirmed. Jërëjëf!","Retrait bi baax na. Jërëjëf !"],
+active_orders:["En cours","Active","Ci yoon"],
+past_orders:["Historique","History","Bi weesu"],
+n_active:["{0} en cours","{0} active","{0} ci yoon"],
+/* favourites */
+my_sel:["Ma sélection","My selection","Sama tànneef"],
+favorites:["Mes favoris","My favourites","Sama favoris"],
+no_fav:["Aucun favori","No favourite","Amul favori"],
+no_fav_p:["Touchez le cœur sur une offre pour la retrouver ici.","Tap the heart on an offer to find it here.","Tëddal xol bi ngir gis ko fi."],
+fav_add:["Ajouté aux favoris","Added to favourites","Yokk nañu ko ci favoris"],
+fav_rm:["Retiré des favoris","Removed from favourites","Jële nañu ko ci favoris"],
+/* places */
+shops:["Commerces","Shops","Butik yi"],
+n_shops:["{0} commerces à Dakar","{0} shops in Dakar","{0} butik ci Dakar"],
+map:["Carte","Map","Kart"],
+list:["Liste","List","Liste"],
+partner:["Partenaire, offres en ligne","Partner, offers online","Partenaire, offre yi ci kaw"],
+invite_shop:["Inviter ce commerce","Invite this shop","Woo butik bi"],
+invited:["Invitation envoyée","Invitation sent","Yónnee nañu woote bi"],
+tap_pin:["Touchez un point pour voir le commerce","Tap a dot to see the shop","Tëddal point bi ngir gis butik bi"],
+partners_line:["{0} partenaires actifs &middot; {1} à convaincre","{0} active partners &middot; {1} to convince","{0} partenaires &middot; {1} ñu war a woo"],
+offers_here:["{0} offre en ligne","{0} offer online","{0} offre ci kaw"],
+offers_here_n:["{0} offres en ligne","{0} offers online","{0} offre ci kaw"],
+you_here:["Vous êtes ici","You are here","Fi nga nekk"],
+data_src:["Données commerces: Google Maps. Commerces cités à titre d'illustration, sans partenariat existant.","Shop data: Google Maps. Shops shown for illustration only, no existing partnership.","Data yu butik yi: Google Maps. Ci misaal rekk lañu."],
+invite_sent:["Invitation envoyée à {0}","Invitation sent to {0}","Yónnee nañu woote ci {0}"],
+/* profile */
+account:["Compte","Account","Kont"],
+profile:["Profil","Profile","Profil"],
+member_since:["Membre depuis mars 2026 &middot; {0}","Member since March 2026 &middot; {0}","Membre bu mars 2026 &middot; {0}"],
+demo_switch:["Démo &middot; changer de vue","Demo &middot; switch view","Démo &middot; soppi vue bi"],
+role_client:["Client","Customer","Client"],
+role_merchant:["Commerçant","Merchant","Butikkat"],
+role_admin:["Admin","Admin","Admin"],
+role_note:["Les rôles seront gérés côté backend. Ici, le sélecteur simule les trois accès.","Roles will be handled by the backend. Here the switch simulates all three.","Backend bi moo ay yore rôles yi. Fii, sélecteur bi dafay simuler ñett yi."],
+impact:["Votre impact","Your impact","Sa impact"],
+meals_saved:["repas sauvés","meals saved","ñam yu mucc"],
+co2_avoided:["CO₂e évités","CO₂e avoided","CO₂e yu musal"],
+money_saved:["économisés","saved","yu nga denc"],
+impact_note:["Chaque panier récupéré évite en moyenne 1,2 kg de CO₂e.","Each basket picked up avoids about 1.2 kg CO₂e.","Panier bu ñu jël dafay musal 1,2 kg CO₂e."],
+pay_methods:["Moyens de paiement","Payment methods","Payement"],
+language:["Langue","Language","Làkk"],
+row_orders:["Mes commandes","My orders","Sama commande yi"],
+invite_friend:["Inviter un ami","Invite a friend","Woo sa xarit"],
+appearance:["Apparence","Appearance","Melo"],
+dark_mode:["Thème sombre","Dark theme","Melo bu lëndëm"],
+your_zone:["Votre quartier","Your area","Sa dëkk"],
+zone_sub:["Sert à calculer les distances et à trier les offres.","Used to compute distances and sort offers.","Ngir xayma sori bi ak tëral offre yi."],
+use_gps:["Utiliser ma position","Use my location","Jëfandikoo sama position"],
+gps_ok:["Position mise à jour","Location updated","Position bi soppiku na"],
+gps_fail:["Position indisponible","Location unavailable","Position bi amul"],
+notifs:["Notifications","Notifications","Notifications"],
+reset_demo:["Réinitialiser la démo","Reset the demo","Tambali démo bi"],
+reset_done:["Démo réinitialisée","Demo reset","Démo bi tambali na"],
+referral:["1 000 FCFA","1,000 FCFA","1 000 FCFA"],
+referral_copied:["Lien de parrainage copié","Referral link copied","Lien bi copié na"],
+pay_linked:["Wave et Orange Money liés","Wave and Orange Money linked","Wave ak Orange Money jokkoo nañu"],
+lang_set:["Langue: {0}","Language: {0}","Làkk: {0}"],
+none_f:["Aucune","None","Amul"],
+/* notifications */
+notif_title:["Notifications","Notifications","Notifications"],
+mark_read:["Tout marquer comme lu","Mark all read","Def ñépp ni jàng nañu"],
+no_notifs:["Rien de neuf","Nothing new","Amul dara bu bees"],
+no_notifs_p:["Les alertes de vos commerces favoris arriveront ici.","Alerts from your favourite shops will land here.","Alerte yu sa butik yi dinañu ñëw fi."],
+n_welcome_t:["Bienvenue sur AI4Food","Welcome to AI4Food","Dalal ak jàmm ci AI4Food"],
+n_welcome_b:["Nous sauvons les invendus de Dakar, un panier à la fois.","We rescue Dakar surplus food, one basket at a time.","Ñu ngi musal ñam yi ci Dakar, panier ci panier."],
+n_new_t:["Nouvelle offre chez {0}","New offer at {0}","Offre bu bees ci {0}"],
+n_new_b:["{0} &middot; {1} FCFA au lieu de {2} FCFA","{0} &middot; {1} FCFA instead of {2} FCFA","{0} &middot; {1} FCFA ci njëg {2} FCFA"],
+n_soon_t:["Retrait bientôt chez {0}","Pickup soon at {0}","Retrait bi jege na ci {0}"],
+n_soon_b:["Votre créneau commence à {0}. Code {1}.","Your slot starts at {0}. Code {1}.","Sa waxtu day tambali {0}. Kod {1}."],
+n_ok_t:["Commande confirmée","Order confirmed","Commande bi baax na"],
+n_ok_b:["{0} chez {1}. Code {2}.","{0} at {1}. Code {2}.","{0} ci {1}. Kod {2}."],
+ago_now:["à l'instant","just now","léegi"],
+ago_min:["il y a {0} min","{0} min ago","{0} min ci ginnaaw"],
+ago_h:["il y a {0} h","{0}h ago","{0} waxtu ci ginnaaw"],
+ago_d:["il y a {0} j","{0}d ago","{0} fan ci ginnaaw"],
+alerts_on:["Alertes activées pour vos favoris","Alerts on for your favourites","Alerte yi ubbi nañu ngir sa favoris"],
+/* search */
+search_t:["Rechercher","Search","Seet"],
+recent:["Recherches récentes","Recent searches","Seet yi mujj"],
+res_offers:["Offres","Offers","Offre yi"],
+res_shops:["Commerces","Shops","Butik yi"],
+no_res:["Aucun résultat pour « {0} »","No result for {0}","Amul dara ngir {0}"],
+no_res_p:["Essayez un plat, un quartier ou un commerce.","Try a dish, an area or a shop.","Jéemal ñam, dëkk walla butik."],
+clear:["Effacer","Clear","Far"],
+cancel:["Annuler","Cancel","Bàyyi"],
+/* onboarding */
+ob1_t:["Bien manger. Moins gaspiller.","Eat well. Waste less.","Lekk bu baax. Yàq bu néew."],
+ob1_s:["Chaque soir, restaurants, hôtels, boulangeries et marchés de Dakar jettent ce qui n'a pas été vendu. AI4Food le remet en vente à petit prix.","Every evening, Dakar restaurants, hotels, bakeries and markets throw away what did not sell. AI4Food puts it back on sale, cheap.","Guddi gu nekk, restaurant, otel, boulangerie ak marse yi ci Dakar dañuy sànni li ñu jaayul. AI4Food dafay ko jaayaat ci njëg gu néew."],
+ob2_t:["L'IA choisit pour vous","AI picks for you","IA moo lay tànnal"],
+ob2_s:["Le moteur classe les paniers selon vos commandes, l'heure du retrait et la distance. Tout est calculé sur votre téléphone.","The engine ranks baskets from your orders, pickup time and distance. Everything runs on your phone.","Moteur bi dafay tëral panier yi ci sa commande yi, waxtu retrait bi ak sori bi. Lépp ci sa telefon la."],
+ob3_t:["Payez comme à Dakar","Pay the Dakar way","Fey ni ci Dakar"],
+ob3_s:["Wave, Orange Money ou espèces à la collecte. Vous récupérez votre panier avec un code à quatre caractères.","Wave, Orange Money or cash on pickup. You collect your basket with a four-character code.","Wave, Orange Money walla xaalis bu ñu jël. Danga jël sa panier ak kod bu am ñeenti araf."],
+ob_next:["Suivant","Next","Topp"],
+ob_start:["Commencer","Get started","Tambali"],
+ob_skip:["Passer","Skip","Weesu"],
+/* merchant */
+m_shop:["Boulangerie Jaune","Boulangerie Jaune","Boulangerie Jaune"],
+m_today:["Aujourd'hui","Today","Tey"],
+m_zone:["Sacré-Cœur, Keur Gorgui","Sacré-Cœur, Keur Gorgui","Sacré-Cœur, Keur Gorgui"],
+m_day:["Votre journée","Your day","Sa bés"],
+m_published:["offres publiées","offers posted","offre yu ñu jaay"],
+m_reserved:["réservées","reserved","yu ñu réserver"],
+m_earned:["encaissés","collected","xaalis bu ñu jot"],
+m_online:["Offres en ligne","Live offers","Offre yi ci kaw"],
+m_editable:["Modifiables jusqu'à 18h","Editable until 6pm","Man nga leen soppi ba 18h"],
+m_none:["Aucune offre en ligne","No live offer","Amul offre ci kaw"],
+m_none_p:["Publiez vos invendus du jour, ils apparaissent aussitôt côté client.","Post today surplus, it shows up on the customer side right away.","Jaayal say ñam yi des, dinañu feeñ ci wetu client bi."],
+m_publish:["Publier une offre","Post an offer","Jaay ab offre"],
+m_new:["Nouvelle offre","New offer","Offre bu bees"],
+m_name:["Nom du panier","Basket name","Turu panier bi"],
+m_price:["Prix de vente (FCFA)","Price (FCFA)","Njëg (FCFA)"],
+m_was:["Valeur magasin (FCFA)","Shop value (FCFA)","Njëg ci butik (FCFA)"],
+m_qty:["Quantité","Quantity","Ñaata"],
+m_from:["Retrait de","Pickup from","Retrait bu"],
+m_to:["à","to","ba"],
+m_desc:["Description","Description","Description"],
+m_desc_ph:["Ce que le client trouvera dans le panier","What the customer will find inside","Li client bi di gis ci panier bi"],
+m_post:["Publier maintenant","Post now","Jaay ko léegi"],
+m_posted:["{0} offres publiées","{0} offers posted","{0} offre yu ñu jaay"],
+m_fill:["Renseignez un nom, un prix et une quantité","Fill in a name, a price and a quantity","Bindal tur, njëg ak ñaata"],
+m_price_err:["Le prix de vente doit rester sous la valeur magasin","Price must stay below shop value","Njëg bi war naa nekk ci suuf njëg bu butik bi"],
+m_sold_line:["{0} publiées &middot; {1} restantes","{0} posted &middot; {1} left","{0} yu ñu jaay &middot; {1} yu des"],
+m_forecast:["Prévision IA","AI forecast","Prévision IA"],
+m_tomorrow:["Demain","Tomorrow","Suba"],
+m_fc_title:["{0} invendus prévus entre {1} et {2}","{0} unsold items expected between {1} and {2}","{0} ñam yu des ci diggante {1} ak {2}"],
+m_fc_note:["Calculé sur vos six dernières semaines, le jour de la semaine, la période de paie et la météo à Dakar.","Computed from your last six weeks, day of week, payday cycle and Dakar weather.","Xayma nañu ko ci sa juróom-benn ayubés, bés bi, waxtu payment ak asamaan si ci Dakar."],
+m_conf:["Confiance du modèle","Model confidence","Kóllëre gu modèle bi"],
+m_adv_price:["Prix conseillé","Suggested price","Njëg bu ñu digal"],
+m_est_rev:["Recette estimée","Estimated revenue","Xaalis bu ñu séen"],
+m_loss:["Perte évitée","Loss avoided","Ñakk gu ñu moytu"],
+m_commission:["Commission AI4Food","AI4Food commission","Komisiyon AI4Food"],
+m_publish_n:["Publier {0} offres","Post {0} offers","Jaay {0} offre"],
+m_adjust:["Modifier la quantité","Adjust quantity","Soppi ñaata bi"],
+m_pickups:["Retraits","Pickups","Retrait yi"],
+m_scan:["Scannez ou saisissez le code du client","Scan or type the customer code","Scan walla bind kod bu client bi"],
+m_code_ph:["AI4-XXXX","AI4-XXXX","AI4-XXXX"],
+m_validate:["Valider le retrait","Validate pickup","Baatal retrait bi"],
+m_valid_ok:["Retrait validé: {0}","Pickup validated: {0}","Retrait baatal na: {0}"],
+m_valid_bad:["Code inconnu ou déjà utilisé","Unknown or already used code","Kod bi amul walla jëfandikoo nañu ko ba noppi"],
+m_waiting:["En attente","Waiting","Ci xaar"],
+m_no_codes:["Aucun retrait en attente","No pending pickup","Amul retrait ci xaar"],
+m_no_codes_p:["Les codes de vos clients apparaîtront ici dès la réservation.","Customer codes will appear here as soon as they book.","Kod yu client yi dinañu feeñ fi bu ñu réserver."],
+/* admin */
+a_dash:["Tableau de bord","Overview","Tablo bi"],
+a_today:["Aujourd'hui","Today","Tey"],
+a_baskets:["paniers vendus","baskets sold","panier yu ñu jaay"],
+a_volume:["volume","volume","volume"],
+a_commissions:["commissions","commissions","komisiyon"],
+a_rate:["taux de retrait","pickup rate","taux retrait"],
+a_users:["utilisateurs","users","jëfandikookat"],
+a_7d:["7 derniers jours","Last 7 days","7 fan yi mujj"],
+a_perday:["Paniers vendus par jour","Baskets sold per day","Panier yu ñu jaay bés bu nekk"],
+a_growth:["Croissance semaine","Weekly growth","Yokkute ayubés"],
+a_network:["Réseau","Network","Rëdd wi"],
+a_prospects:["{0} partenaires actifs &middot; {1} prospects","{0} active partners &middot; {1} prospects","{0} partenaires &middot; {1} prospects"],
+a_pipeline:["Pipeline","Pipeline","Pipeline"],
+a_invites:["Invitations envoyées","Invitations sent","Woote yu ñu yónnee"],
+a_negot:["En négociation","In negotiation","Ci waxtaan"],
+a_signed:["Contrats signés ce mois","Contracts signed this month","Kontraa yu ñu xaatim weer wi"],
+a_pub_today:["Offres publiées aujourd'hui","Offers posted today","Offre yu ñu jaay tey"],
+a_ops:["Suivi opérations","Operations","Suivi"],
+a_recent:["{0} commandes récentes","{0} recent orders","{0} commande yu mujj"],
+a_live:["dont {0} de cette session de démo","incl. {0} from this demo session","ak {0} ci démo bi"],
+a_legal:["Vue réservée aux administrateurs. Les rôles seront appliqués côté backend.","Admin-only view. Roles will be enforced by the backend.","Admin rekk a ko yelloo. Backend bi dina ko sàmm."],
+/* misc */
+link_copied:["Lien copié","Link copied","Lien bi copié na"],
+map_open:["Carte ouverte","Map opened","Kart bi ubbi na"],
+route_to:["Itinéraire vers {0}","Directions to {0}","Yoon wi ba {0}"],
+cat_all:["Tout","All","Lépp"],
+cat_rest:["Restaurants","Restaurants","Restaurants"],
+cat_hotel:["Hôtels","Hotels","Otel yi"],
+cat_super:["Supermarchés","Supermarkets","Supermarse"],
+cat_bak:["Boulangeries","Bakeries","Boulangerie yi"],
+cat_mark:["Marchés","Markets","Marse yi"],
+lg_partner:["Partenaire","Partner","Partenaire"],
+lg_prospect:["À convaincre","To convince","Ñu war a woo"],
+/* panneau desktop */
+p_sub:["Dakar &middot; {0} commerces cartographiés &middot; {1} paniers","Dakar &middot; {0} shops mapped &middot; {1} baskets","Dakar &middot; {0} butik &middot; {1} panier"],
+p_kv1:["Ce que fait la démo","What the demo does","Lu démo bi di def"],
+p_i1:["Recommandation locale et explicable","Local, explainable recommendations","Recommandation bu leer ci telefon bi"],
+p_i2:["Retraits minutés, stocks réels","Live pickup countdowns, real stock","Waxtu retrait ak stock bu dëgg"],
+p_i3:["Client, commerçant et admin reliés","Customer, merchant and admin connected","Client, butikkat ak admin jokkoo nañu"],
+p_i4:["Français, English, Wolof &middot; thème clair et sombre","Français, English, Wolof &middot; light and dark theme","Français, English, Wolof &middot; melo bu leer ak bu lëndëm"],
+p_i5:["État sauvegardé sur l'appareil","State saved on the device","Data bi ci telefon bi lañu ko denc"],
+p_kv2:["Impact de cette session","Impact of this session","Impact bu session bi"],
+p_impact:["{0} repas &middot; {1} kg CO₂e &middot; {2} FCFA","{0} meals &middot; {1} kg CO₂e &middot; {2} FCFA","{0} ñam &middot; {1} kg CO₂e &middot; {2} FCFA"],
+p_fine:["Prototype de démonstration. Commerces cités à titre d'illustration, sans partenariat existant.","Demo prototype. Shops shown for illustration only, no existing partnership.","Prototype bu démo. Butik yi ci misaal rekk lañu."]
+};
+const t=(k,...a)=>{const e=STR[k];let s=e?(e[LI]!==undefined?e[LI]:e[0]):k;
+ a.forEach((v,i)=>{s=s.split('{'+i+'}').join(v)});return s};
+const CATS=["Tout","Restaurants","Hôtels","Supermarchés","Boulangeries","Marchés"];
+const CATK={"Tout":"cat_all","Restaurants":"cat_rest","Hôtels":"cat_hotel","Supermarchés":"cat_super","Boulangeries":"cat_bak","Marchés":"cat_mark"};
+const catL=c=>t(CATK[c]||"cat_all");
+const LOC=()=>["fr-FR","en-GB","fr-FR"][LI];
+const F=n=>Math.round(n).toLocaleString(LOC()).replace(/[\s\u00a0\u202f,]/g,LI===1?",":" ");
+const Fk=n=>n>=1e6?(LI===1?(n/1e6).toFixed(1)+"M":(n/1e6).toFixed(1).replace(".",",")+" M"):n>=1e4?Math.round(n/1000)+" k":F(n);
 const pct=d=>Math.round((1-d.price/d.was)*100);
 
+/* =========================================================
+   Donnees catalogue
+   ========================================================= */
 const D=[
-{id:1,img:"thieb",name:"Thieboudienne du midi",merch:"Chez Loutcha",cat:"Restaurants",price:1500,was:5000,from:"14:30",to:"15:30",addr:"Rue Moussé Diop, Plateau",rate:4.1,avis:402,left:2,
- desc:"Riz au poisson, légumes et sauce tomate, préparé le matin même. Portions généreuses, à récupérer après le service du déjeuner.",ai:"Vous avez commandé ici 3 fois ce mois-ci"},
-{id:2,img:"yassa",name:"Yassa poulet",merch:"Le Djoloff",cat:"Restaurants",price:2000,was:6000,from:"15:00",to:"16:00",addr:"Fann Hock, Dakar",rate:4.3,avis:186,left:3,
- desc:"Poulet mariné au citron, moutarde et oignons confits, servi avec du riz blanc.",ai:"Sur votre trajet bureau - maison"},
-{id:3,img:"crevettes",name:"Crevettes & légumes verts",merch:"La Cabane du Pêcheur",cat:"Restaurants",price:2500,was:7500,from:"15:30",to:"16:30",addr:"Route des Almadies, Ngor",rate:4.2,avis:310,left:2,
- desc:"Crevettes sautées et feuilles, selon l'arrivée des pirogues du matin.",ai:null},
-{id:4,img:"mafe",name:"Mafé du soir",merch:"Bazoff",cat:"Restaurants",price:2000,was:5500,from:"21:30",to:"22:30",addr:"Grand Dakar",rate:4.2,avis:50,left:3,
- desc:"Ragoût à la pâte d'arachide avec viande et légumes, servi avec du riz.",ai:null},
-{id:5,img:"pastels",name:"Pastels & fataya",merch:"Ali Baba",cat:"Restaurants",price:800,was:2400,from:"22:00",to:"23:00",addr:"Avenue Pompidou, Plateau",rate:4.0,avis:264,left:6,
- desc:"Chaussons frits au poisson ou à la viande, avec sauce piment maison.",ai:null},
-{id:6,img:"rizgras",name:"Riz gras du jour",merch:"La Pointe des Almadies",cat:"Restaurants",price:1800,was:5000,from:"15:00",to:"16:00",addr:"Pointe des Almadies",rate:4.0,avis:161,left:4,
- desc:"Riz cuisiné à la tomate avec viande et légumes, préparé pour le service du midi.",ai:null},
-{id:7,img:"accara",name:"Accara & pain",merch:"Chez Fatou",cat:"Restaurants",price:500,was:1500,from:"11:00",to:"12:00",addr:"Médina, Dakar",rate:4.3,avis:134,left:8,
- desc:"Beignets de niébé frits le matin, servis avec pain et sauce.",ai:null},
-{id:8,img:"pain",name:"Pains & viennoiseries",merch:"Boulangerie Jaune",cat:"Boulangeries",price:1000,was:3000,from:"19:30",to:"20:30",addr:"Keur Gorgui, Sacré-Cœur",rate:4.6,avis:274,left:5,
- desc:"Baguettes du jour, croissants et pains au chocolat. Contenu variable selon les invendus.",ai:null},
-{id:9,img:"tarte",name:"Panier pâtisserie",merch:"La Galette",cat:"Boulangeries",price:1500,was:4000,from:"19:00",to:"20:00",addr:"Avenue Pompidou, Plateau",rate:4.4,avis:139,left:2,
- desc:"Tartelettes, gâteaux individuels et beignets préparés le matin.",ai:null},
-{id:10,img:"cupcakes",name:"Plateau pâtisseries",merch:"Pullman Dakar Teranga",cat:"Hôtels",price:3500,was:10000,from:"21:00",to:"22:00",addr:"Place de l'Indépendance, Plateau",rate:4.3,avis:942,left:3,
- desc:"Mignardises et pâtisseries de la journée, préparées par la pâtisserie de l'hôtel.",ai:null},
-{id:11,img:"buffet",name:"Plateau du buffet",merch:"Terrou-Bi",cat:"Hôtels",price:5000,was:15000,from:"22:30",to:"23:15",addr:"Boulevard Martin Luther King, Corniche",rate:4.5,avis:1204,left:4,
- desc:"Plats chauds et entrées du buffet du soir, dressés en barquette à la fermeture du service.",ai:null},
-{id:12,img:"fonio",name:"Assiette du chef",merch:"Radisson Blu Dakar",cat:"Hôtels",price:4000,was:12000,from:"22:00",to:"22:45",addr:"Route de la Corniche Ouest",rate:4.4,avis:1876,left:5,
- desc:"Fonio, crevettes et légumes, préparés pour le service du soir.",ai:null},
-{id:13,img:"sombi",name:"Sombi & desserts",merch:"King Fahd Palace",cat:"Hôtels",price:2000,was:6000,from:"22:00",to:"23:00",addr:"Route des Almadies",rate:4.0,avis:721,left:4,
- desc:"Sombi au lait et desserts du buffet, en barquette à la fermeture.",ai:null},
-{id:14,img:"legumes1",name:"Panier fruits & légumes",merch:"Auchan Keur Gorgui",cat:"Supermarchés",price:2500,was:7500,from:"20:30",to:"21:45",addr:"Keur Gorgui, Sacré-Cœur",rate:4.0,avis:512,left:8,
- desc:"Fruits et légumes proches du retrait rayon. Composition variable, environ 4 kg.",ai:null},
-{id:15,img:"epicerie",name:"Panier épicerie du soir",merch:"Casino Sea Plaza",cat:"Supermarchés",price:3000,was:9000,from:"20:00",to:"21:30",addr:"Sea Plaza, Corniche Ouest",rate:4.1,avis:301,left:6,
- desc:"Produits frais et secs proches de la date limite: œufs, laitages, légumes, conserves.",ai:null},
-{id:16,img:"marche",name:"Panier légumes du jour",merch:"Marché Kermel",cat:"Marchés",price:1000,was:3000,from:"18:00",to:"19:00",addr:"Rue Salva, Plateau",rate:4.5,avis:88,left:7,
- desc:"Tomates, oignons, carottes et feuilles selon l'arrivage, auprès des étals du marché.",ai:null}
+{id:1,img:"thieb",name:"Thieboudienne du midi",merch:"Chez Loutcha",cat:"Restaurants",price:1500,was:5000,from:"14:30",to:"15:30",addr:"Rue Moussé Diop, Plateau",rate:4.1,avis:402,left:2,la:14.6687,lo:-17.4351,
+ desc:"Riz au poisson, légumes et sauce tomate, préparé le matin même. Portions généreuses, à récupérer après le service du déjeuner."},
+{id:2,img:"yassa",name:"Yassa poulet",merch:"Le Djoloff",cat:"Restaurants",price:2000,was:6000,from:"15:00",to:"16:00",addr:"Fann Hock, Dakar",rate:4.3,avis:186,left:3,la:14.6799,lo:-17.4531,
+ desc:"Poulet mariné au citron, moutarde et oignons confits, servi avec du riz blanc."},
+{id:3,img:"crevettes",name:"Crevettes & légumes verts",merch:"La Cabane du Pêcheur",cat:"Restaurants",price:2500,was:7500,from:"15:30",to:"16:30",addr:"Route des Almadies, Ngor",rate:4.2,avis:310,left:2,la:14.7502,lo:-17.5145,
+ desc:"Crevettes sautées et feuilles, selon l'arrivée des pirogues du matin."},
+{id:4,img:"mafe",name:"Mafé du soir",merch:"Bazoff",cat:"Restaurants",price:2000,was:5500,from:"21:30",to:"22:30",addr:"Grand Dakar",rate:4.2,avis:50,left:3,la:14.7016,lo:-17.4515,
+ desc:"Ragoût à la pâte d'arachide avec viande et légumes, servi avec du riz."},
+{id:5,img:"pastels",name:"Pastels & fataya",merch:"Ali Baba",cat:"Restaurants",price:800,was:2400,from:"22:00",to:"23:00",addr:"Avenue Pompidou, Plateau",rate:4.0,avis:264,left:6,la:14.6704,lo:-17.4331,
+ desc:"Chaussons frits au poisson ou à la viande, avec sauce piment maison."},
+{id:6,img:"rizgras",name:"Riz gras du jour",merch:"La Pointe des Almadies",cat:"Restaurants",price:1800,was:5000,from:"15:00",to:"16:00",addr:"Pointe des Almadies",rate:4.0,avis:161,left:4,la:14.7455,lo:-17.5281,
+ desc:"Riz cuisiné à la tomate avec viande et légumes, préparé pour le service du midi."},
+{id:7,img:"accara",name:"Accara & pain",merch:"Chez Fatou",cat:"Restaurants",price:500,was:1500,from:"11:00",to:"12:00",addr:"Médina, Dakar",rate:4.3,avis:134,left:8,la:14.6835,lo:-17.4520,
+ desc:"Beignets de niébé frits le matin, servis avec pain et sauce."},
+{id:8,img:"pain",name:"Pains & viennoiseries",merch:"Boulangerie Jaune",cat:"Boulangeries",price:1000,was:3000,from:"19:30",to:"20:30",addr:"Keur Gorgui, Sacré-Cœur",rate:4.6,avis:274,left:5,la:14.7189,lo:-17.4665,
+ desc:"Baguettes du jour, croissants et pains au chocolat. Contenu variable selon les invendus."},
+{id:9,img:"tarte",name:"Panier pâtisserie",merch:"La Galette",cat:"Boulangeries",price:1500,was:4000,from:"19:00",to:"20:00",addr:"Avenue Pompidou, Plateau",rate:4.4,avis:139,left:2,la:14.6697,lo:-17.4335,
+ desc:"Tartelettes, gâteaux individuels et beignets préparés le matin."},
+{id:10,img:"cupcakes",name:"Plateau pâtisseries",merch:"Pullman Dakar Teranga",cat:"Hôtels",price:3500,was:10000,from:"21:00",to:"22:00",addr:"Place de l'Indépendance, Plateau",rate:4.3,avis:942,left:3,la:14.6689,lo:-17.4290,
+ desc:"Mignardises et pâtisseries de la journée, préparées par la pâtisserie de l'hôtel."},
+{id:11,img:"buffet",name:"Plateau du buffet",merch:"Terrou-Bi",cat:"Hôtels",price:5000,was:15000,from:"22:30",to:"23:15",addr:"Boulevard Martin Luther King, Corniche",rate:4.5,avis:1204,left:4,la:14.6770,lo:-17.4664,
+ desc:"Plats chauds et entrées du buffet du soir, dressés en barquette à la fermeture du service."},
+{id:12,img:"fonio",name:"Assiette du chef",merch:"Radisson Blu Dakar",cat:"Hôtels",price:4000,was:12000,from:"22:00",to:"22:45",addr:"Route de la Corniche Ouest",rate:4.4,avis:1876,left:5,la:14.6866,lo:-17.4746,
+ desc:"Fonio, crevettes et légumes, préparés pour le service du soir."},
+{id:13,img:"sombi",name:"Sombi & desserts",merch:"King Fahd Palace",cat:"Hôtels",price:2000,was:6000,from:"22:00",to:"23:00",addr:"Route des Almadies",rate:4.0,avis:721,left:4,la:14.7326,lo:-17.5083,
+ desc:"Sombi au lait et desserts du buffet, en barquette à la fermeture."},
+{id:14,img:"legumes1",name:"Panier fruits & légumes",merch:"Auchan Keur Gorgui",cat:"Supermarchés",price:2500,was:7500,from:"20:30",to:"21:45",addr:"Keur Gorgui, Sacré-Cœur",rate:4.0,avis:512,left:8,la:14.7196,lo:-17.4660,
+ desc:"Fruits et légumes proches du retrait rayon. Composition variable, environ 4 kg."},
+{id:15,img:"epicerie",name:"Panier épicerie du soir",merch:"Casino Sea Plaza",cat:"Supermarchés",price:3000,was:9000,from:"20:00",to:"21:30",addr:"Sea Plaza, Corniche Ouest",rate:4.1,avis:301,left:6,la:14.6951,lo:-17.4736,
+ desc:"Produits frais et secs proches de la date limite: œufs, laitages, légumes, conserves."},
+{id:16,img:"marche",name:"Panier légumes du jour",merch:"Marché Kermel",cat:"Marchés",price:1000,was:3000,from:"18:00",to:"19:00",addr:"Rue Salva, Plateau",rate:4.5,avis:88,left:7,la:14.6705,lo:-17.4289,
+ desc:"Tomates, oignons, carottes et feuilles selon l'arrivage, auprès des étals du marché."}
 ];
 
-const V=[{"n": "Chez Loutcha", "c": "Restaurants", "z": "Plateau", "r": 3.9, "k": 903, "la": 14.6687, "lo": -17.4351, "live": true}, {"n": "Le Lagon 1", "c": "Restaurants", "z": "Corniche Est", "r": 4.4, "k": 2330, "la": 14.6677, "lo": -17.4285, "live": false}, {"n": "La Fourchette", "c": "Restaurants", "z": "Plateau", "r": 4.3, "k": 1108, "la": 14.6704, "lo": -17.428, "live": false}, {"n": "La Parrilla", "c": "Restaurants", "z": "Plateau", "r": 4.4, "k": 774, "la": 14.664, "lo": -17.4345, "live": false}, {"n": "La Pampa", "c": "Restaurants", "z": "Plateau", "r": 4.1, "k": 1321, "la": 14.6697, "lo": -17.4303, "live": false}, {"n": "Le Coste", "c": "Restaurants", "z": "Plateau", "r": 4.2, "k": 218, "la": 14.6695, "lo": -17.4316, "live": false}, {"n": "The Union Club", "c": "Restaurants", "z": "Corniche Est", "r": 4.2, "k": 1557, "la": 14.662, "lo": -17.4324, "live": false}, {"n": "Nostra", "c": "Restaurants", "z": "Plateau", "r": 4.3, "k": 108, "la": 14.6667, "lo": -17.4325, "live": false}, {"n": "TAÏYO", "c": "Restaurants", "z": "Plateau", "r": 4.7, "k": 183, "la": 14.6658, "lo": -17.4354, "live": false}, {"n": "La Terrasse", "c": "Restaurants", "z": "Corniche Ouest", "r": 4.4, "k": 937, "la": 14.6764, "lo": -17.4662, "live": true}, {"n": "Le Cabanon", "c": "Restaurants", "z": "Almadies", "r": 4.2, "k": 1124, "la": 14.7391, "lo": -17.517, "live": false}, {"n": "La Pointe des Almadies", "c": "Restaurants", "z": "Almadies", "r": 4.0, "k": 1902, "la": 14.7455, "lo": -17.5281, "live": true}, {"n": "Chez Fatou", "c": "Restaurants", "z": "Almadies", "r": 4.0, "k": 2260, "la": 14.7409, "lo": -17.5214, "live": true}, {"n": "Seven Seven", "c": "Restaurants", "z": "Ngor", "r": 4.8, "k": 1687, "la": 14.7512, "lo": -17.5026, "live": false}, {"n": "Exotik Beach", "c": "Restaurants", "z": "Almadies", "r": 4.4, "k": 838, "la": 14.7398, "lo": -17.5179, "live": false}, {"n": "Le Carré", "c": "Restaurants", "z": "Almadies", "r": 4.0, "k": 776, "la": 14.741, "lo": -17.5225, "live": false}, {"n": "Alkimia", "c": "Restaurants", "z": "Almadies", "r": 4.2, "k": 1139, "la": 14.7399, "lo": -17.5157, "live": false}, {"n": "Restaurant Altiné", "c": "Restaurants", "z": "Almadies", "r": 4.7, "k": 35, "la": 14.7321, "lo": -17.5066, "live": false}, {"n": "La Favela", "c": "Restaurants", "z": "Fann", "r": 4.2, "k": 218, "la": 14.6993, "lo": -17.4645, "live": false}, {"n": "Noliane Terrazza", "c": "Restaurants", "z": "Fann", "r": 4.6, "k": 70, "la": 14.6985, "lo": -17.4694, "live": false}, {"n": "Urbanista", "c": "Restaurants", "z": "Point E", "r": 4.6, "k": 349, "la": 14.7006, "lo": -17.4623, "live": false}, {"n": "Trattoria da Alex", "c": "Restaurants", "z": "Point E", "r": 4.3, "k": 586, "la": 14.695, "lo": -17.4579, "live": false}, {"n": "The Grill", "c": "Restaurants", "z": "Point E", "r": 4.2, "k": 78, "la": 14.6963, "lo": -17.4564, "live": false}, {"n": "Le Jardin Thaïlandais", "c": "Restaurants", "z": "Point E", "r": 4.1, "k": 703, "la": 14.6932, "lo": -17.4602, "live": false}, {"n": "Billy's", "c": "Restaurants", "z": "Mermoz", "r": 4.3, "k": 368, "la": 14.6936, "lo": -17.4751, "live": false}, {"n": "Lulu Cafe", "c": "Restaurants", "z": "Mermoz", "r": 4.3, "k": 739, "la": 14.7006, "lo": -17.4734, "live": false}, {"n": "KeurGui", "c": "Restaurants", "z": "Mermoz", "r": 4.4, "k": 229, "la": 14.7121, "lo": -17.4756, "live": false}, {"n": "Damas", "c": "Restaurants", "z": "Ouest Foire", "r": 4.0, "k": 61, "la": 14.7356, "lo": -17.4726, "live": false}, {"n": "Noom Hotel Sea Plaza", "c": "Hôtels", "z": "Fann", "r": 4.3, "k": 5989, "la": 14.6951, "lo": -17.4736, "live": true}, {"n": "Azalaï Hôtel Dakar", "c": "Hôtels", "z": "Corniche Ouest", "r": 4.7, "k": 2874, "la": 14.6751, "lo": -17.4693, "live": false}, {"n": "Hôtel Terrou-Bi", "c": "Hôtels", "z": "Corniche Ouest", "r": 4.3, "k": 3269, "la": 14.677, "lo": -17.4664, "live": true}, {"n": "Novotel Dakar", "c": "Hôtels", "z": "Plateau", "r": 4.4, "k": 5198, "la": 14.6687, "lo": -17.4268, "live": false}, {"n": "L'Adresse Dakar", "c": "Hôtels", "z": "Almadies", "r": 4.8, "k": 2946, "la": 14.7416, "lo": -17.5158, "live": false}, {"n": "ONOMO Hotel", "c": "Hôtels", "z": "Rte de l'aéroport", "r": 3.6, "k": 822, "la": 14.7567, "lo": -17.4857, "live": false}, {"n": "Hôtel Ngor Diarama", "c": "Hôtels", "z": "Ngor", "r": 3.7, "k": 912, "la": 14.7517, "lo": -17.5078, "live": false}, {"n": "La Madrague Ngor", "c": "Hôtels", "z": "Ngor", "r": 3.8, "k": 1081, "la": 14.75, "lo": -17.5105, "live": false}, {"n": "Le Lodge des Almadies", "c": "Hôtels", "z": "Almadies", "r": 4.0, "k": 531, "la": 14.7399, "lo": -17.5151, "live": false}, {"n": "Hôtel des Almadies", "c": "Hôtels", "z": "Almadies", "r": 3.8, "k": 48, "la": 14.7418, "lo": -17.5187, "live": false}, {"n": "Chez Carla", "c": "Hôtels", "z": "Île de Ngor", "r": 3.9, "k": 371, "la": 14.755, "lo": -17.5143, "live": false}, {"n": "Hôtel Bachou", "c": "Hôtels", "z": "Keur Gorgui", "r": 4.2, "k": 47, "la": 14.7093, "lo": -17.4677, "live": false}, {"n": "Auchan Sacré-Cœur", "c": "Supermarchés", "z": "Sacré-Cœur", "r": 3.9, "k": 2461, "la": 14.7196, "lo": -17.466, "live": true}, {"n": "Auchan Mermoz", "c": "Supermarchés", "z": "Mermoz", "r": 4.2, "k": 2388, "la": 14.7116, "lo": -17.4762, "live": false}, {"n": "Auchan Yoff", "c": "Supermarchés", "z": "Yoff", "r": 3.9, "k": 2692, "la": 14.7538, "lo": -17.4671, "live": false}, {"n": "Auchan Gibraltar", "c": "Supermarchés", "z": "Gibraltar", "r": 3.9, "k": 2488, "la": 14.6839, "lo": -17.4437, "live": false}, {"n": "Auchan Castors", "c": "Supermarchés", "z": "Castors", "r": 3.8, "k": 1512, "la": 14.7236, "lo": -17.4462, "live": false}, {"n": "Auchan Liberté 5", "c": "Supermarchés", "z": "Liberté 5", "r": 3.6, "k": 949, "la": 14.7229, "lo": -17.4561, "live": false}, {"n": "Auchan Fann Résidence", "c": "Supermarchés", "z": "Fann", "r": 3.9, "k": 901, "la": 14.692, "lo": -17.4736, "live": false}, {"n": "Auchan Scat Urbam", "c": "Supermarchés", "z": "Scat Urbam", "r": 3.6, "k": 1048, "la": 14.7357, "lo": -17.4625, "live": false}, {"n": "Auchan Dalifort", "c": "Supermarchés", "z": "Dalifort", "r": 3.9, "k": 387, "la": 14.7371, "lo": -17.4218, "live": false}, {"n": "Auchan Ouakam", "c": "Supermarchés", "z": "Ouakam", "r": 3.8, "k": 84, "la": 14.724, "lo": -17.4938, "live": false}, {"n": "Auchan Plateau", "c": "Supermarchés", "z": "Plateau", "r": 3.9, "k": 1470, "la": 14.672, "lo": -17.4322, "live": false}, {"n": "Super U Sahm", "c": "Supermarchés", "z": "Sahm", "r": 4.0, "k": 2599, "la": 14.6856, "lo": -17.4538, "live": false}, {"n": "Eric Kayser", "c": "Boulangeries", "z": "Plateau", "r": 4.2, "k": 1254, "la": 14.6646, "lo": -17.4343, "live": false}, {"n": "La Graine d'Or", "c": "Boulangeries", "z": "Rte de l'aéroport", "r": 4.1, "k": 2115, "la": 14.7494, "lo": -17.5061, "live": false}, {"n": "Gourmandine", "c": "Boulangeries", "z": "Plateau", "r": 4.0, "k": 1265, "la": 14.6695, "lo": -17.4312, "live": false}, {"n": "Boulangerie Jaune", "c": "Boulangeries", "z": "Sacré-Cœur", "r": 3.7, "k": 1511, "la": 14.7189, "lo": -17.4665, "live": true}, {"n": "La Royaltine", "c": "Boulangeries", "z": "Plateau", "r": 4.1, "k": 1261, "la": 14.6672, "lo": -17.4372, "live": false}, {"n": "La Marquise", "c": "Boulangeries", "z": "Plateau", "r": 4.2, "k": 297, "la": 14.6688, "lo": -17.4338, "live": false}, {"n": "La Galette", "c": "Boulangeries", "z": "Plateau", "r": 3.8, "k": 2042, "la": 14.6697, "lo": -17.4335, "live": true}, {"n": "Boulangerie Sandaga", "c": "Boulangeries", "z": "Sandaga", "r": 3.7, "k": 178, "la": 14.6706, "lo": -17.4373, "live": false}, {"n": "Chez Papa", "c": "Boulangeries", "z": "Sicap", "r": 4.2, "k": 50, "la": 14.6783, "lo": -17.4516, "live": false}, {"n": "L'Art du Pain", "c": "Boulangeries", "z": "Ouest Foire", "r": 4.0, "k": 103, "la": 14.74, "lo": -17.4533, "live": false}, {"n": "Fil Ô Folies", "c": "Boulangeries", "z": "Cité Socabeg", "r": 4.3, "k": 21, "la": 14.7398, "lo": -17.4634, "live": false}, {"n": "Marché Kermel", "c": "Marchés", "z": "Plateau", "r": 3.9, "k": 646, "la": 14.6705, "lo": -17.4289, "live": true}, {"n": "Marché Soumbédioune", "c": "Marchés", "z": "Gueule Tapée", "r": 3.9, "k": 2365, "la": 14.6777, "lo": -17.4584, "live": false}, {"n": "Marché Sandaga", "c": "Marchés", "z": "Plateau", "r": 3.8, "k": 2214, "la": 14.6723, "lo": -17.441, "live": false}, {"n": "Marché Tilène", "c": "Marchés", "z": "Médina", "r": 3.6, "k": 5061, "la": 14.6817, "lo": -17.4497, "live": false}, {"n": "Marché HLM", "c": "Marchés", "z": "HLM", "r": 4.0, "k": 1153, "la": 14.7056, "lo": -17.4443, "live": false}];
-const PAY=[{id:"wave",n:"Wave",s:"Solde 24 500 FCFA",bg:"#1AA0F0",k:"W"},
-{id:"om",n:"Orange Money",s:"77 ••• 41 08",bg:"#F26522",k:"OM"},
-{id:"cash",n:"Espèces à la collecte",s:"Vous payez le commerçant sur place",bg:"#2F6B4F",k:"F"}];
+const PAY=[{id:"wave",n:"Wave",sk:"pay_wave",bg:"#1AA0F0",k:"W"},
+{id:"om",n:"Orange Money",sk:"pay_om",bg:"#F26522",k:"OM"},
+{id:"cash",n:"Espèces",sk:"pay_cash",bg:"#2F6B4F",k:"F"}];
 
-let S={role:"client",tab:"home",view:"carte",sel:-1,vfilter:"Tout",filter:"Tout",fav:new Set([8,11]),seg:"fav",qty:1,pay:"wave",order:null,merchant:false,cur:null};
-const el=i=>document.getElementById(i);
-function toast(m){const t=el('toast');t.innerHTML=I('checkC',18)+`<span>${m}</span>`;t.classList.add('on');
- clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),2200)}
-
-function card(d,ai){
- return `<button class="rc" onclick="open_(${d.id})">
-  <div class="thumb"><img src="${P[d.img]}" alt=""><span class="scrim"></span>
-   <span class="left">${d.left} restant${d.left>1?'s':''}</span></div>
-  <div class="rc-body">
-   ${ai&&d.ai?`<span class="ainote">${I('spark',13)} ${d.ai}</span>`:``}
-   <div class="rc-top"><h3>${d.name}</h3>
-    <span class="hbtn ${S.fav.has(d.id)?'on':''}" onclick="event.stopPropagation();fav(${d.id})">
-     ${I('heart',19,S.fav.has(d.id)?'fill="currentColor"':'')}</span></div>
-   <p class="mrc">${d.merch} <span class="rate">${I('star',13)} ${d.rate.toFixed(1)}</span></p>
-   <p class="prices"><b>${F(d.price)} <i>FCFA</i></b><s>${F(d.was)} FCFA</s></p>
-   <span class="save">${I('tag',13)} Économisez ${pct(d)}%</span>
-  </div></button>`;
-}
-function qr(s){let o='';for(let i=0;i<81;i++){const on=((i*7+s*11+(i%9)*3)%5)<2||[0,1,7,8,9,10,16,17,63,64,70,71,72,73,79,80].includes(i);o+=`<i class="${on?'f':''}"></i>`}return o}
-
-function home(){
- const cats=["Tout","Restaurants","Hôtels","Supermarchés","Boulangeries","Marchés"];
- const list=D.filter(d=>S.filter==="Tout"||d.cat===S.filter);
- return `
- <div class="head"><div><div class="hi">Bonjour !</div><div class="city">Dakar ${I('chevD',18)}</div></div>
-  <button class="round" onclick="toast('Alertes activées pour vos favoris')">${I('bell',20)}<span class="dot"></span></button></div>
- <div class="search">${I('search',18)}<span>Rechercher un plat, un commerce...</span></div>
- <div class="sec"><div><span class="eyebrow">${I('spark',12)} Choisi par l'IA</span>
-  <h2>Pour vous ce soir</h2><p>D'après vos commandes et votre trajet</p></div></div>
- <div class="list">${D.filter(d=>d.ai).map(d=>card(d,true)).join('')}</div>
- <div class="sec"><div><h2>Près de chez vous</h2></div>
-  <button class="link" onclick="go('places')">Carte des commerces ${I('chevR',14)}</button></div>
- <div class="chips">${cats.map(c=>`<button class="chip ${S.filter===c?'on':''}" onclick="setF('${c}')">${c}</button>`).join('')}</div>
- <div class="list">${list.map(d=>card(d,false)).join('')}</div>
- <p class="legal">Commerces cités à titre d'illustration, sans partenariat existant.</p>`;
-}
+const ZONES=[["Ngor",-17.508,14.757],["Almadies",-17.520,14.7365],["Yoff",-17.472,14.7555],["Ouakam",-17.494,14.7285],
+["Mermoz",-17.4795,14.7085],["Sacré-Cœur",-17.4585,14.7195],["Point E",-17.4515,14.6965],["Fann",-17.4755,14.6905],
+["Médina",-17.4525,14.6805],["Plateau",-17.4265,14.6745]];
 const COAST=[[-17.405,14.770],[-17.44,14.762],[-17.47,14.759],[-17.492,14.756],[-17.512,14.753],[-17.526,14.746],[-17.529,14.741],[-17.520,14.735],[-17.505,14.727],[-17.494,14.722],[-17.484,14.706],[-17.478,14.694],[-17.470,14.683],[-17.462,14.676],[-17.450,14.673],[-17.437,14.669],[-17.425,14.663],[-17.418,14.667],[-17.410,14.680],[-17.405,14.700]];
-const ZONES=[["Ngor",-17.508,14.757],["Almadies",-17.520,14.7365],["Yoff",-17.472,14.7555],["Ouakam",-17.494,14.7285],["Mermoz",-17.4795,14.7085],["Sacré-Cœur",-17.4585,14.7195],["Point E",-17.4515,14.6965],["Fann",-17.4755,14.6905],["Médina",-17.4525,14.6805],["Plateau",-17.4265,14.6745]];
-const MX=(lo)=>(lo+17.545)/0.14*360, MY=(la)=>(14.775-la)/0.13*320;
-function mapSvg(list){
- const land=COAST.map((p,i)=>(i?'L':'M')+MX(p[0]).toFixed(1)+' '+MY(p[1]).toFixed(1)).join(' ')+' Z';
- const pins=list.map((v,i)=>{const idx=V.indexOf(v);const x=MX(v.lo).toFixed(1),y=MY(v.la).toFixed(1);
-  const sel=S.sel===idx;
-  return `<g onclick="selPin(${idx})" style="cursor:pointer">
-   ${sel?`<circle cx="${x}" cy="${y}" r="13" fill="var(--emerald)" opacity=".18"/>`:''}
-   <circle cx="${x}" cy="${y}" r="${sel?7:v.live?5.5:4.5}" fill="${v.live?'var(--forest)':'#fff'}" stroke="${v.live?'#fff':'var(--emerald)'}" stroke-width="${v.live?1.6:1.8}"/>
-   ${v.live?`<circle cx="${x}" cy="${y}" r="2" fill="var(--mint)"/>`:''}</g>`}).join('');
- return `<svg viewBox="0 0 360 320" class="mapsvg" preserveAspectRatio="xMidYMid slice">
-  <rect x="0" y="0" width="360" height="320" fill="#D7E6E6"/>
-  <path d="${land}" fill="var(--cream)" stroke="var(--mint-line)" stroke-width="1.5"/>
-  ${ZONES.map(z=>`<text x="${MX(z[1]).toFixed(1)}" y="${MY(z[2]).toFixed(1)}" class="zl">${z[0]}</text>`).join('')}
-  ${pins}</svg>`;
+const V=[{"n": "Chez Loutcha", "c": "Restaurants", "z": "Plateau", "r": 3.9, "k": 903, "la": 14.6687, "lo": -17.4351, "live": true}, {"n": "Le Lagon 1", "c": "Restaurants", "z": "Corniche Est", "r": 4.4, "k": 2330, "la": 14.6677, "lo": -17.4285, "live": false}, {"n": "La Fourchette", "c": "Restaurants", "z": "Plateau", "r": 4.3, "k": 1108, "la": 14.6704, "lo": -17.428, "live": false}, {"n": "La Parrilla", "c": "Restaurants", "z": "Plateau", "r": 4.4, "k": 774, "la": 14.664, "lo": -17.4345, "live": false}, {"n": "La Pampa", "c": "Restaurants", "z": "Plateau", "r": 4.1, "k": 1321, "la": 14.6697, "lo": -17.4303, "live": false}, {"n": "Le Coste", "c": "Restaurants", "z": "Plateau", "r": 4.2, "k": 218, "la": 14.6695, "lo": -17.4316, "live": false}, {"n": "The Union Club", "c": "Restaurants", "z": "Corniche Est", "r": 4.2, "k": 1557, "la": 14.662, "lo": -17.4324, "live": false}, {"n": "Nostra", "c": "Restaurants", "z": "Plateau", "r": 4.3, "k": 108, "la": 14.6667, "lo": -17.4325, "live": false}, {"n": "TAÏYO", "c": "Restaurants", "z": "Plateau", "r": 4.7, "k": 183, "la": 14.6658, "lo": -17.4354, "live": false}, {"n": "La Terrasse", "c": "Restaurants", "z": "Corniche Ouest", "r": 4.4, "k": 937, "la": 14.6764, "lo": -17.4662, "live": true}, {"n": "Le Cabanon", "c": "Restaurants", "z": "Almadies", "r": 4.2, "k": 1124, "la": 14.7391, "lo": -17.517, "live": false}, {"n": "La Pointe des Almadies", "c": "Restaurants", "z": "Almadies", "r": 4.0, "k": 1902, "la": 14.7455, "lo": -17.5281, "live": true}, {"n": "Chez Fatou", "c": "Restaurants", "z": "Almadies", "r": 4.0, "k": 2260, "la": 14.7409, "lo": -17.5214, "live": true}, {"n": "Seven Seven", "c": "Restaurants", "z": "Ngor", "r": 4.8, "k": 1687, "la": 14.7512, "lo": -17.5026, "live": false}, {"n": "Exotik Beach", "c": "Restaurants", "z": "Almadies", "r": 4.4, "k": 838, "la": 14.7398, "lo": -17.5179, "live": false}, {"n": "Le Carré", "c": "Restaurants", "z": "Almadies", "r": 4.0, "k": 776, "la": 14.741, "lo": -17.5225, "live": false}, {"n": "Alkimia", "c": "Restaurants", "z": "Almadies", "r": 4.2, "k": 1139, "la": 14.7399, "lo": -17.5157, "live": false}, {"n": "Restaurant Altiné", "c": "Restaurants", "z": "Almadies", "r": 4.7, "k": 35, "la": 14.7321, "lo": -17.5066, "live": false}, {"n": "La Favela", "c": "Restaurants", "z": "Fann", "r": 4.2, "k": 218, "la": 14.6993, "lo": -17.4645, "live": false}, {"n": "Noliane Terrazza", "c": "Restaurants", "z": "Fann", "r": 4.6, "k": 70, "la": 14.6985, "lo": -17.4694, "live": false}, {"n": "Urbanista", "c": "Restaurants", "z": "Point E", "r": 4.6, "k": 349, "la": 14.7006, "lo": -17.4623, "live": false}, {"n": "Trattoria da Alex", "c": "Restaurants", "z": "Point E", "r": 4.3, "k": 586, "la": 14.695, "lo": -17.4579, "live": false}, {"n": "The Grill", "c": "Restaurants", "z": "Point E", "r": 4.2, "k": 78, "la": 14.6963, "lo": -17.4564, "live": false}, {"n": "Le Jardin Thaïlandais", "c": "Restaurants", "z": "Point E", "r": 4.1, "k": 703, "la": 14.6932, "lo": -17.4602, "live": false}, {"n": "Billy's", "c": "Restaurants", "z": "Mermoz", "r": 4.3, "k": 368, "la": 14.6936, "lo": -17.4751, "live": false}, {"n": "Lulu Cafe", "c": "Restaurants", "z": "Mermoz", "r": 4.3, "k": 739, "la": 14.7006, "lo": -17.4734, "live": false}, {"n": "KeurGui", "c": "Restaurants", "z": "Mermoz", "r": 4.4, "k": 229, "la": 14.7121, "lo": -17.4756, "live": false}, {"n": "Damas", "c": "Restaurants", "z": "Ouest Foire", "r": 4.0, "k": 61, "la": 14.7356, "lo": -17.4726, "live": false}, {"n": "Noom Hotel Sea Plaza", "c": "Hôtels", "z": "Fann", "r": 4.3, "k": 5989, "la": 14.6951, "lo": -17.4736, "live": true}, {"n": "Azalaï Hôtel Dakar", "c": "Hôtels", "z": "Corniche Ouest", "r": 4.7, "k": 2874, "la": 14.6751, "lo": -17.4693, "live": false}, {"n": "Hôtel Terrou-Bi", "c": "Hôtels", "z": "Corniche Ouest", "r": 4.3, "k": 3269, "la": 14.677, "lo": -17.4664, "live": true}, {"n": "Novotel Dakar", "c": "Hôtels", "z": "Plateau", "r": 4.4, "k": 5198, "la": 14.6687, "lo": -17.4268, "live": false}, {"n": "L'Adresse Dakar", "c": "Hôtels", "z": "Almadies", "r": 4.8, "k": 2946, "la": 14.7416, "lo": -17.5158, "live": false}, {"n": "ONOMO Hotel", "c": "Hôtels", "z": "Rte de l'aéroport", "r": 3.6, "k": 822, "la": 14.7567, "lo": -17.4857, "live": false}, {"n": "Hôtel Ngor Diarama", "c": "Hôtels", "z": "Ngor", "r": 3.7, "k": 912, "la": 14.7517, "lo": -17.5078, "live": false}, {"n": "La Madrague Ngor", "c": "Hôtels", "z": "Ngor", "r": 3.8, "k": 1081, "la": 14.75, "lo": -17.5105, "live": false}, {"n": "Le Lodge des Almadies", "c": "Hôtels", "z": "Almadies", "r": 4.0, "k": 531, "la": 14.7399, "lo": -17.5151, "live": false}, {"n": "Hôtel des Almadies", "c": "Hôtels", "z": "Almadies", "r": 3.8, "k": 48, "la": 14.7418, "lo": -17.5187, "live": false}, {"n": "Chez Carla", "c": "Hôtels", "z": "Île de Ngor", "r": 3.9, "k": 371, "la": 14.755, "lo": -17.5143, "live": false}, {"n": "Hôtel Bachou", "c": "Hôtels", "z": "Keur Gorgui", "r": 4.2, "k": 47, "la": 14.7093, "lo": -17.4677, "live": false}, {"n": "Auchan Sacré-Cœur", "c": "Supermarchés", "z": "Sacré-Cœur", "r": 3.9, "k": 2461, "la": 14.7196, "lo": -17.466, "live": true}, {"n": "Auchan Mermoz", "c": "Supermarchés", "z": "Mermoz", "r": 4.2, "k": 2388, "la": 14.7116, "lo": -17.4762, "live": false}, {"n": "Auchan Yoff", "c": "Supermarchés", "z": "Yoff", "r": 3.9, "k": 2692, "la": 14.7538, "lo": -17.4671, "live": false}, {"n": "Auchan Gibraltar", "c": "Supermarchés", "z": "Gibraltar", "r": 3.9, "k": 2488, "la": 14.6839, "lo": -17.4437, "live": false}, {"n": "Auchan Castors", "c": "Supermarchés", "z": "Castors", "r": 3.8, "k": 1512, "la": 14.7236, "lo": -17.4462, "live": false}, {"n": "Auchan Liberté 5", "c": "Supermarchés", "z": "Liberté 5", "r": 3.6, "k": 949, "la": 14.7229, "lo": -17.4561, "live": false}, {"n": "Auchan Fann Résidence", "c": "Supermarchés", "z": "Fann", "r": 3.9, "k": 901, "la": 14.692, "lo": -17.4736, "live": false}, {"n": "Auchan Scat Urbam", "c": "Supermarchés", "z": "Scat Urbam", "r": 3.6, "k": 1048, "la": 14.7357, "lo": -17.4625, "live": false}, {"n": "Auchan Dalifort", "c": "Supermarchés", "z": "Dalifort", "r": 3.9, "k": 387, "la": 14.7371, "lo": -17.4218, "live": false}, {"n": "Auchan Ouakam", "c": "Supermarchés", "z": "Ouakam", "r": 3.8, "k": 84, "la": 14.724, "lo": -17.4938, "live": false}, {"n": "Auchan Plateau", "c": "Supermarchés", "z": "Plateau", "r": 3.9, "k": 1470, "la": 14.672, "lo": -17.4322, "live": false}, {"n": "Super U Sahm", "c": "Supermarchés", "z": "Sahm", "r": 4.0, "k": 2599, "la": 14.6856, "lo": -17.4538, "live": false}, {"n": "Eric Kayser", "c": "Boulangeries", "z": "Plateau", "r": 4.2, "k": 1254, "la": 14.6646, "lo": -17.4343, "live": false}, {"n": "La Graine d'Or", "c": "Boulangeries", "z": "Rte de l'aéroport", "r": 4.1, "k": 2115, "la": 14.7494, "lo": -17.5061, "live": false}, {"n": "Gourmandine", "c": "Boulangeries", "z": "Plateau", "r": 4.0, "k": 1265, "la": 14.6695, "lo": -17.4312, "live": false}, {"n": "Boulangerie Jaune", "c": "Boulangeries", "z": "Sacré-Cœur", "r": 3.7, "k": 1511, "la": 14.7189, "lo": -17.4665, "live": true}, {"n": "La Royaltine", "c": "Boulangeries", "z": "Plateau", "r": 4.1, "k": 1261, "la": 14.6672, "lo": -17.4372, "live": false}, {"n": "La Marquise", "c": "Boulangeries", "z": "Plateau", "r": 4.2, "k": 297, "la": 14.6688, "lo": -17.4338, "live": false}, {"n": "La Galette", "c": "Boulangeries", "z": "Plateau", "r": 3.8, "k": 2042, "la": 14.6697, "lo": -17.4335, "live": true}, {"n": "Boulangerie Sandaga", "c": "Boulangeries", "z": "Sandaga", "r": 3.7, "k": 178, "la": 14.6706, "lo": -17.4373, "live": false}, {"n": "Chez Papa", "c": "Boulangeries", "z": "Sicap", "r": 4.2, "k": 50, "la": 14.6783, "lo": -17.4516, "live": false}, {"n": "L'Art du Pain", "c": "Boulangeries", "z": "Ouest Foire", "r": 4.0, "k": 103, "la": 14.74, "lo": -17.4533, "live": false}, {"n": "Fil Ô Folies", "c": "Boulangeries", "z": "Cité Socabeg", "r": 4.3, "k": 21, "la": 14.7398, "lo": -17.4634, "live": false}, {"n": "Marché Kermel", "c": "Marchés", "z": "Plateau", "r": 3.9, "k": 646, "la": 14.6705, "lo": -17.4289, "live": true}, {"n": "Marché Soumbédioune", "c": "Marchés", "z": "Gueule Tapée", "r": 3.9, "k": 2365, "la": 14.6777, "lo": -17.4584, "live": false}, {"n": "Marché Sandaga", "c": "Marchés", "z": "Plateau", "r": 3.8, "k": 2214, "la": 14.6723, "lo": -17.441, "live": false}, {"n": "Marché Tilène", "c": "Marchés", "z": "Médina", "r": 3.6, "k": 5061, "la": 14.6817, "lo": -17.4497, "live": false}, {"n": "Marché HLM", "c": "Marchés", "z": "HLM", "r": 4.0, "k": 1153, "la": 14.7056, "lo": -17.4443, "live": false}];
+
+/* =========================================================
+   Etat + persistance locale
+   ========================================================= */
+const SKEY="ai4food.state.v2";
+const PERSIST=["lang","theme","fav","orders","custom","stock","invited","recent","zone","pos","seen","notifs","alerts","reads"];
+const el=i=>document.getElementById(i);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const jsq=s=>String(s).replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/"/g,"&quot;");
+const uid=()=>Math.random().toString(36).slice(2,9);
+const code4=()=>"AI4-"+Math.random().toString(36).slice(2,6).toUpperCase();
+
+function seedOrders(){
+ const now=Date.now(),day=864e5;
+ const mk=(off,d,q,ago)=>({oid:uid(),id:off,qty:q,pay:"wave",code:code4(),ts:now-ago,status:"done",day:d});
+ return [mk(8,1,1,2*day),mk(1,1,2,4*day),mk(14,1,1,6*day),mk(16,1,1,9*day),mk(8,1,1,11*day),mk(9,1,2,15*day)];
 }
-function places(){
- const cats=["Tout","Restaurants","Hôtels","Supermarchés","Boulangeries","Marchés"];
- const vl=V.filter(v=>S.vfilter==="Tout"||v.c===S.vfilter);
- const nLive=V.filter(v=>v.live).length;
- const ic=c=>c==="Hôtels"?'bed':c==="Supermarchés"?'cart':c==="Boulangeries"?'bread':c==="Marchés"?'store':'fork';
- const vrow=v=>`<div class="rc vrow">
+function seedNotifs(){
+ return [{nid:uid(),k:"welcome",ts:Date.now()-36e5,read:false,a:[],ic:"leaf"}];
+}
+let S={
+ role:"client",tab:"home",view:"carte",sel:-1,vfilter:"Tout",filter:"Tout",sort:"reco",seg:"active",
+ qty:1,pay:"wave",cur:null,ob:0,q:"",stack:[],
+ lang:"fr",theme:"auto",fav:[8,11],orders:seedOrders(),custom:[],stock:{},invited:[],recent:[],
+ zone:"Sacré-Cœur",pos:null,seen:false,notifs:seedNotifs(),alerts:true,reads:[]
+};
+function save(){
+ try{const o={};PERSIST.forEach(k=>o[k]=S[k]);localStorage.setItem(SKEY,JSON.stringify(o))}catch(e){}
+}
+function load(){
+ try{
+  const raw=localStorage.getItem(SKEY);if(!raw)return;
+  const o=JSON.parse(raw);PERSIST.forEach(k=>{if(o[k]!==undefined&&o[k]!==null)S[k]=o[k]});
+ }catch(e){}
+}
+function resetAll(){
+ try{localStorage.removeItem(SKEY)}catch(e){}
+ S.fav=[8,11];S.orders=seedOrders();S.custom=[];S.stock={};S.invited=[];S.recent=[];
+ S.notifs=seedNotifs();S.zone="Sacré-Cœur";S.pos=null;S.seen=true;S.role="client";S.tab="home";
+ save();applyTheme();render();toast(t("reset_done"));
+}
+
+/* ---------- catalogue derive ---------- */
+const CAT=()=>D.concat(S.custom);
+const byId=id=>CAT().find(o=>o.id===id);
+const stockOf=d=>S.stock[d.id]!==undefined?S.stock[d.id]:d.left;
+const isFav=id=>S.fav.indexOf(id)>=0;
+
+/* ---------- temps ---------- */
+const nowMin=()=>{const n=new Date();return n.getHours()*60+n.getMinutes()};
+const hm=s=>{const p=s.split(":");return (+p[0])*60+(+p[1])};
+const mh=m=>{m=((m%1440)+1440)%1440;return String(Math.floor(m/60)).padStart(2,"0")+":"+String(m%60).padStart(2,"0")};
+function windowOf(d){
+ const n=nowMin(),s=hm(d.from),e=hm(d.to);
+ if(e<=n)return {s:s+1440,e:e+1440,tm:true};
+ return {s:s,e:e,tm:false};
+}
+function fmtDur(m){
+ m=Math.max(0,Math.round(m));
+ if(m<60)return t("hmin",m);
+ const h=Math.floor(m/60),r=m%60;
+ return r?t("hhm",h,String(r).padStart(2,"0")):t("hh",h);
+}
+function statusOf(d){
+ if(stockOf(d)<=0)return "sold";
+ const n=nowMin(),w=windowOf(d);
+ if(!w.tm&&n>=w.s&&n<w.e)return "open";
+ if(w.s-n<=120)return "soon";
+ return "later";
+}
+function pillOf(d){
+ const st=statusOf(d),n=nowMin(),w=windowOf(d);
+ if(st==="sold")return {c:"gone",x:t("sold"),ic:""};
+ if(st==="open")return {c:"now",x:t("closes_in",fmtDur(w.e-n)),ic:"bl"};
+ if(st==="soon")return {c:"soon",x:t("pickup_in",fmtDur(w.s-n)),ic:"clock"};
+ return {c:"",x:w.tm?t("pickup_at_tmr",d.from):t("pickup_at",d.from),ic:"clock"};
+}
+function pillHtml(d){
+ const p=pillOf(d);
+ return `<span class="pill ${p.c}" data-cd="${d.id}">${p.ic==="bl"?'<i class="bl"></i>':p.ic?I(p.ic,12):""}<span>${p.x}</span></span>`;
+}
+function tickCd(){
+ document.querySelectorAll("[data-cd]").forEach(n=>{
+  const d=byId(+n.getAttribute("data-cd"));if(!d)return;
+  const p=pillOf(d);n.className="pill "+p.c;
+  n.innerHTML=(p.ic==="bl"?'<i class="bl"></i>':p.ic?I(p.ic,12):"")+"<span>"+p.x+"</span>";
+ });
+ const c=el("clock");if(c){const n=new Date();c.textContent=n.getHours()+":"+String(n.getMinutes()).padStart(2,"0")}
+ checkPickupAlerts();
+}
+
+/* ---------- distance ---------- */
+function zonePos(z){const f=ZONES.find(x=>x[0]===z);return f?{la:f[2],lo:f[1]}:{la:14.7195,lo:-17.4585}}
+const userPos=()=>S.pos||zonePos(S.zone);
+function kmBetween(a,b){
+ const R=6371,r=Math.PI/180;
+ const dla=(b.la-a.la)*r,dlo=(b.lo-a.lo)*r;
+ const s=Math.sin(dla/2)**2+Math.cos(a.la*r)*Math.cos(b.la*r)*Math.sin(dlo/2)**2;
+ return 2*R*Math.asin(Math.min(1,Math.sqrt(s)));
+}
+const distOf=d=>kmBetween(userPos(),{la:d.la,lo:d.lo});
+function fmtKm(k){
+ if(k<1)return Math.round(k*100)*10+" m";
+ return (LI===1?k.toFixed(1):k.toFixed(1).replace(".",","))+" km";
+}
+
+/* =========================================================
+   Moteur de recommandation (local, explicable)
+   ========================================================= */
+const WEIGHTS=[["f_price",.22],["f_taste",.26],["f_near",.18],["f_time",.20],["f_rare",.06],["f_rating",.08]];
+const clamp=v=>Math.max(0,Math.min(1,v));
+function taste(d){
+ const done=S.orders.filter(o=>o.status!=="cancel");
+ let cat=0,merch=0;
+ done.forEach(o=>{const off=byId(o.id);if(!off)return;
+  if(off.cat===d.cat)cat+=o.qty;if(off.merch===d.merch)merch+=o.qty});
+ return {cat,merch,fav:isFav(d.id)};
+}
+function scoreOf(d){
+ const n=nowMin(),w=windowOf(d),km=distOf(d),ta=taste(d),st=statusOf(d);
+ const f={};
+ f.f_price=clamp((pct(d)-52)/26);
+ f.f_taste=clamp((ta.fav?.45:0)+Math.min(.35,ta.cat*.12)+Math.min(.35,ta.merch*.18));
+ f.f_near=clamp(1-km/9);
+ f.f_time=st==="open"?1:st==="soon"?clamp(1-(w.s-n)/240):clamp(.55-(w.s-n)/1600);
+ f.f_rare=stockOf(d)<=1?1:stockOf(d)<=2?.8:stockOf(d)<=4?.5:.25;
+ f.f_rating=clamp((d.rate-3.7)/1.1);
+ let s=0;WEIGHTS.forEach(([k,wt])=>s+=wt*f[k]);
+ if(st==="sold")s*=.15;
+ if(d.isNew)s+=.04;
+ return {s:clamp(s),f:f,km:km,ta:ta};
+}
+function reasonsOf(d){
+ const r=scoreOf(d),out=[],ta=r.ta,st=statusOf(d),w=windowOf(d),n=nowMin();
+ if(ta.merch>=2)out.push([r.f.f_taste,t("why_merch",ta.merch)]);
+ else if(ta.fav)out.push([r.f.f_taste,t("why_fav")]);
+ else if(ta.cat>=2)out.push([r.f.f_taste,t("why_cat",catL(d.cat))]);
+ if(st==="open")out.push([r.f.f_time,t("why_now")]);
+ else if(st==="soon")out.push([r.f.f_time,t("why_soon")]);
+ if(r.km<1.6)out.push([r.f.f_near,t("why_near2",fmtKm(r.km))]);
+ if(stockOf(d)<=2&&st!=="sold")out.push([r.f.f_rare,t("why_last")]);
+ if(pct(d)>=66)out.push([r.f.f_price,t("why_deal",pct(d))]);
+ out.sort((a,b)=>b[0]-a[0]);
+ return {score:r.s,f:r.f,km:r.km,list:out.map(x=>x[1])};
+}
+function ranked(list){
+ return list.map(d=>({d:d,r:scoreOf(d).s})).sort((a,b)=>b.r-a.r).map(x=>x.d);
+}
+function sortList(list){
+ const l=list.slice();
+ if(S.sort==="price")return l.sort((a,b)=>a.price-b.price);
+ if(S.sort==="dist")return l.sort((a,b)=>distOf(a)-distOf(b));
+ if(S.sort==="time")return l.sort((a,b)=>windowOf(a).s-windowOf(b).s);
+ return ranked(l);
+}
+
+/* =========================================================
+   Commandes + impact
+   ========================================================= */
+function syncOrders(){
+ let ch=false;const now=Date.now();
+ S.orders.forEach(o=>{
+  if(o.status!=="active")return;
+  if(o.endTs&&now>o.endTs+36e5){o.status="expired";ch=true}
+ });
+ if(ch)save();
+}
+const activeOrders=()=>S.orders.filter(o=>o.status==="active");
+const pastOrders=()=>S.orders.filter(o=>o.status!=="active").sort((a,b)=>b.ts-a.ts);
+function impact(){
+ let meals=0,saved=0;
+ S.orders.filter(o=>o.status==="done").forEach(o=>{
+  const d=byId(o.id);if(!d)return;meals+=o.qty;saved+=(d.was-d.price)*o.qty});
+ return {meals:meals,co2:Math.round(meals*1.2*10)/10,saved:saved};
+}
+
+/* =========================================================
+   Notifications
+   ========================================================= */
+function notify(k,args,ic,extra){
+ const n=Object.assign({nid:uid(),k:k,a:args||[],ts:Date.now(),read:false,ic:ic||"bell"},extra||{});
+ S.notifs.unshift(n);S.notifs=S.notifs.slice(0,30);save();
+ return n;
+}
+const unread=()=>S.notifs.filter(n=>!n.read).length;
+function notifText(n){
+ if(n.k==="welcome")return [t("n_welcome_t"),t("n_welcome_b")];
+ if(n.k==="new")return [t("n_new_t",n.a[0]),t("n_new_b",n.a[1],F(n.a[2]),F(n.a[3]))];
+ if(n.k==="soon")return [t("n_soon_t",n.a[0]),t("n_soon_b",n.a[1],n.a[2])];
+ if(n.k==="ok")return [t("n_ok_t"),t("n_ok_b",n.a[0],n.a[1],n.a[2])];
+ return ["",""];
+}
+function ago(ts){
+ const m=Math.round((Date.now()-ts)/6e4);
+ if(m<2)return t("ago_now");
+ if(m<60)return t("ago_min",m);
+ if(m<1440)return t("ago_h",Math.round(m/60));
+ return t("ago_d",Math.round(m/1440));
+}
+function checkPickupAlerts(){
+ if(!S.alerts)return;const n=nowMin();let ch=false;
+ activeOrders().forEach(o=>{
+  const d=byId(o.id);if(!d)return;const w=windowOf(d);
+  const key="soon:"+o.oid;
+  if(w.s-n<=45&&w.s-n>0&&S.reads.indexOf(key)<0){
+   S.reads.push(key);notify("soon",[d.merch,d.from,o.code],"clock");ch=true}
+ });
+ if(ch){save();if(!el("sheet").classList.contains("open"))render()}
+}
+
+/* =========================================================
+   UI de base
+   ========================================================= */
+function toast(m,err){
+ const el_=el("toast");
+ el_.className="toast on"+(err?" err":"");
+ el_.innerHTML=I(err?"alert":"checkC",18)+`<span>${m}</span>`;
+ clearTimeout(el_._t);el_._t=setTimeout(()=>el_.classList.remove("on"),2400);
+}
+function applyTheme(){
+ const dark=S.theme==="dark"||(S.theme==="auto"&&window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches);
+ document.documentElement.setAttribute("data-theme",dark?"dark":"light");
+ document.documentElement.setAttribute("lang",S.lang);
+}
+function card(d,opts){
+ opts=opts||{};
+ const st=statusOf(d),sold=st==="sold",left=stockOf(d);
+ const why=opts.why?reasonsOf(d).list[0]:null;
+ return `<div class="rc ${sold?"sold":""}">
+  <button class="rc-open" onclick="open_(${d.id})" aria-label="${esc(d.name)} &ndash; ${esc(d.merch)}"></button>
+  <div class="thumb"><img src="${P[d.img]||P.pain}" alt="" loading="lazy"><span class="scrim"></span>
+   <span class="left">${sold?t("sold"):(left===1?t("left_1"):t("left_n",left))}</span></div>
+  <div class="rc-body">
+   ${why?`<span class="ainote">${I("spark",13)} ${why}</span>`:""}
+   ${d.isNew&&!why?`<span class="ainote">${I("spark",13)} ${t("newb")}</span>`:""}
+   <div class="rc-top"><h3>${esc(d.name)}</h3>
+    <button class="hbtn ${isFav(d.id)?"on":""}" aria-label="${esc(t("favorites"))}"
+      onclick="event.stopPropagation();fav(${d.id})">${I("heart",19,isFav(d.id)?'fill="currentColor"':"")}</button></div>
+   <p class="mrc">${esc(d.merch)} <span class="rate">${I("star",13)} ${d.rate.toFixed(1)}</span></p>
+   <p class="prices"><b>${F(d.price)} <i>FCFA</i></b><s>${F(d.was)} FCFA</s></p>
+   <div class="metarow">${pillHtml(d)}
+    <span class="dist">${I("pin",12)} ${fmtKm(distOf(d))}</span>
+    <span class="save">${I("tag",12)} ${t("save_pct",pct(d))}</span></div>
+  </div></div>`;
+}
+function qr(s){let o="";for(let i=0;i<81;i++){const on=((i*7+s*11+(i%9)*3)%5)<2||[0,1,7,8,9,10,16,17,63,64,70,71,72,73,79,80].indexOf(i)>=0;o+=`<i class="${on?"f":""}"></i>`}return o}
+function greet(){const h=new Date().getHours();return h<12?t("greet_am"):h<17?t("greet_pm"):t("greet_ev")}
+function bellBtn(){
+ const u=unread();
+ return `<button class="round" onclick="openNotifs()" aria-label="${esc(t("notif_title"))}">${I("bell",20)}
+  ${u?`<span class="badge">${u>9?"9+":u}</span>`:'<span class="dot"></span>'}</button>`;
+}
+function sortBar(n){
+ const opts=[["reco","sort_reco"],["price","sort_price"],["dist","sort_dist"],["time","sort_time"]];
+ return `<div class="tools"><span class="lb">${I("sliders",14)}</span>
+  ${opts.map(([k,l])=>`<button class="sortb ${S.sort===k?"on":""}" onclick="setSort('${k}')">${t(l)}</button>`).join("")}</div>
+ <p class="countline">${n===1?t("n_offer1"):t("n_offers",n)} &middot; ${esc(S.zone)}</p>`;
+}
+
+/* =========================================================
+   Ecrans client
+   ========================================================= */
+function home(){
+ const all=CAT().filter(d=>S.filter==="Tout"||d.cat===S.filter);
+ const list=sortList(all);
+ const top=ranked(CAT().filter(d=>statusOf(d)!=="sold")).slice(0,3);
+ const act=activeOrders()[0];
+ const actD=act?byId(act.id):null;
+ return `
+ <div class="head"><div><div class="hi">${greet()}</div>
+   <button class="city" onclick="openZone()" style="background:none;border:none;padding:0">${esc(S.zone)} ${I("chevD",18)}</button></div>
+  ${bellBtn()}</div>
+ <button class="search" onclick="openSearch()" style="width:calc(100% - 44px);text-align:left">
+  ${I("search",18)}<span>${t("search_ph")}</span></button>
+ ${actD?`<button class="ticker" onclick="go('orders')" style="width:calc(100% - 44px);text-align:left">
+   ${I("bag",16)}<span>${esc(actD.merch)} &middot; ${pillOf(actD).x} &middot; ${act.code}</span></button>`:""}
+ <div class="sec"><div><span class="eyebrow">${I("spark",12)} ${t("ai_eyebrow")}</span>
+  <h2>${t("ai_title")}</h2><p>${t("ai_sub")}</p></div></div>
+ <div class="list">${top.map(d=>card(d,{why:true})).join("")}</div>
+ <div class="sec"><div><h2>${t("near_you")}</h2></div>
+  <button class="link" onclick="go('places')">${t("map_link")} ${I("chevR",14)}</button></div>
+ <div class="chips">${CATS.map(c=>`<button class="chip ${S.filter===c?"on":""}" onclick="setF('${jsq(c)}')">${catL(c)}</button>`).join("")}</div>
+ ${sortBar(list.length)}
+ ${list.length?`<div class="list">${list.map(d=>card(d,{})).join("")}</div>`
+  :`<div class="empty"><div class="ic">${I("search",28)}</div><h3>${t("none_here")}</h3><p>${t("none_here_p")}</p>
+    <button class="btn btn-main" onclick="setF('Tout')">${t("cat_all")}</button></div>`}
+ <p class="legal">${t("legal_offers")}</p>`;
+}
+
+const MX=lo=>(lo+17.545)/0.14*360, MY=la=>(14.775-la)/0.13*320;
+function offersAt(v){
+ return CAT().filter(d=>d.merch===v.n||v.n.indexOf(d.merch)>=0||d.merch.indexOf(v.n)>=0);
+}
+function mapSvg(list){
+ const land=COAST.map((p,i)=>(i?"L":"M")+MX(p[0]).toFixed(1)+" "+MY(p[1]).toFixed(1)).join(" ")+" Z";
+ const u=userPos();
+ const pins=list.map(v=>{const idx=V.indexOf(v);const x=MX(v.lo).toFixed(1),y=MY(v.la).toFixed(1);
+  const sel=S.sel===idx,live=v.live||offersAt(v).length>0;
+  return `<g onclick="selPin(${idx})" style="cursor:pointer">
+   ${sel?`<circle cx="${x}" cy="${y}" r="13" fill="var(--emerald)" opacity=".18"/>`:""}
+   <circle cx="${x}" cy="${y}" r="${sel?7:live?5.5:4.5}" fill="${live?"var(--forest)":"var(--white)"}" stroke="${live?"var(--cream)":"var(--emerald)"}" stroke-width="${live?1.6:1.8}"/>
+   ${live?`<circle cx="${x}" cy="${y}" r="2" fill="var(--mint)"/>`:""}</g>`}).join("");
+ return `<svg viewBox="0 0 360 320" class="mapsvg" preserveAspectRatio="xMidYMid slice" role="img" aria-label="${esc(t("map"))}">
+  <rect x="0" y="0" width="360" height="320" fill="var(--water)"/>
+  <path d="${land}" fill="var(--land)" stroke="var(--mint-line)" stroke-width="1.5"/>
+  ${ZONES.map(z=>`<text x="${MX(z[1]).toFixed(1)}" y="${MY(z[2]).toFixed(1)}" class="zl">${z[0]}</text>`).join("")}
+  ${pins}
+  <g><circle cx="${MX(u.lo).toFixed(1)}" cy="${MY(u.la).toFixed(1)}" r="9" fill="var(--emerald)" opacity=".16"/>
+   <circle cx="${MX(u.lo).toFixed(1)}" cy="${MY(u.la).toFixed(1)}" r="4.5" class="usr"/></g></svg>`;
+}
+function vrow(v){
+ const ic=c=>c==="Hôtels"?"bed":c==="Supermarchés"?"cart":c==="Boulangeries"?"bread":c==="Marchés"?"store":"fork";
+ const off=offersAt(v),inv=S.invited.indexOf(v.n)>=0;
+ const d=kmBetween(userPos(),{la:v.la,lo:v.lo});
+ return `<div class="rc vrow">
    <div class="vtile">${I(ic(v.c),22)}</div>
    <div class="rc-body">
-    <div class="rc-top"><h3>${v.n}</h3></div>
-    <p class="mrc">${v.z} <span class="rate">${I('star',13)} ${v.r.toFixed(1)}</span></p>
-    ${v.live?`<span class="save" style="margin-top:8px">${I('check',13)} Partenaire, offres en ligne</span>`
-      :`<button class="invite" onclick="invite(${V.indexOf(v)})">${I('plus',13)} Inviter ce commerce</button>`}
+    <div class="rc-top"><h3>${esc(v.n)}</h3></div>
+    <p class="mrc">${esc(v.z)} <span class="rate">${I("star",13)} ${v.r.toFixed(1)}</span>
+     <span class="dist">${I("pin",12)} ${fmtKm(d)}</span></p>
+    ${off.length?`<button class="invite" onclick="open_(${off[0].id})">${I("bag",13)} ${off.length===1?t("offers_here",1):t("offers_here_n",off.length)}</button>`
+      :v.live?`<span class="save" style="margin-top:8px">${I("check",13)} ${t("partner")}</span>`
+      :inv?`<span class="stat wait" style="margin-top:8px">${I("check",13)} ${t("invited")}</span>`
+      :`<button class="invite" onclick="invite(${V.indexOf(v)})">${I("plus",13)} ${t("invite_shop")}</button>`}
    </div></div>`;
+}
+function places(){
+ const vl=V.filter(v=>S.vfilter==="Tout"||v.c===S.vfilter)
+   .sort((a,b)=>kmBetween(userPos(),{la:a.la,lo:a.lo})-kmBetween(userPos(),{la:b.la,lo:b.lo}));
+ const nLive=V.filter(v=>v.live||offersAt(v).length).length;
  const sv=S.sel>=0?V[S.sel]:null;
- return `<div class="head"><div><div class="hi">${V.length} commerces à Dakar</div><div class="city">Commerces</div></div>
-  <button class="round" onclick="setView('${S.view==='carte'?'liste':'carte'}')">${I(S.view==='carte'?'receipt':'pin',20)}</button></div>
+ return `<div class="head"><div><div class="hi">${t("n_shops",V.length)}</div><div class="city">${t("shops")}</div></div>
+  <button class="round" onclick="openZone()" aria-label="${esc(t("your_zone"))}">${I("target",20)}</button></div>
  <div class="seg" style="margin-bottom:14px">
-   <button class="${S.view==='carte'?'on':''}" onclick="setView('carte')">Carte</button>
-   <button class="${S.view==='liste'?'on':''}" onclick="setView('liste')">Liste</button></div>
- <div class="chips">${cats.map(c=>`<button class="chip ${S.vfilter===c?'on':''}" onclick="setVF('${c}')">${c}</button>`).join('')}</div>
- ${S.view==='carte'
+   <button class="${S.view==="carte"?"on":""}" onclick="setView('carte')">${t("map")}</button>
+   <button class="${S.view==="liste"?"on":""}" onclick="setView('liste')">${t("list")}</button></div>
+ <div class="chips">${CATS.map(c=>`<button class="chip ${S.vfilter===c?"on":""}" onclick="setVF('${jsq(c)}')">${catL(c)}</button>`).join("")}</div>
+ ${S.view==="carte"
   ? `<div class="mapwrap">${mapSvg(vl)}
-      <div class="maplg"><span><i class="d live"></i> Partenaire</span><span><i class="d"></i> À convaincre</span></div></div>
-     ${sv?`<div class="list"><div class="rc vrow">
-        <div class="vtile">${I(ic(sv.c),22)}</div>
-        <div class="rc-body"><div class="rc-top"><h3>${sv.n}</h3></div>
-        <p class="mrc">${sv.z} &middot; ${sv.c} <span class="rate">${I('star',13)} ${sv.r.toFixed(1)}</span></p>
-        ${sv.live?`<span class="save" style="margin-top:8px">${I('check',13)} Partenaire, offres en ligne</span>`
-          :`<button class="invite" onclick="invite(${S.sel})">${I('plus',13)} Inviter ce commerce</button>`}
-        </div></div></div>`
-       :`<p class="hintline">${I('pin',14)} Touchez un point pour voir le commerce</p>`}`
-  : `<div class="sec"><div><h2>${vl.length} commerces</h2><p>${nLive} partenaires actifs &middot; ${V.length-nLive} à convaincre</p></div></div>
-     <div class="list">${vl.map(vrow).join('')}</div>`}
- <p class="legal">Données commerces: Google Maps. Commerces cités à titre d'illustration, sans partenariat existant.</p>`;
+      <div class="maplg"><span><i class="d live"></i> ${t("lg_partner")}</span>
+       <span><i class="d"></i> ${t("lg_prospect")}</span></div></div>
+     ${sv?`<div class="list">${vrow(sv)}</div>`:`<p class="hintline">${I("pin",14)} ${t("tap_pin")}</p>`}`
+  : `<div class="sec"><div><h2>${vl.length} ${t("shops").toLowerCase()}</h2>
+      <p>${t("partners_line",nLive,V.length-nLive)}</p></div></div>
+     <div class="list">${vl.map(vrow).join("")}</div>`}
+ <p class="legal">${t("data_src")}</p>`;
 }
 function favs(){
- const l=D.filter(d=>S.fav.has(d.id));
- return `<div class="head"><div><div class="hi">Ma sélection</div><div class="city">Mes favoris</div></div></div>
- <div class="seg"><button class="${S.seg==='fav'?'on':''}" onclick="setSeg('fav')">Favoris</button>
- <button class="${S.seg==='cmd'?'on':''}" onclick="setSeg('cmd')">Commandes</button></div>
- ${S.seg==='fav'?(l.length?`<div class="list">${l.map(d=>card(d,false)).join('')}</div>`
-  :`<div class="empty"><div class="ic">${I('heart',28)}</div><h3>Aucun favori</h3>
-    <p>Touchez le cœur sur une offre pour la retrouver ici.</p>
-    <button class="btn btn-main" onclick="go('home')">Découvrir les offres</button></div>`)
- :ordersBody()}<div style="height:14px"></div>`;
+ const l=CAT().filter(d=>isFav(d.id));
+ return `<div class="head"><div><div class="hi">${t("my_sel")}</div><div class="city">${t("favorites")}</div></div>
+  ${bellBtn()}</div>
+ ${l.length?`<div class="list">${sortList(l).map(d=>card(d,{})).join("")}</div>`
+  :`<div class="empty"><div class="ic">${I("heart",28)}</div><h3>${t("no_fav")}</h3>
+    <p>${t("no_fav_p")}</p>
+    <button class="btn btn-main" onclick="go('home')">${t("discover")}</button></div>`}
+ <div style="height:14px"></div>`;
 }
-function ordersBody(){
- if(!S.order) return `<div class="empty"><div class="ic">${I('receipt',28)}</div><h3>Aucune commande</h3>
-  <p>Réservez une offre, puis présentez votre code au commerçant.</p>
-  <button class="btn btn-main" onclick="go('home')">Découvrir les offres</button></div>`;
- const o=S.order,d=o.d;
+function statBadge(s){
+ const m={active:["","st_active"],done:["","st_done"],expired:["dead","st_expired"],cancel:["dead","st_cancel"]}[s]||["",""];
+ return `<span class="stat ${m[0]}">${t(m[1])}</span>`;
+}
+function ticket(o,full){
+ const d=byId(o.id);if(!d)return "";
+ const w=windowOf(d);
  return `<div class="ticket">
-   <div class="tk-top"><h3>${d.merch}</h3><p>${o.qty} × ${d.name} &middot; ${d.addr}</p>
-    <div class="lbl">${I('clock',13)} À récupérer aujourd'hui</div><p class="win">${d.from} - ${d.to}</p></div>
+   <div class="tk-top"><h3>${esc(d.merch)}</h3><p>${o.qty} × ${esc(d.name)} &middot; ${esc(d.addr)}</p>
+    <div class="lbl">${I("clock",13)} ${w.tm?t("pickup_tmr"):t("pickup_today")}</div>
+    <p class="win">${d.from} - ${d.to}</p></div>
    <div class="perf"><i></i></div>
    <div class="tk-bot"><div class="qr">${qr(d.id)}</div>
-    <div><div class="cl">Code de retrait</div><div class="code">${o.code}</div>
-    <p>Présentez ce code au comptoir. Apportez votre sac.</p></div></div></div>
+    <div><div class="cl">${t("pickup_code")}</div><div class="code">${o.code}</div>
+    <p>${full?t("show_code"):t("co2_line",(1.2*o.qty).toFixed(1))}</p></div></div></div>`;
+}
+function orderBlock(o){
+ const d=byId(o.id);if(!d)return "";
+ return `${ticket(o,true)}
  <div class="panel">
-   <div class="r"><span>Payé avec</span><b>${PAY.find(p=>p.id===o.pay).n}</b></div>
-   <div class="r"><span>Total</span><b>${F(d.price*o.qty)} FCFA</b></div>
-   <div class="r"><span>Valeur en magasin</span><b>${F(d.was*o.qty)} FCFA</b></div>
-   <div class="r"><span>Économie</span><b style="color:var(--emerald)">${F((d.was-d.price)*o.qty)} FCFA</b></div></div>
- <div style="padding:0 22px">
-   <button class="btn btn-ghost" onclick="toast('Itinéraire vers ${d.addr}')">${I('pin',18)} Voir sur la carte</button>
+   <div class="r"><span>${t("paid_with")}</span><b>${PAY.find(p=>p.id===o.pay).n}</b></div>
+   <div class="r"><span>${t("total")}</span><b>${F(d.price*o.qty)} FCFA</b></div>
+   <div class="r"><span>${t("store_value")}</span><b>${F(d.was*o.qty)} FCFA</b></div>
+   <div class="r"><span>${t("saving")}</span><b style="color:var(--emerald)">${F((d.was-d.price)*o.qty)} FCFA</b></div></div>
+ <div style="padding:0 22px 8px">
+   <button class="btn btn-ghost" onclick="routeTo(${d.id})">${I("route",18)} ${t("itinerary")}</button>
    <div style="height:9px"></div>
-   <button class="btn btn-ghost" style="color:#B03A4C" onclick="cancel()">Annuler la commande</button></div>`;
+   <button class="btn btn-ghost" onclick="pickedUp('${o.oid}')">${I("check",18)} ${t("mark_picked")}</button>
+   <div style="height:9px"></div>
+   <button class="btn btn-ghost" style="color:var(--danger)" onclick="cancelOrder('${o.oid}')">${t("cancel_order")}</button></div>`;
 }
-function orders(){return `<div class="head"><div><div class="hi">Suivi</div><div class="city">Mes commandes</div></div></div>${ordersBody()}<div style="height:16px"></div>`}
-
+function pastRow(o){
+ const d=byId(o.id);if(!d)return "";
+ return `<div class="rc vrow"><div class="vtile">${I("receipt",22)}</div>
+  <div class="rc-body"><div class="rc-top"><h3>${esc(d.name)}</h3></div>
+  <p class="mrc">${esc(d.merch)} &middot; ${new Date(o.ts).toLocaleDateString(LOC(),{day:"numeric",month:"short"})}</p>
+  <p class="prices"><b>${F(d.price*o.qty)} <i>FCFA</i></b>${statBadge(o.status)}</p>
+  </div></div>`;
+}
+function ordersBody(){
+ const act=activeOrders(),past=pastOrders();
+ if(!act.length&&!past.length)return `<div class="empty"><div class="ic">${I("receipt",28)}</div><h3>${t("no_orders")}</h3>
+  <p>${t("no_orders_p")}</p>
+  <button class="btn btn-main" onclick="go('home')">${t("discover")}</button></div>`;
+ const seg=S.seg==="past"?"past":"active";
+ return `<div class="seg">
+   <button class="${seg==="active"?"on":""}" onclick="setSeg('active')">${t("active_orders")}${act.length?" ("+act.length+")":""}</button>
+   <button class="${seg==="past"?"on":""}" onclick="setSeg('past')">${t("past_orders")}</button></div>
+ ${seg==="active"
+  ?(act.length?act.map(orderBlock).join('<div style="height:18px"></div>')
+   :`<div class="empty"><div class="ic">${I("bag",28)}</div><h3>${t("no_orders")}</h3><p>${t("no_orders_p")}</p>
+     <button class="btn btn-main" onclick="go('home')">${t("discover")}</button></div>`)
+  :(past.length?`<div class="list">${past.map(pastRow).join("")}</div>`
+   :`<div class="empty"><div class="ic">${I("receipt",28)}</div><h3>${t("no_orders")}</h3><p>${t("no_orders_p")}</p></div>`)}`;
+}
+function orders(){
+ return `<div class="head"><div><div class="hi">${t("tracking")}</div><div class="city">${t("my_orders")}</div></div>
+  ${bellBtn()}</div>${ordersBody()}<div style="height:16px"></div>`;
+}
 function profile(){
- const row=(ic,label,right,fn)=>`<button class="srow" onclick="${fn}"><span class="lft">${I(ic,19)} ${label}</span><span class="rgt">${right} ${I('chevR',14)}</span></button>`;
- return `<div class="head"><div><div class="hi">Compte</div><div class="city">Profil</div></div></div>
- <div class="prof"><div class="av">AN</div><div><h2>Aïssatou N.</h2><p>Membre depuis mars 2026 &middot; Dakar</p></div></div>
- <div class="roleswap"><div class="rl">Démo &middot; changer de vue</div><div class="rbtns">
-  ${[["client","Client"],["merchant","Commerçant"],["admin","Admin"]].map(([k,l])=>
-   `<button class="rb ${S.role===k?'on':''}" onclick="setRole('${k}')">${l}</button>`).join('')}
- </div><p class="rn">Les rôles seront gérés côté backend. Ici, le sélecteur simule les trois accès.</p></div>
- ${S.role==='client'?`<div class="impact grain"><h3>${I('leaf',18)} Votre impact</h3>
-  <div class="irow"><div class="st"><b>41</b><span>repas sauvés</span></div>
-  <div class="st"><b>102 kg</b><span>CO₂e évités</span></div>
-  <div class="st"><b>81 500 F</b><span>économisés</span></div></div></div>`:''}
+ const im=impact(),dark=document.documentElement.getAttribute("data-theme")==="dark";
+ const row=(ic,label,right,fn)=>`<button class="srow" onclick="${fn}"><span class="lft">${I(ic,19)} ${label}</span><span class="rgt">${right} ${I("chevR",14)}</span></button>`;
+ const tgl=(ic,label,on,fn)=>`<button class="srow" onclick="${fn}" aria-pressed="${on}"><span class="lft">${I(ic,19)} ${label}</span><span class="tgl ${on?"on":""}"><i></i></span></button>`;
+ const act=activeOrders().length;
+ return `<div class="head"><div><div class="hi">${t("account")}</div><div class="city">${t("profile")}</div></div>
+  ${bellBtn()}</div>
+ <div class="prof"><div class="av">AN</div><div><h2>Aïssatou N.</h2><p>${t("member_since",esc(S.zone))}</p></div></div>
+ <div class="roleswap"><div class="rl">${t("demo_switch")}</div><div class="rbtns">
+  ${[["client","role_client"],["merchant","role_merchant"],["admin","role_admin"]].map(([k,l])=>
+   `<button class="rb ${S.role===k?"on":""}" onclick="setRole('${k}')">${t(l)}</button>`).join("")}
+ </div><p class="rn">${t("role_note")}</p></div>
+ ${S.role==="client"?`<div class="impact grain"><h3>${I("leaf",18)} ${t("impact")}</h3>
+  <div class="irow"><div class="st"><b>${im.meals}</b><span>${t("meals_saved")}</span></div>
+  <div class="st"><b>${im.co2} kg</b><span>${t("co2_avoided")}</span></div>
+  <div class="st"><b>${Fk(im.saved)} F</b><span>${t("money_saved")}</span></div></div>
+  <p style="margin:13px 0 0;font-size:10.5px;color:#A9C4BC;line-height:1.5">${t("impact_note")}</p></div>`:""}
  <div class="rows">
-  ${row('wallet','Moyens de paiement','Wave',"toast('Wave et Orange Money liés')")}
-  ${row('globe','Langue','Français',"toast('Langue: Français')")}
-  ${row('receipt','Mes commandes',S.order?'1 en cours':'Aucune',"go('orders')")}
-  ${row('gift','Inviter un ami','1 000 FCFA',"toast('Lien de parrainage copié')")}
- </div>`;
+  ${row("wallet",t("pay_methods"),"Wave","payToast()")}
+  ${row("globe",t("language"),LANGS[LI][2],"openLang()")}
+  ${row("pin",t("your_zone"),esc(S.zone),"openZone()")}
+  ${row("receipt",t("row_orders"),act?t("n_active",act):t("none_f"),"go('orders')")}
+  ${tgl("moon",t("dark_mode"),dark,"toggleTheme()")}
+  ${tgl("bell",t("notifs"),S.alerts,"toggleAlerts()")}
+  ${row("gift",t("invite_friend"),t("referral"),"referral()")}
+  ${row("trash",t("reset_demo"),"","resetAll()")}
+ </div>
+ <p class="legal">${t("legal_offers")}</p>`;
 }
 
-/* ---------- commerçant ---------- */
-const MOFF=[{n:"Pains & viennoiseries",p:1000,q:5,left:2,w:"19:30 - 20:30"},
- {n:"Panier pâtisserie",p:1500,q:3,left:0,w:"19:00 - 20:00"}];
-const MCODES=[{c:"AI4-7C2K",o:"Pains & viennoiseries",s:"retire"},{c:"AI4-9M1P",o:"Pains & viennoiseries",s:"retire"},
- {c:"AI4-3XQ8",o:"Panier pâtisserie",s:"attente"},{c:"AI4-K48P",o:"Pains & viennoiseries",s:"attente"}];
-function mhead(t,s){return `<div class="head"><div><div class="hi">Boulangerie Jaune</div><div class="city">${t}</div></div>
- <button class="round" onclick="go('profile')">${I('user',20)}</button></div>${s?`<p class="sub2">${s}</p>`:''}`}
+/* =========================================================
+   Ecrans commercant
+   ========================================================= */
+const MERCH="Boulangerie Jaune";
+const mOffers=()=>CAT().filter(d=>d.merch===MERCH);
+const mOrders=()=>S.orders.filter(o=>{const d=byId(o.id);return d&&d.merch===MERCH});
+function mhead(title,sub){
+ return `<div class="head"><div><div class="hi">${MERCH}</div><div class="city">${title}</div></div>
+ <button class="round" onclick="go('profile')" aria-label="${esc(t("profile"))}">${I("user",20)}</button></div>${sub?`<p class="sub2">${sub}</p>`:""}`;
+}
 function mhome(){
- return `${mhead("Aujourd'hui","Sacré-Cœur, Keur Gorgui")}
- <div class="impact grain"><h3>${I('store',18)} Votre journée</h3>
-  <div class="irow"><div class="st"><b>8</b><span>offres publiées</span></div>
-  <div class="st"><b>6</b><span>réservées</span></div>
-  <div class="st"><b>9 000 F</b><span>encaissés</span></div></div></div>
- <div class="sec"><div><h2>Offres en ligne</h2><p>Modifiables jusqu'à 18h</p></div></div>
- <div class="list">${MOFF.map(o=>`<div class="rc vrow"><div class="vtile">${I('bag',22)}</div>
-  <div class="rc-body"><div class="rc-top"><h3>${o.n}</h3></div>
-  <p class="mrc">Retrait ${o.w}</p>
-  <p class="prices"><b>${F(o.p)} <i>FCFA</i></b><span style="font-size:12px;color:var(--muted)">${o.q} publiées &middot; ${o.left} restantes</span></p>
-  </div></div>`).join('')}</div>
+ const offs=mOffers(),ords=mOrders();
+ const published=offs.reduce((a,d)=>a+d.left,0);
+ const reserved=ords.filter(o=>o.status!=="cancel").reduce((a,o)=>a+o.qty,0);
+ const cash=ords.filter(o=>o.status==="done").reduce((a,o)=>{const d=byId(o.id);return a+d.price*o.qty},0);
+ return `${mhead(t("m_today"),t("m_zone"))}
+ <div class="impact grain"><h3>${I("store",18)} ${t("m_day")}</h3>
+  <div class="irow"><div class="st"><b>${published}</b><span>${t("m_published")}</span></div>
+  <div class="st"><b>${reserved}</b><span>${t("m_reserved")}</span></div>
+  <div class="st"><b>${Fk(cash)} F</b><span>${t("m_earned")}</span></div></div></div>
+ <div class="sec"><div><h2>${t("m_online")}</h2><p>${t("m_editable")}</p></div></div>
+ ${offs.length?`<div class="list">${offs.map(o=>`<div class="rc vrow"><div class="vtile">${I("bag",22)}</div>
+  <div class="rc-body"><div class="rc-top"><h3>${esc(o.name)}</h3></div>
+  <p class="mrc">${o.from} - ${o.to}</p>
+  <p class="prices"><b>${F(o.price)} <i>FCFA</i></b>
+   <span style="font-size:11.5px;color:var(--muted)">${t("m_sold_line",o.left,stockOf(o))}</span></p>
+  <div class="metarow">${pillHtml(o)}</div>
+  </div></div>`).join("")}</div>`
+ :`<div class="empty"><div class="ic">${I("bag",28)}</div><h3>${t("m_none")}</h3><p>${t("m_none_p")}</p></div>`}
  <div style="padding:0 22px 20px">
-  <button class="btn btn-main" onclick="go('mai')">${I('plus',18)} Publier une offre</button></div>`;
+  <button class="btn btn-main" onclick="openPublish()">${I("plus",18)} ${t("m_publish")}</button></div>`;
 }
 function mai(){
  const w=[5,7,4,6,9,8,7],dd=["lun","mar","mer","jeu","ven","sam","dim"];
- return `${mhead("Prévision IA")}
- <div class="fc grain"><div class="eye">${I('trend',13)} Demain</div>
- <h3>7 invendus prévus entre 19h30 et 20h30</h3>
- <p>Calculé sur vos six dernières semaines, le jour de la semaine, la période de paie et la météo à Dakar.</p>
- <div class="bars">${w.map((v,i)=>`<div class="${i===6?'pred':''}" style="height:${v/10*100}%"><small>${dd[i]}</small></div>`).join('')}</div>
- <div class="conf"><span>Confiance du modèle</span><span>84%</span></div><div class="confbar"><i></i></div></div>
+ const dde=["mon","tue","wed","thu","fri","sat","sun"];
+ const lab=LI===1?dde:dd;
+ return `${mhead(t("m_forecast"))}
+ <div class="fc grain"><div class="eye">${I("trend",13)} ${t("m_tomorrow")}</div>
+ <h3>${t("m_fc_title",7,"19:30","20:30")}</h3>
+ <p>${t("m_fc_note")}</p>
+ <div class="bars">${w.map((v,i)=>`<div class="${i===6?"pred":""}" style="height:${v/10*100}%"><small>${lab[i]}</small></div>`).join("")}</div>
+ <div class="conf"><span>${t("m_conf")}</span><span>84%</span></div><div class="confbar"><i></i></div></div>
  <div class="panel">
-  <div class="r"><span>Prix conseillé</span><b>1 000 FCFA</b></div>
-  <div class="r"><span>Recette estimée</span><b>7 000 FCFA</b></div>
-  <div class="r"><span>Perte évitée</span><b style="color:var(--emerald)">14 000 FCFA</b></div>
-  <div class="r"><span>Commission AI4Food</span><b>15%</b></div></div>
+  <div class="r"><span>${t("m_adv_price")}</span><b>1 000 FCFA</b></div>
+  <div class="r"><span>${t("m_est_rev")}</span><b>7 000 FCFA</b></div>
+  <div class="r"><span>${t("m_loss")}</span><b style="color:var(--emerald)">14 000 FCFA</b></div>
+  <div class="r"><span>${t("m_commission")}</span><b>15%</b></div></div>
  <div style="padding:0 22px 22px">
-  <button class="btn btn-main" onclick="toast('7 offres publiées pour demain 19h30')">${I('check',18)} Publier 7 offres</button>
+  <button class="btn btn-main" onclick="publishForecast()">${I("check",18)} ${t("m_publish_n",7)}</button>
   <div style="height:9px"></div>
-  <button class="btn btn-ghost" onclick="toast('Quantité modifiable jusqu\'à 18h')">Modifier la quantité</button></div>`;
+  <button class="btn btn-ghost" onclick="openPublish()">${t("m_adjust")}</button></div>`;
 }
 function mcodes(){
- return `${mhead("Retraits","Scannez ou saisissez le code du client")}
- <div class="panel" style="padding:14px 17px;margin-bottom:16px">
-  <div style="display:flex;gap:10px;align-items:center;color:var(--muted);font-size:13px">${I('search',18)} Saisir un code AI4-XXXX</div></div>
- <div class="list">${MCODES.map((c,i)=>`<div class="rc vrow"><div class="vtile">${I('receipt',22)}</div>
-  <div class="rc-body"><div class="rc-top"><h3 style="font-family:var(--dp);letter-spacing:.04em">${c.c}</h3></div>
-  <p class="mrc">${c.o}</p>
-  ${c.s==='retire'?`<span class="save" style="margin-top:8px">${I('check',13)} Retiré</span>`
-   :`<button class="invite" onclick="toast('Retrait validé: '+'${c.c}')">${I('check',13)} Valider le retrait</button>`}
-  </div></div>`).join('')}</div>`;
+ const ords=mOrders().filter(o=>o.status==="active"||o.status==="done")
+   .sort((a,b)=>(a.status==="active"?0:1)-(b.status==="active"?0:1)||b.ts-a.ts);
+ return `${mhead(t("m_pickups"),t("m_scan"))}
+ <div style="padding:0 22px 6px">
+  <div class="fld"><input id="mcode" class="codein" placeholder="${t("m_code_ph")}" maxlength="8"
+    autocomplete="off" spellcheck="false" aria-label="${esc(t("m_code_ph"))}"></div>
+  <button class="btn btn-main" onclick="validateCode()">${I("scan",18)} ${t("m_validate")}</button></div>
+ <div style="height:16px"></div>
+ ${ords.length?`<div class="list">${ords.map(o=>{const d=byId(o.id);return `<div class="rc vrow"><div class="vtile">${I("receipt",22)}</div>
+  <div class="rc-body"><div class="rc-top"><h3 style="font-family:var(--dp);letter-spacing:.04em">${o.code}</h3></div>
+  <p class="mrc">${o.qty} × ${esc(d.name)}</p>
+  ${o.status==="done"?`<span class="save" style="margin-top:8px">${I("check",13)} ${t("st_done")}</span>`
+   :`<button class="invite" onclick="validate('${o.oid}')">${I("check",13)} ${t("m_validate")}</button>`}
+  </div></div>`}).join("")}</div>`
+ :`<div class="empty"><div class="ic">${I("scan",28)}</div><h3>${t("m_no_codes")}</h3><p>${t("m_no_codes_p")}</p></div>`}`;
 }
 
-/* ---------- admin ---------- */
-const AORD=[{m:"Boulangerie Jaune",c:"AI4-7C2K",a:1000,s:"Retiré"},{m:"Chez Loutcha",c:"AI4-2WQ9",a:1500,s:"Retiré"},
- {m:"Terrou-Bi",c:"AI4-8LM3",a:5000,s:"En attente"},{m:"Auchan Sacré-Cœur",c:"AI4-5ZK1",a:2500,s:"En attente"},
- {m:"Marché Kermel",c:"AI4-6TR4",a:1000,s:"Non retiré"},{m:"La Galette",c:"AI4-1BX7",a:1500,s:"Retiré"}];
+/* =========================================================
+   Ecrans admin
+   ========================================================= */
 function adash(){
- const w=[42,55,38,61,74,88,69],dd=["lun","mar","mer","jeu","ven","sam","dim"];
- const nLive=V.filter(v=>v.live).length;
- return `<div class="head"><div><div class="hi">AI4Food &middot; Dakar</div><div class="city">Tableau de bord</div></div>
-  <button class="round" onclick="go('profile')">${I('user',20)}</button></div>
- <div class="impact grain"><h3>${I('trend',18)} Aujourd'hui</h3>
-  <div class="irow"><div class="st"><b>69</b><span>paniers vendus</span></div>
-  <div class="st"><b>142 500 F</b><span>volume</span></div>
-  <div class="st"><b>21 375 F</b><span>commissions</span></div></div>
-  <div class="irow" style="margin-top:9px"><div class="st"><b>91%</b><span>taux de retrait</span></div>
-  <div class="st"><b>83 kg</b><span>CO₂e évités</span></div>
-  <div class="st"><b>1 240</b><span>utilisateurs</span></div></div></div>
- <div class="fc grain"><div class="eye">${I('trend',13)} 7 derniers jours</div>
-  <h3>Paniers vendus par jour</h3>
-  <div class="bars">${w.map((v,i)=>`<div class="${i===6?'pred':''}" style="height:${v/90*100}%"><small>${dd[i]}</small></div>`).join('')}</div>
-  <div class="conf" style="margin-top:28px"><span>Croissance semaine</span><span>+18%</span></div></div>
- <div class="sec"><div><h2>Réseau</h2><p>${nLive} partenaires actifs &middot; ${V.length-nLive} prospects</p></div>
-  <button class="link" onclick="go('places')">Pipeline ${I('chevR',14)}</button></div>
+ const w=[42,55,38,61,74,88,69],dd=["lun","mar","mer","jeu","ven","sam","dim"],dde=["mon","tue","wed","thu","fri","sat","sun"];
+ const lab=LI===1?dde:dd;
+ const nLive=V.filter(v=>v.live||offersAt(v).length).length;
+ const mine=S.orders.filter(o=>o.status!=="cancel");
+ const vol=mine.reduce((a,o)=>{const d=byId(o.id);return a+(d?d.price*o.qty:0)},0);
+ const baskets=69+mine.reduce((a,o)=>a+o.qty,0);
+ const volume=142500+vol;
+ const done=S.orders.filter(o=>o.status==="done").length,tot=S.orders.filter(o=>o.status!=="cancel").length;
+ const rate=tot?Math.round(done/tot*100):0;
+ return `<div class="head"><div><div class="hi">AI4Food &middot; Dakar</div><div class="city">${t("a_dash")}</div></div>
+  ${bellBtn()}</div>
+ <div class="impact grain"><h3>${I("trend",18)} ${t("a_today")}</h3>
+  <div class="irow"><div class="st"><b>${baskets}</b><span>${t("a_baskets")}</span></div>
+  <div class="st"><b>${Fk(volume)} F</b><span>${t("a_volume")}</span></div>
+  <div class="st"><b>${Fk(volume*.15)} F</b><span>${t("a_commissions")}</span></div></div>
+  <div class="irow" style="margin-top:9px"><div class="st"><b>${rate}%</b><span>${t("a_rate")}</span></div>
+  <div class="st"><b>${(83+impact().co2).toFixed(0)} kg</b><span>${t("co2_avoided")}</span></div>
+  <div class="st"><b>1 240</b><span>${t("a_users")}</span></div></div></div>
+ <div class="fc grain"><div class="eye">${I("trend",13)} ${t("a_7d")}</div>
+  <h3>${t("a_perday")}</h3>
+  <div class="bars">${w.map((v,i)=>`<div class="${i===6?"pred":""}" style="height:${v/90*100}%"><small>${lab[i]}</small></div>`).join("")}</div>
+  <div class="conf" style="margin-top:28px"><span>${t("a_growth")}</span><span>+18%</span></div></div>
+ <div class="sec"><div><h2>${t("a_network")}</h2><p>${t("a_prospects",nLive,V.length-nLive)}</p></div>
+  <button class="link" onclick="go('places')">${t("a_pipeline")} ${I("chevR",14)}</button></div>
  <div class="panel" style="margin-bottom:22px">
-  <div class="r"><span>Invitations envoyées</span><b>34</b></div>
-  <div class="r"><span>En négociation</span><b>7</b></div>
-  <div class="r"><span>Contrats signés ce mois</span><b style="color:var(--emerald)">4</b></div>
-  <div class="r"><span>Offres publiées aujourd'hui</span><b>76</b></div></div>`;
+  <div class="r"><span>${t("a_invites")}</span><b>${34+S.invited.length}</b></div>
+  <div class="r"><span>${t("a_negot")}</span><b>7</b></div>
+  <div class="r"><span>${t("a_signed")}</span><b style="color:var(--emerald)">4</b></div>
+  <div class="r"><span>${t("a_pub_today")}</span><b>${76+S.custom.length}</b></div></div>`;
 }
+const AORD=[{m:"Boulangerie Jaune",c:"AI4-7C2K",a:1000,s:"done"},{m:"Chez Loutcha",c:"AI4-2WQ9",a:1500,s:"done"},
+ {m:"Terrou-Bi",c:"AI4-8LM3",a:5000,s:"active"},{m:"Auchan Sacré-Cœur",c:"AI4-5ZK1",a:2500,s:"active"},
+ {m:"Marché Kermel",c:"AI4-6TR4",a:1000,s:"expired"},{m:"La Galette",c:"AI4-1BX7",a:1500,s:"done"}];
 function aorders(){
- return `<div class="head"><div><div class="hi">Suivi opérations</div><div class="city">Commandes</div></div>
-  <button class="round" onclick="go('adash')">${I('close',20)}</button></div>
- <div class="sec"><div><h2>${AORD.length} commandes récentes</h2><p>Dakar, aujourd'hui</p></div></div>
- <div class="list">${AORD.map(o=>`<div class="rc vrow"><div class="vtile">${I('receipt',22)}</div>
-  <div class="rc-body"><div class="rc-top"><h3>${o.m}</h3></div>
-  <p class="mrc" style="font-family:var(--dp);letter-spacing:.03em">${o.c}</p>
-  <p class="prices"><b>${F(o.a)} <i>FCFA</i></b>
-   <span style="font-size:11.5px;font-weight:600;color:${o.s==='Retiré'?'var(--emerald)':o.s==='Non retiré'?'#B03A4C':'var(--muted)'}">${o.s}</span></p>
-  </div></div>`).join('')}</div>
- <p class="legal">Vue réservée aux administrateurs. Les rôles seront appliqués côté backend.</p>`;
+ const mine=S.orders.slice().sort((a,b)=>b.ts-a.ts).map(o=>{const d=byId(o.id);
+   return d?{m:d.merch,c:o.code,a:d.price*o.qty,s:o.status,live:true}:null}).filter(Boolean);
+ const rows=mine.concat(AORD);
+ return `<div class="head"><div><div class="hi">${t("a_ops")}</div><div class="city">${t("tab_aorders")}</div></div>
+  <button class="round" onclick="go('adash')" aria-label="${esc(t("a_dash"))}">${I("close",20)}</button></div>
+ <div class="sec"><div><h2>${t("a_recent",rows.length)}</h2><p>${t("a_live",mine.length)}</p></div></div>
+ <div class="list">${rows.map(o=>`<div class="rc vrow"><div class="vtile">${I("receipt",22)}</div>
+  <div class="rc-body"><div class="rc-top"><h3>${esc(o.m)}</h3></div>
+  <p class="mrc" style="font-family:var(--dp);letter-spacing:.03em">${o.c}${o.live?" &middot; démo":""}</p>
+  <p class="prices"><b>${F(o.a)} <i>FCFA</i></b>${statBadge(o.s)}</p>
+  </div></div>`).join("")}</div>
+ <p class="legal">${t("a_legal")}</p>`;
 }
 
-function detail(d){
- return `<div class="hero"><img src="${P[d.img]}" alt=""><span class="sc"></span>
-  <div class="nav"><button class="circ" onclick="closeSheet()">${I('back',19)}</button>
-   <div class="g"><button class="circ ${S.fav.has(d.id)?'on':''}" onclick="fav(${d.id});open_(${d.id})">
-     ${I('heart',19,S.fav.has(d.id)?'fill="currentColor"':'')}</button>
-    <button class="circ" onclick="toast('Lien copié')">${I('share',19)}</button></div></div>
-  <span class="left">${d.left} restant${d.left>1?'s':''}</span></div>
+/* =========================================================
+   Feuilles (sheets)
+   ========================================================= */
+function shHead(title,sub,closeFn){
+ return `<div class="shhead"><div><h2>${title}</h2>${sub?`<p>${sub}</p>`:""}</div>
+  <button class="circ" onclick="${closeFn||"back()"}" aria-label="${esc(t("cancel"))}">${I("close",19)}</button></div>`;
+}
+function detail(id){
+ const d=byId(id);if(!d)return "";
+ const st=statusOf(d),w=windowOf(d),max=stockOf(d),re=reasonsOf(d);
+ return `<div class="hero"><img src="${P[d.img]||P.pain}" alt=""><span class="sc"></span>
+  <div class="nav"><button class="circ" onclick="back()" aria-label="${esc(t("cancel"))}">${I("back",19)}</button>
+   <div class="g"><button class="circ ${isFav(d.id)?"on":""}" onclick="fav(${d.id})" aria-label="${esc(t("favorites"))}">
+     ${I("heart",19,isFav(d.id)?'fill="currentColor"':"")}</button>
+    <button class="circ" onclick="shareOffer()" aria-label="share">${I("share",19)}</button></div></div>
+  <span class="left">${st==="sold"?t("sold"):(max===1?t("left_1"):t("left_n",max))}</span></div>
  <div class="detail">
-  <h2>${d.name}</h2>
-  <p class="by">${d.merch} <span class="rate">${I('star',14)} ${d.rate.toFixed(1)} <span style="color:var(--muted);font-weight:400">(${d.avis} avis)</span></span></p>
+  <h2>${esc(d.name)}</h2>
+  <p class="by">${esc(d.merch)} <span class="rate">${I("star",14)} ${d.rate.toFixed(1)}
+   <span style="color:var(--muted);font-weight:400">${t("reviews",F(d.avis))}</span></span></p>
   <div class="pline"><b>${F(d.price)} <i>FCFA</i></b><s>${F(d.was)} FCFA</s>
-   <span class="save" style="margin:0">${I('tag',13)} Économisez ${pct(d)}%</span></div>
-  <p class="desc">${d.desc}</p>
+   <span class="save" style="margin:0">${I("tag",13)} ${t("save_pct",pct(d))}</span></div>
+  <div class="metarow" style="margin:0 0 14px">${pillHtml(d)}
+   <span class="dist">${I("pin",12)} ${t("away",fmtKm(distOf(d)))}</span></div>
+  <p class="desc">${esc(d.desc)}</p>
+  <button class="why" onclick="openWhy(${d.id})" style="width:100%;text-align:left;display:block">
+   <h4>${I("spark",16)} ${t("why_title")}</h4>
+   <div class="wr" style="margin-bottom:0"><span style="flex:1;font-size:12.5px">${re.list[0]||t("why_deal",pct(d))}</span>
+    <span class="vl">${Math.round(re.score*100)}%</span>${I("chevR",14)}</div></button>
   <div class="info">
-   <div class="r">${I('clock',19)}<p><small>À récupérer aujourd'hui</small>Entre ${d.from} et ${d.to}</p></div>
-   <div class="r">${I('pin',19)}<p><small>Adresse</small>${d.addr}
-     <button class="lnk" onclick="toast('Carte ouverte')">Voir sur la carte ${I('chevR',13)}</button></p></div>
-   <div class="r">${I('bag',19)}<p><small>Quantité</small>
-     <span class="stepper"><button onclick="qty(-1)">${I('minus',16)}</button><span>${S.qty}</span>
-     <button onclick="qty(1)">${I('plus',16)}</button></span></p></div>
+   <div class="r">${I("clock",19)}<p><small>${w.tm?t("pickup_tmr"):t("pickup_today")}</small>${t("between",d.from,d.to)}</p></div>
+   <div class="r">${I("pin",19)}<p><small>${t("address")}</small>${esc(d.addr)}
+     <button class="lnk" onclick="fromDetailToMap(${d.id})">${t("see_map")} ${I("chevR",13)}</button></p></div>
+   <div class="r">${I("bag",19)}<p><small>${t("qty")}</small>
+     <span class="stepper"><button onclick="qty(-1)" aria-label="-">${I("minus",16)}</button><span>${S.qty}</span>
+     <button onclick="qty(1)" aria-label="+">${I("plus",16)}</button></span></p></div>
   </div>
-  <div class="good"><h4>${I('leaf',16)} Bon à savoir</h4><ul>
-   <li>${I('check',14)} Préparé aujourd'hui, à consommer le jour même.</li>
-   <li>${I('check',14)} Apportez votre sac.</li>
-   <li>${I('check',14)} Annulation gratuite jusqu'à 2h avant.</li></ul></div>
+  <div class="good"><h4>${I("leaf",16)} ${t("know")}</h4><ul>
+   <li>${I("check",14)} ${t("k1")}</li>
+   <li>${I("check",14)} ${t("k2")}</li>
+   <li>${I("check",14)} ${t("k3")}</li></ul></div>
  </div>
- <div class="bar"><button class="btn btn-main" onclick="toPay()">Réserver • ${F(d.price*S.qty)} FCFA</button></div>`;
+ <div class="bar">${st==="sold"
+  ?`<button class="btn btn-ghost" disabled style="opacity:.6">${t("sold_out_btn")}</button>`
+  :`<button class="btn btn-main" onclick="toPay()">${t("reserve")} • ${F(d.price*S.qty)} FCFA</button>`}</div>`;
 }
-function payment(d){
- return `<div class="hero" style="height:186px"><img src="${P[d.img]}" alt=""><span class="sc"></span>
-  <div class="nav"><button class="circ" onclick="open_(${d.id})">${I('back',19)}</button><div class="g"></div></div></div>
- <div class="detail"><h2>Paiement</h2><p class="by">${S.qty} × ${d.name} &middot; ${d.merch}</p>
- ${PAY.map(p=>`<button class="pay ${S.pay===p.id?'on':''}" onclick="setPay('${p.id}')">
+function whySheet(id){
+ const d=byId(id);if(!d)return "";
+ const re=reasonsOf(d);
+ return `${shHead(t("why_title"),t("why_sub"))}
+ <div class="shbody">
+  <div class="sec"><div><span class="eyebrow">${I("spark",12)} ${esc(d.name)}</span>
+   <h2>${t("why_match",Math.round(re.score*100))}</h2></div></div>
+  <div style="padding:0 22px 16px">
+   <div class="why">${WEIGHTS.map(([k,w])=>`<div class="wr"><span class="nm">${t(k)}</span>
+     <span class="bar"><i style="width:${Math.round(re.f[k]*100)}%"></i></span>
+     <span class="vl">${Math.round(re.f[k]*100)}</span></div>`).join("")}</div>
+   <div class="good"><h4>${I("info",16)} ${t("ai_eyebrow")}</h4><ul>
+    ${(re.list.length?re.list:[t("why_deal",pct(d))]).map(x=>`<li>${I("check",14)} ${x}</li>`).join("")}</ul></div>
+  </div>
+ </div>
+ <div class="bar"><button class="btn btn-main" onclick="back()">${t("reserve")}</button></div>`;
+}
+function payment(id){
+ const d=byId(id);if(!d)return "";
+ return `<div class="hero" style="height:186px"><img src="${P[d.img]||P.pain}" alt=""><span class="sc"></span>
+  <div class="nav"><button class="circ" onclick="back()" aria-label="${esc(t("cancel"))}">${I("back",19)}</button><div class="g"></div></div></div>
+ <div class="detail"><h2>${t("payment")}</h2><p class="by">${S.qty} × ${esc(d.name)} &middot; ${esc(d.merch)}</p>
+ ${PAY.map(p=>`<button class="pay ${S.pay===p.id?"on":""}" onclick="setPay('${p.id}')">
    <span class="lg" style="background:${p.bg}">${p.k}</span>
-   <span class="t"><b>${p.n}</b><span>${p.s}</span></span>
-   <span class="radio">${S.pay===p.id?I('check',12):''}</span></button>`).join('')}
+   <span class="t"><b>${p.n}</b><span>${t(p.sk)}</span></span>
+   <span class="radio">${S.pay===p.id?I("check",12):""}</span></button>`).join("")}
  <div class="info" style="padding:4px 16px">
-  <div class="r"><p style="display:flex;justify-content:space-between"><span>Sous-total</span><b>${F(d.price*S.qty)} FCFA</b></p></div>
-  <div class="r"><p style="display:flex;justify-content:space-between"><span>Frais de service</span><b>0 FCFA</b></p></div>
-  <div class="r"><p style="display:flex;justify-content:space-between"><span style="font-weight:600">Total</span><b>${F(d.price*S.qty)} FCFA</b></p></div></div></div>
- <div class="bar"><button class="btn btn-main" onclick="confirm_()">${I('wallet',18)} Payer ${F(d.price*S.qty)} FCFA</button>
- <p class="note">Annulation gratuite jusqu'à 2h avant le retrait</p></div>`;
+  <div class="r"><p style="display:flex;justify-content:space-between"><span>${t("subtotal")}</span><b>${F(d.price*S.qty)} FCFA</b></p></div>
+  <div class="r"><p style="display:flex;justify-content:space-between"><span>${t("service_fee")}</span><b>0 FCFA</b></p></div>
+  <div class="r"><p style="display:flex;justify-content:space-between"><span style="font-weight:600">${t("total")}</span><b>${F(d.price*S.qty)} FCFA</b></p></div></div></div>
+ <div class="bar"><button class="btn btn-main" onclick="confirm_()">${I("wallet",18)} ${t("pay_btn",F(d.price*S.qty))}</button>
+ <p class="note">${t("free_cancel")}</p></div>`;
 }
-function done(d){
- const o=S.order;
- return `<div class="hero" style="height:186px"><img src="${P[d.img]}" alt=""><span class="sc"></span></div>
- <div class="detail"><h2>Commande confirmée</h2>
- <p class="by">Jërëjëf. Présentez votre code chez ${d.merch}, entre ${d.from} et ${d.to}.</p>
- <div class="ticket" style="margin:14px 0 0">
-  <div class="tk-top"><h3>${d.merch}</h3><p>${o.qty} × ${d.name}</p>
-   <div class="lbl">${I('clock',13)} À récupérer aujourd'hui</div><p class="win">${d.from} - ${d.to}</p></div>
-  <div class="perf" style="--c:var(--cream)"><i></i></div>
-  <div class="tk-bot"><div class="qr">${qr(d.id)}</div>
-   <div><div class="cl">Code de retrait</div><div class="code">${o.code}</div>
-   <p>Vous venez d'éviter ${(1.2*o.qty).toFixed(1)} kg de CO₂e.</p></div></div></div></div>
- <div class="bar"><button class="btn btn-mint" onclick="closeSheet();go('orders')">Voir ma commande</button></div>`;
+function done(oid){
+ const o=S.orders.find(x=>x.oid===oid);if(!o)return "";
+ const d=byId(o.id);
+ return `<div class="hero" style="height:186px"><img src="${P[d.img]||P.pain}" alt=""><span class="sc"></span></div>
+ <div class="detail"><h2>${t("confirmed")}</h2>
+ <p class="by">${t("thanks",esc(d.merch),d.from,d.to)}</p>
+ ${ticket(o,false)}</div>
+ <div class="bar"><button class="btn btn-mint" onclick="closeSheet();go('orders')">${t("see_order")}</button></div>`;
+}
+function searchSheet(){
+ return `<div class="srchhead">
+   <div class="srchbox">${I("search",18)}
+    <input id="sq" value="${esc(S.q)}" placeholder="${esc(t("search_ph"))}" oninput="searchInput(this.value)"
+      autocomplete="off" spellcheck="false" aria-label="${esc(t("search_t"))}"></div>
+   <button class="txtb" onclick="closeSheet()">${t("cancel")}</button></div>
+ <div class="shbody" id="sres">${searchResults()}</div>`;
+}
+function searchResults(){
+ const q=S.q.trim().toLowerCase();
+ if(!q){
+  return `${S.recent.length?`<div class="reslab">${t("recent")}</div>
+   <div class="recents">${S.recent.map(r=>`<button class="chip" onclick="searchSet('${jsq(r)}')">${esc(r)}</button>`).join("")}
+   <button class="chip" onclick="clearRecent()">${t("clear")}</button></div>`:""}
+  <div class="reslab">${t("cat_all")}</div>
+  <div class="recents">${CATS.slice(1).map(c=>`<button class="chip" onclick="searchSet('${jsq(c)}')">${catL(c)}</button>`).join("")}</div>
+  <div class="reslab">${t("ai_title")}</div>
+  <div class="list">${ranked(CAT().filter(d=>statusOf(d)!=="sold")).slice(0,3).map(d=>card(d,{})).join("")}</div>`;
+ }
+ const m=s=>String(s).toLowerCase().indexOf(q)>=0;
+ const offs=CAT().filter(d=>m(d.name)||m(d.merch)||m(d.cat)||m(d.desc)||m(d.addr));
+ const shops=V.filter(v=>m(v.n)||m(v.z)||m(v.c));
+ if(!offs.length&&!shops.length){
+  return `<div class="empty"><div class="ic">${I("search",28)}</div><h3>${t("no_res",esc(S.q))}</h3><p>${t("no_res_p")}</p></div>`;
+ }
+ return `${offs.length?`<div class="reslab">${t("res_offers")} &middot; ${offs.length}</div>
+   <div class="list">${sortList(offs).map(d=>card(d,{})).join("")}</div>`:""}
+  ${shops.length?`<div class="reslab">${t("res_shops")} &middot; ${shops.length}</div>
+   <div class="list">${shops.slice(0,8).map(vrow).join("")}</div>`:""}
+  <div style="height:20px"></div>`;
+}
+function notifSheet(){
+ const l=S.notifs;
+ return `${shHead(t("notif_title"),null,"closeSheet()")}
+ <div class="shbody">
+  ${l.length?`<div class="list" style="padding-top:14px">${l.map(n=>{const[a,b]=notifText(n);
+    return `<div class="nrow ${n.read?"":"unread"}"><div class="ni">${I(n.ic||"bell",19)}</div>
+     <div><b>${a}</b><p>${b}</p><span class="ago">${ago(n.ts)}</span></div></div>`}).join("")}</div>
+   <div style="padding:0 22px 24px"><button class="btn btn-ghost" onclick="markRead()">${I("check",18)} ${t("mark_read")}</button></div>`
+  :`<div class="empty"><div class="ic">${I("bell",28)}</div><h3>${t("no_notifs")}</h3><p>${t("no_notifs_p")}</p></div>`}
+ </div>`;
+}
+function zoneSheet(){
+ return `${shHead(t("your_zone"),t("zone_sub"),"closeSheet()")}
+ <div class="shbody">
+  <div style="padding:16px 22px 14px"><button class="btn btn-ghost" onclick="useGps()">${I("target",18)} ${t("use_gps")}</button></div>
+  <div class="rows">${ZONES.map(z=>`<button class="zrow ${S.zone===z[0]&&!S.pos?"on":""}" onclick="setZone('${jsq(z[0])}')">
+    <span>${z[0]}</span><span>${fmtKm(kmBetween(userPos(),{la:z[2],lo:z[1]}))} ${S.zone===z[0]&&!S.pos?I("check",15):""}</span></button>`).join("")}</div>
+  <div style="height:24px"></div>
+ </div>`;
+}
+function langSheet(){
+ return `${shHead(t("language"),null,"closeSheet()")}
+ <div class="shbody"><div class="rows" style="padding-top:16px">
+  ${LANGS.map((l,i)=>`<button class="zrow ${LI===i?"on":""}" onclick="setLang(${i})">
+   <span>${l[2]}</span><span>${l[1]} ${LI===i?I("check",15):""}</span></button>`).join("")}</div>
+  <div style="height:24px"></div></div>`;
+}
+function publishSheet(){
+ return `${shHead(t("m_new"),MERCH,"closeSheet()")}
+ <div class="shbody"><div style="padding:18px 22px 22px">
+  <div class="fld"><label for="pn">${t("m_name")}</label>
+   <input id="pn" value="Pains &amp; viennoiseries" maxlength="42"></div>
+  <div class="two">
+   <div class="fld"><label for="pp">${t("m_price")}</label><input id="pp" type="number" inputmode="numeric" value="1000" min="100" step="100"></div>
+   <div class="fld"><label for="pw">${t("m_was")}</label><input id="pw" type="number" inputmode="numeric" value="3000" min="100" step="100"></div></div>
+  <div class="two">
+   <div class="fld"><label for="pq">${t("m_qty")}</label><input id="pq" type="number" inputmode="numeric" value="6" min="1" max="40"></div>
+   <div class="fld"><label for="pf">${t("m_from")}</label><input id="pf" type="time" value="19:30"></div>
+   <div class="fld"><label for="pt">${t("m_to")}</label><input id="pt" type="time" value="20:30"></div></div>
+  <div class="fld"><label for="pd">${t("m_desc")}</label>
+   <textarea id="pd" rows="3" placeholder="${esc(t("m_desc_ph"))}">Baguettes du jour, croissants et pains au chocolat. Contenu variable selon les invendus.</textarea></div>
+  <p class="hint">${t("m_editable")} &middot; ${t("m_commission")} 15%</p>
+  <button class="btn btn-main" onclick="doPublish()">${I("check",18)} ${t("m_post")}</button>
+ </div></div>`;
+}
+const SHEETS={detail:detail,why:whySheet,payment:payment,done:done,search:searchSheet,
+ notifs:notifSheet,zone:zoneSheet,lang:langSheet,publish:publishSheet};
+
+/* ---------- pile de feuilles ---------- */
+let lastFocus=null;
+function pushSheet(name,arg){
+ if(!S.stack.length)lastFocus=document.activeElement;
+ S.stack.push({n:name,a:arg});drawSheet();
+}
+function reSheet(){if(S.stack.length)drawSheet()}
+function drawSheet(){
+ const top=S.stack[S.stack.length-1];if(!top)return;
+ const s=el("sheet");
+ s.innerHTML=SHEETS[top.n](top.a);
+ s.classList.add("open");s.setAttribute("aria-hidden","false");
+ const f=s.querySelector("input")||s.querySelector("button");
+ if(f&&top.n==="search")setTimeout(()=>f.focus(),60);
+}
+function back(){
+ S.stack.pop();
+ if(!S.stack.length)closeSheet();else drawSheet();
+}
+function closeSheet(){
+ S.stack=[];const s=el("sheet");
+ s.classList.remove("open");s.setAttribute("aria-hidden","true");
+ S.qty=1;setTimeout(()=>{if(!S.stack.length)s.innerHTML=""},380);
+ if(lastFocus&&lastFocus.focus)lastFocus.focus();
 }
 
-const TABS={
- client:[['home','compass','Découvrir'],['places','pin','Commerces'],['fav','heart','Favoris'],['orders','receipt','Suivi'],['profile','user','Profil']],
- merchant:[['mhome','store',"Aujourd'hui"],['mai','trend','Prévision'],['mcodes','receipt','Retraits'],['profile','user','Profil']],
- admin:[['adash','trend','Tableau'],['places','pin','Pipeline'],['aorders','receipt','Commandes'],['profile','user','Profil']]
-};
-const SCREENS={home,places,fav:favs,orders,profile,mhome,mai,mcodes,adash,aorders};
-function render(){
- const tabs=TABS[S.role];
- if(!tabs.some(t=>t[0]===S.tab)) S.tab=tabs[0][0];
- const v=el('view');
- v.innerHTML=(SCREENS[S.tab]||home)();
- v.scrollTop=0;
- el('tabs').innerHTML=tabs.map(([k,ic,l])=>
-  `<button class="tab ${S.tab===k?'on':''}" onclick="go('${k}')">${I(ic,21)}${l}</button>`).join('');
-}
-function setRole(r){S.role=r;S.tab=TABS[r][0][0];render();toast(r==='client'?'Vue client':r==='merchant'?'Vue commerçant':'Vue administrateur')}
-function go(t){S.tab=t;render()}
+/* =========================================================
+   Actions
+   ========================================================= */
+function open_(id){S.cur=id;const d=byId(id);S.qty=Math.max(1,Math.min(stockOf(d)||1,S.qty));
+ if(S.stack.length&&S.stack[S.stack.length-1].n==="detail"){S.stack[S.stack.length-1].a=id;drawSheet()}
+ else pushSheet("detail",id)}
+function openWhy(id){pushSheet("why",id)}
+function toPay(){pushSheet("payment",S.cur)}
+function openSearch(){S.q="";pushSheet("search")}
+function openNotifs(){pushSheet("notifs")}
+function openZone(){pushSheet("zone")}
+function openLang(){pushSheet("lang")}
+function openPublish(){pushSheet("publish")}
+function qty(n){const d=byId(S.cur);S.qty=Math.max(1,Math.min(stockOf(d),S.qty+n));reSheet()}
+function setPay(p){S.pay=p;reSheet()}
+function go(tab){S.tab=tab;S.sel=-1;render(true)}
 function setF(c){S.filter=c;render()}
 function setVF(c){S.vfilter=c;render()}
 function setView(v){S.view=v;render()}
-function selPin(i){S.sel=i;render()}
-function invite(i){toast('Invitation envoyée à '+V[i].n)}
+function setSort(s){S.sort=s;render()}
 function setSeg(s){S.seg=s;render()}
-function fav(id){S.fav.has(id)?S.fav.delete(id):S.fav.add(id);render();toast(S.fav.has(id)?'Ajouté aux favoris':'Retiré des favoris')}
-function qty(n){S.qty=Math.max(1,Math.min(S.cur.left,S.qty+n));sheet(detail(S.cur))}
-function setPay(p){S.pay=p;sheet(payment(S.cur))}
-function open_(id){S.cur=D.find(d=>d.id===id);S.qty=Math.min(S.qty,S.cur.left);sheet(detail(S.cur))}
-function toPay(){sheet(payment(S.cur))}
-function confirm_(){const d=S.cur;S.order={d,qty:S.qty,pay:S.pay,code:'AI4-'+Math.random().toString(36).slice(2,6).toUpperCase()};sheet(done(d));render()}
-function cancel(){S.order=null;render();toast('Commande annulée, remboursement sous 24h')}
-function sheet(h){const s=el('sheet');s.innerHTML=h;s.classList.add('open')}
-function closeSheet(){el('sheet').classList.remove('open');S.qty=1}
-function startApp(){el('ob').classList.add('hide');el('sb').classList.remove('dark')}
-render();
+function selPin(i){S.sel=i;render()}
+function setRole(r){S.role=r;S.tab=TABS[r][0][0];S.sel=-1;save();render(true);
+ toast(t(r==="client"?"role_client":r==="merchant"?"role_merchant":"role_admin"))}
+function fav(id){
+ const i=S.fav.indexOf(id);
+ if(i>=0)S.fav.splice(i,1);else S.fav.push(id);
+ save();toast(t(i>=0?"fav_rm":"fav_add"));
+ const top=S.stack[S.stack.length-1];
+ if(top&&top.n==="search"){const n=el("sres");if(n)n.innerHTML=searchResults()}
+ else if(top)drawSheet();
+ render();
+}
+function invite(i){
+ const v=V[i];if(S.invited.indexOf(v.n)<0)S.invited.push(v.n);
+ save();render();toast(t("invite_sent",v.n));
+}
+function routeTo(id){const d=byId(id);toast(t("route_to",d.addr))}
+function shareOffer(){toast(t("link_copied"))}
+function fromDetailToMap(id){
+ const d=byId(id);
+ const i=V.findIndex(v=>v.n===d.merch||v.n.indexOf(d.merch)>=0||d.merch.indexOf(v.n)>=0);
+ closeSheet();S.view="carte";if(i>=0)S.sel=i;S.tab="places";render(true);
+ toast(i>=0?t("map_open"):t("route_to",d.addr));
+}
+function payToast(){toast(t("pay_linked"))}
+function referral(){toast(t("referral_copied"))}
+function toggleAlerts(){S.alerts=!S.alerts;save();render();toast(t("alerts_on"))}
+function toggleTheme(){
+ const dark=document.documentElement.getAttribute("data-theme")==="dark";
+ S.theme=dark?"light":"dark";save();applyTheme();render();
+}
+function setLang(i){LI=i;S.lang=LANGS[i][0];save();applyTheme();closeSheet();render(true);toast(t("lang_set",LANGS[i][2]))}
+function setZone(z){S.zone=z;S.pos=null;save();closeSheet();render();}
+function useGps(){
+ if(!navigator.geolocation)return toast(t("gps_fail"),true);
+ navigator.geolocation.getCurrentPosition(p=>{
+  S.pos={la:p.coords.latitude,lo:p.coords.longitude};
+  let best=ZONES[0],bd=1e9;
+  ZONES.forEach(z=>{const d=kmBetween(S.pos,{la:z[2],lo:z[1]});if(d<bd){bd=d;best=z}});
+  S.zone=best[0];save();closeSheet();render();toast(t("gps_ok"));
+ },()=>toast(t("gps_fail"),true),{timeout:8000});
+}
+function markRead(){S.notifs.forEach(n=>n.read=true);save();reSheet();render()}
+function searchInput(v){
+ S.q=v;const n=el("sres");if(n)n.innerHTML=searchResults();
+ clearTimeout(searchInput._t);
+ searchInput._t=setTimeout(()=>{
+  const q=S.q.trim();
+  if(q.length>2&&S.recent.indexOf(q)<0){S.recent.unshift(q);S.recent=S.recent.slice(0,6);save()}
+ },1200);
+}
+function searchSet(v){S.q=v;const i=el("sq");if(i)i.value=v;const n=el("sres");if(n)n.innerHTML=searchResults()}
+function clearRecent(){S.recent=[];save();const n=el("sres");if(n)n.innerHTML=searchResults()}
+
+/* ---------- commandes ---------- */
+function endTsOf(d){
+ const w=windowOf(d),now=new Date();
+ const base=new Date(now.getFullYear(),now.getMonth(),now.getDate()).getTime();
+ return base+w.e*6e4;
+}
+function confirm_(){
+ const d=byId(S.cur),q=Math.min(S.qty,stockOf(d));
+ const o={oid:uid(),id:d.id,qty:q,pay:S.pay,code:code4(),ts:Date.now(),endTs:endTsOf(d),status:"active"};
+ S.orders.unshift(o);
+ S.stock[d.id]=Math.max(0,stockOf(d)-q);
+ notify("ok",[o.qty+" × "+d.name,d.merch,o.code],"checkC");
+ save();S.stack=[{n:"done",a:o.oid}];drawSheet();render();
+}
+function cancelOrder(oid){
+ const o=S.orders.find(x=>x.oid===oid);if(!o)return;
+ const d=byId(o.id);o.status="cancel";
+ if(d)S.stock[d.id]=stockOf(d)+o.qty;
+ save();render();toast(t("cancelled_toast"));
+}
+function pickedUp(oid){
+ const o=S.orders.find(x=>x.oid===oid);if(!o)return;
+ o.status="done";save();render();toast(t("picked_toast"));
+}
+function validate(oid){
+ const o=S.orders.find(x=>x.oid===oid);if(!o||o.status!=="active")return toast(t("m_valid_bad"),true);
+ o.status="done";save();render();toast(t("m_valid_ok",o.code));
+}
+function validateCode(){
+ const i=el("mcode");if(!i)return;
+ let v=i.value.trim().toUpperCase();if(!v)return;
+ if(v.indexOf("AI4-")!==0)v="AI4-"+v.replace(/^AI4/,"");
+ const o=mOrders().find(x=>x.code===v&&x.status==="active");
+ if(!o)return toast(t("m_valid_bad"),true);
+ o.status="done";save();render();toast(t("m_valid_ok",o.code));
+}
+function newOffer(name,price,was,q,from,to,desc){
+ const id=1000+S.custom.length+1;
+ const o={id:id,img:"pain",name:name,merch:MERCH,cat:"Boulangeries",price:price,was:was,
+  from:from,to:to,addr:"Keur Gorgui, Sacré-Cœur",rate:4.6,avis:274,left:q,la:14.7189,lo:-17.4665,
+  desc:desc||"Invendus du jour de la Boulangerie Jaune.",isNew:true};
+ S.custom.push(o);S.stock[id]=q;
+ notify("new",[MERCH,name,price,was],"spark");
+ save();return o;
+}
+function doPublish(){
+ const g=i=>{const n=el(i);return n?n.value.trim():""};
+ const name=g("pn"),price=+g("pp"),was=+g("pw"),q=+g("pq"),from=g("pf")||"19:30",to=g("pt")||"20:30",desc=g("pd");
+ if(!name||!price||!q)return toast(t("m_fill"),true);
+ if(was<=price)return toast(t("m_price_err"),true);
+ newOffer(name,price,was,q,from,to,desc);
+ closeSheet();render(true);toast(t("m_posted",q));
+}
+function publishForecast(){
+ newOffer("Pains & viennoiseries",1000,3000,7,"19:30","20:30",
+  "Baguettes du jour, croissants et pains au chocolat. Contenu variable selon les invendus.");
+ S.tab="mhome";render(true);toast(t("m_posted",7));
+}
+
+/* =========================================================
+   Onboarding + coque
+   ========================================================= */
+const OB=[["leaf","ob1_t","ob1_s"],["spark","ob2_t","ob2_s"],["wallet","ob3_t","ob3_s"]];
+function renderOb(){
+ const n=el("ob");
+ if(S.seen){n.classList.add("hide");n.innerHTML="";el("sb").classList.remove("dark");return}
+ const [ic,tk,sk]=OB[S.ob];
+ n.classList.remove("hide");
+ n.innerHTML=`
+  <div class="lgrow">${LANGS.map((l,i)=>`<button class="lgb ${LI===i?"on":""}" onclick="obLang(${i})">${l[1]}</button>`).join("")}</div>
+  <button class="skip" onclick="startApp()">${t("ob_skip")}</button>
+  <div class="obslide">
+   ${S.ob===0?'<h2>AI<em>4</em>Food</h2>':`<div class="obic">${I(ic,34)}</div>`}
+   <p class="t">${t(tk)}</p>
+   <p class="s">${t(sk)}</p>
+  </div>
+  <div class="dots">${OB.map((_,i)=>`<i class="${i===S.ob?"on":""}"></i>`).join("")}</div>
+  <button class="start" onclick="obNext()">${S.ob<OB.length-1?t("ob_next"):t("ob_start")}</button>`;
+}
+function obNext(){if(S.ob<OB.length-1){S.ob++;renderOb()}else startApp()}
+function obLang(i){LI=i;S.lang=LANGS[i][0];save();applyTheme();renderOb();render()}
+function startApp(){S.seen=true;save();renderOb();render()}
+function pitch(){
+ const n=el("pitch");if(!n)return;
+ const im=impact();
+ n.innerHTML=`
+  <div class="lock"><div class="wordmark">AI<em>4</em>Food</div></div>
+  <p class="tag">${t("ob1_t")}</p>
+  <p class="sub">${t("p_sub",V.length,CAT().length)}</p>
+  <div class="marks">
+   <div class="mk a" style="color:var(--mint)">${I("leaf",26)}</div>
+   <div class="mk b" style="color:#0A2E27">${I("spark",26)}</div>
+   <div class="mk c" style="color:var(--emerald)">${I("store",26)}</div></div>
+  <div class="kv">${t("p_kv1")}</div>
+  <ul>${["p_i1","p_i2","p_i3","p_i4","p_i5"].map(k=>`<li>${t(k)}</li>`).join("")}</ul>
+  <div class="kv">${t("p_kv2")}</div>
+  <p class="sub" style="margin-bottom:18px">${t("p_impact",im.meals,im.co2,F(im.saved))}</p>
+  <p class="fine">${t("p_fine")}</p>`;
+}
+
+/* =========================================================
+   Rendu
+   ========================================================= */
+const TABS={
+ client:[["home","compass","tab_home"],["places","pin","tab_places"],["fav","heart","tab_fav"],["orders","receipt","tab_orders"],["profile","user","tab_profile"]],
+ merchant:[["mhome","store","tab_mtoday"],["mai","trend","tab_mfc"],["mcodes","receipt","tab_mcodes"],["profile","user","tab_profile"]],
+ admin:[["adash","trend","tab_adash"],["places","pin","tab_places"],["aorders","receipt","tab_aorders"],["profile","user","tab_profile"]]
+};
+const SCREENS={home:home,places:places,fav:favs,orders:orders,profile:profile,
+ mhome:mhome,mai:mai,mcodes:mcodes,adash:adash,aorders:aorders};
+function render(resetScroll){
+ syncOrders();
+ const tabs=TABS[S.role];
+ if(!tabs.some(x=>x[0]===S.tab))S.tab=tabs[0][0];
+ const v=el("view"),y=v.scrollTop;
+ v.innerHTML=(SCREENS[S.tab]||home)();
+ v.scrollTop=resetScroll?0:y;
+ el("tabs").innerHTML=tabs.map(([k,ic,l])=>
+  `<button class="tab ${S.tab===k?"on":""}" role="tab" aria-selected="${S.tab===k}" onclick="go('${k}')">${I(ic,21)}${t(l)}</button>`).join("");
+ pitch();
+}
+function boot(){
+ load();
+ const i=LANGS.findIndex(l=>l[0]===S.lang);LI=i<0?0:i;
+ applyTheme();
+ if(window.matchMedia)try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>{if(S.theme==="auto"){applyTheme();render()}})}catch(e){}
+ renderOb();render(true);tickCd();
+ setInterval(tickCd,20000);
+ document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"&&S.stack.length){e.preventDefault();back()}
+ });
+ document.addEventListener("visibilitychange",()=>{if(!document.hidden){render();tickCd()}});
+}
+boot();
 </script>
 </body>
 </html>
