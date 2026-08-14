@@ -150,12 +150,20 @@ describe('catalogue', () => {
     assert.notEqual(anonIds, mineIds);
   });
 
-  test('search matches dish, shop and area', async () => {
-    const res = await get('/api/offers?q=yassa');
+  test('search matches shop, area and category, not dishes', async () => {
+    const res = await get('/api/offers?q=loutcha');
     assert.equal(res.status, 200);
+    assert.ok(res.body.items.length > 0);
     assert.ok(res.body.items.every((i) =>
       `${i.name} ${i.description} ${i.merchant.name} ${i.merchant.zone} ${i.category}`
-        .toLowerCase().includes('yassa')));
+        .toLowerCase().includes('loutcha')));
+
+    // Bags are surprise bags: they are named after the shop, never after a dish.
+    const all = await get('/api/offers?limit=100&include_sold_out=true');
+    for (const item of all.body.items) {
+      assert.match(item.name, /^Panier/, 'an offer name must be a bag type, not a dish');
+      assert.ok(item.merchant.name);
+    }
   });
 
   test('sorting by price is honoured', async () => {
@@ -260,21 +268,21 @@ describe('ordering', () => {
 describe('merchant counter', () => {
   test('a merchant publishes an offer and it reaches the public catalogue', async () => {
     const res = await post('/api/merchant/offers', {
-      name: 'Panier test du soir',
       description: 'Invendus du jour',
       price_cfa: 1200, was_cfa: 3600, qty: 4,
       pickup_from: '19:30', pickup_to: '20:30',
     }, merchant.access_token);
     assert.equal(res.status, 201, JSON.stringify(res.body));
+    // The name defaults to the bag type; the shop is what identifies it.
+    assert.equal(res.body.offer.name, 'Panier surprise');
 
-    const list = await get('/api/offers?q=Panier test du soir');
-    assert.equal(list.body.items.length, 1);
-    assert.equal(list.body.items[0].qty_left, 4);
+    const list = await get('/api/offers?q=Boulangerie Jaune');
+    assert.ok(list.body.items.some((o) => o.qty_left === 4));
   });
 
   test('a sale price above the shop value is rejected', async () => {
     const res = await post('/api/merchant/offers', {
-      name: 'Panier absurde', price_cfa: 5000, was_cfa: 1000, qty: 2,
+      price_cfa: 5000, was_cfa: 1000, qty: 2,
       pickup_from: '19:30', pickup_to: '20:30',
     }, merchant.access_token);
     assert.equal(res.status, 400);
@@ -476,7 +484,7 @@ describe('admin operations', () => {
 
     const owner = await signInWithPassword('+221769998877', 'test-password-2026');
     const blocked = await post('/api/merchant/offers', {
-      name: 'Pas encore', price_cfa: 500, was_cfa: 1500, qty: 2,
+      price_cfa: 500, was_cfa: 1500, qty: 2,
       pickup_from: '18:00', pickup_to: '19:00',
     }, owner.access_token);
     assert.equal(blocked.status, 403, 'an unapproved shop must not be able to sell');
@@ -486,7 +494,7 @@ describe('admin operations', () => {
 
     const relogin = await signInWithPassword('+221769998877', 'test-password-2026');
     const ok = await post('/api/merchant/offers', {
-      name: 'Enfin en ligne', price_cfa: 500, was_cfa: 1500, qty: 2,
+      price_cfa: 500, was_cfa: 1500, qty: 2,
       pickup_from: '18:00', pickup_to: '19:00',
     }, relogin.access_token);
     assert.equal(ok.status, 201);

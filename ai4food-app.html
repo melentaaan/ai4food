@@ -604,7 +604,7 @@ const STR={
 greet_am:["Bonjour !","Good morning!","Naka suba si !"],
 greet_pm:["Bon après-midi !","Good afternoon!","Naka bëccëg bi !"],
 greet_ev:["Bonsoir !","Good evening!","Naka ngoon si !"],
-search_ph:["Rechercher un plat, un commerce...","Search a dish, a shop...","Seet ñam, seet butik..."],
+search_ph:["Rechercher un commerce, un quartier...","Search a shop, an area...","Seet butik, seet dëkk..."],
 tab_home:["Découvrir","Discover","Gis"],
 tab_places:["Commerces","Shops","Butik yi"],
 tab_fav:["Favoris","Saved","Favoris"],
@@ -648,6 +648,10 @@ hmin:["{0} min","{0} min","{0} min"],
 hhm:["{0} h {1}","{0}h {1}m","{0}w {1}"],
 hh:["{0} h","{0}h","{0} waxtu"],
 /* detail */
+basket:["Panier surprise","Surprise bag","Panier surprise"],
+surprise_t:["Le contenu est une surprise","The contents are a surprise","Li ci biir, surprise la"],
+surprise_p:["Vous découvrez le panier au retrait: il est composé de ce qui n'a pas été vendu ce jour-là. Le contenu change à chaque fois et ne peut pas être choisi.","You discover the bag at pickup: it holds whatever did not sell that day. The contents change every time and cannot be chosen.","Danga koy gis bu nga ko jël: li des ci bés bi la. Dafay soppiku bés bu nekk, te man nga koo tànn."],
+k0:["Contenu variable, choisi par le commerce.","Contents vary, chosen by the shop.","Li ci biir dafay soppiku, butik bi moo ko tànn."],
 know:["Bon à savoir","Good to know","Loo war a xam"],
 k1:["Préparé aujourd'hui, à consommer le jour même.","Made today, eat it the same day.","Tey lañu ko togg, lekk ko tey."],
 k2:["Apportez votre sac.","Bring your own bag.","Indil sa mbuus."],
@@ -797,7 +801,7 @@ recent:["Recherches récentes","Recent searches","Seet yi mujj"],
 res_offers:["Offres","Offers","Offre yi"],
 res_shops:["Commerces","Shops","Butik yi"],
 no_res:["Aucun résultat pour « {0} »","No result for {0}","Amul dara ngir {0}"],
-no_res_p:["Essayez un plat, un quartier ou un commerce.","Try a dish, an area or a shop.","Jéemal ñam, dëkk walla butik."],
+no_res_p:["Essayez un commerce, un quartier ou une catégorie.","Try a shop, an area or a category.","Jéemal butik, dëkk walla wàll."],
 clear:["Effacer","Clear","Far"],
 cancel:["Annuler","Cancel","Bàyyi"],
 /* onboarding */
@@ -824,14 +828,14 @@ m_none:["Aucune offre en ligne","No live offer","Amul offre ci kaw"],
 m_none_p:["Publiez vos invendus du jour, ils apparaissent aussitôt côté client.","Post today surplus, it shows up on the customer side right away.","Jaayal say ñam yi des, dinañu feeñ ci wetu client bi."],
 m_publish:["Publier une offre","Post an offer","Jaay ab offre"],
 m_new:["Nouvelle offre","New offer","Offre bu bees"],
-m_name:["Nom du panier","Basket name","Turu panier bi"],
+m_name:["Type de panier","Bag type","Xeetu panier bi"],
 m_price:["Prix de vente (FCFA)","Price (FCFA)","Njëg (FCFA)"],
 m_was:["Valeur magasin (FCFA)","Shop value (FCFA)","Njëg ci butik (FCFA)"],
 m_qty:["Quantité","Quantity","Ñaata"],
 m_from:["Retrait de","Pickup from","Retrait bu"],
 m_to:["à","to","ba"],
 m_desc:["Description","Description","Description"],
-m_desc_ph:["Ce que le client trouvera dans le panier","What the customer will find inside","Li client bi di gis ci panier bi"],
+m_desc_ph:["Ce que le panier peut contenir, sans le garantir","What the bag may contain, without promising it","Li panier bi man a am"],
 m_post:["Publier maintenant","Post now","Jaay ko léegi"],
 m_posted:["{0} offres publiées","{0} offers posted","{0} offre yu ñu jaay"],
 m_fill:["Renseignez un nom, un prix et une quantité","Fill in a name, a price and a quantity","Bindal tur, njëg ak ñaata"],
@@ -1003,38 +1007,38 @@ const pct=d=>Math.round((1-d.price/d.was)*100);
    Donnees catalogue
    ========================================================= */
 const D=[
-{id:1,img:"thieb",name:"Thieboudienne du midi",merch:"Chez Loutcha",cat:"Restaurants",price:1500,was:5000,from:"14:30",to:"15:30",addr:"Rue Moussé Diop, Plateau",rate:4.1,avis:402,left:2,la:14.6687,lo:-17.4351,
- desc:"Riz au poisson, légumes et sauce tomate, préparé le matin même. Portions généreuses, à récupérer après le service du déjeuner."},
-{id:2,img:"yassa",name:"Yassa poulet",merch:"Le Djoloff",cat:"Restaurants",price:2000,was:6000,from:"15:00",to:"16:00",addr:"Fann Hock, Dakar",rate:4.3,avis:186,left:3,la:14.6799,lo:-17.4531,
- desc:"Poulet mariné au citron, moutarde et oignons confits, servi avec du riz blanc."},
-{id:3,img:"crevettes",name:"Crevettes & légumes verts",merch:"La Cabane du Pêcheur",cat:"Restaurants",price:2500,was:7500,from:"15:30",to:"16:30",addr:"Route des Almadies, Ngor",rate:4.2,avis:310,left:2,la:14.7502,lo:-17.5145,
- desc:"Crevettes sautées et feuilles, selon l'arrivée des pirogues du matin."},
-{id:4,img:"mafe",name:"Mafé du soir",merch:"Bazoff",cat:"Restaurants",price:2000,was:5500,from:"21:30",to:"22:30",addr:"Grand Dakar",rate:4.2,avis:50,left:3,la:14.7016,lo:-17.4515,
- desc:"Ragoût à la pâte d'arachide avec viande et légumes, servi avec du riz."},
-{id:5,img:"pastels",name:"Pastels & fataya",merch:"Ali Baba",cat:"Restaurants",price:800,was:2400,from:"22:00",to:"23:00",addr:"Avenue Pompidou, Plateau",rate:4.0,avis:264,left:6,la:14.6704,lo:-17.4331,
- desc:"Chaussons frits au poisson ou à la viande, avec sauce piment maison."},
-{id:6,img:"rizgras",name:"Riz gras du jour",merch:"La Pointe des Almadies",cat:"Restaurants",price:1800,was:5000,from:"15:00",to:"16:00",addr:"Pointe des Almadies",rate:4.0,avis:161,left:4,la:14.7455,lo:-17.5281,
- desc:"Riz cuisiné à la tomate avec viande et légumes, préparé pour le service du midi."},
-{id:7,img:"accara",name:"Accara & pain",merch:"Chez Fatou",cat:"Restaurants",price:500,was:1500,from:"11:00",to:"12:00",addr:"Médina, Dakar",rate:4.3,avis:134,left:8,la:14.6835,lo:-17.4520,
- desc:"Beignets de niébé frits le matin, servis avec pain et sauce."},
-{id:8,img:"pain",name:"Pains & viennoiseries",merch:"Boulangerie Jaune",cat:"Boulangeries",price:1000,was:3000,from:"19:30",to:"20:30",addr:"Keur Gorgui, Sacré-Cœur",rate:4.6,avis:274,left:5,la:14.7189,lo:-17.4665,
- desc:"Baguettes du jour, croissants et pains au chocolat. Contenu variable selon les invendus."},
-{id:9,img:"tarte",name:"Panier pâtisserie",merch:"La Galette",cat:"Boulangeries",price:1500,was:4000,from:"19:00",to:"20:00",addr:"Avenue Pompidou, Plateau",rate:4.4,avis:139,left:2,la:14.6697,lo:-17.4335,
- desc:"Tartelettes, gâteaux individuels et beignets préparés le matin."},
-{id:10,img:"cupcakes",name:"Plateau pâtisseries",merch:"Pullman Dakar Teranga",cat:"Hôtels",price:3500,was:10000,from:"21:00",to:"22:00",addr:"Place de l'Indépendance, Plateau",rate:4.3,avis:942,left:3,la:14.6689,lo:-17.4290,
- desc:"Mignardises et pâtisseries de la journée, préparées par la pâtisserie de l'hôtel."},
-{id:11,img:"buffet",name:"Plateau du buffet",merch:"Terrou-Bi",cat:"Hôtels",price:5000,was:15000,from:"22:30",to:"23:15",addr:"Boulevard Martin Luther King, Corniche",rate:4.5,avis:1204,left:4,la:14.6770,lo:-17.4664,
- desc:"Plats chauds et entrées du buffet du soir, dressés en barquette à la fermeture du service."},
-{id:12,img:"fonio",name:"Assiette du chef",merch:"Radisson Blu Dakar",cat:"Hôtels",price:4000,was:12000,from:"22:00",to:"22:45",addr:"Route de la Corniche Ouest",rate:4.4,avis:1876,left:5,la:14.6866,lo:-17.4746,
- desc:"Fonio, crevettes et légumes, préparés pour le service du soir."},
-{id:13,img:"sombi",name:"Sombi & desserts",merch:"King Fahd Palace",cat:"Hôtels",price:2000,was:6000,from:"22:00",to:"23:00",addr:"Route des Almadies",rate:4.0,avis:721,left:4,la:14.7326,lo:-17.5083,
- desc:"Sombi au lait et desserts du buffet, en barquette à la fermeture."},
-{id:14,img:"legumes1",name:"Panier fruits & légumes",merch:"Auchan Keur Gorgui",cat:"Supermarchés",price:2500,was:7500,from:"20:30",to:"21:45",addr:"Keur Gorgui, Sacré-Cœur",rate:4.0,avis:512,left:8,la:14.7196,lo:-17.4660,
- desc:"Fruits et légumes proches du retrait rayon. Composition variable, environ 4 kg."},
-{id:15,img:"epicerie",name:"Panier épicerie du soir",merch:"Casino Sea Plaza",cat:"Supermarchés",price:3000,was:9000,from:"20:00",to:"21:30",addr:"Sea Plaza, Corniche Ouest",rate:4.1,avis:301,left:6,la:14.6951,lo:-17.4736,
- desc:"Produits frais et secs proches de la date limite: œufs, laitages, légumes, conserves."},
-{id:16,img:"marche",name:"Panier légumes du jour",merch:"Marché Kermel",cat:"Marchés",price:1000,was:3000,from:"18:00",to:"19:00",addr:"Rue Salva, Plateau",rate:4.5,avis:88,left:7,la:14.6705,lo:-17.4289,
- desc:"Tomates, oignons, carottes et feuilles selon l'arrivage, auprès des étals du marché."}
+{id:1,img:"thieb",name:"Panier surprise",merch:"Chez Loutcha",cat:"Restaurants",price:1500,was:5000,from:"14:30",to:"15:30",addr:"Rue Moussé Diop, Plateau",rate:4.1,avis:402,left:2,la:14.6687,lo:-17.4351,
+ desc:"Ce qui reste après le service: plats du jour, accompagnements ou entrées selon la cuisine. Le contenu change chaque jour."},
+{id:2,img:"yassa",name:"Panier surprise",merch:"Le Djoloff",cat:"Restaurants",price:2000,was:6000,from:"15:00",to:"16:00",addr:"Fann Hock, Dakar",rate:4.3,avis:186,left:3,la:14.6799,lo:-17.4531,
+ desc:"Ce qui reste après le service: plats du jour, accompagnements ou entrées selon la cuisine. Le contenu change chaque jour."},
+{id:3,img:"crevettes",name:"Panier surprise",merch:"La Cabane du Pêcheur",cat:"Restaurants",price:2500,was:7500,from:"15:30",to:"16:30",addr:"Route des Almadies, Ngor",rate:4.2,avis:310,left:2,la:14.7502,lo:-17.5145,
+ desc:"Ce qui reste après le service: plats du jour, accompagnements ou entrées selon la cuisine. Le contenu change chaque jour."},
+{id:4,img:"mafe",name:"Panier surprise",merch:"Bazoff",cat:"Restaurants",price:2000,was:5500,from:"21:30",to:"22:30",addr:"Grand Dakar",rate:4.2,avis:50,left:3,la:14.7016,lo:-17.4515,
+ desc:"Ce qui reste après le service: plats du jour, accompagnements ou entrées selon la cuisine. Le contenu change chaque jour."},
+{id:5,img:"pastels",name:"Panier surprise",merch:"Ali Baba",cat:"Restaurants",price:800,was:2400,from:"22:00",to:"23:00",addr:"Avenue Pompidou, Plateau",rate:4.0,avis:264,left:6,la:14.6704,lo:-17.4331,
+ desc:"Ce qui reste après le service: plats du jour, accompagnements ou entrées selon la cuisine. Le contenu change chaque jour."},
+{id:6,img:"rizgras",name:"Panier surprise",merch:"La Pointe des Almadies",cat:"Restaurants",price:1800,was:5000,from:"15:00",to:"16:00",addr:"Pointe des Almadies",rate:4.0,avis:161,left:4,la:14.7455,lo:-17.5281,
+ desc:"Ce qui reste après le service: plats du jour, accompagnements ou entrées selon la cuisine. Le contenu change chaque jour."},
+{id:7,img:"accara",name:"Panier surprise",merch:"Chez Fatou",cat:"Restaurants",price:500,was:1500,from:"11:00",to:"12:00",addr:"Médina, Dakar",rate:4.3,avis:134,left:8,la:14.6835,lo:-17.4520,
+ desc:"Ce qui reste après le service: plats du jour, accompagnements ou entrées selon la cuisine. Le contenu change chaque jour."},
+{id:8,img:"pain",name:"Panier surprise",merch:"Boulangerie Jaune",cat:"Boulangeries",price:1000,was:3000,from:"19:30",to:"20:30",addr:"Keur Gorgui, Sacré-Cœur",rate:4.6,avis:274,left:5,la:14.7189,lo:-17.4665,
+ desc:"Les invendus de la journée: pains, viennoiseries ou pâtisseries selon ce qui reste en vitrine."},
+{id:9,img:"tarte",name:"Panier surprise",merch:"La Galette",cat:"Boulangeries",price:1500,was:4000,from:"19:00",to:"20:00",addr:"Avenue Pompidou, Plateau",rate:4.4,avis:139,left:2,la:14.6697,lo:-17.4335,
+ desc:"Les invendus de la journée: pains, viennoiseries ou pâtisseries selon ce qui reste en vitrine."},
+{id:10,img:"cupcakes",name:"Panier surprise",merch:"Pullman Dakar Teranga",cat:"Hôtels",price:3500,was:10000,from:"21:00",to:"22:00",addr:"Place de l'Indépendance, Plateau",rate:4.3,avis:942,left:3,la:14.6689,lo:-17.4290,
+ desc:"Les invendus du buffet à la fermeture: plats chauds, entrées, mignardises ou desserts selon le service du soir."},
+{id:11,img:"buffet",name:"Panier surprise",merch:"Terrou-Bi",cat:"Hôtels",price:5000,was:15000,from:"22:30",to:"23:15",addr:"Boulevard Martin Luther King, Corniche",rate:4.5,avis:1204,left:4,la:14.6770,lo:-17.4664,
+ desc:"Les invendus du buffet à la fermeture: plats chauds, entrées, mignardises ou desserts selon le service du soir."},
+{id:12,img:"fonio",name:"Panier surprise",merch:"Radisson Blu Dakar",cat:"Hôtels",price:4000,was:12000,from:"22:00",to:"22:45",addr:"Route de la Corniche Ouest",rate:4.4,avis:1876,left:5,la:14.6866,lo:-17.4746,
+ desc:"Les invendus du buffet à la fermeture: plats chauds, entrées, mignardises ou desserts selon le service du soir."},
+{id:13,img:"sombi",name:"Panier surprise",merch:"King Fahd Palace",cat:"Hôtels",price:2000,was:6000,from:"22:00",to:"23:00",addr:"Route des Almadies",rate:4.0,avis:721,left:4,la:14.7326,lo:-17.5083,
+ desc:"Les invendus du buffet à la fermeture: plats chauds, entrées, mignardises ou desserts selon le service du soir."},
+{id:14,img:"legumes1",name:"Panier surprise",merch:"Auchan Keur Gorgui",cat:"Supermarchés",price:2500,was:7500,from:"20:30",to:"21:45",addr:"Keur Gorgui, Sacré-Cœur",rate:4.0,avis:512,left:8,la:14.7196,lo:-17.4660,
+ desc:"Des produits encore bons mais proches de la date: frais, fruits et légumes ou épicerie selon les rayons."},
+{id:15,img:"epicerie",name:"Panier surprise",merch:"Casino Sea Plaza",cat:"Supermarchés",price:3000,was:9000,from:"20:00",to:"21:30",addr:"Sea Plaza, Corniche Ouest",rate:4.1,avis:301,left:6,la:14.6951,lo:-17.4736,
+ desc:"Des produits encore bons mais proches de la date: frais, fruits et légumes ou épicerie selon les rayons."},
+{id:16,img:"marche",name:"Panier surprise",merch:"Marché Kermel",cat:"Marchés",price:1000,was:3000,from:"18:00",to:"19:00",addr:"Rue Salva, Plateau",rate:4.5,avis:88,left:7,la:14.6705,lo:-17.4289,
+ desc:"Les invendus des étals en fin de marché: fruits, légumes ou feuilles selon l'arrivage du jour."}
 ];
 
 const PAY=[{id:"wave",n:"Wave",sk:"pay_wave",bg:"#1AA0F0",k:"W"},
@@ -1308,16 +1312,16 @@ function card(d,opts){
  const st=statusOf(d),sold=st==="sold",left=stockOf(d);
  const why=opts.why?whyOf(d).list[0]:null;
  return `<div class="rc ${sold?"sold":""}">
-  <button class="rc-open" onclick="open_('${d.id}')" aria-label="${esc(d.name)} &ndash; ${esc(d.merch)}"></button>
+  <button class="rc-open" onclick="open_('${d.id}')" aria-label="${esc(d.merch)} &ndash; ${esc(d.name)}"></button>
   <div class="thumb"><img src="${P[d.img]||P.pain}" alt="" loading="lazy"><span class="scrim"></span>
    <span class="left">${sold?t("sold"):(left===1?t("left_1"):t("left_n",left))}</span></div>
   <div class="rc-body">
    ${why?`<span class="ainote">${I("spark",13)} ${why}</span>`:""}
    ${d.isNew&&!why?`<span class="ainote">${I("spark",13)} ${t("newb")}</span>`:""}
-   <div class="rc-top"><h3>${esc(d.name)}</h3>
+   <div class="rc-top"><h3>${esc(d.merch)}</h3>
     <button class="hbtn ${isFav(d.id)?"on":""}" aria-label="${esc(t("favorites"))}"
       onclick="event.stopPropagation();fav('${d.id}')">${I("heart",19,isFav(d.id)?'fill="currentColor"':"")}</button></div>
-   <p class="mrc">${esc(d.merch)} <span class="rate">${I("star",13)} ${d.rate.toFixed(1)}</span></p>
+   <p class="mrc">${esc(d.name)} &middot; ${catL(d.cat)} <span class="rate">${I("star",13)} ${d.rate.toFixed(1)}</span></p>
    <p class="prices"><b>${F(d.price)} <i>FCFA</i></b><s>${F(d.was)} FCFA</s></p>
    <div class="metarow">${pillHtml(d)}
     <span class="dist">${I("pin",12)} ${fmtKm(distOf(d))}</span>
@@ -1741,8 +1745,8 @@ function orderBlock(o){
 function pastRow(o){
  const d=oOff(o);if(!d)return "";
  return `<div class="rc vrow"><div class="vtile">${I("receipt",22)}</div>
-  <div class="rc-body"><div class="rc-top"><h3>${esc(d.name)}</h3></div>
-  <p class="mrc">${esc(d.merch)} &middot; ${new Date(o.ts).toLocaleDateString(LOC(),{day:"numeric",month:"short"})}</p>
+  <div class="rc-body"><div class="rc-top"><h3>${esc(d.merch)}</h3></div>
+  <p class="mrc">${esc(d.name)} &middot; ${new Date(o.ts).toLocaleDateString(LOC(),{day:"numeric",month:"short"})}</p>
   <p class="prices"><b>${F(d.price*o.qty)} <i>FCFA</i></b>${statBadge(o.status)}</p>
   </div></div>`;
 }
@@ -2164,14 +2168,16 @@ function detail(id){
     <button class="circ" onclick="shareOffer()" aria-label="share">${I("share",19)}</button></div></div>
   <span class="left">${st==="sold"?t("sold"):(max===1?t("left_1"):t("left_n",max))}</span></div>
  <div class="detail">
-  <h2>${esc(d.name)}</h2>
-  <p class="by">${esc(d.merch)} <span class="rate">${I("star",14)} ${d.rate.toFixed(1)}
+  <h2>${esc(d.merch)}</h2>
+  <p class="by">${esc(d.name)} &middot; ${catL(d.cat)} <span class="rate">${I("star",14)} ${d.rate.toFixed(1)}
    <span style="color:var(--muted);font-weight:400">${t("reviews",F(d.avis))}</span></span></p>
   <div class="pline"><b>${F(d.price)} <i>FCFA</i></b><s>${F(d.was)} FCFA</s>
    <span class="save" style="margin:0">${I("tag",13)} ${t("save_pct",pct(d))}</span></div>
   <div class="metarow" style="margin:0 0 14px">${pillHtml(d)}
    <span class="dist">${I("pin",12)} ${t("away",fmtKm(distOf(d)))}</span></div>
   <p class="desc">${esc(d.desc)}</p>
+  <div class="good"><h4>${I("gift",16)} ${t("surprise_t")}</h4>
+   <p style="margin:0;font-size:12.5px;color:#3D5A4E;line-height:1.6">${t("surprise_p")}</p></div>
   <button class="why" onclick="openWhy('${d.id}')" style="width:100%;text-align:left;display:block">
    <h4>${I("spark",16)} ${t("why_title")}</h4>
    <div class="wr" style="margin-bottom:0"><span style="flex:1;font-size:12.5px">${re.list[0]||t("why_deal",pct(d))}</span>
@@ -2185,6 +2191,7 @@ function detail(id){
      <button onclick="qty(1)" aria-label="+">${I("plus",16)}</button></span></p></div>
   </div>
   <div class="good"><h4>${I("leaf",16)} ${t("know")}</h4><ul>
+   <li>${I("check",14)} ${t("k0")}</li>
    <li>${I("check",14)} ${t("k1")}</li>
    <li>${I("check",14)} ${t("k2")}</li>
    <li>${I("check",14)} ${t("k3")}</li></ul></div>
@@ -2198,7 +2205,7 @@ function whySheet(id){
  const re=whyOf(d);
  return `${shHead(t("why_title"),t("why_sub"))}
  <div class="shbody">
-  <div class="sec"><div><span class="eyebrow">${I("spark",12)} ${esc(d.name)}</span>
+  <div class="sec"><div><span class="eyebrow">${I("spark",12)} ${esc(d.merch)}</span>
    <h2>${t("why_match",Math.round(re.score*100))}</h2></div></div>
   <div style="padding:0 22px 16px">
    ${re.f?`<div class="why">${WEIGHTS.map(([k,w])=>`<div class="wr"><span class="nm">${t(k)}</span>
@@ -2297,7 +2304,7 @@ function publishSheet(){
  return `${shHead(t("m_new"),MERCH,"closeSheet()")}
  <div class="shbody"><div style="padding:18px 22px 22px">
   <div class="fld"><label for="pn">${t("m_name")}</label>
-   <input id="pn" value="Pains &amp; viennoiseries" maxlength="42"></div>
+   <input id="pn" value="Panier surprise" maxlength="42"></div>
   <div class="two">
    <div class="fld"><label for="pp">${t("m_price")}</label><input id="pp" type="number" inputmode="numeric" value="1000" min="100" step="100"></div>
    <div class="fld"><label for="pw">${t("m_was")}</label><input id="pw" type="number" inputmode="numeric" value="3000" min="100" step="100"></div></div>
@@ -2306,7 +2313,7 @@ function publishSheet(){
    <div class="fld"><label for="pf">${t("m_from")}</label><input id="pf" type="time" value="19:30"></div>
    <div class="fld"><label for="pt">${t("m_to")}</label><input id="pt" type="time" value="20:30"></div></div>
   <div class="fld"><label for="pd">${t("m_desc")}</label>
-   <textarea id="pd" rows="3" placeholder="${esc(t("m_desc_ph"))}">Baguettes du jour, croissants et pains au chocolat. Contenu variable selon les invendus.</textarea></div>
+   <textarea id="pd" rows="3" placeholder="${esc(t("m_desc_ph"))}">Panier surprise de fin de journée: pains, viennoiseries ou pâtisseries selon les invendus.</textarea></div>
   <p class="hint">${t("m_editable")} &middot; ${t("m_commission")} 15%</p>
   <button class="btn btn-main" onclick="doPublish()">${I("check",18)} ${t("m_post")}</button>
  </div></div>`;

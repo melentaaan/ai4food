@@ -30,7 +30,8 @@ router.get('/profile', (req, res) => {
 
 /* ---------- offers ---------- */
 const offerBody = z.object({
-  name: z.string().trim().min(2).max(80),
+  // A bag is a surprise: the name is a type ('Panier surprise'), not a dish.
+  name: z.string().trim().min(2).max(80).default('Panier surprise'),
   description: z.string().trim().max(400).default(''),
   image_key: z.string().trim().max(40).default('pain'),
   price_cfa: z.number().int().min(100).max(200000),
@@ -225,14 +226,15 @@ router.post('/forecast/publish',
                            status, created_by, created_at, updated_at)
        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?, 'live', ?, ?, ?)`,
     ).run(
-      id, req.merchant.id, req.body.name ?? `Panier du ${f.date}`, 'Invendus du jour.', 'pain',
+      id, req.merchant.id, req.body.name ?? 'Panier surprise',
+      'Les invendus du jour, composés par le commerce au moment du retrait.', 'pain',
       req.merchant.category, price, was, qty, qty, f.date, f.window.from, f.window.to,
       toEpoch(f.date, f.window.from), toEpoch(f.date, f.window.to), req.user.id, now(), now(),
     );
     for (const userId of followersOfMerchant(req.merchant.id, req.user.id)) {
       notify(userId, 'new_offer', {
         offer_id: id, merchant_name: req.merchant.name,
-        offer_name: req.body.name ?? `Panier du ${f.date}`, price_cfa: price, was_cfa: was,
+        offer_name: req.body.name ?? 'Panier surprise', price_cfa: price, was_cfa: was,
       });
     }
     audit(req, 'offer.create_from_forecast', 'offer', id, { merchant_id: req.merchant.id, qty, price_cfa: price });

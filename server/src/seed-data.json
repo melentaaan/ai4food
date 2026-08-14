@@ -685,7 +685,7 @@
   {
    "id": 1,
    "img": "thieb",
-   "name": "Thieboudienne du midi",
+   "name": "Panier surprise",
    "merch": "Chez Loutcha",
    "cat": "Restaurants",
    "price": 1500,
@@ -698,12 +698,12 @@
    "left": 2,
    "la": 14.6687,
    "lo": -17.4351,
-   "desc": "Riz au poisson, légumes et sauce tomate, préparé le matin même. Portions généreuses, à récupérer après le service du déjeuner."
+   "desc": "Ce qui reste après le service: plats du jour, accompagnements ou entrées selon la cuisine. Le contenu change chaque jour."
   },
   {
    "id": 2,
    "img": "yassa",
-   "name": "Yassa poulet",
+   "name": "Panier surprise",
    "merch": "Le Djoloff",
    "cat": "Restaurants",
    "price": 2000,
@@ -716,12 +716,12 @@
    "left": 3,
    "la": 14.6799,
    "lo": -17.4531,
-   "desc": "Poulet mariné au citron, moutarde et oignons confits, servi avec du riz blanc."
+   "desc": "Ce qui reste après le service: plats du jour, accompagnements ou entrées selon la cuisine. Le contenu change chaque jour."
   },
   {
    "id": 3,
    "img": "crevettes",
-   "name": "Crevettes & légumes verts",
+   "name": "Panier surprise",
    "merch": "La Cabane du Pêcheur",
    "cat": "Restaurants",
    "price": 2500,
@@ -734,12 +734,12 @@
    "left": 2,
    "la": 14.7502,
    "lo": -17.5145,
-   "desc": "Crevettes sautées et feuilles, selon l'arrivée des pirogues du matin."
+   "desc": "Ce qui reste après le service: plats du jour, accompagnements ou entrées selon la cuisine. Le contenu change chaque jour."
   },
   {
    "id": 4,
    "img": "mafe",
-   "name": "Mafé du soir",
+   "name": "Panier surprise",
    "merch": "Bazoff",
    "cat": "Restaurants",
    "price": 2000,
@@ -752,12 +752,12 @@
    "left": 3,
    "la": 14.7016,
    "lo": -17.4515,
-   "desc": "Ragoût à la pâte d'arachide avec viande et légumes, servi avec du riz."
+   "desc": "Ce qui reste après le service: plats du jour, accompagnements ou entrées selon la cuisine. Le contenu change chaque jour."
   },
   {
    "id": 5,
    "img": "pastels",
-   "name": "Pastels & fataya",
+   "name": "Panier surprise",
    "merch": "Ali Baba",
    "cat": "Restaurants",
    "price": 800,
@@ -770,12 +770,12 @@
    "left": 6,
    "la": 14.6704,
    "lo": -17.4331,
-   "desc": "Chaussons frits au poisson ou à la viande, avec sauce piment maison."
+   "desc": "Ce qui reste après le service: plats du jour, accompagnements ou entrées selon la cuisine. Le contenu change chaque jour."
   },
   {
    "id": 6,
    "img": "rizgras",
-   "name": "Riz gras du jour",
+   "name": "Panier surprise",
    "merch": "La Pointe des Almadies",
    "cat": "Restaurants",
    "price": 1800,
@@ -788,12 +788,12 @@
    "left": 4,
    "la": 14.7455,
    "lo": -17.5281,
-   "desc": "Riz cuisiné à la tomate avec viande et légumes, préparé pour le service du midi."
+   "desc": "Ce qui reste après le service: plats du jour, accompagnements ou entrées selon la cuisine. Le contenu change chaque jour."
   },
   {
    "id": 7,
    "img": "accara",
-   "name": "Accara & pain",
+   "name": "Panier surprise",
    "merch": "Chez Fatou",
    "cat": "Restaurants",
    "price": 500,
@@ -806,12 +806,12 @@
    "left": 8,
    "la": 14.6835,
    "lo": -17.452,
-   "desc": "Beignets de niébé frits le matin, servis avec pain et sauce."
+   "desc": "Ce qui reste après le service: plats du jour, accompagnements ou entrées selon la cuisine. Le contenu change chaque jour."
   },
   {
    "id": 8,
    "img": "pain",
-   "name": "Pains & viennoiseries",
+   "name": "Panier surprise",
    "merch": "Boulangerie Jaune",
    "cat": "Boulangeries",
    "price": 1000,
@@ -824,12 +824,12 @@
    "left": 5,
    "la": 14.7189,
    "lo": -17.4665,
-   "desc": "Baguettes du jour, croissants et pains au chocolat. Contenu variable selon les invendus."
+   "desc": "Les invendus de la journée: pains, viennoiseries ou pâtisseries selon ce qui reste en vitrine."
   },
   {
    "id": 9,
    "img": "tarte",
-   "name": "Panier pâtisserie",
+   "name": "Panier surprise",
    "merch": "La Galette",
    "cat": "Boulangeries",
    "price": 1500,
@@ -842,12 +842,12 @@
    "left": 2,
    "la": 14.6697,
    "lo": -17.4335,
-   "desc": "Tartelettes, gâteaux individuels et beignets préparés le matin."
+   "desc": "Les invendus de la journée: pains, viennoiseries ou pâtisseries selon ce qui reste en vitrine."
   },
   {
    "id": 10,
    "img": "cupcakes",
-   "name": "Plateau pâtisseries",
+   "name": "Panier surprise",
    "merch": "Pullman Dakar Teranga",
    "cat": "Hôtels",
    "price": 3500,
@@ -860,12 +860,12 @@
    "left": 3,
    "la": 14.6689,
    "lo": -17.429,
-   "desc": "Mignardises et pâtisseries de la journée, préparées par la pâtisserie de l'hôtel."
+   "desc": "Les invendus du buffet à la fermeture: plats chauds, entrées, mignardises ou desserts selon le service du soir."
   },
   {
    "id": 11,
    "img": "buffet",
-   "name": "Plateau du buffet",
+   "name": "Panier surprise",
    "merch": "Terrou-Bi",
    "cat": "Hôtels",
    "price": 5000,
@@ -878,12 +878,12 @@
    "left": 4,
    "la": 14.677,
    "lo": -17.4664,
-   "desc": "Plats chauds et entrées du buffet du soir, dressés en barquette à la fermeture du service."
+   "desc": "Les invendus du buffet à la fermeture: plats chauds, entrées, mignardises ou desserts selon le service du soir."
   },
   {
    "id": 12,
    "img": "fonio",
-   "name": "Assiette du chef",
+   "name": "Panier surprise",
    "merch": "Radisson Blu Dakar",
    "cat": "Hôtels",
    "price": 4000,
@@ -896,12 +896,12 @@
    "left": 5,
    "la": 14.6866,
    "lo": -17.4746,
-   "desc": "Fonio, crevettes et légumes, préparés pour le service du soir."
+   "desc": "Les invendus du buffet à la fermeture: plats chauds, entrées, mignardises ou desserts selon le service du soir."
   },
   {
    "id": 13,
    "img": "sombi",
-   "name": "Sombi & desserts",
+   "name": "Panier surprise",
    "merch": "King Fahd Palace",
    "cat": "Hôtels",
    "price": 2000,
@@ -914,12 +914,12 @@
    "left": 4,
    "la": 14.7326,
    "lo": -17.5083,
-   "desc": "Sombi au lait et desserts du buffet, en barquette à la fermeture."
+   "desc": "Les invendus du buffet à la fermeture: plats chauds, entrées, mignardises ou desserts selon le service du soir."
   },
   {
    "id": 14,
    "img": "legumes1",
-   "name": "Panier fruits & légumes",
+   "name": "Panier surprise",
    "merch": "Auchan Keur Gorgui",
    "cat": "Supermarchés",
    "price": 2500,
@@ -932,12 +932,12 @@
    "left": 8,
    "la": 14.7196,
    "lo": -17.466,
-   "desc": "Fruits et légumes proches du retrait rayon. Composition variable, environ 4 kg."
+   "desc": "Des produits encore bons mais proches de la date: frais, fruits et légumes ou épicerie selon les rayons."
   },
   {
    "id": 15,
    "img": "epicerie",
-   "name": "Panier épicerie du soir",
+   "name": "Panier surprise",
    "merch": "Casino Sea Plaza",
    "cat": "Supermarchés",
    "price": 3000,
@@ -950,12 +950,12 @@
    "left": 6,
    "la": 14.6951,
    "lo": -17.4736,
-   "desc": "Produits frais et secs proches de la date limite: œufs, laitages, légumes, conserves."
+   "desc": "Des produits encore bons mais proches de la date: frais, fruits et légumes ou épicerie selon les rayons."
   },
   {
    "id": 16,
    "img": "marche",
-   "name": "Panier légumes du jour",
+   "name": "Panier surprise",
    "merch": "Marché Kermel",
    "cat": "Marchés",
    "price": 1000,
@@ -968,7 +968,7 @@
    "left": 7,
    "la": 14.6705,
    "lo": -17.4289,
-   "desc": "Tomates, oignons, carottes et feuilles selon l'arrivage, auprès des étals du marché."
+   "desc": "Les invendus des étals en fin de marché: fruits, légumes ou feuilles selon l'arrivage du jour."
   }
  ]
 }
