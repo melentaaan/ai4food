@@ -63,7 +63,26 @@ is in **[server/docs/ROLES.md](server/docs/ROLES.md)**.
 
 Three languages (French, English, Wolof), light and dark themes, live pickup
 countdowns, distance from your neighbourhood, an explainable six-factor
-recommender, and offline demo mode. See the commit history for the details.
+recommender, and offline demo mode.
+
+### How it behaves in the hand
+
+- **The back button works.** Hardware or browser back closes the open sheet,
+  then returns to the feed, and only then leaves the app. Sheets also drag down
+  to dismiss, and every tab remembers where you had scrolled to.
+- **It never shows an empty screen.** Skeleton cards while the first load runs,
+  the catalogue stays on screen if the network drops, and a banner with a retry
+  appears instead of a blank list. Pull the feed down to refresh it.
+- **The pickup code is a real QR**, encoded on the device (no library, no
+  network) and readable by any scanner — tap it for a full-screen version to
+  show at a noisy counter. Merchants with a supported browser scan it with the
+  camera; everyone else types four characters into a field that prefixes
+  `AI4-`, uppercases, and validates on the fourth keystroke.
+- **Destructive things ask first.** Cancelling an order, pulling an offer and
+  suspending a shop all confirm; removing a favourite offers an undo instead.
+- **It answers with the phone.** A short vibration on reserve, pickup
+  validation and confirmations, screen transitions and press states throughout,
+  all of it disabled under `prefers-reduced-motion`.
 
 ## The backend
 

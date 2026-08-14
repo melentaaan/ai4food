@@ -304,6 +304,8 @@ button:focus-visible{outline:2.5px solid var(--emerald);outline-offset:2px}
   border-radius:16px;font-size:13px;z-index:95;opacity:0;transform:translateY(8px);transition:.24s;pointer-events:none;
   display:flex;align-items:center;gap:10px;box-shadow:0 20px 40px -18px rgba(10,46,39,.9)}
 .toast.on{opacity:1;transform:translateY(0)}
+/* Le toast n'intercepte rien, sauf le bouton Annuler qu'il propose. */
+.toast .txtb{pointer-events:auto;margin-left:auto;flex-shrink:0}
 .toast svg{color:var(--mint);flex-shrink:0}
 
 /* ---------- mobile: full-screen app ---------- */
@@ -474,6 +476,89 @@ button:focus-visible{outline:2.5px solid var(--emerald);outline-offset:2px}
 #ob .lgb.on{background:var(--mint);color:#0A2E27;border-color:var(--mint)}
 #ob .dots{position:absolute;bottom:124px;left:0;right:0;justify-content:center}
 
+/* ---------- squelettes ---------- */
+.rc.skel{pointer-events:none;border-color:var(--line)}
+.sk{background:linear-gradient(90deg,var(--line) 25%,var(--line2) 37%,var(--line) 63%);
+  background-size:400% 100%;animation:sheen 1.5s ease-in-out infinite;border-radius:9px}
+.thumb.sk{width:110px;min-height:110px;border-radius:15px;background-color:var(--line)}
+.sk.ln{height:12px;margin:7px 0}
+@keyframes sheen{0%{background-position:100% 0}100%{background-position:0 0}}
+
+/* ---------- transitions d'ecran ---------- */
+.view.swap{animation:viewin .22s cubic-bezier(.2,.9,.3,1)}
+@keyframes viewin{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.btn:active,.chip:active,.sortb:active,.pay:active,.srow:active,.zrow:active,.invite:active,.rb:active{transform:scale(.985)}
+.tab:active{transform:scale(.94)}
+
+/* ---------- bandeau reseau ---------- */
+.netbar{position:absolute;left:0;right:0;top:0;z-index:96;display:none;align-items:center;gap:9px;
+  padding:calc(9px + env(safe-area-inset-top)) 16px 9px;background:var(--danger);color:#fff;
+  font-size:12.5px;font-weight:500}
+.netbar.on{display:flex;animation:viewin .2s}
+/* Le bandeau pousse l'ecran vers le bas au lieu de le recouvrir. */
+.phone.hasnet .view{padding-top:calc(38px + env(safe-area-inset-top))}
+
+/* ---------- tirer pour actualiser ---------- */
+.ptr{position:absolute;top:6px;left:50%;margin-left:-19px;width:38px;height:38px;border-radius:50%;
+  background:var(--white);border:1px solid var(--line);box-shadow:var(--sh);display:grid;place-items:center;
+  z-index:60;opacity:0;pointer-events:none;color:var(--emerald)}
+.ptr.on{opacity:1}
+.ptr.armed{border-color:var(--emerald);background:var(--pale)}
+
+/* ---------- boite de dialogue ---------- */
+#modal{position:absolute;inset:0;z-index:98;display:none}
+#modal.on{display:block}
+.dlg-scrim{position:absolute;inset:0;background:rgba(6,20,17,.55);animation:fadein .2s ease}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+.dlg{position:absolute;left:18px;right:18px;bottom:calc(20px + env(safe-area-inset-bottom));
+  background:var(--cream);border-radius:26px;padding:22px 22px 20px;text-align:left;
+  box-shadow:0 30px 70px -18px rgba(0,0,0,.65);animation:dlgin .28s cubic-bezier(.2,.9,.3,1)}
+@keyframes dlgin{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:none}}
+.dlg h3{font-family:var(--dp);font-weight:700;font-size:19px;margin:0 0 7px;letter-spacing:-.03em}
+.dlg p{margin:0 0 18px;font-size:13.5px;color:var(--muted);line-height:1.6}
+.dlg-ic{width:50px;height:50px;border-radius:17px;background:var(--pale);color:var(--emerald);
+  display:grid;place-items:center;margin-bottom:14px}
+.dlg-ic.bad{background:#F7E4E7;color:var(--danger)}
+[data-theme="dark"] .dlg-ic.bad{background:#3B2028}
+.btn-danger{background:var(--danger);color:#fff}
+
+/* ---------- scanner ---------- */
+.scanbox{position:relative;margin:16px 22px 4px;border-radius:22px;overflow:hidden;
+  background:#08211C;aspect-ratio:1/1}
+.scanbox video{width:100%;height:100%;object-fit:cover;display:block}
+.scanframe{position:absolute;inset:15%;border:2.5px solid rgba(255,255,255,.92);border-radius:20px;
+  box-shadow:0 0 0 999px rgba(6,20,17,.42)}
+.scanframe::after{content:"";position:absolute;left:8%;right:8%;top:50%;height:2px;
+  background:var(--mint);box-shadow:0 0 12px var(--mint);animation:sweep 2.4s ease-in-out infinite}
+@keyframes sweep{0%,100%{transform:translateY(-42%)}50%{transform:translateY(42%)}}
+
+/* ---------- bouton en attente ---------- */
+.btn.busy{opacity:.9}
+.btn:disabled{cursor:default}
+.spin{width:17px;height:17px;border-radius:50%;display:inline-block;
+  border:2.5px solid rgba(255,255,255,.35);border-top-color:#fff;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+[data-theme="dark"] .btn-main .spin{border-color:rgba(8,34,28,.28);border-top-color:#08221C}
+
+/* ---------- saisie du code au comptoir ---------- */
+.codewrap{display:flex;align-items:center;gap:7px;background:var(--white);border:1px solid var(--line2);
+  border-radius:14px;padding:13px 15px;box-shadow:var(--sh);margin-bottom:13px}
+.codewrap:focus-within{border-color:var(--emerald);box-shadow:0 0 0 3px rgba(47,107,79,.12)}
+.codewrap .pfx{font-family:var(--dp);font-weight:700;font-size:20px;letter-spacing:.1em;color:var(--muted)}
+.codewrap input{flex:1;min-width:0;border:none;background:none;outline:none;padding:0;
+  font-family:var(--dp);font-weight:700;font-size:20px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink)}
+.codewrap input::placeholder{color:var(--strike);letter-spacing:.14em}
+
+/* ---------- QR ---------- */
+.qr{display:grid;place-items:center;grid-template-columns:none;grid-template-rows:none;gap:0;
+  padding:5px;background:#fff;border:none;cursor:pointer}
+.qr svg{width:100%;height:100%;display:block}
+.qrbig{display:grid;place-items:center;padding:26px 22px 8px}
+.qrbig .card{background:#fff;padding:16px;border-radius:24px;box-shadow:0 20px 50px -24px rgba(0,0,0,.5)}
+.qrbig .code{font-family:var(--dp);font-weight:700;font-size:30px;letter-spacing:.08em;
+  margin-top:18px;color:var(--ink)}
+
 /* ---------- logo ---------- */
 .lockup{display:inline-flex;align-items:center;gap:calc(var(--lk) * .14);
   font-family:var(--dp);font-weight:800;font-size:var(--lk);letter-spacing:-.045em;line-height:1;
@@ -549,7 +634,10 @@ button:focus-visible{outline:2.5px solid var(--emerald);outline-offset:2px}
       <svg width="22" height="12" viewBox="0 0 24 12" fill="none"><rect x="1" y="1" width="19" height="10" rx="3" stroke="currentColor" stroke-width="1.2" opacity=".5"/><rect x="3" y="3" width="14" height="6" rx="1.6" fill="currentColor"/><path d="M22 4.5v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity=".5"/></svg>
     </span></div>
     <main class="view" id="view"></main>
+    <div class="ptr" id="ptr"></div>
+    <div class="netbar" id="net" role="status"></div>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <div id="modal" aria-hidden="true"></div>
     <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-hidden="true"></div>
     <nav class="tabs" id="tabs" role="tablist"></nav>
   </div>
@@ -603,6 +691,7 @@ const IC={
  alert:'<path d="M10.3 3.9 2.6 17.2A2 2 0 0 0 4.3 20h15.4a2 2 0 0 0 1.7-2.8L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4.2"/><circle cx="12" cy="16.7" r="1" fill="currentColor" stroke="none"/>',
  scan:'<path d="M3.5 8.5v-3a2 2 0 0 1 2-2h3M15.5 3.5h3a2 2 0 0 1 2 2v3M20.5 15.5v3a2 2 0 0 1-2 2h-3M8.5 20.5h-3a2 2 0 0 1-2-2v-3"/><path d="M3.5 12h17"/>',
  calendar:'<rect x="3.5" y="5" width="17" height="16" rx="2.5"/><path d="M3.5 10h17M8.5 3v4M15.5 3v4"/>',
+ refresh:'<path d="M20.5 12a8.5 8.5 0 1 1-2.6-6.1"/><path d="M20.5 3.5v5.5h-5.5"/>',
  route:'<circle cx="6" cy="19" r="2.5"/><circle cx="18" cy="5" r="2.5"/><path d="M8.5 19h6a3.5 3.5 0 0 0 0-7h-5a3.5 3.5 0 0 1 0-7h6"/>'
 };
 const I=(n,s=20,extra='')=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" ${extra}>${IC[n]}</svg>`;
@@ -992,6 +1081,33 @@ a_audit_sub:["Qui a fait quoi, et quand","Who did what, and when","Kan moo def l
 a_system:["système","system","système"],
 a_audit_note:["Chaque action privilégiée est enregistrée avec son auteur. Lecture réservée aux administrateurs.","Every privileged action is recorded with its author. Admin-only.","Ligeey bu am solo dañu koy bind ak ku ko def. Admin rekk."],
 n_got_t:["Retrait confirmé","Pickup confirmed","Retrait bi baax na"],
+/* confort */
+retry:["Réessayer","Retry","Jéemaat"],
+please_wait:["Un instant...","One moment...","Xaaral tuuti..."],
+refreshed:["À jour","Up to date","Bees na"],
+offline_p:["AI4Food est injoignable","Cannot reach AI4Food","Jokkoo bi dañu ko ñàkk"],
+confirm_yes:["Confirmer","Confirm","Baatal"],
+confirm_cancel_t:["Annuler cette commande ?","Cancel this order?","Bàyyi commande bi ?"],
+confirm_cancel_p:["Le panier repart en vente et vous êtes remboursé sous 24h.","The bag goes back on sale and you are refunded within 24h.","Panier bi dina dellu ci jaay bi, te dinañu la fey ci 24 waxtu."],
+keep:["Garder ma commande","Keep it","Bàyyi ko"],
+confirm_pull_t:["Retirer cette offre ?","Pull this offer?","Jële offre bi ?"],
+confirm_pull_p:["Les paniers déjà réservés restent dus. Seul le stock restant est retiré.","Bags already reserved still stand. Only the remaining stock comes off.","Panier yi ñu réserver dinañu des. Li des rekk lañuy jële."],
+confirm_suspend_t:["Suspendre ce commerce ?","Suspend this shop?","Taxawal butik bi ?"],
+confirm_suspend_p:["Ses offres en ligne sont retirées immédiatement.","Its live offers are pulled at once.","Offre yi ci kaw dinañu jóg léegi."],
+undo:["Annuler","Undo","Bàyyi"],
+fav_undone:["Favori rétabli","Favourite restored","Favori bi dellu na"],
+/* scan */
+scan_t:["Scanner le code","Scan the code","Scan kod bi"],
+scan_p:["Placez le QR du client dans le cadre","Put the customer QR in the frame","Def QR bu client bi ci biir kaadar bi"],
+scan_hint:["La validation est immédiate dès que le code est lu.","Validation happens the moment the code is read.","Bu ñu jàngee kod bi, dina baatal ci saa si."],
+scan_manual:["Saisir le code à la main","Type the code instead","Bind kod bi ak loxo"],
+scan_unsupported:["Le scan n'est pas disponible sur cet appareil","Scanning is not available on this device","Scan bi jàppul ci telefon bi"],
+scan_perm:["Accès à la caméra refusé","Camera access refused","Caméra bi tëj na"],
+scan_open:["Scanner","Scan","Scan"],
+/* QR client */
+qr_hint:["Le commerçant scanne ce code","The shop scans this code","Butik bi dina scan kod bi"],
+qr_big:["Afficher en grand","Show it big","Wonel ko bu mag"],
+qr_big_p:["Montrez cet écran au comptoir","Show this screen at the counter","Wonel ekran bi ci komptuwaar bi"],
 n_got_b:["Votre panier a été récupéré chez {0}. Jërëjëf !","Your basket was collected at {0}. Jërëjëf!","Jël nga sa panier ci {0}. Jërëjëf !"],
 lg_prospect:["À convaincre","To convince","Ñu war a woo"],
 /* panneau desktop */
@@ -1088,6 +1204,7 @@ let S={
  qty:1,pay:"wave",cur:null,ob:0,q:"",stack:[],
  mode:"demo",remote:{offers:[],orders:[],notifs:[],impact:null,merchants:[]},desk:null,adm:null,
  idMap:{},idSeq:0,auth:{step:"phone",phone:"",hint:"",isNew:false},err:null,aFilter:"",pFilter:"",
+ busy:0,netDown:false,scrollPos:{},haptics:true,
  lang:"fr",theme:"auto",fav:[8,11],orders:seedOrders(),custom:[],stock:{},invited:[],recent:[],
  zone:"Sacré-Cœur",pos:null,seen:false,notifs:seedNotifs(),alerts:true,reads:[]
 };
@@ -1374,9 +1491,8 @@ function card(d,opts){
     <span class="save">${I("tag",12)} ${t("save_pct",pct(d))}</span></div>
   </div></div>`;
 }
-function qr(seed){let s=0;const str=String(seed);
- for(let i=0;i<str.length;i++)s=(s*31+str.charCodeAt(i))%97;
- let o="";for(let i=0;i<81;i++){const on=((i*7+s*11+(i%9)*3)%5)<2||[0,1,7,8,9,10,16,17,63,64,70,71,72,73,79,80].indexOf(i)>=0;o+=`<i class="${on?"f":""}"></i>`}return o}
+/* Un vrai QR: le comptoir le scanne, il ne sert plus de decor. */
+const qr=code=>qrSvg(String(code),120,"#0A2E27","#ffffff");
 function greet(){const h=new Date().getHours();return h<12?t("greet_am"):h<17?t("greet_pm"):t("greet_ev")}
 function bellBtn(){
  const u=unread();
@@ -1389,6 +1505,465 @@ function sortBar(n){
   ${opts.map(([k,l])=>`<button class="sortb ${S.sort===k?"on":""}" onclick="setSort('${k}')">${t(l)}</button>`).join("")}</div>
  <p class="countline">${n===1?t("n_offer1"):t("n_offers",n)} &middot; ${esc(S.zone)}</p>`;
 }
+/* =========================================================
+   QR - mode octet, correction M, versions 1 a 4
+   Assez pour un code de retrait; le comptoir scanne au lieu de saisir.
+   ========================================================= */
+const GF_EXP=new Uint8Array(512),GF_LOG=new Uint8Array(256);
+(function(){let x=1;
+ for(let i=0;i<255;i++){GF_EXP[i]=x;GF_LOG[x]=i;x<<=1;if(x&0x100)x^=0x11D}
+ for(let i=255;i<512;i++)GF_EXP[i]=GF_EXP[i-255];})();
+const gfMul=(a,b)=>(a&&b)?GF_EXP[GF_LOG[a]+GF_LOG[b]]:0;
+function polyMul(a,b){
+ const r=new Array(a.length+b.length-1).fill(0);
+ for(let i=0;i<a.length;i++)for(let j=0;j<b.length;j++)r[i+j]^=gfMul(a[i],b[j]);
+ return r;
+}
+function rsGen(n){let g=[1];for(let i=0;i<n;i++)g=polyMul(g,[1,GF_EXP[i]]);return g}
+function rsEncode(data,n){
+ const gen=rsGen(n),res=data.concat(new Array(n).fill(0));
+ for(let i=0;i<data.length;i++){
+  const f=res[i];
+  if(f)for(let j=0;j<gen.length;j++)res[i+j]^=gfMul(gen[j],f);
+ }
+ return res.slice(data.length);
+}
+/* Par version, niveau M: taille, codets de donnees, codets de correction par
+   bloc, nombre de blocs, centre du motif d'alignement. */
+const QRV=[null,
+ {size:21,data:16,ec:10,blocks:1,align:0},
+ {size:25,data:28,ec:16,blocks:1,align:18},
+ {size:29,data:44,ec:26,blocks:1,align:22},
+ {size:33,data:64,ec:18,blocks:2,align:26}];
+
+function qrMatrix(text){
+ const bytes=[];
+ for(const ch of unescape(encodeURIComponent(String(text))))bytes.push(ch.charCodeAt(0));
+ let v=1;
+ while(v<4&&4+8+8*bytes.length>QRV[v].data*8)v++;
+ if(4+8+8*bytes.length>QRV[v].data*8)throw new Error("QR: texte trop long");
+ const V=QRV[v],n=V.size;
+
+ /* ---- flux binaire ---- */
+ const bits=[];
+ const put=(val,len)=>{for(let i=len-1;i>=0;i--)bits.push((val>>i)&1)};
+ put(4,4);put(bytes.length,8);bytes.forEach(b=>put(b,8));
+ const cap=V.data*8;
+ for(let i=0;i<4&&bits.length<cap;i++)bits.push(0);
+ while(bits.length%8)bits.push(0);
+ const cw=[];
+ for(let i=0;i<bits.length;i+=8){let b=0;for(let j=0;j<8;j++)b=(b<<1)|bits[i+j];cw.push(b)}
+ for(let i=0;cw.length<V.data;i++)cw.push(i%2?0x11:0xEC);
+
+ /* ---- blocs + entrelacement ---- */
+ const per=V.data/V.blocks,dbs=[],ebs=[];
+ for(let b=0;b<V.blocks;b++){
+  const d=cw.slice(b*per,(b+1)*per);dbs.push(d);ebs.push(rsEncode(d,V.ec));
+ }
+ const stream=[];
+ for(let i=0;i<per;i++)for(let b=0;b<V.blocks;b++)stream.push(dbs[b][i]);
+ for(let i=0;i<V.ec;i++)for(let b=0;b<V.blocks;b++)stream.push(ebs[b][i]);
+
+ /* ---- motifs fixes ---- */
+ const m=Array.from({length:n},()=>new Array(n).fill(null));
+ const reserved=Array.from({length:n},()=>new Array(n).fill(false));
+ const fix=(r,c,val)=>{if(r>=0&&c>=0&&r<n&&c<n){m[r][c]=val;reserved[r][c]=true}};
+ const finder=(r0,c0)=>{
+  for(let r=-1;r<=7;r++)for(let c=-1;c<=7;c++){
+   const inBox=r>=0&&r<=6&&c>=0&&c<=6;
+   const on=inBox&&((r===0||r===6||c===0||c===6)||(r>=2&&r<=4&&c>=2&&c<=4));
+   fix(r0+r,c0+c,on?1:0);
+  }
+ };
+ finder(0,0);finder(0,n-7);finder(n-7,0);
+ for(let i=8;i<n-8;i++){fix(6,i,i%2?0:1);fix(i,6,i%2?0:1)}
+ if(V.align){
+  const a=V.align;
+  for(let r=-2;r<=2;r++)for(let c=-2;c<=2;c++){
+   const on=Math.max(Math.abs(r),Math.abs(c))!==1;
+   fix(a+r,a+c,on?1:0);
+  }
+ }
+ fix(n-8,8,1);                                   // module sombre
+ for(let i=0;i<9;i++){                           // zones d'information de format
+  if(i!==6){reserved[8][i]=true;reserved[i][8]=true}
+ }
+ for(let i=0;i<8;i++){reserved[8][n-1-i]=true;reserved[n-1-i][8]=true}
+
+ /* ---- placement des donnees, en zigzag depuis le bas a droite ---- */
+ let bi=0,up=true;
+ for(let col=n-1;col>0;col-=2){
+  if(col===6)col--;
+  for(let k=0;k<n;k++){
+   const row=up?n-1-k:k;
+   for(let c=0;c<2;c++){
+    const cc=col-c;
+    if(reserved[row][cc])continue;
+    const byte=stream[bi>>3];
+    m[row][cc]=byte===undefined?0:(byte>>(7-(bi&7)))&1;
+    bi++;
+   }
+  }
+  up=!up;
+ }
+
+ /* ---- masques: on garde celui qui penalise le moins ---- */
+ const MASKS=[
+  (r,c)=>(r+c)%2===0,(r,c)=>r%2===0,(r,c)=>c%3===0,(r,c)=>(r+c)%3===0,
+  (r,c)=>(((r>>1)+Math.floor(c/3))%2)===0,(r,c)=>((r*c)%2+(r*c)%3)===0,
+  (r,c)=>(((r*c)%2+(r*c)%3)%2)===0,(r,c)=>(((r+c)%2+(r*c)%3)%2)===0];
+ const apply=(mask)=>{
+  const g=m.map(row=>row.slice());
+  for(let r=0;r<n;r++)for(let c=0;c<n;c++)
+   if(!reserved[r][c]&&MASKS[mask](r,c))g[r][c]^=1;
+  return g;
+ };
+ /* Information de format: 5 bits (niveau + masque) etendus par BCH(15,5),
+    puis masques par 101010000010010, et ecrits en deux exemplaires. */
+ const formatBits=(mask)=>{
+  const d=(0<<3)|mask;                            // niveau M = 00
+  let rem=d<<10;
+  for(let i=14;i>=10;i--)if(rem&(1<<i))rem^=0x537<<(i-10);
+  return ((d<<10)|rem)^0x5412;
+ };
+ const placeFormat=(g,mask)=>{
+  const f=formatBits(mask);
+  for(let i=0;i<15;i++){
+   const bit=(f>>i)&1;
+   if(i<6)g[i][8]=bit; else if(i<8)g[i+1][8]=bit; else g[n-15+i][8]=bit;
+   if(i<8)g[8][n-1-i]=bit; else if(i===8)g[8][7]=bit; else g[8][14-i]=bit;
+  }
+  g[n-8][8]=1;                                    // module sombre, toujours
+ };
+ const penalty=(g)=>{
+  let p=0;
+  const runScore=(line)=>{
+   let s=0,run=1;
+   for(let i=1;i<line.length;i++){
+    if(line[i]===line[i-1])run++;
+    else{if(run>=5)s+=3+(run-5);run=1}
+   }
+   if(run>=5)s+=3+(run-5);
+   return s;
+  };
+  for(let r=0;r<n;r++)p+=runScore(g[r]);
+  for(let c=0;c<n;c++)p+=runScore(g.map(row=>row[c]));
+  for(let r=0;r<n-1;r++)for(let c=0;c<n-1;c++){
+   const s=g[r][c]+g[r][c+1]+g[r+1][c]+g[r+1][c+1];
+   if(s===0||s===4)p+=3;
+  }
+  const pat=[1,0,1,1,1,0,1,0,0,0,0];
+  const hit=(line,i)=>pat.every((b,k)=>line[i+k]===b);
+  const rpat=pat.slice().reverse();
+  const hitR=(line,i)=>rpat.every((b,k)=>line[i+k]===b);
+  for(let r=0;r<n;r++)for(let c=0;c+11<=n;c++){
+   if(hit(g[r],c)||hitR(g[r],c))p+=40;
+  }
+  for(let c=0;c<n;c++){
+   const col=g.map(row=>row[c]);
+   for(let r=0;r+11<=n;r++)if(hit(col,r)||hitR(col,r))p+=40;
+  }
+  let dark=0;
+  for(let r=0;r<n;r++)for(let c=0;c<n;c++)dark+=g[r][c];
+  p+=Math.floor(Math.abs(dark*100/(n*n)-50)/5)*10;
+  return p;
+ };
+
+ let best=null,bestP=Infinity;
+ for(let mask=0;mask<8;mask++){
+  const g=apply(mask);placeFormat(g,mask);
+  const p=penalty(g);
+  if(p<bestP){bestP=p;best=g}
+ }
+ return best;
+}
+
+/** QR en SVG, quiet zone comprise. */
+function qrSvg(text,size,dark,light){
+ let m;
+ try{m=qrMatrix(text)}catch(e){return ""}
+ const n=m.length,q=2,total=n+q*2;
+ let d="";
+ for(let r=0;r<n;r++)for(let c=0;c<n;c++)if(m[r][c])d+=`M${c+q} ${r+q}h1v1h-1z`;
+ return `<svg viewBox="0 0 ${total} ${total}" width="${size}" height="${size}"
+   shape-rendering="crispEdges" role="img" aria-label="${String(text)}">
+  <rect width="${total}" height="${total}" fill="${light||"#fff"}"/>
+  <path d="${d}" fill="${dark||"#0A2E27"}"/></svg>`;
+}
+
+
+/* =========================================================
+   Confort d'usage: retour arriere, gestes, attente, secousses
+   ========================================================= */
+
+/** Vibration courte. Le telephone confirme avant meme que l'oeil ne lise. */
+const BUZZ={tap:8,ok:[10,35,16],warn:[22,50,22],err:[35,25,35]};
+function buzz(kind){
+ try{if(navigator.vibrate&&S.haptics!==false)navigator.vibrate(BUZZ[kind]||BUZZ.tap)}catch(e){}
+}
+
+/* ---------- squelettes de chargement ---------- */
+function skelCard(){
+ return `<div class="rc skel" aria-hidden="true">
+  <div class="thumb sk"></div>
+  <div class="rc-body">
+   <div class="sk ln" style="width:62%;height:15px"></div>
+   <div class="sk ln" style="width:44%;height:12px"></div>
+   <div class="sk ln" style="width:30%;height:17px;margin-top:7px"></div>
+   <div class="sk ln" style="width:70%;height:12px"></div>
+  </div></div>`;
+}
+const skelList=(n)=>`<div class="list">${Array.from({length:n||3},skelCard).join("")}</div>`;
+function skelScreen(title){
+ return `<div class="head"><div><div class="hi">${greet()}</div>
+   <div class="city">${esc(S.zone)}</div></div>${bellBtn()}</div>
+  <div class="sec"><div><span class="eyebrow">${I("spark",12)} ${t("ai_eyebrow")}</span>
+   <h2>${title||t("ai_title")}</h2></div></div>
+  ${skelList(3)}`;
+}
+/** Vrai tant que le serveur n'a pas encore repondu la premiere fois. */
+const firstLoad=()=>online()&&S.busy>0&&!CAT().length;
+
+/* ---------- bandeau hors ligne ---------- */
+function netBanner(){
+ const n=el("net");if(!n)return;
+ const down=online()&&S.netDown;
+ n.className="netbar"+(down?" on":"");
+ const phone=document.querySelector(".phone");
+ if(phone)phone.classList.toggle("hasnet",!!down);
+ n.innerHTML=down?`${I("alert",16)}<span>${t("offline_p")}</span>
+   <button class="txtb" style="color:#fff" onclick="retryNow()">${t("retry")}</button>`:"";
+}
+function retryNow(){
+ S.netDown=false;netBanner();
+ syncAll().then(()=>{if(!S.netDown)toast(t("refreshed"))});
+}
+
+/* ---------- tirer pour actualiser ---------- */
+function initPullToRefresh(){
+ const view=el("view"),ind=el("ptr");
+ if(!view||!ind)return;
+ let y0=null,dy=0,armed=false;
+ const LIMIT=78;
+ const reset=()=>{ind.style.transform="";ind.classList.remove("armed","on");dy=0;y0=null;armed=false;
+  view.style.transform="";view.style.transition=""};
+ view.addEventListener("touchstart",e=>{
+  if(view.scrollTop>0||S.stack.length||S.busy)return;
+  y0=e.touches[0].clientY;view.style.transition="none";
+ },{passive:true});
+ view.addEventListener("touchmove",e=>{
+  if(y0===null)return;
+  dy=e.touches[0].clientY-y0;
+  if(dy<=0){reset();return}
+  const pull=Math.min(dy*.55,110);
+  view.style.transform=`translateY(${pull}px)`;
+  ind.classList.add("on");
+  ind.style.transform=`translateY(${pull-46}px) rotate(${pull*3}deg)`;
+  const now=pull>=LIMIT*.55;
+  if(now!==armed){armed=now;ind.classList.toggle("armed",armed);if(armed)buzz("tap")}
+ },{passive:true});
+ view.addEventListener("touchend",()=>{
+  if(y0===null)return;
+  const fire=armed;
+  // On rend la liste a sa place en glissant, pas d'un coup sec.
+  view.style.transition="transform .28s cubic-bezier(.2,.9,.3,1)";
+  view.style.transform="";
+  ind.classList.remove("armed","on");ind.style.transform="";
+  dy=0;y0=null;armed=false;
+  setTimeout(()=>{view.style.transition=""},320);
+  if(fire){
+   buzz("ok");
+   if(online())syncAll().then(()=>toast(t("refreshed")));
+   else{render();toast(t("refreshed"))}
+  }
+ });
+}
+
+/* ---------- retour arriere materiel et navigateur ---------- */
+/* Le telephone a un bouton retour: il doit fermer la feuille ouverte, puis
+   ramener a l'accueil, et seulement ensuite quitter l'application. */
+let popGuard=0;
+function navPush(){
+ try{history.pushState({ai4:Date.now()},"")}catch(e){}
+}
+function navBack(){try{history.back()}catch(e){}}
+function initHistory(){
+ try{history.replaceState({ai4:"root"},"")}catch(e){}
+ window.addEventListener("popstate",()=>{
+  // Les entrees retirees par closeSheet reviennent ici: on les ignore.
+  if(popGuard>0){popGuard--;return}
+  if(S.stack.length){closeTop();return}
+  const first=tabsFor(S.role)[0][0];
+  if(S.tab!==first){go(first,true);navPush();return}
+  // Racine: on remet une entree pour ne pas sortir sur un simple retour.
+  navPush();
+ });
+}
+
+/* ---------- glisser vers le bas pour fermer une feuille ---------- */
+function initSheetDrag(){
+ const s=el("sheet");if(!s)return;
+ let y0=null,dy=0,t0=0,scroller=null;
+ const scrollable=(node)=>{
+  let p=node;
+  while(p&&p!==s){
+   if(p.scrollHeight>p.clientHeight+2&&/auto|scroll/.test(getComputedStyle(p).overflowY))return p;
+   p=p.parentNode;
+  }
+  return null;
+ };
+ s.addEventListener("touchstart",e=>{
+  if(!s.classList.contains("open"))return;
+  scroller=scrollable(e.target);
+  if(scroller&&scroller.scrollTop>0)return;
+  y0=e.touches[0].clientY;t0=Date.now();dy=0;s.style.transition="none";
+ },{passive:true});
+ s.addEventListener("touchmove",e=>{
+  if(y0===null)return;
+  dy=e.touches[0].clientY-y0;
+  if(dy<=0){s.style.transform="";return}
+  if(scroller&&scroller.scrollTop>0){y0=null;s.style.transform="";s.style.transition="";return}
+  s.style.transform=`translateY(${dy}px)`;
+ },{passive:true});
+ s.addEventListener("touchend",()=>{
+  if(y0===null)return;
+  const fast=dy>60&&(Date.now()-t0)<300;
+  s.style.transition="";s.style.transform="";
+  const go_=dy>150||fast;
+  y0=null;dy=0;
+  if(go_){buzz("tap");back()}
+ });
+}
+
+/* ---------- boite de dialogue ---------- */
+let dialogResolve=null;
+function ask(opts){
+ return new Promise(res=>{
+  const m=el("modal");
+  dialogResolve=v=>{
+   m.classList.remove("on");m.setAttribute("aria-hidden","true");
+   setTimeout(()=>{if(!m.classList.contains("on"))m.innerHTML=""},260);
+   dialogResolve=null;res(v);
+  };
+  m.innerHTML=`<div class="dlg-scrim" onclick="dialogAnswer(false)"></div>
+   <div class="dlg" role="alertdialog" aria-modal="true" aria-label="${esc(opts.title)}">
+    <div class="dlg-ic ${opts.danger?"bad":""}">${I(opts.icon||(opts.danger?"alert":"info"),24)}</div>
+    <h3>${opts.title}</h3>
+    <p>${opts.body||""}</p>
+    <button class="btn ${opts.danger?"btn-danger":"btn-main"}" onclick="dialogAnswer(true)">${opts.confirm||t("confirm_yes")}</button>
+    <div style="height:9px"></div>
+    <button class="btn btn-ghost" onclick="dialogAnswer(false)">${opts.cancel||t("cancel")}</button>
+   </div>`;
+  m.classList.add("on");m.setAttribute("aria-hidden","false");
+  buzz("warn");
+  const b=m.querySelector(".btn");if(b)setTimeout(()=>b.focus(),80);
+ });
+}
+function dialogAnswer(v){if(dialogResolve)dialogResolve(v)}
+
+/* ---------- annuler la derniere action ---------- */
+let undoTimer=null;
+function toastUndo(msg,fn){
+ const el_=el("toast");
+ el_.className="toast on";
+ el_.innerHTML=`${I("checkC",18)}<span>${msg}</span>
+  <button class="txtb" style="color:var(--mint);margin-left:auto" onclick="runUndo()">${t("undo")}</button>`;
+ clearTimeout(undoTimer);
+ window.__undo=fn;
+ undoTimer=setTimeout(()=>{el_.classList.remove("on");window.__undo=null},5200);
+}
+function runUndo(){
+ const fn=window.__undo;window.__undo=null;
+ clearTimeout(undoTimer);el("toast").classList.remove("on");
+ if(fn){buzz("ok");fn()}
+}
+
+/* ---------- bouton principal en attente ---------- */
+/* Payer met la main sur de l'argent: le bouton doit dire qu'il a compris,
+   et refuser un second appui. */
+function btnBusy(on,label){
+ const b=document.querySelector("#sheet .bar .btn");
+ if(!b)return;
+ if(on){
+  if(!b.dataset.html)b.dataset.html=b.innerHTML;
+  b.disabled=true;b.classList.add("busy");
+  b.innerHTML=`<span class="spin"></span><span>${label||t("please_wait")}</span>`;
+ }else{
+  b.disabled=false;b.classList.remove("busy");
+  if(b.dataset.html){b.innerHTML=b.dataset.html;delete b.dataset.html}
+ }
+}
+
+/* ---------- saisie assistee du code ---------- */
+/* Quatre caracteres suffisent: on ajoute le prefixe, on met en majuscules et
+   on valide des que le compte y est. Le comptoir ne tape jamais "AI4-". */
+function codeInput(v){
+ const i=el("mcode");if(!i)return;
+ let s=String(v).toUpperCase().replace(/[^A-Z0-9]/g,"");
+ if(s.indexOf("AI4")===0)s=s.slice(3);
+ s=s.slice(0,4);
+ if(i.value!==s)i.value=s;
+ if(s.length===4){buzz("tap");validateCode()}
+}
+
+/* ---------- scanner le code du client ---------- */
+const canScan=()=>typeof window!=="undefined"&&"BarcodeDetector"in window&&
+ !!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia);
+let scanStream=null,scanLoop=null;
+function scanSheet(){
+ return `${shHead(t("scan_t"),t("scan_p"),"closeSheet()")}
+ <div class="shbody">
+  <div class="scanbox"><video id="cam" playsinline muted autoplay></video><div class="scanframe"></div></div>
+  <div style="padding:18px 22px 22px">
+   <p class="hint" id="scanmsg">${t("scan_hint")}</p>
+   <button class="btn btn-ghost" onclick="back()">${I("edit",18)} ${t("scan_manual")}</button>
+  </div></div>`;
+}
+async function startScan(){
+ const video=el("cam");if(!video)return;
+ try{
+  scanStream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}});
+  video.srcObject=scanStream;
+  const det=new window.BarcodeDetector({formats:["qr_code"]});
+  const tick=async()=>{
+   if(!scanStream)return;
+   try{
+    const found=await det.detect(video);
+    if(found&&found.length){
+     const raw=String(found[0].rawValue||"").trim();
+     const code=(raw.match(/AI4-[A-Z0-9]{4}/i)||[raw])[0].toUpperCase();
+     stopScan();buzz("ok");back();
+     validateScanned(code);
+     return;
+    }
+   }catch(e){}
+   scanLoop=setTimeout(tick,320);
+  };
+  tick();
+ }catch(e){
+  const msg=el("scanmsg");if(msg)msg.textContent=t("scan_perm");
+  buzz("err");
+ }
+}
+function stopScan(){
+ clearTimeout(scanLoop);scanLoop=null;
+ if(scanStream){scanStream.getTracks().forEach(tr=>tr.stop());scanStream=null}
+}
+function openScan(){
+ if(!canScan()){toast(t("scan_unsupported"),true);return}
+ pushSheet("scan");
+ setTimeout(startScan,220);
+}
+function validateScanned(code){
+ if(online()){
+  guard(()=>API.post("/merchant/pickups/validate",{code:code}),t("m_valid_ok",code))
+   .then(()=>{buzz("ok");return syncAll()}).catch(()=>buzz("err"));
+ }else{
+  const o=mOrders().find(x=>x.code===code&&x.status==="active");
+  if(!o){buzz("err");return toast(t("m_valid_bad"),true)}
+  o.status="done";save();render();buzz("ok");toast(t("m_valid_ok",code));
+ }
+}
 
 /* =========================================================
    Client API - le serveur quand il repond, la demo sinon
@@ -1398,10 +1973,15 @@ const API={
  base:"",online:false,token:null,rtoken:null,me:null,
  url(p){return this.base+"/api"+p},
  async raw(method,path,body,retry){
-  const r=await fetch(this.url(path),{
-   method:method,
-   headers:Object.assign(body?{"content-type":"application/json"}:{},this.token?{authorization:"Bearer "+this.token}:{}),
-   body:body?JSON.stringify(body):undefined});
+  let r;
+  try{
+   r=await fetch(this.url(path),{
+    method:method,
+    headers:Object.assign(body?{"content-type":"application/json"}:{},this.token?{authorization:"Bearer "+this.token}:{}),
+    body:body?JSON.stringify(body):undefined});
+  }catch(err){
+   const e=new Error(t("offline_p"));e.code="network";e.status=0;throw e;
+  }
   if(r.status===401&&this.rtoken&&retry!==false){
    if(await this.renew())return this.raw(method,path,body,false);
    this.signOut(true);
@@ -1557,6 +2137,8 @@ async function pullAdmin(){
 /** Recharge ce que le role courant affiche, puis redessine. */
 async function syncAll(reset){
  if(!online())return;
+ S.busy++;
+ if(S.busy===1&&!CAT().length)render();
  try{
   const jobs=[pullCatalog(),pullMerchants()];
   if(signedIn()){
@@ -1565,11 +2147,12 @@ async function syncAll(reset){
    if(API.me.role==="admin")jobs.push(pullAdmin());
   }
   await Promise.all(jobs);
-  S.err=null;
+  S.err=null;S.netDown=false;
  }catch(e){
   S.err=e.message;
-  if(e.status>=500||e.code==="network")toast(e.message,true);
- }
+  if(e.code==="network"||e.status>=500)S.netDown=true;
+  else if(e.status!==401)toast(e.message,true);
+ }finally{S.busy--}
  render(reset);
 }
 async function guard(fn,okMsg){
@@ -1662,6 +2245,7 @@ function afterSignIn(){
    Ecrans client
    ========================================================= */
 function home(){
+ if(firstLoad())return skelScreen();
  const all=CAT().filter(d=>S.filter==="Tout"||d.cat===S.filter);
  const list=sortList(all);
  const top=ranked(CAT().filter(d=>statusOf(d)!=="sold")).slice(0,3);
@@ -1727,6 +2311,7 @@ function vrow(v){
    </div></div>`;
 }
 function places(){
+ if(online()&&S.busy>0&&!MV().length)return skelScreen(t("shops"));
  const vl=MV().filter(v=>S.vfilter==="Tout"||v.c===S.vfilter)
    .sort((a,b)=>kmBetween(userPos(),{la:a.la,lo:a.lo})-kmBetween(userPos(),{la:b.la,lo:b.lo}));
  const nLive=MV().filter(v=>v.live||offersAt(v).length).length;
@@ -1769,9 +2354,10 @@ function ticket(o,full){
     <div class="lbl">${I("clock",13)} ${w.tm?t("pickup_tmr"):t("pickup_today")}</div>
     <p class="win">${d.from} - ${d.to}</p></div>
    <div class="perf"><i></i></div>
-   <div class="tk-bot"><div class="qr">${qr(d.id)}</div>
+   <div class="tk-bot">
+    <button class="qr" onclick="openQr('${o.code}')" aria-label="${esc(t("qr_big"))}">${qr(o.code)}</button>
     <div><div class="cl">${t("pickup_code")}</div><div class="code">${o.code}</div>
-    <p>${full?t("show_code"):t("co2_line",(1.2*o.qty).toFixed(1))}</p></div></div></div>`;
+    <p>${full?t("qr_hint"):t("co2_line",(1.2*o.qty).toFixed(1))}</p></div></div></div>`;
 }
 function orderBlock(o){
  const d=oOff(o);if(!d)return "";
@@ -1912,9 +2498,14 @@ function mcodes(){
    .sort((a,b)=>(a.status==="active"?0:1)-(b.status==="active"?0:1)||b.ts-a.ts);
  return `${mhead(t("m_pickups"),t("m_scan"))}
  <div style="padding:0 22px 6px">
-  <div class="fld"><input id="mcode" class="codein" placeholder="${t("m_code_ph")}" maxlength="8"
-    autocomplete="off" spellcheck="false" aria-label="${esc(t("m_code_ph"))}"></div>
-  <button class="btn btn-main" onclick="validateCode()">${I("scan",18)} ${t("m_validate")}</button></div>
+  <div class="codewrap"><span class="pfx">AI4-</span>
+   <input id="mcode" class="codein" maxlength="4" inputmode="latin" placeholder="7C2K"
+     autocomplete="off" spellcheck="false" oninput="codeInput(this.value)"
+     aria-label="${esc(t("m_code_ph"))}"></div>
+  ${canScan()?`<button class="btn btn-main" onclick="openScan()">${I("scan",18)} ${t("scan_open")}</button>
+   <div style="height:9px"></div>
+   <button class="btn btn-ghost" onclick="validateCode()">${I("check",18)} ${t("m_validate")}</button>`
+  :`<button class="btn btn-main" onclick="validateCode()">${I("check",18)} ${t("m_validate")}</button>`}</div>
  <div style="height:16px"></div>
  ${ords.length?`<div class="list">${ords.map(o=>{const d=byId(o.id);return `<div class="rc vrow"><div class="vtile">${I("receipt",22)}</div>
   <div class="rc-body"><div class="rc-top"><h3 style="font-family:var(--dp);letter-spacing:.04em">${o.code}</h3></div>
@@ -2039,9 +2630,14 @@ function mcodesOnline(){
  const rows=d.orders.filter(o=>o.status==="active"||o.status==="picked_up");
  return `${mhead(t("m_pickups"),t("m_scan"))}
  <div style="padding:0 22px 6px">
-  <div class="fld"><input id="mcode" class="codein" placeholder="${t("m_code_ph")}" maxlength="8"
-    autocomplete="off" spellcheck="false" aria-label="${esc(t("m_code_ph"))}"></div>
-  <button class="btn btn-main" onclick="validateCode()">${I("scan",18)} ${t("m_validate")}</button></div>
+  <div class="codewrap"><span class="pfx">AI4-</span>
+   <input id="mcode" class="codein" maxlength="4" inputmode="latin" placeholder="7C2K"
+     autocomplete="off" spellcheck="false" oninput="codeInput(this.value)"
+     aria-label="${esc(t("m_code_ph"))}"></div>
+  ${canScan()?`<button class="btn btn-main" onclick="openScan()">${I("scan",18)} ${t("scan_open")}</button>
+   <div style="height:9px"></div>
+   <button class="btn btn-ghost" onclick="validateCode()">${I("check",18)} ${t("m_validate")}</button>`
+  :`<button class="btn btn-main" onclick="validateCode()">${I("check",18)} ${t("m_validate")}</button>`}</div>
  <div style="height:16px"></div>
  ${rows.length?`<div class="list">${rows.map(o=>`<div class="rc vrow"><div class="vtile">${I("receipt",22)}</div>
   <div class="rc-body"><div class="rc-top"><h3 style="font-family:var(--dp);letter-spacing:.04em">${o.code}</h3></div>
@@ -2176,7 +2772,10 @@ function apay(){
 function setAFilter(v){S.aFilter=v;render(true);
  API.get("/admin/orders?limit=40"+(v?"&status="+v:"")).then(r=>{S.adm.orders=r.items;S.adm.ordersTotal=r.total;render()}).catch(e=>toast(e.message,true))}
 function setPFilter(v){S.pFilter=v;render(true)}
-function setShop(id,status){
+async function setShop(id,status){
+ if(status==="suspended"&&!await ask({title:t("confirm_suspend_t"),body:t("confirm_suspend_p"),
+   confirm:t("a_suspend"),danger:true}))return;
+ buzz("ok");
  guard(()=>API.raw("PATCH","/admin/merchants/"+id,{status:status}),
   status==="active"?t("a_approved"):t("a_suspended")).then(()=>syncAll()).catch(()=>{});
 }
@@ -2191,12 +2790,14 @@ function adminCancel(id){
 function runMaintenance(){
  guard(()=>API.post("/admin/maintenance/expire"),t("a_maint_done")).then(()=>syncAll()).catch(()=>{});
 }
-function pullOffer(id){
+async function pullOffer(id){
+ if(!await ask({title:t("confirm_pull_t"),body:t("confirm_pull_p"),confirm:t("m_pull"),danger:true}))return;
+ buzz("ok");
  guard(()=>API.post("/merchant/offers/"+id+"/cancel"),t("m_pulled")).then(()=>syncAll()).catch(()=>{});
 }
 function validateOne(code){
  guard(()=>API.post("/merchant/pickups/validate",{code:code}),t("m_valid_ok",code))
-  .then(()=>syncAll()).catch(()=>{});
+  .then(()=>{buzz("ok");return syncAll()}).catch(()=>buzz("err"));
 }
 
 /* =========================================================
@@ -2367,13 +2968,23 @@ function publishSheet(){
  </div></div>`;
 }
 const SHEETS={detail:detail,why:whySheet,payment:payment,done:done,search:searchSheet,
- notifs:notifSheet,zone:zoneSheet,lang:langSheet,publish:publishSheet,auth:authSheet,staff:staffSheet};
+ notifs:notifSheet,zone:zoneSheet,lang:langSheet,publish:publishSheet,auth:authSheet,staff:staffSheet,
+ scan:scanSheet,qrbig:qrBigSheet};
+/** Le code de retrait en plein ecran, pour un comptoir mal eclaire. */
+function qrBigSheet(code){
+ return `${shHead(t("pickup_code"),t("qr_big_p"),"back()")}
+ <div class="shbody"><div class="qrbig">
+  <div class="card">${qrSvg(String(code),248,"#0A2E27","#ffffff")}</div>
+  <div class="code">${code}</div></div>
+ <p class="legal" style="text-align:center;padding-top:14px">${t("qr_hint")}</p></div>`;
+}
+function openQr(code){buzz("tap");pushSheet("qrbig",code)}
 
 /* ---------- pile de feuilles ---------- */
 let lastFocus=null;
 function pushSheet(name,arg){
  if(!S.stack.length)lastFocus=document.activeElement;
- S.stack.push({n:name,a:arg});drawSheet();
+ S.stack.push({n:name,a:arg});navPush();drawSheet();
 }
 function reSheet(){if(S.stack.length)drawSheet()}
 function drawSheet(){
@@ -2384,15 +2995,25 @@ function drawSheet(){
  const f=s.querySelector("input")||s.querySelector("button");
  if(f&&top.n==="search")setTimeout(()=>f.focus(),60);
 }
-function back(){
- S.stack.pop();
- if(!S.stack.length)closeSheet();else drawSheet();
+/* back() delegue au navigateur: le bouton retour du telephone et celui de
+   l'ecran empruntent alors exactement le meme chemin. */
+function back(){navBack()}
+function closeTop(){
+ const top=S.stack.pop();
+ if(top&&top.n==="scan")stopScan();
+ if(!S.stack.length)hideSheet();else drawSheet();
+}
+function hideSheet(){
+ const s=el("sheet");
+ s.classList.remove("open");s.setAttribute("aria-hidden","true");s.style.transform="";
+ S.qty=1;stopScan();
+ setTimeout(()=>{if(!S.stack.length)s.innerHTML=""},380);
+ if(lastFocus&&lastFocus.focus)lastFocus.focus();
 }
 function closeSheet(){
- S.stack=[];const s=el("sheet");
- s.classList.remove("open");s.setAttribute("aria-hidden","true");
- S.qty=1;setTimeout(()=>{if(!S.stack.length)s.innerHTML=""},380);
- if(lastFocus&&lastFocus.focus)lastFocus.focus();
+ const n=S.stack.length;
+ S.stack=[];hideSheet();
+ if(n){popGuard=n;try{history.go(-n)}catch(e){}setTimeout(()=>{popGuard=0},420)}
 }
 
 /* =========================================================
@@ -2410,7 +3031,12 @@ function openLang(){pushSheet("lang")}
 function openPublish(){pushSheet("publish")}
 function qty(n){const d=byId(S.cur);S.qty=Math.max(1,Math.min(stockOf(d),S.qty+n));reSheet()}
 function setPay(p){S.pay=p;reSheet()}
-function go(tab){S.tab=tab;S.sel=-1;render(true)}
+function go(tab,fromPop){
+ const v=el("view");if(v)S.scrollPos[S.tab]=v.scrollTop;
+ const first=tabsFor(S.role)[0][0];
+ if(!fromPop&&tab!==S.tab&&S.tab===first&&tab!==first)navPush();
+ S.tab=tab;S.sel=-1;buzz("tap");render(true);
+}
 function setF(c){S.filter=c;render(true);if(online())pullCatalog().then(()=>render()).catch(()=>{})}
 function setVF(c){S.vfilter=c;render()}
 function setView(v){S.view=v;render()}
@@ -2421,9 +3047,12 @@ function setRole(r){S.role=r;S.tab=tabsFor(r)[0][0];S.sel=-1;save();render(true)
  toast(t(r==="client"?"role_client":r==="merchant"?"role_merchant":"role_admin"))}
 function fav(id){
  id=String(id);
+ buzz("tap");
  const i=S.fav.indexOf(id);
  if(i>=0)S.fav.splice(i,1);else S.fav.push(id);
- save();toast(t(i>=0?"fav_rm":"fav_add"));
+ save();
+ if(i>=0)toastUndo(t("fav_rm"),()=>{fav(id);toast(t("fav_undone"))});
+ else toast(t("fav_add"));
  if(online()){
   if(!signedIn()){S.fav.splice(S.fav.indexOf(id),1);return openAuth()}
   const d=byId(id);
@@ -2511,13 +3140,18 @@ function endTsOf(d){
  return base+w.e*6e4;
 }
 async function confirm_(){
+ buzz("ok");
  const d=byId(S.cur),q=Math.min(S.qty,stockOf(d));
  if(online()){
+  btnBusy(true);
   try{
    const r=await API.post("/orders",{offer_id:d.srv,qty:q,payment_method:S.pay});
    await Promise.all([pullOrders(),pullCatalog(),pullNotifs(),pullImpact()]);
    S.stack=[{n:"done",a:r.order.id}];drawSheet();render();
-  }catch(e){toast(e.message,true);if(e.code==="out_of_stock"){await pullCatalog();render()}}
+  }catch(e){
+   btnBusy(false);buzz("err");toast(e.message,true);
+   if(e.code==="out_of_stock"){await pullCatalog();render()}
+  }
   return;
  }
  const o={oid:uid(),id:d.id,qty:q,pay:S.pay,code:code4(),ts:Date.now(),endTs:endTsOf(d),status:"active"};
@@ -2526,7 +3160,10 @@ async function confirm_(){
  notify("ok",[o.qty+" × "+d.name,d.merch,o.code],"checkC");
  save();S.stack=[{n:"done",a:o.oid}];drawSheet();render();
 }
-function cancelOrder(oid){
+async function cancelOrder(oid){
+ if(!await ask({title:t("confirm_cancel_t"),body:t("confirm_cancel_p"),
+   confirm:t("cancel_order"),cancel:t("keep"),danger:true}))return;
+ buzz("ok");
  if(online()){
   guard(()=>API.post("/orders/"+oid+"/cancel",{}),t("cancelled_toast"))
    .then(()=>Promise.all([pullOrders(),pullCatalog(),pullImpact()])).then(()=>render()).catch(()=>{});
@@ -2551,13 +3188,13 @@ function validateCode(){
  let v=i.value.trim().toUpperCase();if(!v)return;
  if(online()){
   guard(()=>API.post("/merchant/pickups/validate",{code:v}),t("m_valid_ok",v))
-   .then(()=>syncAll()).catch(()=>{});
+   .then(()=>{buzz("ok");i.value="";return syncAll()}).catch(()=>buzz("err"));
   return;
  }
  if(v.indexOf("AI4-")!==0)v="AI4-"+v.replace(/^AI4/,"");
  const o=mOrders().find(x=>x.code===v&&x.status==="active");
- if(!o)return toast(t("m_valid_bad"),true);
- o.status="done";save();render();toast(t("m_valid_ok",o.code));
+ if(!o){buzz("err");return toast(t("m_valid_bad"),true)}
+ o.status="done";save();render();buzz("ok");toast(t("m_valid_ok",o.code));
 }
 function newOffer(name,price,was,q,from,to,desc){
  const id=1000+S.custom.length+1;
@@ -2574,8 +3211,10 @@ function doPublish(){
   const body={name:g("pn"),price_cfa:+g("pp"),was_cfa:+g("pw"),qty:+g("pq"),
    pickup_from:g("pf")||"19:30",pickup_to:g("pt")||"20:30",description:g("pd")};
   if(!body.name||!body.price_cfa||!body.qty)return toast(t("m_fill"),true);
+  btnBusy(true);
   guard(()=>API.post("/merchant/offers",body),t("m_posted",body.qty))
-   .then(()=>{closeSheet();return syncAll(true)}).catch(()=>{});
+   .then(()=>{buzz("ok");closeSheet();return syncAll(true)})
+   .catch(()=>{btnBusy(false);buzz("err")});
   return;
  }
  const name=g("pn"),price=+g("pp"),was=+g("pw"),q=+g("pq"),from=g("pf")||"19:30",to=g("pt")||"20:30",desc=g("pd");
@@ -2653,13 +3292,16 @@ const SCREENS_ONLINE={home:home,places:places,fav:favs,orders:orders,profile:pro
  adash:adashOnline,aorders:aordersOnline,apipe:apipe,ausers:ausers,apay:apay};
 const SCREENS=()=>online()?SCREENS_ONLINE:SCREENS_DEMO;
 const tabsFor=r=>(r==="admin"&&online()?TABS_ADMIN_ONLINE:TABS[r]);
+let lastTab=null;
 function render(resetScroll){
  syncOrders();
  const tabs=tabsFor(S.role);
  if(!tabs.some(x=>x[0]===S.tab))S.tab=tabs[0][0];
  const v=el("view"),y=v.scrollTop;
  v.innerHTML=(SCREENS()[S.tab]||home)();
- v.scrollTop=resetScroll?0:y;
+ v.scrollTop=resetScroll?(S.scrollPos[S.tab]||0):y;
+ if(lastTab!==S.tab){v.classList.remove("swap");void v.offsetWidth;v.classList.add("swap");lastTab=S.tab}
+ netBanner();
  el("tabs").innerHTML=tabs.map(([k,ic,l])=>
   `<button class="tab ${S.tab===k?"on":""}" role="tab" aria-selected="${S.tab===k}" onclick="go('${k}')">${I(ic,21)}${t(l)}</button>`).join("");
  pitch();
@@ -2670,6 +3312,8 @@ async function boot(){
  applyTheme();
  if(window.matchMedia)try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>{if(S.theme==="auto"){applyTheme();render()}})}catch(e){}
  renderOb();render(true);tickCd();
+ const ind=el("ptr");if(ind)ind.innerHTML=I("refresh",18);
+ initHistory();initPullToRefresh();initSheetDrag();
  await connect();
  if(online()){
   if(API.token){try{const me=await API.get("/auth/me");API.me=me.user;
