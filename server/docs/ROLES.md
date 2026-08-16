@@ -30,6 +30,7 @@ their own history, nothing else.
 | Catalogue | Every live basket from an **approved** shop: name, photo key, price, shop value, discount, stock left, pickup window, shop name, address, rating, distance |
 | Ranking | Their own match score, the six factors and the reasons behind it (`GET /api/offers/:id` → `why`) |
 | Shops | The map of all 78 shops, partner or not, with a live-offer count; may invite a shop that is not a partner yet |
+| Shops they follow | `GET /api/follows`, ordered so shops with a basket live right now come first; a follower count on every shop, never who the followers are |
 | Their orders | Full detail: **pickup code**, quantity, amount paid, shop value, saving, status, pickup window, payment method |
 | Their impact | Meals saved, CO₂e avoided, money saved — computed from their collected orders only |
 | Their notifications | Order confirmations, pickup reminders, new baskets from shops they follow |
@@ -44,6 +45,8 @@ their own history, nothing else.
 - Any shop's takings, stock history, forecast, or customer list.
 - Platform totals, user counts, the merchant pipeline, the audit log.
 - Draft or cancelled offers, or offers from shops that are not approved.
+- Who else follows a shop. A follower count is public; the names behind it are
+  not, at any role — no endpoint returns a shop's follower list.
 
 ---
 

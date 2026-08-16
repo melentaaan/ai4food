@@ -83,6 +83,16 @@ recommender, and offline demo mode.
 - **It answers with the phone.** A short vibration on reserve, pickup
   validation and confirmations, screen transitions and press states throughout,
   all of it disabled under `prefers-reduced-motion`.
+- **It asks where you are before it asks anything else.** The last step of the
+  first run is the neighbourhood — ten Dakar areas or the GPS — so the very
+  first feed is sorted around you rather than around a default pin. Choose an
+  area, sign in later, and the choice you just made travels to the account
+  instead of being overwritten by it.
+- **You follow a shop, not a basket.** A basket exists for one evening; the
+  shop is what you come back for, and following one is what gets you told when
+  it puts something online. Saved items are split in two — *Paniers* and
+  *Commerces* — and each empty state offers the way out: widen the area, or go
+  find shops to follow.
 
 ## The backend
 
@@ -91,7 +101,7 @@ Full documentation in **[server/README.md](server/README.md)** and
 customers and passwords for staff, JWT with rotating refresh tokens, stock
 decremented by a conditional UPDATE inside a transaction so two customers
 cannot take the same last basket, a 2-hour cancellation window, pickup codes
-that validate once at the owning shop only, and 50 end-to-end tests — most of
+that validate once at the owning shop only, and 57 end-to-end tests — most of
 them trying cross-role reads that must fail.
 
 ```bash

@@ -61,6 +61,7 @@ export function publicMerchant(m, extra = {}) {
   return {
     id: m.id,
     name: m.name,
+    followers: m.followers ?? 0,
     slug: m.slug,
     category: m.category,
     zone: m.zone,

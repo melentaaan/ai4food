@@ -43,6 +43,7 @@ async function call(method, url, { token, body } = {}) {
 const get = (url, token) => call('GET', url, { token });
 const post = (url, body, token) => call('POST', url, { body, token });
 const patch = (url, body, token) => call('PATCH', url, { body, token });
+const del = (url, token) => call('DELETE', url, { token });
 
 async function signInWithPhone(phone, name) {
   const asked = await post('/api/auth/otp/request', { phone });
@@ -347,6 +348,123 @@ describe('merchant counter', () => {
     assert.ok(res.body.forecast.suggested_price_cfa > 0);
     assert.match(res.body.forecast.window.from, /^\d{2}:\d{2}$/);
     assert.ok(res.body.forecast.confidence_pct <= 92);
+  });
+});
+
+/* ================= following a shop ================= */
+describe('following a shop', () => {
+  const someShop = () => db.prepare(`SELECT id, name FROM merchants WHERE status = 'active' LIMIT 1`).get();
+
+  test('a customer follows and unfollows, and the count moves', async () => {
+    const shop = someShop();
+    const on = await call('PUT', `/api/merchants/${shop.id}/follow`, { token: customer.access_token });
+    assert.equal(on.status, 200);
+    assert.equal(on.body.following, true);
+    assert.ok(on.body.followers >= 1);
+
+    const list = await get('/api/follows', customer.access_token);
+    assert.ok(list.body.items.some((m) => m.id === shop.id));
+
+    const off = await call('DELETE', `/api/merchants/${shop.id}/follow`, { token: customer.access_token });
+    assert.equal(off.body.following, false);
+    const after = await get('/api/follows', customer.access_token);
+    assert.ok(!after.body.items.some((m) => m.id === shop.id));
+  });
+
+  test('following is idempotent', async () => {
+    const shop = someShop();
+    await call('PUT', `/api/merchants/${shop.id}/follow`, { token: customer.access_token });
+    const again = await call('PUT', `/api/merchants/${shop.id}/follow`, { token: customer.access_token });
+    assert.equal(again.status, 200);
+    const rows = db.prepare('SELECT COUNT(*) AS n FROM merchant_follows WHERE user_id = ? AND merchant_id = ?')
+      .get(customer.user.id, shop.id).n;
+    assert.equal(rows, 1);
+  });
+
+  test('a follower hears about a new bag; a stranger does not', async () => {
+    const shopId = db.prepare('SELECT merchant_id FROM merchant_users WHERE user_id = ?').get(merchant.user.id).merchant_id;
+    await call('PUT', `/api/merchants/${shopId}/follow`, { token: customer.access_token });
+
+    const before = (await get('/api/notifications', customer.access_token))
+      .body.items.filter((n) => n.kind === 'new_offer').length;
+    const strangerBefore = (await get('/api/notifications', otherCustomer.access_token))
+      .body.items.filter((n) => n.kind === 'new_offer').length;
+
+    const posted = await post('/api/merchant/offers', {
+      price_cfa: 700, was_cfa: 2100, qty: 3, pickup_from: '19:30', pickup_to: '20:30',
+    }, merchant.access_token);
+    assert.equal(posted.status, 201);
+
+    const after = (await get('/api/notifications', customer.access_token))
+      .body.items.filter((n) => n.kind === 'new_offer');
+    assert.equal(after.length, before + 1, 'the follower should be told');
+    assert.equal(after[0].payload.merchant_name, 'Boulangerie Jaune');
+
+    const strangerAfter = (await get('/api/notifications', otherCustomer.access_token))
+      .body.items.filter((n) => n.kind === 'new_offer').length;
+    assert.equal(strangerAfter, strangerBefore, 'someone who does not follow must stay quiet');
+  });
+
+  test('follows are private to the person who made them', async () => {
+    const mine = await get('/api/follows', customer.access_token);
+    const theirs = await get('/api/follows', otherCustomer.access_token);
+    const mineIds = mine.body.items.map((m) => m.id);
+    for (const m of theirs.body.items) assert.ok(!mineIds.includes(m.id) || false);
+    for (const m of theirs.body.items) {
+      assert.equal(
+        db.prepare('SELECT COUNT(*) AS n FROM merchant_follows WHERE user_id = ? AND merchant_id = ?')
+          .get(otherCustomer.user.id, m.id).n, 1);
+    }
+    assert.equal((await get('/api/follows')).status, 401);
+  });
+
+  test('the list puts shops with a basket live right now first', async () => {
+    const withLive = db.prepare(
+      `SELECT DISTINCT m.id FROM merchants m JOIN offers o ON o.merchant_id = m.id
+        WHERE m.status = 'active' AND o.status = 'live' AND o.pickup_end > ? LIMIT 1`).get(Date.now());
+    const without = db.prepare(
+      `SELECT m.id FROM merchants m WHERE m.status = 'active'
+        AND NOT EXISTS (SELECT 1 FROM offers o WHERE o.merchant_id = m.id AND o.status = 'live' AND o.pickup_end > ?)
+        LIMIT 1`).get(Date.now());
+    assert.ok(withLive && without, 'the seed should have one of each');
+
+    // follow the quiet one first, so order cannot come from the follow time
+    await call('PUT', `/api/merchants/${without.id}/follow`, { token: otherCustomer.access_token });
+    await call('PUT', `/api/merchants/${withLive.id}/follow`, { token: otherCustomer.access_token });
+
+    const list = (await get('/api/follows', otherCustomer.access_token)).body.items;
+    const at = (id) => list.findIndex((m) => m.id === id);
+    assert.ok(at(withLive.id) < at(without.id), 'a shop with something to collect should come first');
+    assert.ok(list[at(withLive.id)].live_offers > 0);
+  });
+
+  test('a follower count is public, the followers themselves are not', async () => {
+    const shop = someShop();
+    await call('PUT', `/api/merchants/${shop.id}/follow`, { token: customer.access_token });
+
+    for (const res of [
+      await get(`/api/merchants/${shop.id}`),
+      await get('/api/merchants'),
+      await get(`/api/merchants/${shop.id}`, admin.access_token),
+      await get('/api/admin/merchants', admin.access_token),
+    ]) {
+      assert.equal(res.status, 200);
+      const body = JSON.stringify(res.body);
+      assert.ok(!body.includes(customer.user.id), 'no response should name who follows a shop');
+      assert.ok(!body.includes('"follower_ids"') && !body.includes('"followers":['));
+    }
+    const one = await get(`/api/merchants/${shop.id}`);
+    assert.equal(typeof one.body.merchant.followers, 'number');
+  });
+
+  test('a suspended shop cannot be followed', async () => {
+    const created = await post('/api/admin/merchants', {
+      name: 'Boutique Suspendue', category: 'Marchés', zone: 'Médina',
+      lat: 14.68, lng: -17.45, status: 'active',
+    }, admin.access_token);
+    await patch(`/api/admin/merchants/${created.body.merchant.id}`, { status: 'suspended' }, admin.access_token);
+    const res = await call('PUT', `/api/merchants/${created.body.merchant.id}/follow`, { token: customer.access_token });
+    assert.equal(res.status, 404);
   });
 });
 

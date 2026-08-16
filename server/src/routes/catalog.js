@@ -116,13 +116,18 @@ router.get('/merchants', validate(merchantQuery, 'query'), (req, res) => {
   if (p.zone) { where.push('zone = ?'); params.push(p.zone); }
   if (p.q) { where.push('(name LIKE ? OR zone LIKE ? OR category LIKE ?)'); params.push(`%${p.q}%`, `%${p.q}%`, `%${p.q}%`); }
 
-  const rows = db.prepare(`SELECT * FROM merchants WHERE ${where.join(' AND ')} LIMIT ?`).all(...params, p.limit);
+  const rows = db.prepare(
+    `SELECT m.*, (SELECT COUNT(*) FROM merchant_follows f WHERE f.merchant_id = m.id) AS followers
+       FROM merchants m WHERE ${where.join(' AND ')} LIMIT ?`).all(...params, p.limit);
   const counts = db
     .prepare(`SELECT merchant_id, COUNT(*) AS n FROM offers WHERE status = 'live' AND pickup_end > ? GROUP BY merchant_id`)
     .all(now())
     .reduce((a, r) => ({ ...a, [r.merchant_id]: r.n }), {});
   const invited = req.user
     ? new Set(db.prepare('SELECT merchant_id FROM merchant_invites WHERE user_id = ?').all(req.user.id).map((r) => r.merchant_id))
+    : new Set();
+  const followed = req.user
+    ? new Set(db.prepare('SELECT merchant_id FROM merchant_follows WHERE user_id = ?').all(req.user.id).map((r) => r.merchant_id))
     : new Set();
   const pos = req.user?.lat != null ? { lat: req.user.lat, lng: req.user.lng } : null;
 
@@ -131,6 +136,7 @@ router.get('/merchants', validate(merchantQuery, 'query'), (req, res) => {
     items: rows.map((m) => publicMerchant(m, {
       live_offers: counts[m.id] ?? 0,
       invited: invited.has(m.id),
+      following: followed.has(m.id),
       distance_km: distanceKm(pos, { lat: m.lat, lng: m.lng }),
     })),
   });
@@ -139,11 +145,53 @@ router.get('/merchants', validate(merchantQuery, 'query'), (req, res) => {
 router.get('/merchants/:id', (req, res) => {
   const m = db.prepare(`SELECT * FROM merchants WHERE id = ? AND status <> 'suspended'`).get(req.params.id);
   if (!m) throw notFound('Shop not found');
+  m.followers = db.prepare('SELECT COUNT(*) AS n FROM merchant_follows WHERE merchant_id = ?').get(m.id).n;
+  const following = req.user
+    ? !!db.prepare('SELECT 1 FROM merchant_follows WHERE user_id = ? AND merchant_id = ?').get(req.user.id, m.id)
+    : false;
   const { items } = listOffers({ user: req.user, merchantId: m.id, includeSoldOut: true });
   res.json({
-    merchant: publicMerchant(m, { live_offers: items.length }),
+    merchant: publicMerchant(m, { live_offers: items.length, following }),
     offers: items.map(({ offer, rank }) =>
       publicOffer(offer, { rank: { match: rank.match, reasons: rank.reasons, distance_km: rank.distanceKm } })),
+  });
+});
+
+/**
+ * Following a shop is the durable relationship: bags come and go every evening,
+ * the shop is what someone comes back for, and it is what new-bag alerts key on.
+ */
+router.put('/merchants/:id/follow', requireAuth, (req, res) => {
+  const m = db.prepare(`SELECT * FROM merchants WHERE id = ? AND status <> 'suspended'`).get(req.params.id);
+  if (!m) throw notFound('Shop not found');
+  db.prepare('INSERT OR IGNORE INTO merchant_follows (user_id, merchant_id, created_at) VALUES (?,?,?)')
+    .run(req.user.id, m.id, now());
+  const followers = db.prepare('SELECT COUNT(*) AS n FROM merchant_follows WHERE merchant_id = ?').get(m.id).n;
+  res.json({ following: true, followers });
+});
+
+router.delete('/merchants/:id/follow', requireAuth, (req, res) => {
+  db.prepare('DELETE FROM merchant_follows WHERE user_id = ? AND merchant_id = ?')
+    .run(req.user.id, req.params.id);
+  const followers = db.prepare('SELECT COUNT(*) AS n FROM merchant_follows WHERE merchant_id = ?').get(req.params.id).n;
+  res.json({ following: false, followers });
+});
+
+/** The shops this person follows, with whatever they have live right now. */
+router.get('/follows', requireAuth, (req, res) => {
+  const rows = db.prepare(
+    `SELECT m.*, f.created_at AS followed_at,
+            (SELECT COUNT(*) FROM merchant_follows x WHERE x.merchant_id = m.id) AS followers,
+            (SELECT COUNT(*) FROM offers o WHERE o.merchant_id = m.id AND o.status = 'live' AND o.pickup_end > ?) AS live_offers
+       FROM merchant_follows f JOIN merchants m ON m.id = f.merchant_id
+      WHERE f.user_id = ? ORDER BY live_offers DESC, f.created_at DESC`).all(now(), req.user.id);
+  const pos = req.user.lat != null ? { lat: req.user.lat, lng: req.user.lng } : null;
+  res.json({
+    items: rows.map((m) => publicMerchant(m, {
+      following: true,
+      live_offers: m.live_offers,
+      distance_km: distanceKm(pos, { lat: m.lat, lng: m.lng }),
+    })),
   });
 });
 

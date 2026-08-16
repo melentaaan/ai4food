@@ -48,12 +48,22 @@ Phone numbers normalise to E.164: `77 123 45 67`, `00221771234567` and
 | GET | `/favourites` | Signed in |
 | GET | `/merchants` | `category, zone, q, partners_only` |
 | GET | `/merchants/:id` | Shop plus its live offers |
+| PUT | `/merchants/:id/follow` | Signed in — `{ following, followers }` |
+| DELETE | `/merchants/:id/follow` | Signed in — `{ following, followers }` |
+| GET | `/follows` | Signed in — shops followed, the ones with baskets live first |
 | POST | `/merchants/:id/invite` | Signed in — asks AI4Food to onboard a shop |
 | GET | `/meta` | Categories, zones, payment methods, locales |
 
 Every offer carries `rank: { match, reasons, distance_km }` so the app can show
 "why this basket" without a second call. Signed-in callers get a personalised
 ranking; anonymous ones get distance and timing only.
+
+A basket exists for one evening; the shop is what someone comes back for, so
+**following is on the shop, not the basket**. Every merchant object carries
+`followers` (a count, never a list of who) and, for a signed-in caller,
+`following`. Publishing a new basket notifies the shop's followers — plus
+anyone holding one of its baskets as a favourite, who has shown the same
+interest by another route.
 
 ## Customer
 

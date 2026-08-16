@@ -14,15 +14,21 @@ export function notify(userId, kind, payload = {}) {
   return id;
 }
 
-/** Everyone who favourited an offer from this merchant, minus the actor. */
+/**
+ * Who to tell when a shop publishes: everyone following it, plus anyone who
+ * favourited one of its bags (a favourite is a weaker signal, but a real one).
+ */
 export function followersOfMerchant(merchantId, exceptUserId) {
   return db
     .prepare(
-      `SELECT DISTINCT f.user_id AS id
-         FROM favourites f
-         JOIN offers o ON o.id = f.offer_id
-        WHERE o.merchant_id = ? AND f.user_id <> ?`,
+      `SELECT DISTINCT user_id AS id FROM (
+         SELECT f.user_id FROM merchant_follows f WHERE f.merchant_id = ?
+         UNION
+         SELECT fa.user_id FROM favourites fa
+           JOIN offers o ON o.id = fa.offer_id
+          WHERE o.merchant_id = ?
+       ) WHERE user_id <> ?`,
     )
-    .all(merchantId, exceptUserId ?? '')
+    .all(merchantId, merchantId, exceptUserId ?? '')
     .map((r) => r.id);
 }

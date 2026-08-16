@@ -129,6 +129,16 @@ CREATE TABLE IF NOT EXISTS notifications (
 );
 CREATE INDEX IF NOT EXISTS idx_notifications_user ON notifications(user_id, created_at DESC);
 
+-- Following a shop, not a bag: a surprise bag exists for one evening, the
+-- shop is what a customer actually comes back for.
+CREATE TABLE IF NOT EXISTS merchant_follows (
+  user_id     TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  merchant_id TEXT NOT NULL REFERENCES merchants(id) ON DELETE CASCADE,
+  created_at  INTEGER NOT NULL,
+  PRIMARY KEY (user_id, merchant_id)
+);
+CREATE INDEX IF NOT EXISTS idx_follows_merchant ON merchant_follows(merchant_id);
+
 -- Customers asking AI4Food to onboard a shop that is not a partner yet.
 CREATE TABLE IF NOT EXISTS merchant_invites (
   id          TEXT PRIMARY KEY,
