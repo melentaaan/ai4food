@@ -31,9 +31,10 @@ their own history, nothing else.
 | Ranking | Their own match score, the six factors and the reasons behind it (`GET /api/offers/:id` → `why`) |
 | Shops | The map of all 78 shops, partner or not, with a live-offer count; may invite a shop that is not a partner yet |
 | Shops they follow | `GET /api/follows`, ordered so shops with a basket live right now come first; a follower count on every shop, never who the followers are |
+| Bags handed to them | Under `for_me` in `GET /api/orders`: what a friend asked them to collect — shop, window, bag, code. Never what that friend paid |
 | Their orders | Full detail: **pickup code**, quantity, amount paid, shop value, saving, status, pickup window, payment method |
 | Their impact | Meals saved, CO₂e avoided, money saved — computed from their collected orders only |
-| Their notifications | Order confirmations, pickup reminders, new baskets from shops they follow |
+| Their notifications | Order confirmations, pickup reminders, new baskets from shops they follow, and who accepted a bag they handed on |
 | Their profile | Their own phone number in full, zone, language |
 
 ### Does not see
@@ -47,6 +48,10 @@ their own history, nothing else.
 - Draft or cancelled offers, or offers from shops that are not approved.
 - Who else follows a shop. A follower count is public; the names behind it are
   not, at any role — no endpoint returns a shop's follower list.
+- Anything about a reservation handed to them beyond how to collect it. A
+  transfer link is a bearer token, so it opens exactly the collection view:
+  shop, address, window, bag, quantity, code, the sender's first name and their
+  note. The order id, the amount paid and the sender's number stay 404.
 
 ---
 
@@ -62,6 +67,7 @@ is never taken from the request body.
 | --- | --- |
 | Their offers | Everything, including drafts, cancelled ones, quantity published, quantity sold, revenue per offer |
 | Their orders | Pickup code, quantity, amount, status, and a **masked customer**: `Aïssatou N.` and `••• 45 67` |
+| Who is collecting | `bearer` on an order handed to a friend, so a name that does not match the booking is expected rather than a problem at the counter |
 | Their money | Gross, AI4Food commission, and their payout — per order and per day |
 | Their day | Baskets reserved, awaiting pickup, collected, cash taken, stock left |
 | Their forecast | Tomorrow's predicted surplus, a suggested price and window, model confidence and what it is based on |

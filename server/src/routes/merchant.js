@@ -11,6 +11,7 @@ import { getOfferRow, refreshOfferStates, OFFER_SELECT } from '../services/offer
 import { validatePickup, ORDER_SELECT } from '../services/orders.js';
 import { merchantStats, merchantForecast } from '../services/stats.js';
 import { merchantOffer, merchantOrder, publicMerchant } from '../presenters.js';
+import { bearerOfOrder } from '../services/transfers.js';
 
 export const router = Router();
 
@@ -183,7 +184,9 @@ router.get('/orders',
       .prepare(`${ORDER_SELECT} WHERE ${where.join(' AND ')}
                  ORDER BY (ord.status = 'active') DESC, ord.created_at DESC LIMIT ?`)
       .all(...params, p.limit);
-    res.json({ items: rows.map(merchantOrder) });
+    // A name that does not match the booking is not a problem to solve at the
+    // counter — it is a friend collecting, and the row says so.
+    res.json({ items: rows.map((o) => merchantOrder(o, { bearer: bearerOfOrder(o.id) })) });
   });
 
 router.post('/pickups/validate',
@@ -191,7 +194,7 @@ router.post('/pickups/validate',
   validate(z.object({ code: z.string().trim().min(4).max(10) })),
   (req, res) => {
     const order = validatePickup({ req, merchant: req.merchant, staffUser: req.user, code: req.body.code });
-    res.json({ order: merchantOrder(order) });
+    res.json({ order: merchantOrder(order, { bearer: bearerOfOrder(order.id) }) });
   });
 
 /* ---------- dashboard ---------- */

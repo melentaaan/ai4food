@@ -351,6 +351,149 @@ describe('merchant counter', () => {
   });
 });
 
+/* ================= handing a reservation to a friend ================= */
+describe('handing a reservation over', () => {
+  const liveOffer = () => db.prepare(
+    `SELECT * FROM offers WHERE status = 'live' AND qty_left >= 1 ORDER BY qty_left DESC LIMIT 1`).get();
+
+  async function booked(token = customer.access_token) {
+    const offer = liveOffer();
+    const res = await post('/api/orders',
+      { offer_id: offer.id, qty: 1, payment_method: 'wave' }, token);
+    assert.equal(res.status, 201, JSON.stringify(res.body));
+    return res.body.order;
+  }
+
+  test('a link is minted, and asking again returns the same one', async () => {
+    const order = await booked();
+    const first = await post(`/api/orders/${order.id}/transfer`,
+      { to_name: 'Moussa', note: 'Je suis coincée au bureau' }, customer.access_token);
+    assert.equal(first.status, 201, JSON.stringify(first.body));
+    assert.ok(first.body.transfer.token.length >= 16);
+    assert.equal(first.body.transfer.claimed, false);
+
+    const again = await post(`/api/orders/${order.id}/transfer`, {}, customer.access_token);
+    assert.equal(again.body.transfer.token, first.body.transfer.token,
+      'sharing twice must not break the link already sent');
+
+    // and the owner sees it on their own order
+    const mine = await get(`/api/orders/${order.id}`, customer.access_token);
+    assert.equal(mine.body.order.transfer.token, first.body.transfer.token);
+    assert.equal(mine.body.order.transfer.to_name, 'Moussa');
+  });
+
+  test('the link shows the friend what to collect, and nothing more', async () => {
+    const order = await booked();
+    const tr = await post(`/api/orders/${order.id}/transfer`, { note: 'Merci !' }, customer.access_token);
+
+    // no account at all: the friend may be a stranger to AI4Food
+    const seen = await get(`/api/pickup/${tr.body.transfer.token}`);
+    assert.equal(seen.status, 200, JSON.stringify(seen.body));
+    const p = seen.body.pickup;
+    assert.equal(p.code, order.code);
+    assert.equal(p.merchant.name, order.merchant.name);
+    assert.equal(p.note, 'Merci !');
+    assert.equal(p.from_name, 'Aïssatou', 'a first name, so they know who sent it');
+
+    const body = JSON.stringify(p);
+    for (const leak of ['total_cfa', 'saving_cfa', 'commission', 'phone', 'user_id', '"id"']) {
+      assert.ok(!body.includes(leak), `the bearer view should not carry ${leak}`);
+    }
+  });
+
+  test('a bad or revoked link is simply not found', async () => {
+    assert.equal((await get('/api/pickup/not-a-real-token')).status, 404);
+
+    const order = await booked();
+    const tr = await post(`/api/orders/${order.id}/transfer`, {}, customer.access_token);
+    assert.equal((await get(`/api/pickup/${tr.body.transfer.token}`)).status, 200);
+    assert.equal((await del(`/api/orders/${order.id}/transfer`, customer.access_token)).status, 200);
+    assert.equal((await get(`/api/pickup/${tr.body.transfer.token}`)).status, 404,
+      'revoking must kill the link that is already out there');
+
+    // re-issuing gives a different token, so the old one stays dead
+    const second = await post(`/api/orders/${order.id}/transfer`, {}, customer.access_token);
+    assert.notEqual(second.body.transfer.token, tr.body.transfer.token);
+  });
+
+  test('accepting puts the bag in the friend list, not in their orders', async () => {
+    const order = await booked();
+    const tr = await post(`/api/orders/${order.id}/transfer`, {}, customer.access_token);
+    const token = tr.body.transfer.token;
+
+    const claimed = await post(`/api/pickup/${token}/claim`, {}, otherCustomer.access_token);
+    assert.equal(claimed.status, 200, JSON.stringify(claimed.body));
+    assert.equal(claimed.body.pickup.claimed, true);
+
+    const theirs = await get('/api/orders', otherCustomer.access_token);
+    assert.ok(theirs.body.for_me.some((o) => o.code === order.code), 'it should be in "for me"');
+    assert.ok(!theirs.body.items.some((o) => o.id === order.id), 'but never in their own orders');
+    assert.equal((await get(`/api/orders/${order.id}`, otherCustomer.access_token)).status, 404,
+      'accepting a link does not open the order itself');
+
+    // the person who booked is told who took it
+    const notes = (await get('/api/notifications', customer.access_token))
+      .body.items.filter((n) => n.kind === 'transfer_claimed');
+    assert.equal(notes.length >= 1, true);
+    assert.equal(notes[0].payload.name, 'Ousmane Diop');
+
+    const owner = await get(`/api/orders/${order.id}`, customer.access_token);
+    assert.equal(owner.body.order.transfer.claimed, true);
+    assert.equal(owner.body.order.transfer.claimed_by_name, 'Ousmane D.');
+  });
+
+  test('only the person who booked can hand it on', async () => {
+    const order = await booked();
+    assert.equal((await post(`/api/orders/${order.id}/transfer`, {}, otherCustomer.access_token)).status, 404);
+    assert.equal((await post(`/api/orders/${order.id}/transfer`, {}, merchant.access_token)).status, 404);
+    assert.equal((await post(`/api/orders/${order.id}/transfer`, {})).status, 401);
+  });
+
+  test('the counter is told a friend is collecting', async () => {
+    const shopOffer = db.prepare(
+      `SELECT o.* FROM offers o
+         JOIN merchant_users mu ON mu.merchant_id = o.merchant_id
+        WHERE mu.user_id = ? AND o.status = 'live' AND o.qty_left >= 1 LIMIT 1`).get(merchant.user.id);
+    const order = (await post('/api/orders',
+      { offer_id: shopOffer.id, qty: 1, payment_method: 'cash' }, customer.access_token)).body.order;
+    await post(`/api/orders/${order.id}/transfer`, { to_name: 'Fatou' }, customer.access_token);
+
+    const row = (await get('/api/merchant/orders?status=active', merchant.access_token))
+      .body.items.find((o) => o.code === order.code);
+    assert.ok(row, 'the order should be on the counter list');
+    assert.equal(row.bearer.transferred, true);
+    assert.equal(row.bearer.name, 'Fatou');
+
+    // and the code still validates, once
+    const ok = await post('/api/merchant/pickups/validate', { code: order.code }, merchant.access_token);
+    assert.equal(ok.status, 200, JSON.stringify(ok.body));
+    assert.equal(ok.body.order.status, 'picked_up');
+  });
+
+  test('a collected or cancelled bag cannot be handed on', async () => {
+    const order = await booked();
+    await post(`/api/orders/${order.id}/cancel`, {}, customer.access_token);
+    const res = await post(`/api/orders/${order.id}/transfer`, {}, customer.access_token);
+    assert.equal(res.status, 409);
+    assert.equal(res.body.error.code, 'not_active');
+  });
+
+  test('two friends cannot both accept the same link', async () => {
+    const order = await booked();
+    const tr = await post(`/api/orders/${order.id}/transfer`, {}, customer.access_token);
+    const token = tr.body.transfer.token;
+    const third = await signInWithPhone('+221765551111', 'Awa Sarr');
+
+    assert.equal((await post(`/api/pickup/${token}/claim`, {}, otherCustomer.access_token)).status, 200);
+    const late = await post(`/api/pickup/${token}/claim`, {}, third.access_token);
+    assert.equal(late.status, 409);
+    assert.equal(late.body.error.code, 'already_claimed');
+
+    // and the owner cannot accept their own
+    assert.equal((await post(`/api/pickup/${token}/claim`, {}, customer.access_token)).status, 400);
+  });
+});
+
 /* ================= following a shop ================= */
 describe('following a shop', () => {
   const someShop = () => db.prepare(`SELECT id, name FROM merchants WHERE status = 'active' LIMIT 1`).get();

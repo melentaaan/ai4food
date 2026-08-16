@@ -1,4 +1,4 @@
-import { maskPhone, shortName } from './lib/util.js';
+import { firstName, maskPhone, shortName } from './lib/util.js';
 import { discountPct, offerState } from './lib/rank.js';
 
 /**
@@ -100,7 +100,7 @@ const orderCore = (o) => ({
   cancelled_at: o.cancelled_at,
 });
 
-export function customerOrder(o) {
+export function customerOrder(o, extra = {}) {
   return {
     ...orderCore(o),
     code: o.code, // only ever shown to the person who booked it
@@ -121,10 +121,52 @@ export function customerOrder(o) {
       lat: o.lat,
       lng: o.lng,
     },
+    ...extra,
   };
 }
 
-export function merchantOrder(o) {
+/** What the person who booked sees about the link they sent out. */
+export function transferInfo(t) {
+  return {
+    token: t.token,
+    to_name: t.to_name,
+    note: t.note,
+    claimed: !!t.claimed_at,
+    claimed_by_name: t.claimed_by_name ? shortName(t.claimed_by_name) : null,
+    claimed_at: t.claimed_at,
+    created_at: t.created_at,
+  };
+}
+
+/**
+ * The friend collecting on someone else's behalf. They need to walk in, say
+ * the code and leave — so that is all this returns. No amount paid, no phone
+ * number, no order id, nothing about the sender beyond a first name and the
+ * note they wrote.
+ */
+export function bearerOrder(o, t, extra = {}) {
+  return {
+    code: o.code,
+    qty: o.qty,
+    status: o.status,
+    offer: { name: o.offer_name, image_key: o.image_key, category: o.category },
+    merchant: {
+      name: o.merchant_name,
+      address: o.address,
+      zone: o.zone,
+      lat: o.lat,
+      lng: o.lng,
+    },
+    pickup: { start: o.pickup_start, end: o.pickup_end, from: o.pickup_from, to: o.pickup_to },
+    from_name: firstName(o.customer_name),
+    note: t.note,
+    to_name: t.to_name,
+    claimed: !!t.claimed_at,
+    ...extra,
+  };
+}
+
+export function merchantOrder(o, extra = {}) {
   const commission = o.commission_cfa;
   return {
     ...orderCore(o),
@@ -139,6 +181,7 @@ export function merchantOrder(o) {
     gross_cfa: o.total_cfa,
     commission_cfa: commission,
     payout_cfa: o.total_cfa - commission,
+    ...extra,
   };
 }
 

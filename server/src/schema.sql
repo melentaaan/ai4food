@@ -183,3 +183,22 @@ CREATE TABLE IF NOT EXISTS audit_log (
   created_at    INTEGER NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_audit_created ON audit_log(created_at DESC);
+
+-- Passing a reservation on. Someone books a bag and then cannot make the
+-- window; rather than lose it, they hand it to a friend. The link carries a
+-- token rather than an account, because that is how it will actually travel:
+-- pasted into WhatsApp. One live transfer per order; re-issuing mints a new
+-- token so the previous link stops working.
+CREATE TABLE IF NOT EXISTS order_transfers (
+  id         TEXT PRIMARY KEY,
+  order_id   TEXT NOT NULL UNIQUE REFERENCES orders(id) ON DELETE CASCADE,
+  token      TEXT NOT NULL UNIQUE,
+  created_by TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  to_name    TEXT,
+  note       TEXT,
+  claimed_by TEXT REFERENCES users(id) ON DELETE SET NULL,
+  claimed_at INTEGER,
+  revoked_at INTEGER,
+  created_at INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_transfers_claimed ON order_transfers(claimed_by);

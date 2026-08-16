@@ -145,9 +145,30 @@ button:focus-visible{outline:2.5px solid var(--emerald);outline-offset:2px}
   border:1px solid var(--line2);color:var(--forest);font-family:var(--dp);font-weight:600;font-size:11.5px;padding:7px 11px;border-radius:10px}
 .invite:active{background:var(--pale)}
 .vacts{display:flex;flex-wrap:wrap;gap:7px;align-items:center}
+.prices b{white-space:nowrap}
 .vacts .invite{margin-top:8px}
 .invite.fol.on{background:var(--pale);border-color:var(--mint-line);color:var(--emerald)}
 .fcount{font-size:11px;color:var(--muted);margin-top:8px}
+.linkbox{display:flex;align-items:center;gap:8px;background:var(--pale);border:1px solid var(--mint-line);
+  border-radius:13px;padding:11px 13px;margin:0 0 12px}
+.linkbox input{flex:1;min-width:0;background:none;border:none;font-size:12px;color:var(--forest);
+  font-family:var(--dp);font-weight:600;padding:0}
+.linkbox button{background:var(--white);border:1px solid var(--line2);border-radius:9px;padding:7px 10px;
+  font-family:var(--dp);font-size:11px;font-weight:700;color:var(--forest);flex-shrink:0}
+.giftline{display:flex;align-items:center;gap:8px;background:var(--pale);border-radius:12px;
+  padding:10px 13px;margin:0 22px 12px;font-size:12.5px;color:var(--forest);font-weight:500}
+.giftline svg{flex-shrink:0;color:var(--emerald)}
+.warnline{display:flex;gap:8px;align-items:flex-start;font-size:11.5px;color:var(--muted);
+  line-height:1.55;margin:2px 0 14px}
+.warnline svg{flex-shrink:0;margin-top:1px}
+.rc.tap{cursor:pointer;-webkit-tap-highlight-color:transparent}
+.rc.tap:active{transform:scale(.988)}
+.rc.tap>svg:last-child{color:var(--strike);flex-shrink:0;align-self:center;margin-left:2px}
+.rc.tap:focus-visible,.r.tap:focus-visible,.st:focus-visible{outline:2px solid var(--emerald);outline-offset:2px}
+.r.tap{cursor:pointer}
+.r.tap:active{background:var(--pale)}
+button.st{background:none;border:none;padding:0;text-align:left;font:inherit;color:inherit;cursor:pointer}
+button.st:active{transform:scale(.96)}
 
 .mapwrap{position:relative;margin:0 22px 14px;border-radius:22px;overflow:hidden;border:1px solid var(--line);box-shadow:var(--sh)}
 .mapsvg{width:100%;height:300px;display:block}
@@ -298,7 +319,8 @@ button:focus-visible{outline:2.5px solid var(--emerald);outline-offset:2px}
 .panel{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:4px 17px;margin:0 22px 12px;box-shadow:var(--sh)}
 .panel .r{display:flex;justify-content:space-between;padding:13px 0;font-size:13px;color:var(--muted);gap:10px}
 .panel .r+.r{border-top:1px solid var(--line)}
-.panel .r b{color:var(--ink);font-weight:600;text-align:right}
+.panel .r b{color:var(--ink);font-weight:600;text-align:right;
+  display:inline-flex;align-items:center;gap:4px;justify-content:flex-end;flex-wrap:wrap}
 .empty{padding:72px 40px;text-align:center}
 .empty .ic{width:64px;height:64px;border-radius:22px;background:var(--pale);color:var(--emerald);display:grid;place-items:center;margin:0 auto}
 .empty h3{font-family:var(--dp);font-size:18px;margin:16px 0 7px;font-weight:700;letter-spacing:-.02em}
@@ -428,7 +450,8 @@ button:focus-visible{outline:2.5px solid var(--emerald);outline-offset:2px}
 .recents{display:flex;flex-wrap:wrap;gap:8px;padding:0 22px 16px}
 
 /* ---------- notifications ---------- */
-.nrow{display:flex;gap:13px;align-items:flex-start;background:var(--white);border:1px solid var(--line);
+.nrow{cursor:pointer;-webkit-tap-highlight-color:transparent;
+  display:flex;gap:13px;align-items:flex-start;background:var(--white);border:1px solid var(--line);
   border-radius:18px;padding:14px;width:100%;text-align:left;box-shadow:var(--sh)}
 .nrow.unread{border-color:var(--mint2);background:linear-gradient(120deg,var(--pale),var(--white))}
 .nrow .ni{width:38px;height:38px;border-radius:13px;background:var(--pale);color:var(--emerald);
@@ -436,6 +459,9 @@ button:focus-visible{outline:2.5px solid var(--emerald);outline-offset:2px}
 .nrow b{display:block;font-family:var(--dp);font-size:13.5px;font-weight:700;letter-spacing:-.015em}
 .nrow p{margin:3px 0 0;font-size:12px;color:var(--muted);line-height:1.5}
 .nrow .ago{font-size:10.5px;color:var(--strike);margin-top:5px;display:block}
+.nrow:active{transform:scale(.99)}
+.nrow:focus-visible{outline:2px solid var(--emerald);outline-offset:2px}
+.nrow>svg:last-child{color:var(--strike);flex-shrink:0;align-self:center;margin-left:auto}
 .badge{position:absolute;top:6px;right:6px;min-width:17px;height:17px;padding:0 4px;border-radius:9px;
   background:var(--danger);color:#fff;font-family:var(--dp);font-size:10px;font-weight:700;
   display:grid;place-items:center;border:2px solid var(--cream)}
@@ -606,7 +632,11 @@ button:focus-visible{outline:2.5px solid var(--emerald);outline-offset:2px}
 .shbody{flex:1;overflow-y:auto;scrollbar-width:none;padding-top:6px}
 .shbody::-webkit-scrollbar{display:none}
 .mini{display:flex;gap:9px;padding:0 22px 14px}
-.mini div{flex:1;background:var(--white);border:1px solid var(--line);border-radius:16px;padding:12px 13px;box-shadow:var(--sh)}
+.mini div,.mini button{flex:1;background:var(--white);border:1px solid var(--line);border-radius:16px;
+  padding:12px 13px;box-shadow:var(--sh);text-align:left;font:inherit;color:inherit}
+.mini button{cursor:pointer}
+.mini button:active{transform:scale(.97)}
+.mini button:focus-visible{outline:2px solid var(--emerald);outline-offset:2px}
 .mini b{display:block;font-family:var(--dp);font-size:17px;font-weight:700;letter-spacing:-.03em}
 .mini span{font-size:10.5px;color:var(--muted);display:block;margin-top:3px;line-height:1.3}
 .spark{display:flex;align-items:flex-end;gap:3px;height:34px;margin-top:9px}
@@ -1107,6 +1137,84 @@ seg_shops:["Commerces","Shops","Butik yi"],
 no_follows:["Aucun commerce suivi","No shop followed","Amul butik bu nga topp"],
 no_follows_p:["Suivez un commerce et vous saurez dès qu'il met un panier en ligne.","Follow a shop and you will know the moment it puts a bag online.","Toppal butik, dinga xam bu def panier ci kaw."],
 see_shops:["Voir les commerces","Browse shops","Xool butik yi"],
+/* passer sa reservation a un proche */
+give_t:["Faire retirer par un proche","Have a friend collect it","Ku la jege mu jël ko"],
+give_sub:["Vous ne pouvez pas y aller ? Envoyez le panier, la personne montre le code au comptoir.","Cannot make it? Send the bag on — they show the code at the counter.","Mënuloo dem ? Yónnee panier bi, ki ko jël dina wone kod bi."],
+give_btn:["Envoyer à un proche","Send to a friend","Yónnee ku la jege"],
+give_name:["Pour qui ? (facultatif)","Who for? (optional)","Kan la ? (soo ko bëggee)"],
+give_name_ph:["Moussa","Moussa","Moussa"],
+give_note:["Un mot (facultatif)","A word (optional)","Baat (soo ko bëggee)"],
+give_note_ph:["Je suis coincée au bureau, merci !","Stuck at work, thank you!","Maa ngi ci liggéey bi, jërëjëf !"],
+give_make:["Créer le lien","Create the link","Sos lien bi"],
+give_link:["Lien de retrait","Pickup link","Lien bu retrait"],
+give_copy:["Copier le lien","Copy the link","Copier lien bi"],
+give_share:["Partager","Share","Séddoo"],
+give_wa:["Envoyer sur WhatsApp","Send on WhatsApp","Yónnee ci WhatsApp"],
+give_copied:["Lien copié","Link copied","Lien bi copier na"],
+give_cancel:["Reprendre le panier","Take it back","Delloo panier bi"],
+give_cancelled:["Lien annulé, le panier est à nouveau à vous","Link cancelled, the bag is yours again","Lien bi jóg na, panier bi dellu na ci yaw"],
+give_sent:["Lien prêt à envoyer","Link ready to send","Lien bi jekk na"],
+give_waiting:["En attente — personne ne l'a encore accepté","Waiting — nobody has accepted yet","Xaar — kenn nangul ko"],
+give_taken:["{0} l'a accepté","{0} accepted it","{0} nangu na ko"],
+give_state:["Confié à un proche","Handed to a friend","Ku la jege moo koy jël"],
+give_who:["Confié à {0}","Handed to {0}","Jox nañu ko {0}"],
+give_warn:["Toute personne ayant le lien peut retirer le panier. Envoyez-le seulement à quelqu'un de confiance.","Anyone with the link can collect the bag. Only send it to someone you trust.","Ku am lien bi mën na jël panier bi. Yónnee ko rekk ku nga wóolu."],
+give_note_from:["Message de {0}","Message from {0}","Bataaxal bu {0}"],
+/* cote proche */
+for_me:["À retirer pour un proche","Collect for a friend","Retrait ngir ku la jege"],
+for_me_n:["{0} vous a confié ce panier","{0} handed you this bag","{0} moo la jox panier bii"],
+pickup_t:["Un panier vous attend","A bag is waiting for you","Am na panier buy xaar"],
+pickup_sub:["{0} vous confie ce retrait. Montrez ce code au comptoir.","{0} is handing you this pickup. Show this code at the counter.","{0} moo la jox retrait bi. Wonel kod bii ci comptoir bi."],
+pickup_accept:["J'accepte de le retirer","I will collect it","Dinaa ko jël"],
+pickup_accepted:["C'est noté, le panier est dans votre suivi","Noted — the bag is in your list now","Baax na, panier bi nekk na ci sa liste"],
+pickup_dead:["Ce lien n'est plus valable","This link is no longer valid","Lien bii baaxul ba tey"],
+pickup_dead_p:["Le panier a peut-être déjà été retiré, ou la personne l'a repris.","The bag may already be collected, or it was taken back.","Xéj na ñu jël panier bi, walla ñu ko delloo."],
+pickup_mine:["C'est votre propre réservation","This is your own reservation","Sa reservation la"],
+pickup_open:["Ouvrir AI4Food","Open AI4Food","Ubbi AI4Food"],
+n_give_t:["Panier accepté","Bag accepted","Panier bi nangu nañu ko"],
+n_give_b:["{0} retirera votre panier chez {1}.","{0} will collect your bag at {1}.","{0} dina jël sa panier ci {1}."],
+n_back_t:["Retrait annulé","Pickup cancelled","Retrait bi jóg na"],
+n_back_b:["Le panier de {0} vous a été repris.","The bag at {0} was taken back.","Panier bu {0} delloo nañu ko."],
+m_bearer:["Retrait par un proche","A friend is collecting","Ku la jege moo koy jël"],
+m_bearer_n:["Retrait par un proche ({0})","A friend is collecting ({0})","Ku la jege ({0})"],
+/* lignes ouvrables */
+rating:["Note","Rating","Not bi"],
+distance:["Distance","Distance","Sori"],
+price:["Prix","Price","Njëg"],
+
+you:["Vous","You","Yow"],
+open_row:["Ouvrir","Open","Ubbi"],
+sh_shop:["Le commerce","The shop","Butik bi"],
+sh_bags_here:["Ses paniers","Its bags","Panier yi"],
+sh_no_bags:["Rien en ligne pour l'instant","Nothing online right now","Amul dara léegi"],
+sh_no_bags_p:["Suivez-le et vous saurez dès qu'il publie.","Follow it and you will know as soon as it publishes.","Toppal ko, dinga xam bu def."],
+sh_prospect:["Pas encore partenaire","Not a partner yet","Bokkagul ba tey"],
+sh_prospect_p:["Ce commerce n'est pas encore sur AI4Food. Invitez-le, on s'en occupe.","This shop is not on AI4Food yet. Invite it and we take it from there.","Butik bii nekkagul ci AI4Food. Woo ko, nun ñoo koy topptoo."],
+o_receipt:["Le reçu","The receipt","Reçu bi"],
+o_when:["Commandé le","Ordered on","Bés bi ñu ko jënd"],
+m_bag:["Le panier","The bag","Panier bi"],
+m_stock_left:["Reste en stock","Left in stock","Li des"],
+m_taken:["Déjà pris","Already taken","Li ñu jël"],
+a_order:["La commande","The order","Commande bi"],
+a_person:["La personne","The person","Nit ki"],
+a_entry:["L'action","The action","Jëf ji"],
+a_when:["Quand","When","Kañ"],
+a_actor:["Par","By","Ku ko def"],
+a_target:["Sur","On","Ci"],
+a_payout_t:["Ce qu'on lui doit","What we owe them","Li ñu ko war"],
+a_meta:["Détail","Detail","Détail"],
+stat_t:["D'où vient ce chiffre","Where this number comes from","Fu limu bi jóge"],
+sn_meals:["Un panier retiré = un repas sauvé. On ne compte que les paniers réellement récupérés, jamais ceux réservés puis oubliés.","One collected bag = one meal saved. Only bags actually collected are counted, never ones reserved and forgotten.","Panier bu ñu jël = ñam bu mucc. Yi ñu jël rekk lañuy waññ."],
+sn_co2:["1,2 kg d'équivalent CO₂ par panier retiré: ordre de grandeur usuel pour un repas jeté, transport et production compris.","1.2 kg CO₂e per collected bag: the usual order of magnitude for a wasted meal, production and transport included.","1,2 kg CO₂ ci benn panier: lu ñu jàppe ci ñam bu ñu sànni."],
+sn_saved:["La différence entre le prix en boutique et ce que vous avez payé, sur les paniers retirés.","The gap between the shop price and what you paid, on collected bags.","Xaajale bi ci prix bu butik ak li nga fey."],
+sn_published:["Le nombre de paniers encore disponibles sur vos offres du jour.","How many bags are still available across today's offers.","Panier yi des ci offre yi tey."],
+sn_reserved:["Les paniers réservés aujourd'hui, retirés ou non, hors annulations.","Bags reserved today, collected or not, cancellations aside.","Panier yi ñu réserver tey."],
+sn_earned:["Ce qui vous revient: le montant payé moins la commission AI4Food.","What comes to you: the amount paid minus the AI4Food fee.","Li ñu la war: xaalis bi ba commission bi jóge."],
+sn_commission:["La part AI4Food sur les paniers vendus, au taux de votre contrat.","The AI4Food share on bags sold, at your contract rate.","Wàll bu AI4Food ci panier yi ñu jaay."],
+sn_rate:["Paniers retirés ÷ (retirés + expirés). Les annulations n'entrent pas dans le calcul.","Bags collected ÷ (collected + expired). Cancellations are left out.","Panier yi ñu jël ÷ (jël + jeex)."],
+sn_volume:["La somme payée par les clients sur la période, commission comprise.","What customers paid over the period, fee included.","Xaalis bi client yi fey."],
+sn_users:["Les comptes ayant commandé au moins une fois sur la période.","Accounts that ordered at least once over the period.","Compte yi jënd benn yoon."],
+sn_awaiting:["Des paniers payés qui attendent encore au comptoir.","Bags paid for and still waiting at the counter.","Panier yi fey te ñu koy xaar."],
 /* premier lancement + vides utiles */
 ob_zone_t:["Vous êtes où ?","Where are you?","Fan nga nekk ?"],
 ob_zone_p:["Pour afficher d'abord les paniers les plus proches. Vous pourrez en changer à tout moment.","So the closest bags come first. You can change it whenever you like.","Ngir panier yi jege ñëw ci kanam. Man nga koo soppi kañ mu ne."],
@@ -1213,11 +1321,21 @@ const V=[{"n": "Chez Loutcha", "c": "Restaurants", "z": "Plateau", "r": 3.9, "k"
    Etat + persistance locale
    ========================================================= */
 const SKEY="ai4food.state.v2";
-const PERSIST=["lang","theme","fav","orders","custom","stock","invited","recent","zone","zoneSet","pos","seen","notifs","alerts","reads","follows"];
+const PERSIST=["lang","theme","fav","orders","custom","stock","invited","recent","zone","zoneSet","pos","seen","notifs","alerts","reads","follows","gifts"];
 const el=i=>document.getElementById(i);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const jsq=s=>String(s).replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/"/g,"&quot;");
 const uid=()=>Math.random().toString(36).slice(2,9);
+/**
+ * Rendre une ligne ouvrable. Un div avec un onclick n'est pas un bouton: il
+ * ne prend pas le focus et ne repond pas a Entree. Ces attributs remettent
+ * souris, doigt et clavier sur le meme chemin.
+ */
+const tap=(fn,label)=>`role="button" tabindex="0" onclick="${fn}" `+
+ `onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();${fn}}" `+
+ (label?`aria-label="${esc(label)}"`:"");
+/** Un bouton dans une ligne ouvrable ne doit pas declencher la ligne. */
+const stop="event.stopPropagation();";
 const code4=()=>"AI4-"+Math.random().toString(36).slice(2,6).toUpperCase();
 
 function seedOrders(){
@@ -1231,12 +1349,12 @@ function seedNotifs(){
 let S={
  role:"client",tab:"home",view:"carte",sel:-1,vfilter:"Tout",filter:"Tout",sort:"reco",seg:"active",
  qty:1,pay:"wave",cur:null,ob:0,q:"",stack:[],
- mode:"demo",remote:{offers:[],orders:[],notifs:[],impact:null,merchants:[],follows:[]},desk:null,adm:null,
+ mode:"demo",remote:{offers:[],orders:[],notifs:[],impact:null,merchants:[],follows:[],forme:[]},desk:null,adm:null,
  favSeg:"bags",
  idMap:{},idSeq:0,auth:{step:"phone",phone:"",hint:"",isNew:false},err:null,aFilter:"",pFilter:"",
- busy:0,netDown:false,scrollPos:{},haptics:true,
+ busy:0,netDown:false,bearer:null,scrollPos:{},haptics:true,
  lang:"fr",theme:"auto",fav:[8,11],orders:seedOrders(),custom:[],stock:{},invited:[],recent:[],
- zone:"Sacré-Cœur",zoneSet:false,pos:null,seen:false,notifs:seedNotifs(),alerts:true,reads:[],follows:[]
+ zone:"Sacré-Cœur",zoneSet:false,pos:null,seen:false,notifs:seedNotifs(),alerts:true,reads:[],follows:[],gifts:{}
 };
 function save(){
  try{const o={};PERSIST.forEach(k=>o[k]=S[k]);localStorage.setItem(SKEY,JSON.stringify(o))}catch(e){}
@@ -1251,7 +1369,7 @@ function resetAll(){
  try{localStorage.removeItem(SKEY)}catch(e){}
  S.fav=[8,11];S.orders=seedOrders();S.custom=[];S.stock={};S.invited=[];S.recent=[];
  S.notifs=seedNotifs();S.zone="Sacré-Cœur";S.zoneSet=false;S.pos=null;S.seen=true;S.role="client";S.tab="home";
- S.follows=[];
+ S.follows=[];S.gifts={};
  save();applyTheme();render();toast(t("reset_done"));
 }
 
@@ -1266,14 +1384,20 @@ const FOLLOWED=()=>online()?(S.remote.follows||[]):V.filter(v=>S.follows.indexOf
 const isFollowing=v=>online()?!!v.fol:S.follows.indexOf(v.n)>=0;
 /** Une cle stable pour un commerce: les listes en ligne portent des objets distincts. */
 const vkey=v=>online()?v.srv:v.n;
+/** Le lien confie a un proche, dans les deux modes. */
+const giftOf=o=>o?(online()?(o.tr||null):(S.gifts[o.oid]||null)):null;
+/** Les paniers qu'un proche nous a confies. */
+const FORME=()=>online()?(S.remote.forme||[]):demoForMe();
+const demoForMe=()=>Object.keys(S.gifts).map(k=>S.gifts[k]).filter(g=>g.claimed).map(g=>g.view);
 /** Le commerce derriere un panier, dans les deux modes. */
 const shopOf=d=>d?MV().find(v=>online()?v.srv===d.merchSrv
   :(v.n===d.merch||v.n.indexOf(d.merch)>=0||d.merch.indexOf(v.n)>=0)):null;
 /** L'offre telle qu'elle etait au moment de la commande. */
 const oOff=o=>o.snap||byId(o.id);
-const byId=id=>CAT().find(o=>o.id===id);
-const stockOf=d=>online()?d.left:(S.stock[d.id]!==undefined?S.stock[d.id]:d.left);
-const isFav=id=>S.fav.indexOf(id)>=0;
+const sameId=(a,b)=>String(a)===String(b);
+const byId=id=>CAT().find(o=>sameId(o.id,id));
+const stockOf=d=>!d?0:(online()?d.left:(S.stock[d.id]!==undefined?S.stock[d.id]:d.left));
+const isFav=id=>S.fav.some(x=>sameId(x,id));
 
 /* ---------- temps ---------- */
 const nowMin=()=>{const n=new Date();return n.getHours()*60+n.getMinutes()};
@@ -1424,6 +1548,8 @@ function notifText(n){
  if(n.k==="new")return [t("n_new_t",n.a[0]),t("n_new_b",n.a[1],F(n.a[2]),F(n.a[3]))];
  if(n.k==="soon")return [t("n_soon_t",n.a[0]),t("n_soon_b",n.a[1],n.a[2])];
  if(n.k==="ok")return [t("n_ok_t"),t("n_ok_b",n.a[0],n.a[1],n.a[2])];
+ if(n.k==="give")return [t("n_give_t"),t("n_give_b",n.a[0],n.a[1])];
+ if(n.k==="back")return [t("n_back_t"),t("n_back_b",n.a[0])];
  return ["",""];
 }
 function ago(ts){
@@ -1825,7 +1951,9 @@ let popGuard=0;
 function navPush(){
  try{history.pushState({ai4:Date.now()},"")}catch(e){}
 }
-function navBack(){try{history.back()}catch(e){}}
+/* Rien d'ouvert, rien a fermer: sans ce garde-fou un appel a back() ferait
+   sortir de l'application au lieu de ne rien faire. */
+function navBack(){if(!S.stack.length)return;try{history.back()}catch(e){}}
 function initHistory(){
  try{history.replaceState({ai4:"root"},"")}catch(e){}
  window.addEventListener("popstate",()=>{
@@ -2058,7 +2186,7 @@ const API={
   try{localStorage.removeItem(AKEY)}catch(e){}
   if(rt)fetch(this.url("/auth/logout"),{method:"POST",headers:{"content-type":"application/json"},
    body:JSON.stringify({refresh_token:rt})}).catch(()=>{});
-  S.remote={offers:[],orders:[],notifs:[],impact:null,merchants:[],follows:[]};
+  S.remote={offers:[],orders:[],notifs:[],impact:null,merchants:[],follows:[],forme:[]};
   S.role="client";S.tab="home";
   if(!silent)toast(t("signed_out"));
   render(true);
@@ -2106,21 +2234,26 @@ function mapOffer(o){
 const ST_IN={active:"active",picked_up:"done",expired:"expired",cancelled:"cancel"};
 function mapOrder(o){
  return {oid:o.id,id:localId(o.offer.id),qty:o.qty,pay:o.payment_method,code:o.code,ts:o.created_at,
+  tr:o.transfer||null,
   endTs:o.pickup.end,status:ST_IN[o.status]||o.status,
   snap:{id:localId(o.offer.id),name:o.offer.name,img:o.offer.image_key||"pain",merch:o.merchant.name,
    addr:o.merchant.address,price:Math.round(o.total_cfa/o.qty),was:Math.round(o.was_total_cfa/o.qty),
    from:o.pickup.from,to:o.pickup.to,la:o.merchant.lat,lo:o.merchant.lng,rate:0,avis:0,
    cat:"",desc:"",left:0}};
 }
-const NK_IN={welcome:"welcome",order_ok:"ok",new_offer:"new",pickup_soon:"soon",picked_up:"got"};
+const NK_IN={welcome:"welcome",order_ok:"ok",new_offer:"new",pickup_soon:"soon",picked_up:"got",
+ transfer_claimed:"give",transfer_revoked:"back"};
 function mapNotif(n){
  const p=n.payload||{};
  const k=NK_IN[n.kind]||n.kind;
  const a=k==="ok"?[p.qty+" × "+p.offer_name,p.merchant_name,p.code]
   :k==="new"?[p.merchant_name,p.offer_name,p.price_cfa,p.was_cfa]
   :k==="soon"?[p.merchant_name,p.pickup_from,p.code]
-  :k==="got"?[p.merchant_name]:[];
- const ic=k==="ok"?"checkC":k==="new"?"spark":k==="soon"?"clock":k==="got"?"check":"leaf";
+  :k==="got"?[p.merchant_name]
+  :k==="give"?[p.name||"",p.merchant_name]
+  :k==="back"?[p.merchant_name]:[];
+ const ic=k==="ok"?"checkC":k==="new"?"spark":k==="soon"?"clock":k==="got"?"check"
+  :k==="give"?"users":k==="back"?"info":"leaf";
  return {nid:n.id,k:k,a:a,ts:n.created_at,read:n.read,ic:ic};
 }
 
@@ -2132,10 +2265,17 @@ async function pullCatalog(){
  S.remote.offers=r.items.map(mapOffer);
  S.fav=S.remote.offers.filter(o=>o.srvFav).map(o=>o.id);
 }
+/** Le panier qu'un proche vous confie: juste de quoi entrer et repartir. */
+function mapBearer(p){
+ return {token:p.token,code:p.code,qty:p.qty,from:p.from_name,note:p.note,
+  merch:p.merchant.name,addr:p.merchant.address,name:p.offer.name,img:p.offer.image_key||"pain",
+  fromT:p.pickup.from,toT:p.pickup.to,endTs:p.pickup.end,la:p.merchant.lat,lo:p.merchant.lng};
+}
 async function pullOrders(){
  if(!signedIn())return;
  const r=await API.get("/orders?limit=100");
  S.remote.orders=r.items.map(mapOrder);
+ S.remote.forme=(r.for_me||[]).map(mapBearer);
 }
 async function pullNotifs(){
  if(!signedIn())return;
@@ -2354,22 +2494,22 @@ function vrow(v){
  const d=kmBetween(userPos(),{la:v.la,lo:v.lo});
  const i=MV().indexOf(v),partner=v.live||off.length>0,fol=isFollowing(v),nf=v.nfol||0;
  const k=jsq(vkey(v));
- return `<div class="rc vrow">
+ return `<div class="rc vrow tap" ${tap("openShop('"+k+"')",v.n)}>
    <div class="vtile">${I(ic(v.c),22)}</div>
    <div class="rc-body">
     <div class="rc-top"><h3>${esc(v.n)}</h3></div>
     <p class="mrc">${esc(v.z)} <span class="rate">${I("star",13)} ${v.r.toFixed(1)}</span>
      <span class="dist">${I("pin",12)} ${fmtKm(d)}</span></p>
     <div class="vacts">
-     ${off.length?`<button class="invite" onclick="open_('${off[0].id}')">${I("bag",13)} ${off.length===1?t("offers_here",1):t("offers_here_n",off.length)}</button>`
+     ${off.length?`<button class="invite" onclick="${stop}open_('${off[0].id}')">${I("bag",13)} ${off.length===1?t("offers_here",1):t("offers_here_n",off.length)}</button>`
       :v.live?`<span class="save" style="margin-top:8px">${I("check",13)} ${t("partner")}</span>`
       :inv?`<span class="stat wait" style="margin-top:8px">${I("check",13)} ${t("invited")}</span>`
-      :`<button class="invite" onclick="invite(${i})">${I("plus",13)} ${t("invite_shop")}</button>`}
-     ${partner?`<button class="invite fol ${fol?"on":""}" onclick="follow('${k}')"
+      :`<button class="invite" onclick="${stop}invite(${i})">${I("plus",13)} ${t("invite_shop")}</button>`}
+     ${partner?`<button class="invite fol ${fol?"on":""}" onclick="${stop}follow('${k}')"
        aria-pressed="${fol?"true":"false"}">${I(fol?"check":"plus",13)} ${fol?t("following_lbl"):t("follow")}</button>`:""}
      ${partner&&nf?`<span class="fcount">${nf===1?t("n_follower1"):t("n_followers",nf)}</span>`:""}
     </div>
-   </div></div>`;
+   </div>${I("chevR",16)}</div>`;
 }
 function places(){
  if(online()&&S.busy>0&&!MV().length)return skelScreen(t("shops"));
@@ -2433,11 +2573,16 @@ function orderBlock(o){
  const d=oOff(o);if(!d)return "";
  return `${ticket(o,true)}
  <div class="panel">
-   <div class="r"><span>${t("paid_with")}</span><b>${PAY.find(p=>p.id===o.pay).n}</b></div>
+   <div class="r"><span>${t("paid_with")}</span><b>${(PAY.find(p=>p.id===o.pay)||{n:"—"}).n}</b></div>
    <div class="r"><span>${t("total")}</span><b>${F(d.price*o.qty)} FCFA</b></div>
    <div class="r"><span>${t("store_value")}</span><b>${F(d.was*o.qty)} FCFA</b></div>
    <div class="r"><span>${t("saving")}</span><b style="color:var(--emerald)">${F((d.was-d.price)*o.qty)} FCFA</b></div></div>
+ ${(()=>{const g=giftOf(o);if(!g)return "";
+   return `<div class="giftline">${I("users",16)}
+    <span>${g.claimed?t("give_who",esc(g.claimed_by_name||g.to_name||"")):t("give_waiting")}</span></div>`})()}
  <div style="padding:0 22px 8px">
+   <button class="btn btn-ghost" onclick="openGive('${o.oid}')">${I("users",18)} ${giftOf(o)?t("give_state"):t("give_btn")}</button>
+   <div style="height:9px"></div>
    <button class="btn btn-ghost" onclick="routeTo('${d.id}')">${I("route",18)} ${t("itinerary")}</button>
    <div style="height:9px"></div>
    ${online()?"":`<button class="btn btn-ghost" onclick="pickedUp('${o.oid}')">${I("check",18)} ${t("mark_picked")}</button>
@@ -2446,19 +2591,34 @@ function orderBlock(o){
 }
 function pastRow(o){
  const d=oOff(o);if(!d)return "";
- return `<div class="rc vrow"><div class="vtile">${I("receipt",22)}</div>
+ return `<div class="rc vrow tap" ${tap("openOrder('"+jsq(o.oid)+"')",d.merch)}>
+  <div class="vtile">${I("receipt",22)}</div>
   <div class="rc-body"><div class="rc-top"><h3>${esc(d.merch)}</h3></div>
   <p class="mrc">${esc(d.name)} &middot; ${new Date(o.ts).toLocaleDateString(LOC(),{day:"numeric",month:"short"})}</p>
   <p class="prices"><b>${F(d.price*o.qty)} <i>FCFA</i></b>${statBadge(o.status)}</p>
-  </div></div>`;
+  </div>${I("chevR",16)}</div>`;
+}
+function forMeBlock(){
+ const l=FORME();
+ if(!l.length)return "";
+ return `<div class="sec"><div><span class="eyebrow">${I("users",12)} ${t("for_me")}</span>
+   <h2>${l.length===1?t("for_me_n",esc(l[0].from)):t("for_me")}</h2></div></div>
+  <div class="list">${l.map(b=>`<div class="rc vrow tap" ${tap("openPickup('"+jsq(b.token)+"')",b.merch)}>
+    <div class="vtile">${I("gift",22)}</div>
+    <div class="rc-body"><div class="rc-top"><h3>${esc(b.merch)}</h3></div>
+     <p class="mrc">${b.qty} × ${esc(b.name)} &middot; ${b.fromT} - ${b.toT}</p>
+     <p class="prices"><b style="font-family:var(--dp);letter-spacing:.04em">${esc(b.code)}</b>
+      <span style="font-size:11.5px;color:var(--muted)">${t("for_me_n",esc(b.from))}</span></p>
+    </div>${I("chevR",16)}</div>`).join("")}</div>
+  <div style="height:6px"></div>`;
 }
 function ordersBody(){
- const act=activeOrders(),past=pastOrders();
- if(!act.length&&!past.length)return `<div class="empty"><div class="ic">${I("receipt",28)}</div><h3>${t("no_orders")}</h3>
+ const act=activeOrders(),past=pastOrders(),mine=forMeBlock();
+ if(!act.length&&!past.length)return `${mine}<div class="empty"><div class="ic">${I("receipt",28)}</div><h3>${t("no_orders")}</h3>
   <p>${t("no_orders_p")}</p>
   <button class="btn btn-main" onclick="go('home')">${t("discover")}</button></div>`;
  const seg=S.seg==="past"?"past":"active";
- return `<div class="seg">
+ return `${seg==="active"?mine:""}<div class="seg">
    <button class="${seg==="active"?"on":""}" onclick="setSeg('active')">${t("active_orders")}${act.length?" ("+act.length+")":""}</button>
    <button class="${seg==="past"?"on":""}" onclick="setSeg('past')">${t("past_orders")}</button></div>
  ${seg==="active"
@@ -2493,9 +2653,9 @@ function profile(){
       `<button class="rb ${S.role===k?"on":""}" onclick="setRole('${k}')">${t(l)}</button>`).join("")}
      </div><p class="rn">${t("role_note")}</p></div>`}
  ${S.role==="client"&&(!online()||signedIn())?`<div class="impact grain"><h3>${I("leaf",18)} ${t("impact")}</h3>
-  <div class="irow"><div class="st"><b>${im.meals}</b><span>${t("meals_saved")}</span></div>
-  <div class="st"><b>${im.co2} kg</b><span>${t("co2_avoided")}</span></div>
-  <div class="st"><b>${Fk(im.saved)} F</b><span>${t("money_saved")}</span></div></div>
+  <div class="irow">${statTile("meals",im.meals,t("meals_saved"))}
+  ${statTile("co2",im.co2+" kg",t("co2_avoided"))}
+  ${statTile("saved",Fk(im.saved)+" F",t("money_saved"))}</div>
   <p style="margin:13px 0 0;font-size:10.5px;color:#A9C4BC;line-height:1.5">${t("impact_note")}</p></div>`:""}
  <div class="rows">
   ${row("wallet",t("pay_methods"),"Wave","payToast()")}
@@ -2528,17 +2688,18 @@ function mhome(){
  const cash=ords.filter(o=>o.status==="done").reduce((a,o)=>{const d=byId(o.id);return a+d.price*o.qty},0);
  return `${mhead(t("m_today"),t("m_zone"))}
  <div class="impact grain"><h3>${I("store",18)} ${t("m_day")}</h3>
-  <div class="irow"><div class="st"><b>${published}</b><span>${t("m_published")}</span></div>
-  <div class="st"><b>${reserved}</b><span>${t("m_reserved")}</span></div>
-  <div class="st"><b>${Fk(cash)} F</b><span>${t("m_earned")}</span></div></div></div>
+  <div class="irow">${statTile("published",published,t("m_published"))}
+  ${statTile("reserved",reserved,t("m_reserved"))}
+  ${statTile("earned",Fk(cash)+" F",t("m_earned"))}</div></div>
  <div class="sec"><div><h2>${t("m_online")}</h2><p>${t("m_editable")}</p></div></div>
- ${offs.length?`<div class="list">${offs.map(o=>`<div class="rc vrow"><div class="vtile">${I("bag",22)}</div>
+ ${offs.length?`<div class="list">${offs.map(o=>`<div class="rc vrow tap" ${tap("openMOffer('"+jsq(o.id)+"')",o.name)}>
+  <div class="vtile">${I("bag",22)}</div>
   <div class="rc-body"><div class="rc-top"><h3>${esc(o.name)}</h3></div>
   <p class="mrc">${o.from} - ${o.to}</p>
   <p class="prices"><b>${F(o.price)} <i>FCFA</i></b>
    <span style="font-size:11.5px;color:var(--muted)">${t("m_sold_line",o.left,stockOf(o))}</span></p>
   <div class="metarow">${pillHtml(o)}</div>
-  </div></div>`).join("")}</div>`
+  </div>${I("chevR",16)}</div>`).join("")}</div>`
  :`<div class="empty"><div class="ic">${I("bag",28)}</div><h3>${t("m_none")}</h3><p>${t("m_none_p")}</p></div>`}
  <div style="padding:0 22px 20px">
   <button class="btn btn-main" onclick="openPublish()">${I("plus",18)} ${t("m_publish")}</button></div>`;
@@ -2577,12 +2738,13 @@ function mcodes(){
    <button class="btn btn-ghost" onclick="validateCode()">${I("check",18)} ${t("m_validate")}</button>`
   :`<button class="btn btn-main" onclick="validateCode()">${I("check",18)} ${t("m_validate")}</button>`}</div>
  <div style="height:16px"></div>
- ${ords.length?`<div class="list">${ords.map(o=>{const d=byId(o.id);return `<div class="rc vrow"><div class="vtile">${I("receipt",22)}</div>
+ ${ords.length?`<div class="list">${ords.map(o=>{const d=byId(o.id);return `<div class="rc vrow tap" ${tap("openMPick('"+jsq(o.code)+"')",o.code)}>
+  <div class="vtile">${I("receipt",22)}</div>
   <div class="rc-body"><div class="rc-top"><h3 style="font-family:var(--dp);letter-spacing:.04em">${o.code}</h3></div>
   <p class="mrc">${o.qty} × ${esc(d.name)}</p>
   ${o.status==="done"?`<span class="save" style="margin-top:8px">${I("check",13)} ${t("st_done")}</span>`
-   :`<button class="invite" onclick="validate('${o.oid}')">${I("check",13)} ${t("m_validate")}</button>`}
-  </div></div>`}).join("")}</div>`
+   :`<button class="invite" onclick="${stop}validate('${o.oid}')">${I("check",13)} ${t("m_validate")}</button>`}
+  </div>${I("chevR",16)}</div>`}).join("")}</div>`
  :`<div class="empty"><div class="ic">${I("scan",28)}</div><h3>${t("m_no_codes")}</h3><p>${t("m_no_codes_p")}</p></div>`}`;
 }
 
@@ -2602,12 +2764,12 @@ function adash(){
  return `<div class="head"><div><div class="hi">AI4Food &middot; Dakar</div><div class="city">${t("a_dash")}</div></div>
   ${bellBtn()}</div>
  <div class="impact grain"><h3>${I("trend",18)} ${t("a_today")}</h3>
-  <div class="irow"><div class="st"><b>${baskets}</b><span>${t("a_baskets")}</span></div>
-  <div class="st"><b>${Fk(volume)} F</b><span>${t("a_volume")}</span></div>
-  <div class="st"><b>${Fk(volume*.15)} F</b><span>${t("a_commissions")}</span></div></div>
-  <div class="irow" style="margin-top:9px"><div class="st"><b>${rate}%</b><span>${t("a_rate")}</span></div>
-  <div class="st"><b>${(83+impact().co2).toFixed(0)} kg</b><span>${t("co2_avoided")}</span></div>
-  <div class="st"><b>1 240</b><span>${t("a_users")}</span></div></div></div>
+  <div class="irow">${statTile("reserved",baskets,t("a_baskets"))}
+  ${statTile("volume",Fk(volume)+" F",t("a_volume"))}
+  ${statTile("commission",Fk(volume*.15)+" F",t("a_commissions"))}</div>
+  <div class="irow" style="margin-top:9px">${statTile("rate",rate+"%",t("a_rate"))}
+  ${statTile("co2",(83+impact().co2).toFixed(0)+" kg",t("co2_avoided"))}
+  ${statTile("users","1 240",t("a_users"))}</div></div>
  <div class="fc grain"><div class="eye">${I("trend",13)} ${t("a_7d")}</div>
   <h3>${t("a_perday")}</h3>
   <div class="bars">${w.map((v,i)=>`<div class="${i===6?"pred":""}" style="height:${v/90*100}%"><small>${lab[i]}</small></div>`).join("")}</div>
@@ -2651,22 +2813,23 @@ function mhomeOnline(){
  const live=d.offers.filter(o=>o.state!=="expired"&&o.status!=="cancelled");
  return `${mhead(t("m_today"),API.me.merchant?API.me.merchant.zone:"")}
  <div class="impact grain"><h3>${I("store",18)} ${t("m_day")}</h3>
-  <div class="irow"><div class="st"><b>${s.qty_published}</b><span>${t("m_published")}</span></div>
-  <div class="st"><b>${s.baskets_reserved}</b><span>${t("m_reserved")}</span></div>
-  <div class="st"><b>${money(s.payout_cfa)}</b><span>${t("m_earned")}</span></div></div>
-  <div class="irow" style="margin-top:9px"><div class="st"><b>${s.orders_awaiting_pickup}</b><span>${t("m_awaiting")}</span></div>
-  <div class="st"><b>${money(s.commission_cfa)}</b><span>${t("m_commission")}</span></div>
-  <div class="st"><b>${a.pickup_rate_pct===null?"-":a.pickup_rate_pct+"%"}</b><span>${t("a_rate")}</span></div></div></div>
+  <div class="irow">${statTile("published",s.qty_published,t("m_published"))}
+  ${statTile("reserved",s.baskets_reserved,t("m_reserved"))}
+  ${statTile("earned",money(s.payout_cfa),t("m_earned"))}</div>
+  <div class="irow" style="margin-top:9px">${statTile("awaiting",s.orders_awaiting_pickup,t("m_awaiting"))}
+  ${statTile("commission",money(s.commission_cfa),t("m_commission"))}
+  ${statTile("rate",a.pickup_rate_pct===null?"-":a.pickup_rate_pct+"%",t("a_rate"))}</div></div>
  <div class="mini">${d.stats.series.slice(-3).map(x=>`<div><b>${x.baskets}</b><span>${x.date.slice(5)}</span></div>`).join("")}</div>
  <div class="sec"><div><h2>${t("m_online")}</h2><p>${t("m_editable")}</p></div></div>
- ${live.length?`<div class="list">${live.map(o=>`<div class="rc vrow"><div class="vtile">${I("bag",22)}</div>
+ ${live.length?`<div class="list">${live.map(o=>`<div class="rc vrow tap" ${tap("openMOffer('"+jsq(o.id)+"')",o.name)}>
+  <div class="vtile">${I("bag",22)}</div>
   <div class="rc-body"><div class="rc-top"><h3>${esc(o.name)}</h3></div>
   <p class="mrc">${o.pickup.from} - ${o.pickup.to} &middot; ${money(o.revenue_cfa)}</p>
   <p class="prices"><b>${F(o.price_cfa)} <i>FCFA</i></b>
    <span style="font-size:11.5px;color:var(--muted)">${t("m_sold_line",o.qty_total,o.qty_left)}</span></p>
   <div class="metarow"><span class="stat ${o.state==="sold_out"?"dead":""}">${o.state==="open"?t("open_now"):o.state==="sold_out"?t("sold"):t("pickup_at",o.pickup.from)}</span>
-   <button class="invite" onclick="pullOffer('${o.id}')">${I("trash",13)} ${t("m_pull")}</button></div>
-  </div></div>`).join("")}</div>`
+   <button class="invite" onclick="${stop}pullOffer('${o.id}')">${I("trash",13)} ${t("m_pull")}</button></div>
+  </div>${I("chevR",16)}</div>`).join("")}</div>`
  :`<div class="empty"><div class="ic">${I("bag",28)}</div><h3>${t("m_none")}</h3><p>${t("m_none_p")}</p></div>`}
  <div style="padding:0 22px 20px">
   <button class="btn btn-main" onclick="openPublish()">${I("plus",18)} ${t("m_publish")}</button></div>`;
@@ -2709,14 +2872,17 @@ function mcodesOnline(){
    <button class="btn btn-ghost" onclick="validateCode()">${I("check",18)} ${t("m_validate")}</button>`
   :`<button class="btn btn-main" onclick="validateCode()">${I("check",18)} ${t("m_validate")}</button>`}</div>
  <div style="height:16px"></div>
- ${rows.length?`<div class="list">${rows.map(o=>`<div class="rc vrow"><div class="vtile">${I("receipt",22)}</div>
+ ${rows.length?`<div class="list">${rows.map(o=>`<div class="rc vrow tap" ${tap("openMPick('"+jsq(o.code)+"')",o.code)}>
+  <div class="vtile">${I("receipt",22)}</div>
   <div class="rc-body"><div class="rc-top"><h3 style="font-family:var(--dp);letter-spacing:.04em">${o.code}</h3></div>
   <p class="mrc">${o.qty} × ${esc(o.offer.name)} &middot; ${esc(o.customer.name)} ${esc(o.customer.phone_masked)}</p>
+  ${o.bearer&&o.bearer.transferred?`<p class="mrc" style="color:var(--emerald)">${I("users",12)}
+    ${o.bearer.name?t("m_bearer_n",esc(o.bearer.name)):t("m_bearer")}</p>`:""}
   <p class="prices"><b>${F(o.payout_cfa)} <i>FCFA</i></b>
    <span style="font-size:11px;color:var(--muted)">${t("m_after_fee")}</span></p>
   ${o.status==="picked_up"?`<span class="save" style="margin-top:8px">${I("check",13)} ${t("st_done")}</span>`
-   :`<button class="invite" onclick="validateOne('${o.code}')">${I("check",13)} ${t("m_validate")}</button>`}
-  </div></div>`).join("")}</div>`
+   :`<button class="invite" onclick="${stop}validateOne('${o.code}')">${I("check",13)} ${t("m_validate")}</button>`}
+  </div>${I("chevR",16)}</div>`).join("")}</div>`
  :`<div class="empty"><div class="ic">${I("scan",28)}</div><h3>${t("m_no_codes")}</h3><p>${t("m_no_codes_p")}</p></div>`}`;
 }
 
@@ -2736,30 +2902,34 @@ function adashOnline(){
  const days=["dim","lun","mar","mer","jeu","ven","sam"];
  return `${ahead(t("a_dash"),t("a_live_now"))}
  <div class="impact grain"><h3>${I("trend",18)} ${t("a_today")}</h3>
-  <div class="irow"><div class="st"><b>${o.today.baskets_sold}</b><span>${t("a_baskets")}</span></div>
-  <div class="st"><b>${money(o.today.gross_cfa)}</b><span>${t("a_volume")}</span></div>
-  <div class="st"><b>${money(o.today.commission_cfa)}</b><span>${t("a_commissions")}</span></div></div>
+  <div class="irow">${statTile("reserved",o.today.baskets_sold,t("a_baskets"))}
+  ${statTile("volume",money(o.today.gross_cfa),t("a_volume"))}
+  ${statTile("commission",money(o.today.commission_cfa),t("a_commissions"))}</div>
   <div class="irow" style="margin-top:9px">
-  <div class="st"><b>${o.all_time.pickup_rate_pct===null?"-":o.all_time.pickup_rate_pct+"%"}</b><span>${t("a_rate")}</span></div>
-  <div class="st"><b>${o.all_time.co2e_kg} kg</b><span>${t("co2_avoided")}</span></div>
-  <div class="st"><b>${o.today.active_users}</b><span>${t("a_active_users")}</span></div></div></div>
+  ${statTile("rate",o.all_time.pickup_rate_pct===null?"-":o.all_time.pickup_rate_pct+"%",t("a_rate"))}
+  ${statTile("co2",o.all_time.co2e_kg+" kg",t("co2_avoided"))}
+  ${statTile("users",o.today.active_users,t("a_active_users"))}</div></div>
  <div class="fc grain"><div class="eye">${I("trend",13)} ${t("a_7d")}</div>
   <h3>${t("a_perday")}</h3>
   <div class="bars">${ser.map((x,i)=>`<div class="${i===ser.length-1?"pred":""}" style="height:${Math.max(4,x.baskets/max*100)}%"><small>${days[new Date(x.date+"T00:00:00Z").getUTCDay()]}</small></div>`).join("")}</div>
   <div class="conf" style="margin-top:28px"><span>${t("a_gross_week")}</span>
    <span>${money(ser.reduce((a,x)=>a+x.gross_cfa,0))}</span></div></div>
  <div class="mini">
-  <div><b>${o.all_time.meals_saved}</b><span>${t("meals_saved")}</span></div>
-  <div><b>${money(o.all_time.waste_avoided_cfa)}</b><span>${t("a_retail_saved")}</span></div>
-  <div><b>${o.network.offers_live}</b><span>${t("a_live_offers")}</span></div></div>
+  <button ${tap("openStat('meals','"+o.all_time.meals_saved+"')",t("meals_saved"))}><b>${o.all_time.meals_saved}</b><span>${t("meals_saved")}</span></button>
+  <button ${tap("openStat('saved','"+jsq(money(o.all_time.waste_avoided_cfa))+"')",t("a_retail_saved"))}><b>${money(o.all_time.waste_avoided_cfa)}</b><span>${t("a_retail_saved")}</span></button>
+  <button ${tap("go('apipe')",t("a_live_offers"))}><b>${o.network.offers_live}</b><span>${t("a_live_offers")}</span></button></div>
  <div class="sec"><div><h2>${t("a_network")}</h2>
   <p>${t("a_prospects",o.network.merchants_active,o.network.merchants_prospect)}</p></div>
   <button class="link" onclick="go('apipe')">${t("a_pipeline")} ${I("chevR",14)}</button></div>
  <div class="panel" style="margin-bottom:14px">
-  <div class="r"><span>${t("a_pending")}</span><b style="color:${o.network.merchants_pending?"var(--amber)":"var(--ink)"}">${o.network.merchants_pending}</b></div>
-  <div class="r"><span>${t("a_invites")}</span><b>${o.network.invites}</b></div>
-  <div class="r"><span>${t("a_pub_today")}</span><b>${o.network.offers_today}</b></div>
-  <div class="r"><span>${t("a_users")}</span><b>${o.users.customers} &middot; ${o.users.merchants} &middot; ${o.users.admins}</b></div></div>
+  <div class="r tap" ${tap("goPipe('pending')",t("a_pending"))}><span>${t("a_pending")}</span>
+   <b style="color:${o.network.merchants_pending?"var(--amber)":"var(--ink)"}">${o.network.merchants_pending}${I("chevR",14)}</b></div>
+  <div class="r tap" ${tap("goPipe('')",t("a_invites"))}><span>${t("a_invites")}</span>
+   <b>${o.network.invites}${I("chevR",14)}</b></div>
+  <div class="r tap" ${tap("goAOrders('')",t("a_pub_today"))}><span>${t("a_pub_today")}</span>
+   <b>${o.network.offers_today}${I("chevR",14)}</b></div>
+  <div class="r tap" ${tap("goUsers()",t("a_users"))}><span>${t("a_users")}</span>
+   <b>${o.users.customers} &middot; ${o.users.merchants} &middot; ${o.users.admins}${I("chevR",14)}</b></div></div>
  <div style="padding:0 22px 22px"><button class="btn btn-ghost" onclick="runMaintenance()">${I("refresh",18)} ${t("a_maint")}</button></div>`;
 }
 function aordersOnline(){
@@ -2769,14 +2939,15 @@ function aordersOnline(){
  const chips=[["","cat_all"],["active","st_active"],["picked_up","st_done"],["expired","st_expired"],["cancelled","st_cancel"]];
  return `${ahead(t("tab_aorders"),t("a_recent",S.adm.ordersTotal))}
  <div class="chips">${chips.map(([k,l])=>`<button class="chip ${f===k?"on":""}" onclick="setAFilter('${k}')">${t(l)}</button>`).join("")}</div>
- ${rows.length?`<div class="list">${rows.map(o=>`<div class="rc vrow"><div class="vtile">${I("receipt",22)}</div>
+ ${rows.length?`<div class="list">${rows.map(o=>`<div class="rc vrow tap" ${tap("openAOrder('"+o.id+"')",o.merchant.name)}>
+  <div class="vtile">${I("receipt",22)}</div>
   <div class="rc-body"><div class="rc-top"><h3>${esc(o.merchant.name)}</h3></div>
   <p class="mrc" style="font-family:var(--dp);letter-spacing:.03em">${o.code} &middot; ${esc(o.customer.name)}</p>
   <p class="mrc">${o.qty} × ${esc(o.offer.name)}</p>
   <p class="prices"><b>${F(o.gross_cfa)} <i>FCFA</i></b>${statBadge(ST_IN[o.status]||o.status)}
    <span style="font-size:11px;color:var(--muted)">${t("a_fee_split",F(o.commission_cfa),F(o.payout_cfa))}</span></p>
-  ${o.status==="active"?`<button class="invite" onclick="adminCancel('${o.id}')">${I("close",13)} ${t("cancel_order")}</button>`:""}
-  </div></div>`).join("")}</div>`
+  ${o.status==="active"?`<button class="invite" onclick="${stop}adminCancel('${o.id}')">${I("close",13)} ${t("cancel_order")}</button>`:""}
+  </div>${I("chevR",16)}</div>`).join("")}</div>`
  :`<div class="empty"><div class="ic">${I("receipt",28)}</div><h3>${t("no_orders")}</h3><p>${t("a_no_orders_p")}</p></div>`}
  <p class="legal">${t("a_legal")}</p>`;
 }
@@ -2791,30 +2962,34 @@ function apipe(){
   :`<span class="stat dead">${t("a_st_prospect")}</span>`;
  return `${ahead(t("a_network"),t("a_pipeline_sub",S.adm.pipelineTotal))}
  <div class="chips">${chips.map(([k,l])=>`<button class="chip ${f===k?"on":""}" onclick="setPFilter('${k}')">${t(l)}</button>`).join("")}</div>
- <div class="list">${rows.slice(0,40).map(m=>`<div class="rc vrow"><div class="vtile">${I("store",22)}</div>
+ <div class="list">${rows.slice(0,40).map(m=>`<div class="rc vrow tap" ${tap("openAShop('"+m.id+"')",m.name)}>
+  <div class="vtile">${I("store",22)}</div>
   <div class="rc-body"><div class="rc-top"><h3>${esc(m.name)}</h3></div>
   <p class="mrc">${esc(m.zone)} &middot; ${esc(m.category)} <span class="rate">${I("star",13)} ${(m.rating||0).toFixed(1)}</span></p>
   <p class="mrc">${t("a_shop_line",m.live_offers,m.invites,F(m.gross_cfa||0))}</p>
   <div class="metarow">${badge(m.status)}
    ${m.status==="active"
-     ?`<button class="invite" onclick="setShop('${m.id}','suspended')">${I("close",13)} ${t("a_suspend")}</button>`
-     :`<button class="invite" onclick="setShop('${m.id}','active')">${I("check",13)} ${t("a_approve")}</button>`}
-  </div></div></div>`).join("")}</div>
+     ?`<button class="invite" onclick="${stop}setShop('${m.id}','suspended')">${I("close",13)} ${t("a_suspend")}</button>`
+     :`<button class="invite" onclick="${stop}setShop('${m.id}','active')">${I("check",13)} ${t("a_approve")}</button>`}
+  </div></div>${I("chevR",16)}</div>`).join("")}</div>
  <p class="legal">${t("a_pipeline_note")}</p>`;
 }
 function ausers(){
  if(!S.adm)return loadingScreen(t("a_people"));
  const rows=S.adm.users;
- return `${ahead(t("a_people"),t("a_people_sub",S.adm.usersTotal))}
- <div class="list">${rows.map(u=>`<div class="rc vrow"><div class="vtile">${I(u.role==="admin"?"users":u.role==="merchant"?"store":"user",22)}</div>
+ return `<div class="head"><div><div class="hi">AI4Food &middot; Dakar</div><div class="city">${t("a_people")}</div></div>
+  <button class="round" onclick="go('adash')" aria-label="${esc(t("a_dash"))}">${I("close",20)}</button></div>
+ <p class="sub2">${t("a_people_sub",S.adm.usersTotal)}</p>
+ <div class="list">${rows.map(u=>`<div class="rc vrow tap" ${tap("openAUser('"+u.id+"')",u.name||u.phone_masked)}>
+  <div class="vtile">${I(u.role==="admin"?"users":u.role==="merchant"?"store":"user",22)}</div>
   <div class="rc-body"><div class="rc-top"><h3>${esc(u.name||u.phone_masked)}</h3></div>
   <p class="mrc">${esc(u.phone_masked)} &middot; ${esc(u.role)} &middot; ${esc(u.zone||"")}</p>
   <p class="mrc">${t("a_user_line",u.orders||0,F(u.spend_cfa||0))}</p>
   <div class="metarow">${u.status==="active"?`<span class="stat">${t("a_st_active")}</span>`:`<span class="stat dead">${t("a_st_suspended")}</span>`}
    ${u.id===(API.me&&API.me.id)?`<span class="dist">${t("a_you")}</span>`
-    :`<button class="invite" onclick="setUser('${u.id}','${u.status==="active"?"suspended":"active"}')">
+    :`<button class="invite" onclick="${stop}setUser('${u.id}','${u.status==="active"?"suspended":"active"}')">
       ${I(u.status==="active"?"close":"check",13)} ${u.status==="active"?t("a_suspend"):t("a_reactivate")}</button>`}
-  </div></div></div>`).join("")}</div>
+  </div></div>${I("chevR",16)}</div>`).join("")}</div>
  <p class="legal">${t("a_people_note")}</p>`;
 }
 function apay(){
@@ -2822,19 +2997,20 @@ function apay(){
  const p=S.adm.payouts,audit=S.adm.audit;
  return `${ahead(t("a_finance"),t("a_finance_sub",p.days))}
  <div class="impact grain"><h3>${I("wallet",18)} ${t("a_30d")}</h3>
-  <div class="irow"><div class="st"><b>${money(p.totals.gross_cfa)}</b><span>${t("a_volume")}</span></div>
-  <div class="st"><b>${money(p.totals.commission_cfa)}</b><span>${t("a_commissions")}</span></div>
-  <div class="st"><b>${money(p.totals.payout_cfa)}</b><span>${t("a_due_shops")}</span></div></div></div>
+  <div class="irow">${statTile("volume",money(p.totals.gross_cfa),t("a_volume"))}
+  ${statTile("commission",money(p.totals.commission_cfa),t("a_commissions"))}
+  ${statTile("earned",money(p.totals.payout_cfa),t("a_due_shops"))}</div></div>
  <div class="sec"><div><h2>${t("a_by_shop")}</h2><p>${t("a_by_shop_sub")}</p></div></div>
- <div class="panel">${p.items.length?p.items.slice(0,12).map(r=>`<div class="r">
+ <div class="panel">${p.items.length?p.items.slice(0,12).map((r,i)=>`<div class="r tap" ${tap("openPayout("+i+")",r.merchant_name)}>
    <span>${esc(r.merchant_name)}<br><small style="color:var(--strike)">${r.orders} ${t("a_orders_w")} &middot; ${esc(r.zone)}</small></span>
    <b>${F(r.payout_cfa)} F<br><small style="color:var(--muted);font-weight:400">${t("a_fee")} ${F(r.commission_cfa)} F</small></b></div>`).join("")
   :`<div class="r"><span>${t("a_no_payouts")}</span></div>`}</div>
  <div class="sec" style="padding-top:16px"><div><h2>${t("a_audit")}</h2><p>${t("a_audit_sub")}</p></div></div>
- <div class="list">${audit.slice(0,12).map(a=>`<div class="rc vrow"><div class="vtile">${I("info",20)}</div>
+ <div class="list">${audit.slice(0,12).map((a,i)=>`<div class="rc vrow tap" ${tap("openAudit("+i+")",a.action)}>
+  <div class="vtile">${I("info",20)}</div>
   <div class="rc-body"><div class="rc-top"><h3 style="font-size:13.5px">${esc(a.action)}</h3></div>
   <p class="mrc">${a.actor?esc(a.actor.name||a.actor.role):t("a_system")} &middot; ${ago(a.created_at)}</p>
-  </div></div>`).join("")}</div>
+  </div>${I("chevR",16)}</div>`).join("")}</div>
  <p class="legal">${t("a_audit_note")}</p>`;
 }
 
@@ -2868,6 +3044,267 @@ async function pullOffer(id){
 function validateOne(code){
  guard(()=>API.post("/merchant/pickups/validate",{code:code}),t("m_valid_ok",code))
   .then(()=>{buzz("ok");return syncAll()}).catch(()=>buzz("err"));
+}
+
+/* =========================================================
+   Feuilles de detail: chaque ligne de liste ouvre quelque chose
+   ========================================================= */
+/**
+ * Un tableau de bord ou une liste ou rien ne s'ouvre laisse la personne
+ * bloquee devant un chiffre. Ici chaque ligne est une vraie cible: souris,
+ * doigt et clavier passent par le meme chemin.
+ */
+function infoSheet(a){
+ return `${shHead(a.title,a.sub,"back()")}
+ <div class="shbody"><div style="padding:16px 22px 24px">
+  ${a.top||""}
+  ${a.rows&&a.rows.length?`<div class="panel">${a.rows.filter(Boolean).map(r=>
+   `<div class="r"><span>${r[0]}</span><b${r[2]?` style="color:${r[2]}"`:""}>${r[1]}</b></div>`).join("")}</div>`:""}
+  ${a.note?`<div class="good"><h4>${I("info",16)} ${a.noteTitle||t("stat_t")}</h4>
+   <p style="margin:0;font-size:12.5px;color:#3D5A4E;line-height:1.6">${a.note}</p></div>`:""}
+  ${a.body||""}
+  ${a.actions||""}
+ </div></div>`;
+}
+
+/* ---------- un chiffre ---------- */
+const STAT_TITLES={meals:"meals_saved",co2:"co2_avoided",saved:"money_saved",published:"m_published",
+ reserved:"m_reserved",earned:"m_earned",commission:"m_commission",rate:"a_rate",volume:"a_volume",
+ users:"a_users",awaiting:"m_awaiting"};
+function statSheet(a){
+ const [k,v]=String(a).split("|");
+ const label=t(STAT_TITLES[k]||"stat_t");
+ // Le chiffre est le titre: repeter le libelle dans un tableau juste en
+ // dessous n'apprend rien de plus.
+ return infoSheet({title:esc(v||label),sub:label,note:t("sn_"+k)});
+}
+function openStat(k,v){pushSheet("stat",k+"|"+v)}
+/** Une tuile de chiffre, cliquable partout ou il y en a. */
+const statTile=(k,v,label)=>`<button class="st tap" ${tap("openStat('"+k+"','"+jsq(String(v))+"')",label)}>
+ <b>${v}</b><span>${label}</span></button>`;
+
+/* ---------- un commerce ---------- */
+function shopSheet(key){
+ const v=MV().find(x=>vkey(x)===key)||FOLLOWED().find(x=>vkey(x)===key);
+ if(!v)return infoSheet({title:t("sh_shop"),rows:[]});
+ const off=offersAt(v),fol=isFollowing(v),i=MV().indexOf(v);
+ const d=kmBetween(userPos(),{la:v.la,lo:v.lo});
+ return `${shHead(esc(v.n),esc(v.z)+" · "+catL(v.c),"back()")}
+ <div class="shbody"><div style="padding:16px 22px 8px">
+  <div class="panel" style="margin-bottom:14px">
+   <div class="r"><span>${t("address")}</span><b>${esc(v.z)}</b></div>
+   <div class="r"><span>${t("rating")}</span><b>${I("star",13)} ${v.r.toFixed(1)}</b></div>
+   <div class="r"><span>${t("distance")}</span><b>${fmtKm(d)}</b></div>
+   ${v.nfol?`<div class="r"><span>${t("following_lbl")}</span><b>${v.nfol===1?t("n_follower1"):t("n_followers",v.nfol)}</b></div>`:""}</div>
+  ${v.live||off.length
+   ?`<button class="btn ${fol?"btn-ghost":"btn-main"}" onclick="follow('${jsq(vkey(v))}')">
+      ${I(fol?"check":"plus",18)} ${fol?t("following_lbl"):t("follow")}</button>
+     <div style="height:9px"></div>`
+   :`<div class="good" style="margin-top:0"><h4>${I("store",16)} ${t("sh_prospect")}</h4>
+     <p style="margin:0 0 10px;font-size:12.5px;color:#3D5A4E;line-height:1.6">${t("sh_prospect_p")}</p>
+     ${(online()?!!v.inv:S.invited.indexOf(v.n)>=0)
+      ?`<span class="stat wait">${I("check",13)} ${t("invited")}</span>`
+      :`<button class="btn btn-main" onclick="invite(${i})">${I("plus",18)} ${t("invite_shop")}</button>`}</div>`}
+  <button class="btn btn-ghost" onclick="shopToMap('${jsq(vkey(v))}')">${I("pin",18)} ${t("see_map")}</button>
+ </div>
+ ${off.length?`<div class="sec"><div><h2>${t("sh_bags_here")}</h2></div></div>
+   <div class="list">${off.map(o=>card(o,{})).join("")}</div>`
+  :v.live?`<div class="sec"><div><h2>${t("sh_bags_here")}</h2></div></div>
+   <div class="empty" style="padding:34px 40px"><div class="ic">${I("bag",28)}</div>
+    <h3>${t("sh_no_bags")}</h3><p>${t("sh_no_bags_p")}</p></div>`:""}
+ <div style="height:14px"></div></div>`;
+}
+function openShop(key){pushSheet("shop",key)}
+function shopToMap(key){
+ const i=MV().findIndex(x=>vkey(x)===key);
+ closeSheet();S.view="carte";if(i>=0)S.sel=i;S.tab="places";render(true);
+}
+
+/* ---------- une commande passee ---------- */
+function orderSheet(oid){
+ const o=ORDERS().find(x=>x.oid===oid);
+ if(!o)return infoSheet({title:t("o_receipt"),rows:[]});
+ const d=oOff(o);
+ return infoSheet({
+  title:esc(d.merch),sub:esc(d.name),
+  rows:[
+   [t("o_when"),new Date(o.ts).toLocaleDateString(LOC(),{day:"numeric",month:"long",year:"numeric"})],
+   [t("qty"),o.qty+" × "+esc(d.name)],
+   [t("pickup_code"),`<span style="font-family:var(--dp);letter-spacing:.05em">${esc(o.code)}</span>`],
+   [t("paid_with"),(PAY.find(p=>p.id===o.pay)||{n:"—"}).n],
+   [t("total"),F(d.price*o.qty)+" FCFA"],
+   [t("store_value"),F(d.was*o.qty)+" FCFA"],
+   [t("saving"),F((d.was-d.price)*o.qty)+" FCFA","var(--emerald)"],
+   [t("address"),esc(d.addr)],
+  ],
+  top:`<div style="margin-bottom:14px">${statBadge(o.status)}</div>`,
+  actions:`<button class="btn btn-ghost" onclick="routeTo('${jsq(d.id)}')">${I("route",18)} ${t("itinerary")}</button>`,
+ });
+}
+function openOrder(oid){pushSheet("order",oid)}
+
+/* ---------- un panier, cote commercant ---------- */
+function mOfferSheet(id){
+ const o=online()?(S.desk?S.desk.offers.find(x=>x.id===id):null):byId(id);
+ if(!o)return infoSheet({title:t("m_bag"),rows:[]});
+ const nm=online()?o.name:o.name,from=online()?o.pickup.from:o.from,to=online()?o.pickup.to:o.to;
+ const price=online()?o.price_cfa:o.price,was=online()?o.was_cfa:o.was;
+ const left=online()?o.qty_left:stockOf(o),total=online()?o.qty_total:o.left;
+ return infoSheet({
+  title:esc(nm),sub:from+" - "+to,
+  rows:[
+   [t("price"),F(price)+" FCFA"],
+   [t("store_value"),F(was)+" FCFA"],
+   [t("m_stock_left"),left],
+   [t("m_taken"),Math.max(0,total-left)],
+   online()?[t("m_earned"),F(o.revenue_cfa||0)+" FCFA","var(--emerald)"]:null,
+  ],
+  actions:online()&&o.state!=="expired"
+   ?`<button class="btn btn-ghost" style="color:var(--danger)" onclick="pullOffer('${jsq(o.id)}')">
+      ${I("trash",18)} ${t("m_pull")}</button>`:"",
+ });
+}
+function openMOffer(id){pushSheet("moffer",id)}
+
+/* ---------- un retrait, cote comptoir ---------- */
+function mPickSheet(code){
+ const o=online()?(S.desk?S.desk.orders.find(x=>x.code===code):null)
+  :ORDERS().find(x=>x.code===code);
+ if(!o)return infoSheet({title:t("m_pickups"),rows:[]});
+ const done=online()?o.status==="picked_up":o.status==="done";
+ const name=online()?o.offer.name:(byId(o.id)||{name:""}).name;
+ return infoSheet({
+  title:code,sub:esc(name),
+  top:`<div style="margin-bottom:14px">${statBadge(done?"done":"active")}
+   ${online()&&o.bearer&&o.bearer.transferred
+    ?`<span class="stat wait" style="margin-left:6px">${I("users",13)}
+      ${o.bearer.name?t("m_bearer_n",esc(o.bearer.name)):t("m_bearer")}</span>`:""}</div>`,
+  rows:online()?[
+   [t("qty"),o.qty+" × "+esc(o.offer.name)],
+   [t("a_person"),esc(o.customer.name)+" · "+esc(o.customer.phone_masked)],
+   [t("total"),F(o.gross_cfa)+" FCFA"],
+   [t("m_commission"),F(o.commission_cfa)+" FCFA"],
+   [t("m_earned"),F(o.payout_cfa)+" FCFA","var(--emerald)"],
+  ]:[[t("qty"),o.qty],[t("pickup_code"),code]],
+  note:online()&&o.bearer&&o.bearer.transferred?t("give_warn"):null,
+  noteTitle:online()&&o.bearer&&o.bearer.transferred?t("m_bearer"):null,
+  actions:done?"":`<button class="btn btn-main" onclick="${online()?`validateOne('${jsq(code)}')`:`validate('${jsq(o.oid)}')`}">
+    ${I("check",18)} ${t("m_validate")}</button>`,
+ });
+}
+function openMPick(code){pushSheet("mpick",code)}
+
+/* ---------- console: commande, commerce, personne, journal ---------- */
+function aOrderSheet(id){
+ const o=S.adm?S.adm.orders.find(x=>x.id===id):null;
+ if(!o)return infoSheet({title:t("a_order"),rows:[]});
+ return infoSheet({
+  title:esc(o.merchant.name),sub:o.code,
+  top:`<div style="margin-bottom:14px">${statBadge(ST_IN[o.status]||o.status)}</div>`,
+  rows:[
+   [t("qty"),o.qty+" × "+esc(o.offer.name)],
+   [t("a_person"),esc(o.customer.name)+" · "+esc(o.customer.phone_masked)],
+   [t("a_volume"),F(o.gross_cfa)+" FCFA"],
+   [t("store_value"),F(o.was_total_cfa)+" FCFA"],
+   [t("a_commissions"),F(o.commission_cfa)+" FCFA"],
+   [t("a_due_shops"),F(o.payout_cfa)+" FCFA","var(--emerald)"],
+   [t("a_when"),new Date(o.created_at).toLocaleString(LOC(),{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})],
+  ],
+  actions:o.status==="active"
+   ?`<button class="btn btn-ghost" style="color:var(--danger)" onclick="adminCancel('${jsq(o.id)}')">
+      ${I("close",18)} ${t("cancel_order")}</button>`:"",
+ });
+}
+function openAOrder(id){pushSheet("aorder",id)}
+
+function aShopSheet(id){
+ const m=S.adm?S.adm.pipeline.find(x=>x.id===id):null;
+ if(!m)return infoSheet({title:t("sh_shop"),rows:[]});
+ return infoSheet({
+  title:esc(m.name),sub:esc(m.zone)+" · "+esc(m.category),
+  rows:[
+   [t("a_st_active"),esc(m.status)],
+   [t("a_live_offers"),m.live_offers||0],
+   [t("a_invites"),m.invites||0],
+   [t("a_volume"),F(m.gross_cfa||0)+" FCFA"],
+   [t("rating"),(m.rating||0).toFixed(1)],
+   m.commission_bps!=null?[t("m_commission"),(m.commission_bps/100).toFixed(0)+"%"]:null,
+  ],
+  actions:m.status==="active"
+   ?`<button class="btn btn-ghost" style="color:var(--danger)" onclick="setShop('${jsq(m.id)}','suspended')">
+      ${I("close",18)} ${t("a_suspend")}</button>`
+   :`<button class="btn btn-main" onclick="setShop('${jsq(m.id)}','active')">${I("check",18)} ${t("a_approve")}</button>`,
+ });
+}
+function openAShop(id){pushSheet("ashop",id)}
+
+function aUserSheet(id){
+ const u=S.adm?S.adm.users.find(x=>x.id===id):null;
+ if(!u)return infoSheet({title:t("a_person"),rows:[]});
+ const me=u.id===(API.me&&API.me.id);
+ return infoSheet({
+  title:esc(u.name||u.phone_masked),sub:esc(u.role),
+  rows:[
+   [t("phone"),esc(u.phone_masked)],
+   [t("your_zone"),esc(u.zone||"—")],
+   [t("row_orders"),u.orders||0],
+   [t("a_volume"),F(u.spend_cfa||0)+" FCFA"],
+   [t("a_st_active"),esc(u.status)],
+  ],
+  actions:me?`<p class="hint">${t("a_you")}</p>`
+   :`<button class="btn btn-ghost" style="${u.status==="active"?"color:var(--danger)":""}"
+      onclick="setUser('${jsq(u.id)}','${u.status==="active"?"suspended":"active"}')">
+      ${I(u.status==="active"?"close":"check",18)} ${u.status==="active"?t("a_suspend"):t("a_reactivate")}</button>`,
+ });
+}
+function openAUser(id){pushSheet("auser",id)}
+
+function aAuditSheet(i){
+ const a=S.adm?S.adm.audit[i]:null;
+ if(!a)return infoSheet({title:t("a_entry"),rows:[]});
+ const meta=a.meta&&Object.keys(a.meta).length?a.meta:null;
+ return infoSheet({
+  title:esc(a.action),sub:ago(a.created_at),
+  rows:[
+   [t("a_actor"),esc(a.actor?(a.actor.name||a.actor.role):t("a_system"))],
+   [t("a_target"),esc(a.entity||"—")],
+   [t("a_when"),new Date(a.created_at).toLocaleString(LOC(),{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})],
+  ],
+  body:meta?`<div class="good"><h4>${I("info",16)} ${t("a_meta")}</h4>
+   <p style="margin:0;font-size:12px;color:#3D5A4E;line-height:1.6;word-break:break-word">${esc(JSON.stringify(meta))}</p></div>`:"",
+ });
+}
+function openAudit(i){pushSheet("audit",String(i))}
+
+function aPayoutSheet(i){
+ const r=S.adm?S.adm.payouts.items[i]:null;
+ if(!r)return infoSheet({title:t("a_payout_t"),rows:[]});
+ return infoSheet({
+  title:esc(r.merchant_name),sub:esc(r.zone||""),
+  rows:[
+   [t("a_orders_w"),r.orders||0],
+   [t("a_volume"),F(r.gross_cfa||0)+" FCFA"],
+   [t("a_commissions"),F(r.commission_cfa||0)+" FCFA"],
+   [t("a_due_shops"),F(r.payout_cfa||0)+" FCFA","var(--emerald)"],
+  ],
+  note:t("sn_commission"),
+ });
+}
+function openPayout(i){pushSheet("payout",String(i))}
+
+/** Une notification mene a la chose dont elle parle. */
+function openNotif(nid){
+ const n=NOTIFS().find(x=>x.nid===nid);
+ if(!n)return;
+ if(n.k==="new"){
+  const name=n.a[0];
+  const v=MV().find(x=>x.n===name);
+  if(v)return openShop(vkey(v));
+ }
+ if(n.k==="ok"||n.k==="soon"||n.k==="got"||n.k==="give"||n.k==="back"){
+  closeSheet();S.tab="orders";return render(true);
+ }
+ closeSheet();S.tab="home";render(true);
 }
 
 /* =========================================================
@@ -3002,8 +3439,9 @@ function notifSheet(){
  return `${shHead(t("notif_title"),null,"closeSheet()")}
  <div class="shbody">
   ${l.length?`<div class="list" style="padding-top:14px">${l.map(n=>{const[a,b]=notifText(n);
-    return `<div class="nrow ${n.read?"":"unread"}"><div class="ni">${I(n.ic||"bell",19)}</div>
-     <div><b>${a}</b><p>${b}</p><span class="ago">${ago(n.ts)}</span></div></div>`}).join("")}</div>
+    return `<div class="nrow ${n.read?"":"unread"}" ${tap("openNotif('"+jsq(n.nid)+"')",a)}>
+     <div class="ni">${I(n.ic||"bell",19)}</div>
+     <div><b>${a}</b><p>${b}</p><span class="ago">${ago(n.ts)}</span></div>${I("chevR",15)}</div>`}).join("")}</div>
    <div style="padding:0 22px 24px"><button class="btn btn-ghost" onclick="markRead()">${I("check",18)} ${t("mark_read")}</button></div>`
   :`<div class="empty"><div class="ic">${I("bell",28)}</div><h3>${t("no_notifs")}</h3><p>${t("no_notifs_p")}</p></div>`}
  </div>`;
@@ -3044,7 +3482,9 @@ function publishSheet(){
 }
 const SHEETS={detail:detail,why:whySheet,payment:payment,done:done,search:searchSheet,
  notifs:notifSheet,zone:zoneSheet,lang:langSheet,publish:publishSheet,auth:authSheet,staff:staffSheet,
- scan:scanSheet,qrbig:qrBigSheet};
+ scan:scanSheet,qrbig:qrBigSheet,give:giveSheet,pickup:pickupSheet,
+ stat:statSheet,shop:shopSheet,order:orderSheet,moffer:mOfferSheet,mpick:mPickSheet,
+ aorder:aOrderSheet,ashop:aShopSheet,auser:aUserSheet,audit:aAuditSheet,payout:aPayoutSheet};
 /** Le code de retrait en plein ecran, pour un comptoir mal eclaire. */
 function qrBigSheet(code){
  return `${shHead(t("pickup_code"),t("qr_big_p"),"back()")}
@@ -3054,6 +3494,153 @@ function qrBigSheet(code){
  <p class="legal" style="text-align:center;padding-top:14px">${t("qr_hint")}</p></div>`;
 }
 function openQr(code){buzz("tap");pushSheet("qrbig",code)}
+
+
+/* =========================================================
+   Confier son retrait a un proche
+   ========================================================= */
+/**
+ * Le panier est deja paye: ce qu'il faut transmettre, c'est le code. Le lien
+ * porte donc un jeton et pas un compte — la personne qui le recoit sur
+ * WhatsApp n'a peut-etre pas l'application.
+ */
+function giftUrl(token){
+ const u=location.origin+location.pathname+"?pickup="+encodeURIComponent(token);
+ // Si l'API n'est pas servie depuis la meme origine, le proche doit savoir ou
+ // la joindre: son navigateur, lui, n'a rien en memoire.
+ return online()&&API.base&&API.base!==location.origin?u+"&api="+encodeURIComponent(API.base):u;
+}
+function giveSheet(oid){
+ const o=ORDERS().find(x=>x.oid===oid);if(!o)return "";
+ const d=oOff(o),g=giftOf(o);
+ return `${shHead(t("give_t"),t("give_sub"),"back()")}
+ <div class="shbody"><div style="padding:18px 22px 24px">
+  <div class="panel" style="margin-bottom:16px">
+   <div class="r"><span>${esc(d.merch)}</span><b>${o.qty} × ${esc(d.name)}</b></div>
+   <div class="r"><span>${t("pickup_code")}</span><b style="font-family:var(--dp);letter-spacing:.05em">${esc(o.code)}</b></div>
+   <div class="r"><span>${t("between",d.from,d.to)}</span><b>${esc(d.addr)}</b></div></div>
+  ${g?`
+   <div class="linkbox">
+    <input id="glink" readonly value="${esc(giftUrl(g.token))}" aria-label="${esc(t("give_link"))}"
+      onclick="this.select()">
+    <button onclick="copyGift()">${t("give_copy")}</button></div>
+   <div class="giftline" style="margin:0 0 14px">${I(g.claimed?"check":"clock",16)}
+    <span>${g.claimed?t("give_taken",esc(g.claimed_by_name||g.to_name||"")):t("give_waiting")}</span></div>
+   ${g.note?`<p class="warnline" style="margin:-4px 0 12px">${I("info",14)} <span>${esc(g.note)}</span></p>`:""}
+   <button class="btn btn-main" onclick="shareGift()">${I("share",18)} ${t("give_wa")}</button>
+   <div style="height:9px"></div>
+   <button class="btn btn-ghost" style="color:var(--danger)" onclick="revokeGive('${jsq(oid)}')">${t("give_cancel")}</button>
+   <div style="height:14px"></div>
+   <p class="warnline">${I("info",14)} <span>${t("give_warn")}</span></p>`
+  :`
+   <div class="fld"><label for="gname">${t("give_name")}</label>
+    <input id="gname" maxlength="60" placeholder="${esc(t("give_name_ph"))}" autocomplete="off"></div>
+   <div class="fld"><label for="gnote">${t("give_note")}</label>
+    <input id="gnote" maxlength="200" placeholder="${esc(t("give_note_ph"))}" autocomplete="off"></div>
+   <button class="btn btn-main" onclick="makeGift('${jsq(oid)}')">${I("users",18)} ${t("give_make")}</button>
+   <div style="height:14px"></div>
+   <p class="warnline">${I("info",14)} <span>${t("give_warn")}</span></p>`}
+ </div></div>`;
+}
+function openGive(oid){pushSheet("give",oid)}
+function makeGift(oid){
+ const to=((el("gname")||{}).value||"").trim(),note=((el("gnote")||{}).value||"").trim();
+ if(online()){
+  if(!signedIn())return openAuth();
+  guard(()=>API.post("/orders/"+oid+"/transfer",{to_name:to||undefined,note:note||undefined}),t("give_sent"))
+   .then(r=>{const o=ORDERS().find(x=>x.oid===oid);if(o)o.tr=r.transfer;buzz("ok");reSheet();render()})
+   .catch(()=>{});
+  return;
+ }
+ const o=ORDERS().find(x=>x.oid===oid);if(!o)return;
+ const d=oOff(o);
+ S.gifts[oid]={token:"demo-"+uid(),to_name:to||null,note:note||null,claimed:false,claimed_by_name:null,
+  view:{token:"",code:o.code,qty:o.qty,from:t("you"),note:note||null,merch:d.merch,addr:d.addr,
+   name:d.name,img:d.img,fromT:d.from,toT:d.to,endTs:0,la:d.la,lo:d.lo}};
+ S.gifts[oid].view.token=S.gifts[oid].token;
+ save();buzz("ok");reSheet();render();toast(t("give_sent"));
+}
+function copyGift(){
+ const n=el("glink");if(!n)return;
+ const done=()=>{buzz("tap");toast(t("give_copied"))};
+ if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(n.value).then(done,()=>{n.select();done()});
+ else{n.select();try{document.execCommand("copy")}catch(e){}done()}
+}
+function shareGift(){
+ const n=el("glink");if(!n)return;
+ const msg=t("give_sub")+"\n"+n.value;
+ if(navigator.share)return navigator.share({title:"AI4Food",text:t("give_sub"),url:n.value}).catch(()=>{});
+ window.open("https://wa.me/?text="+encodeURIComponent(msg),"_blank","noopener");
+}
+async function revokeGive(oid){
+ if(!await ask({title:t("give_cancel"),body:t("give_cancelled"),confirm:t("give_cancel"),danger:true}))return;
+ if(online()){
+  guard(()=>API.del("/orders/"+oid+"/transfer"),t("give_cancelled"))
+   .then(()=>{const o=ORDERS().find(x=>x.oid===oid);if(o)o.tr=null;back();render();return syncAll()})
+   .catch(()=>{});
+  return;
+ }
+ delete S.gifts[oid];save();back();render();toast(t("give_cancelled"));
+}
+
+/* ---------- cote proche: le lien recu ---------- */
+function pickupSheet(){
+ const b=S.bearer;
+ if(!b)return `${shHead(t("pickup_t"),null,"back()")}
+  <div class="shbody">${skelList(1)}</div>`;
+ if(b.dead)return `${shHead(t("pickup_t"),null,"back()")}
+  <div class="shbody"><div class="empty"><div class="ic">${I("info",28)}</div>
+   <h3>${t("pickup_dead")}</h3><p>${t("pickup_dead_p")}</p>
+   <button class="btn btn-main" onclick="back()">${t("pickup_open")}</button></div></div>`;
+ return `${shHead(t("pickup_t"),t("pickup_sub",esc(b.from)),"back()")}
+ <div class="shbody"><div style="padding:16px 22px 22px">
+  ${b.note?`<div class="good" style="margin-top:0"><h4>${I("info",16)} ${t("give_note_from",esc(b.from))}</h4>
+   <p style="margin:0;font-size:12.5px;color:#3D5A4E;line-height:1.6">${esc(b.note)}</p></div>`:""}
+  <div class="ticket" style="margin:0 0 16px">
+   <div class="tk-top"><h3>${esc(b.merch)}</h3><p>${b.qty} × ${esc(b.name)} &middot; ${esc(b.addr)}</p>
+    <div class="lbl">${I("clock",13)} ${t("pickup_today")}</div>
+    <p class="win">${b.fromT} - ${b.toT}</p></div>
+   <div class="perf"><i></i></div>
+   <div class="tk-bot">
+    <button class="qr" onclick="openQr('${jsq(b.code)}')" aria-label="${esc(t("qr_big"))}">${qr(b.code)}</button>
+    <div><div class="cl">${t("pickup_code")}</div><div class="code">${esc(b.code)}</div>
+    <p>${t("qr_hint")}</p></div></div></div>
+  ${b.mine?`<p class="warnline">${I("info",14)} <span>${t("pickup_mine")}</span></p>`
+   :b.claimed_by_me?`<div class="giftline" style="margin:0 0 12px">${I("check",16)} <span>${t("pickup_accepted")}</span></div>`
+   :online()?`<button class="btn btn-main" onclick="claimPickup()">${I("check",18)} ${t("pickup_accept")}</button>
+    <div style="height:9px"></div>`:""}
+  <button class="btn btn-ghost" onclick="routeBearer()">${I("route",18)} ${t("itinerary")}</button>
+ </div></div>`;
+}
+function openPickup(token){
+ S.bearer=null;pushSheet("pickup");
+ if(!online()){
+  const g=Object.keys(S.gifts).map(k=>S.gifts[k]).find(x=>x.token===token);
+  S.bearer=g?Object.assign({},g.view,{mine:true,claimed_by_me:!!g.claimed}):{dead:true};
+  return reSheet();
+ }
+ API.get("/pickup/"+encodeURIComponent(token))
+  .then(r=>{S.bearer=Object.assign(mapBearer(r.pickup),
+    {mine:!!r.pickup.mine,claimed_by_me:!!r.pickup.claimed_by_me,token:token});reSheet()})
+  .catch(()=>{S.bearer={dead:true};reSheet()});
+}
+function claimPickup(){
+ const b=S.bearer;if(!b)return;
+ if(!signedIn())return openAuth();
+ guard(()=>API.post("/pickup/"+encodeURIComponent(b.token)+"/claim"),t("pickup_accepted"))
+  .then(()=>{S.bearer=Object.assign({},b,{claimed_by_me:true});buzz("ok");reSheet();return syncAll()})
+  .catch(()=>{});
+}
+function routeBearer(){const b=S.bearer;if(b)toast(t("route_to",b.addr))}
+/** Un lien de retrait ouvert au demarrage: c'est la premiere chose a montrer. */
+function pickupFromUrl(){
+ try{
+  const q=new URLSearchParams(location.search).get("pickup");
+  if(!q)return null;
+  history.replaceState(history.state,"",location.pathname+location.search.replace(/([?&])pickup=[^&]*&?/,"$1").replace(/[?&]$/,""));
+  return q;
+ }catch(e){return null}
+}
 
 /* ---------- pile de feuilles ---------- */
 let lastFocus=null;
@@ -3123,13 +3710,13 @@ function setRole(r){S.role=r;S.tab=tabsFor(r)[0][0];S.sel=-1;save();render(true)
 function fav(id){
  id=String(id);
  buzz("tap");
- const i=S.fav.indexOf(id);
+ const i=S.fav.findIndex(x=>sameId(x,id));
  if(i>=0)S.fav.splice(i,1);else S.fav.push(id);
  save();
  if(i>=0)toastUndo(t("fav_rm"),()=>{fav(id);toast(t("fav_undone"))});
  else toast(t("fav_add"));
  if(online()){
-  if(!signedIn()){S.fav.splice(S.fav.indexOf(id),1);return openAuth()}
+  if(!signedIn()){const j=S.fav.findIndex(x=>sameId(x,id));if(j>=0)S.fav.splice(j,1);return openAuth()}
   const d=byId(id);
   if(d)API.raw(i>=0?"DELETE":"PUT","/offers/"+d.srv+"/favourite",i>=0?undefined:{})
    .then(()=>{const o=byId(id);if(o)o.srvFav=i<0})
@@ -3178,6 +3765,10 @@ function follow(k){
  toast(was?t("unfollowed_toast",v.n):t("followed_toast",v.n));
 }
 function setFavSeg(s){S.favSeg=s;render(true)}
+/* Les lignes de synthese du tableau de bord menent a l'ecran qui les detaille. */
+function goPipe(f){S.pFilter=f||"";closeSheet();S.tab="apipe";render(true)}
+function goAOrders(f){closeSheet();S.tab="aorders";render(true);setAFilter(f||"")}
+function goUsers(){closeSheet();S.tab="ausers";render(true)}
 function routeTo(id){const d=byId(id);toast(t("route_to",d.addr))}
 function shareOffer(){toast(t("link_copied"))}
 function fromDetailToMap(id){
@@ -3413,11 +4004,13 @@ const SCREENS_ONLINE={home:home,places:places,fav:favs,orders:orders,profile:pro
  adash:adashOnline,aorders:aordersOnline,apipe:apipe,ausers:ausers,apay:apay};
 const SCREENS=()=>online()?SCREENS_ONLINE:SCREENS_DEMO;
 const tabsFor=r=>(r==="admin"&&online()?TABS_ADMIN_ONLINE:TABS[r]);
+const EXTRA_SCREENS={admin:["ausers"],client:[],merchant:[]};
+const canShow=(r,tab)=>tabsFor(r).some(x=>x[0]===tab)||(EXTRA_SCREENS[r]||[]).indexOf(tab)>=0;
 let lastTab=null;
 function render(resetScroll){
  syncOrders();
  const tabs=tabsFor(S.role);
- if(!tabs.some(x=>x[0]===S.tab))S.tab=tabs[0][0];
+ if(!canShow(S.role,S.tab))S.tab=tabs[0][0];
  const v=el("view"),y=v.scrollTop;
  v.innerHTML=(SCREENS()[S.tab]||home)();
  v.scrollTop=resetScroll?(S.scrollPos[S.tab]||0):y;
@@ -3443,6 +4036,8 @@ async function boot(){
   await syncAll(true);
   setInterval(()=>{if(!document.hidden&&!S.stack.length)syncAll()},60000);
  }
+ const tok=pickupFromUrl();
+ if(tok){S.seen=true;save();renderOb();render();openPickup(tok)}
  setInterval(tickCd,20000);
  document.addEventListener("keydown",e=>{
   if(e.key==="Escape"&&S.stack.length){e.preventDefault();back()}

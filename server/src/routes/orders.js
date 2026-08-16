@@ -6,7 +6,11 @@ import { validate, writeLimiter } from '../middleware/common.js';
 import { requireAuth } from '../middleware/auth.js';
 import { reserveOffer, cancelOrder, getOrderRow, ORDER_SELECT, sendPickupReminders } from '../services/orders.js';
 import { customerImpact } from '../services/stats.js';
-import { customerOrder, notification } from '../presenters.js';
+import {
+  claimTransfer, claimedOrders, createTransfer, orderForToken, revokeTransfer,
+  transferOfOrder, transfersForOrders,
+} from '../services/transfers.js';
+import { bearerOrder, customerOrder, notification, transferInfo } from '../presenters.js';
 
 export const router = Router();
 
@@ -43,14 +47,69 @@ router.get('/orders',
     const rows = db
       .prepare(`${ORDER_SELECT} WHERE ${where.join(' AND ')} ORDER BY ord.created_at DESC LIMIT ?`)
       .all(...params, p.limit);
-    res.json({ items: rows.map(customerOrder) });
+    const transfers = transfersForOrders(rows.map((o) => o.id));
+    res.json({
+      items: rows.map((o) => customerOrder(o, {
+        transfer: transfers[o.id] ? transferInfo(transfers[o.id]) : null,
+      })),
+      // Bags someone else booked and handed to this person. Deliberately the
+      // bearer view, not the customer one: accepting a link does not open up
+      // what the sender paid.
+      for_me: claimedOrders(req.user.id)
+        .filter(({ order }) => order.status === 'active')
+        .map(({ order, transfer }) => bearerOrder(order, transfer, { token: transfer.token })),
+    });
   });
 
 router.get('/orders/:id', requireAuth, (req, res) => {
   const order = getOrderRow(req.params.id);
   // A stranger's order id is indistinguishable from a wrong one, on purpose.
   if (!order || order.user_id !== req.user.id) throw notFound('Order not found');
-  res.json({ order: customerOrder(order) });
+  const tr = transferOfOrder(order.id);
+  res.json({ order: customerOrder(order, { transfer: tr ? transferInfo(tr) : null }) });
+});
+
+/* ---------- handing a reservation to someone else ---------- */
+
+/**
+ * Someone books a bag and then cannot make the window. Rather than lose it,
+ * they send a link and a friend collects. The link is the whole mechanism:
+ * whoever holds it can show the code, because that is what a paid bag is.
+ */
+router.post('/orders/:id/transfer',
+  requireAuth, writeLimiter,
+  validate(z.object({
+    to_name: z.string().trim().max(60).optional(),
+    note: z.string().trim().max(200).optional(),
+  })),
+  (req, res) => {
+    const tr = createTransfer({
+      req, user: req.user, orderId: req.params.id,
+      toName: req.body.to_name, note: req.body.note,
+    });
+    res.status(201).json({ transfer: transferInfo(tr) });
+  });
+
+router.delete('/orders/:id/transfer', requireAuth, (req, res) => {
+  revokeTransfer({ req, user: req.user, orderId: req.params.id });
+  res.json({ transfer: null });
+});
+
+/** Open to anyone holding the link — the friend may well have no account. */
+router.get('/pickup/:token', (req, res) => {
+  const { transfer, order } = orderForToken(req.params.token);
+  res.json({
+    pickup: bearerOrder(order, transfer, {
+      mine: req.user ? order.user_id === req.user.id : false,
+      claimed_by_me: req.user ? transfer.claimed_by === req.user.id : false,
+    }),
+  });
+});
+
+/** Optional: signing in and accepting puts the bag in the friend's own list. */
+router.post('/pickup/:token/claim', requireAuth, writeLimiter, (req, res) => {
+  const { transfer, order } = claimTransfer({ req, user: req.user, tok: req.params.token });
+  res.json({ pickup: bearerOrder(order, transfer, { mine: false, claimed_by_me: true }) });
 });
 
 router.post('/orders/:id/cancel',

@@ -88,6 +88,19 @@ recommender, and offline demo mode.
   first feed is sorted around you rather than around a default pin. Choose an
   area, sign in later, and the choice you just made travels to the account
   instead of being overwritten by it.
+- **Every row opens something.** A shop row opens the shop and its bags, a past
+  order opens its receipt, a pickup opens the counter view, and on the consoles
+  every order, shop, person, payout line and audit entry has a detail sheet
+  behind it. Every figure on a dashboard opens a sentence explaining how it is
+  computed. Rows are real buttons: they take keyboard focus and answer Enter,
+  and a button inside a row does its own job without opening the row.
+- **A bag you cannot collect can go to a friend.** Send the link, and whoever
+  opens it gets the shop, the window and the code — a bearer view with no
+  amount paid and no phone number in it, because they only need to walk in and
+  collect. No account needed; signing in and accepting just puts the bag in
+  their own list. The counter sees that a friend is coming, so a name that does
+  not match the booking is expected rather than a problem. Take it back at any
+  time and the link you already sent stops working.
 - **You follow a shop, not a basket.** A basket exists for one evening; the
   shop is what you come back for, and following one is what gets you told when
   it puts something online. Saved items are split in two — *Paniers* and
@@ -101,7 +114,7 @@ Full documentation in **[server/README.md](server/README.md)** and
 customers and passwords for staff, JWT with rotating refresh tokens, stock
 decremented by a conditional UPDATE inside a transaction so two customers
 cannot take the same last basket, a 2-hour cancellation window, pickup codes
-that validate once at the owning shop only, and 57 end-to-end tests — most of
+that validate once at the owning shop only, and 65 end-to-end tests — most of
 them trying cross-role reads that must fail.
 
 ```bash

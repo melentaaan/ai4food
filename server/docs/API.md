@@ -70,12 +70,36 @@ interest by another route.
 | Method | Path | Notes |
 | --- | --- | --- |
 | POST | `/orders` | `{offer_id, qty, payment_method}` → 201 with the pickup code |
-| GET | `/orders` | `status?` — always scoped to the caller |
+| GET | `/orders` | `status?` — always scoped to the caller; also returns `for_me` |
 | GET | `/orders/:id` | 404 if it is not theirs |
 | POST | `/orders/:id/cancel` | Free until 2h before pickup |
+| POST | `/orders/:id/transfer` | `{to_name?, note?}` → a link a friend collects with |
+| DELETE | `/orders/:id/transfer` | Revokes it; the link already sent stops working |
+| GET | `/pickup/:token` | **Public** — the bearer view of a handed-over bag |
+| POST | `/pickup/:token/claim` | Signed in — puts it in the friend's own list |
 | GET | `/me/impact` | Meals, CO₂e, money saved |
 | GET | `/notifications` | Also generates due pickup reminders |
 | POST | `/notifications/read` | `{ids?}`, or all |
+
+### Handing a reservation over
+
+Someone books a bag and then cannot make the window. Rather than lose it they
+send a link, and a friend collects. The bag is already paid for, so the link is
+a **bearer token**: no account is needed to use it, because the person
+receiving it on WhatsApp may not have one. Signing in and calling `claim` only
+adds convenience — the bag then appears under `for_me` in their own `/orders`.
+
+`GET /pickup/:token` returns what someone needs to walk in and collect and
+nothing else: shop, address, window, bag, quantity, the code, the sender's
+first name and their note. No amount paid, no phone number, no order id. The
+order itself stays 404 for the friend.
+
+Re-issuing is idempotent while the link is still good, so tapping share twice
+does not break the link already sent; revoking or a second claim mints a new
+token instead. Only the person who booked can hand a bag on, only while it is
+`active` and its window is still open, and only one friend can accept.
+`GET /merchant/orders` carries `bearer` so the counter is not surprised when
+the name does not match the booking.
 
 ## Merchant
 

@@ -12,7 +12,7 @@ npm install
 cp .env.example .env          # optional; every value has a working default
 npm run seed -- --fresh       # 78 Dakar shops, 16 baskets, 2 weeks of history
 npm start                     # http://localhost:4000
-npm test                      # 57 end-to-end tests against a throwaway database
+npm test                      # 65 end-to-end tests against a throwaway database
 ```
 
 Seeding prints the demo accounts:
