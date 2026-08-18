@@ -193,6 +193,33 @@ button:focus-visible{outline:2.5px solid var(--emerald);outline-offset:2px}
 .warnline{display:flex;gap:8px;align-items:flex-start;font-size:11.5px;color:var(--muted);
   line-height:1.55;margin:2px 0 14px}
 .warnline svg{flex-shrink:0;margin-top:1px}
+/* ---------- porte d'entree ---------- */
+.tabs.hide{display:none}
+.gate{padding:0 22px 30px;display:flex;flex-direction:column;min-height:100%}
+.gate .top{padding:34px 0 22px;text-align:center}
+.gate .top h1{font-family:var(--dp);font-size:25px;font-weight:800;letter-spacing:-.03em;margin:18px 0 6px}
+.gate .top p{font-size:13.5px;color:var(--muted);margin:0;line-height:1.55}
+.grole{display:flex;align-items:center;gap:13px;width:100%;text-align:left;background:var(--white);
+  border:1px solid var(--line);border-radius:20px;padding:16px 17px;margin-bottom:11px;box-shadow:var(--sh);
+  transition:transform .16s ease}
+.grole:active{transform:scale(.99)}
+.grole .gi{width:46px;height:46px;flex-shrink:0;border-radius:15px;background:var(--pale);
+  color:var(--forest);display:grid;place-items:center}
+.grole .gt{flex:1;min-width:0}
+.grole .gt b{display:block;font-family:var(--dp);font-size:15px;font-weight:700;letter-spacing:-.02em}
+.grole .gt small{display:block;font-size:12.5px;color:var(--muted);margin-top:3px;line-height:1.45}
+.grole>svg:last-child{color:var(--strike);flex-shrink:0}
+.gate .demo{background:var(--pale);border:1px solid var(--mint-line);border-radius:16px;
+  padding:13px 15px;margin-top:16px}
+.gate .demo b{display:block;font-family:var(--dp);font-size:11px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--emerald);margin-bottom:5px}
+.gate .demo p{margin:0;font-size:12.5px;color:var(--good-ink);line-height:1.55}
+.gate .err{color:var(--danger);font-size:12.5px;margin:0 0 12px;font-weight:500}
+.gate .foot{margin-top:auto;padding-top:26px;text-align:center}
+.lgrow2{display:flex;gap:7px;justify-content:center}
+.lgb2{background:var(--white);border:1px solid var(--line2);color:var(--muted);border-radius:10px;
+  padding:7px 12px;font-family:var(--dp);font-size:11px;font-weight:700;letter-spacing:.04em}
+.lgb2.on{background:var(--forest);border-color:var(--forest);color:#fff}
 .rc.tap{cursor:pointer;-webkit-tap-highlight-color:transparent}
 .rc.tap:active{transform:scale(.988)}
 .rc.tap>svg:last-child{color:var(--strike);flex-shrink:0;align-self:center;margin-left:2px}
@@ -807,16 +834,12 @@ tab_profile:["Profil","Profile","Profil"],
 tab_mtoday:["Aujourd'hui","Today","Tey"],
 tab_mfc:["Prévision","Forecast","Prévision"],
 tab_mcodes:["Retraits","Pickups","Retrait"],
-tab_adash:["Tableau","Overview","Tablo"],
-tab_aorders:["Commandes","Orders","Commande yi"],
 /* home */
 ai_eyebrow:["Choisi par l'IA","Picked by AI","IA moo ko tànn"],
 ai_title:["Pour vous maintenant","For you right now","Ngir yow léegi"],
 ai_sub:["D'après vos commandes, l'heure et la distance","Based on your orders, the time and the distance","Ci sa commande yi, waxtu wi ak sori bi"],
-why_q:["Pourquoi ?","Why?","Lu tax ?"],
 near_you:["Près de vous","Near you","Ci sa wet"],
 map_link:["Carte des commerces","Shop map","Kart bi"],
-sort_lb:["Trier","Sort","Tëral"],
 sort_reco:["Recommandé","Recommended","Recommandé"],
 sort_price:["Prix","Price","Njëg"],
 sort_dist:["Distance","Distance","Sori"],
@@ -835,14 +858,12 @@ open_now:["À retirer maintenant","Pick up now","Retrait léegi"],
 closes_in:["Ferme dans {0}","Closes in {0}","Tëj ci {0}"],
 pickup_in:["Retrait dans {0}","Pickup in {0}","Retrait ci {0}"],
 pickup_at:["Retrait à {0}","Pickup at {0}","Retrait ci {0}"],
-tmr:["demain","tomorrow","suba"],
 pickup_at_tmr:["Retrait demain {0}","Pickup tomorrow {0}","Retrait suba {0}"],
 newb:["Nouveau","New","Bees"],
 hmin:["{0} min","{0} min","{0} min"],
 hhm:["{0} h {1}","{0}h {1}m","{0}w {1}"],
 hh:["{0} h","{0}h","{0} waxtu"],
 /* detail */
-basket:["Panier surprise","Surprise bag","Panier surprise"],
 surprise_t:["Le contenu est une surprise","The contents are a surprise","Li ci biir, surprise la"],
 surprise_p:["Vous découvrez le panier au retrait: il est composé de ce qui n'a pas été vendu ce jour-là. Le contenu change à chaque fois et ne peut pas être choisi.","You discover the bag at pickup: it holds whatever did not sell that day. The contents change every time and cannot be chosen.","Danga koy gis bu nga ko jël: li des ci bés bi la. Dafay soppiku bés bu nekk, te man nga koo tànn."],
 k0:["Contenu variable, choisi par le commerce.","Contents vary, chosen by the shop.","Li ci biir dafay soppiku, butik bi moo ko tànn."],
@@ -892,7 +913,6 @@ pay_cash:["Vous payez le commerçant sur place","Pay the shop on pickup","Fey ko
 confirmed:["Commande confirmée","Order confirmed","Commande bi baax na"],
 thanks:["Jërëjëf. Présentez votre code chez {0}, entre {1} et {2}.","Jërëjëf. Show your code at {0}, between {1} and {2}.","Jërëjëf. Wonel sa kod ci {0}, diggante {1} ak {2}."],
 pickup_code:["Code de retrait","Pickup code","Kod bu retrait"],
-show_code:["Présentez ce code au comptoir. Apportez votre sac.","Show this code at the counter. Bring your bag.","Wonel kod bi ci komptuwaar bi. Indil sa mbuus."],
 co2_line:["Vous venez d'éviter {0} kg de CO₂e.","You just avoided {0} kg CO₂e.","Musal nga {0} kg CO₂e."],
 see_order:["Voir ma commande","See my order","Xool sama commande"],
 /* orders */
@@ -935,18 +955,14 @@ tap_pin:["Touchez un point pour voir le commerce","Tap a dot to see the shop","T
 partners_line:["{0} partenaires actifs &middot; {1} à convaincre","{0} active partners &middot; {1} to convince","{0} partenaires &middot; {1} ñu war a woo"],
 offers_here:["{0} offre en ligne","{0} offer online","{0} offre ci kaw"],
 offers_here_n:["{0} offres en ligne","{0} offers online","{0} offre ci kaw"],
-you_here:["Vous êtes ici","You are here","Fi nga nekk"],
 data_src:["Données commerces: Google Maps. Commerces cités à titre d'illustration, sans partenariat existant.","Shop data: Google Maps. Shops shown for illustration only, no existing partnership.","Data yu butik yi: Google Maps. Ci misaal rekk lañu."],
 invite_sent:["Invitation envoyée à {0}","Invitation sent to {0}","Yónnee nañu woote ci {0}"],
 /* profile */
 account:["Compte","Account","Kont"],
 profile:["Profil","Profile","Profil"],
 member_since:["Membre depuis mars 2026 &middot; {0}","Member since March 2026 &middot; {0}","Membre bu mars 2026 &middot; {0}"],
-demo_switch:["Démo &middot; changer de vue","Demo &middot; switch view","Démo &middot; soppi vue bi"],
 role_client:["Client","Customer","Client"],
 role_merchant:["Commerçant","Merchant","Butikkat"],
-role_admin:["Admin","Admin","Admin"],
-role_note:["Les rôles seront gérés côté backend. Ici, le sélecteur simule les trois accès.","Roles will be handled by the backend. Here the switch simulates all three.","Backend bi moo ay yore rôles yi. Fii, sélecteur bi dafay simuler ñett yi."],
 impact:["Votre impact","Your impact","Sa impact"],
 meals_saved:["repas sauvés","meals saved","ñam yu mucc"],
 co2_avoided:["CO₂e évités","CO₂e avoided","CO₂e yu musal"],
@@ -956,7 +972,6 @@ pay_methods:["Moyens de paiement","Payment methods","Payement"],
 language:["Langue","Language","Làkk"],
 row_orders:["Mes commandes","My orders","Sama commande yi"],
 invite_friend:["Inviter un ami","Invite a friend","Woo sa xarit"],
-appearance:["Apparence","Appearance","Melo"],
 dark_mode:["Thème sombre","Dark theme","Melo bu lëndëm"],
 your_zone:["Votre quartier","Your area","Sa dëkk"],
 zone_sub:["Sert à calculer les distances et à trier les offres.","Used to compute distances and sort offers.","Ngir xayma sori bi ak tëral offre yi."],
@@ -1009,7 +1024,6 @@ ob_next:["Suivant","Next","Topp"],
 ob_start:["Commencer","Get started","Tambali"],
 ob_skip:["Passer","Skip","Weesu"],
 /* merchant */
-m_shop:["Boulangerie Jaune","Boulangerie Jaune","Boulangerie Jaune"],
 m_today:["Aujourd'hui","Today","Tey"],
 m_zone:["Sacré-Cœur, Keur Gorgui","Sacré-Cœur, Keur Gorgui","Sacré-Cœur, Keur Gorgui"],
 m_day:["Votre journée","Your day","Sa bés"],
@@ -1052,31 +1066,12 @@ m_code_ph:["AI4-XXXX","AI4-XXXX","AI4-XXXX"],
 m_validate:["Valider le retrait","Validate pickup","Baatal retrait bi"],
 m_valid_ok:["Retrait validé: {0}","Pickup validated: {0}","Retrait baatal na: {0}"],
 m_valid_bad:["Code inconnu ou déjà utilisé","Unknown or already used code","Kod bi amul walla jëfandikoo nañu ko ba noppi"],
-m_waiting:["En attente","Waiting","Ci xaar"],
 m_no_codes:["Aucun retrait en attente","No pending pickup","Amul retrait ci xaar"],
 m_no_codes_p:["Les codes de vos clients apparaîtront ici dès la réservation.","Customer codes will appear here as soon as they book.","Kod yu client yi dinañu feeñ fi bu ñu réserver."],
 /* admin */
-a_dash:["Tableau de bord","Overview","Tablo bi"],
-a_today:["Aujourd'hui","Today","Tey"],
-a_baskets:["paniers vendus","baskets sold","panier yu ñu jaay"],
 a_volume:["volume","volume","volume"],
-a_commissions:["commissions","commissions","komisiyon"],
 a_rate:["taux de retrait","pickup rate","taux retrait"],
 a_users:["utilisateurs","users","jëfandikookat"],
-a_7d:["7 derniers jours","Last 7 days","7 fan yi mujj"],
-a_perday:["Paniers vendus par jour","Baskets sold per day","Panier yu ñu jaay bés bu nekk"],
-a_growth:["Croissance semaine","Weekly growth","Yokkute ayubés"],
-a_network:["Réseau","Network","Rëdd wi"],
-a_prospects:["{0} partenaires actifs &middot; {1} prospects","{0} active partners &middot; {1} prospects","{0} partenaires &middot; {1} prospects"],
-a_pipeline:["Pipeline","Pipeline","Pipeline"],
-a_invites:["Invitations envoyées","Invitations sent","Woote yu ñu yónnee"],
-a_negot:["En négociation","In negotiation","Ci waxtaan"],
-a_signed:["Contrats signés ce mois","Contracts signed this month","Kontraa yu ñu xaatim weer wi"],
-a_pub_today:["Offres publiées aujourd'hui","Offers posted today","Offre yu ñu jaay tey"],
-a_ops:["Suivi opérations","Operations","Suivi"],
-a_recent:["{0} commandes récentes","{0} recent orders","{0} commande yu mujj"],
-a_live:["dont {0} de cette session de démo","incl. {0} from this demo session","ak {0} ci démo bi"],
-a_legal:["Vue réservée aux administrateurs. Les rôles seront appliqués côté backend.","Admin-only view. Roles will be enforced by the backend.","Admin rekk a ko yelloo. Backend bi dina ko sàmm."],
 /* misc */
 link_copied:["Lien copié","Link copied","Lien bi copié na"],
 map_open:["Carte ouverte","Map opened","Kart bi ubbi na"],
@@ -1089,22 +1084,15 @@ cat_bak:["Boulangeries","Bakeries","Boulangerie yi"],
 cat_mark:["Marchés","Markets","Marse yi"],
 lg_partner:["Partenaire","Partner","Partenaire"],
 /* connexion */
-signin:["Se connecter","Sign in","Dugg"],
-signin_sub:["Votre numéro suffit, un code arrive par SMS.","Your number is enough, a code arrives by SMS.","Sa numero doy na, kod bi dina ñëw ci SMS."],
 phone:["Numéro de téléphone","Phone number","Numero telefon"],
 phone_hint:["Format sénégalais accepté: 77 123 45 67","Senegalese format accepted: 77 123 45 67","Man nga bind: 77 123 45 67"],
 get_code:["Recevoir le code","Get the code","Jot kod bi"],
 code_sent:["Code envoyé au {0}","Code sent to {0}","Yónnee nañu kod bi ci {0}"],
 code_label:["Code à 6 chiffres","6-digit code","Kod bu am 6 chiffre"],
-dev_code:["Mode démo: le code est pré-rempli.","Demo mode: the code is prefilled.","Démo: kod bi ci biir la ba noppi."],
 your_name:["Votre prénom","Your first name","Sa tur"],
 name_ph:["Aïssatou","Aïssatou","Aïssatou"],
 signin_go:["Se connecter","Sign in","Dugg"],
 change_number:["Changer de numéro","Change number","Soppi numero bi"],
-staff_title:["Vous êtes commerçant ou équipe AI4Food ?","Merchant or AI4Food staff?","Yaw butikkat walla équipe AI4Food ?"],
-staff_hint:["Les comptes professionnels se connectent avec un mot de passe.","Professional accounts sign in with a password.","Kont bu liggéey ak mot de passe lay dugg."],
-staff_signin:["Connexion professionnelle","Staff sign in","Dugg bu liggéey"],
-staff_sub:["Commerçant ou administrateur","Merchant or administrator","Butikkat walla admin"],
 phone_or_email:["Téléphone ou e-mail","Phone or email","Telefon walla email"],
 password:["Mot de passe","Password","Mot de passe"],
 phone_bad:["Numéro incomplet","That number looks short","Numero bi matul"],
@@ -1127,51 +1115,6 @@ m_pull:["Retirer de la vente","Pull from sale","Jële ko ci jaay bi"],
 m_pulled:["Offre retirée","Offer pulled","Jële nañu offre bi"],
 m_fc_note2:["Basé sur {0} semaines comparables de votre historique.","Based on {0} comparable weeks of your history.","Ci {0} ayubés yu mel ni ci sa histoire."],
 /* console admin */
-tab_apipe:["Réseau","Network","Rëdd"],
-tab_apay:["Finance","Finance","Xaalis"],
-tab_ausers:["Comptes","People","Kont yi"],
-a_live_now:["Données en direct du serveur","Live from the server","Data bu serveur bi"],
-a_active_users:["actifs aujourd'hui","active today","ci tey"],
-a_gross_week:["Volume 7 jours","7-day volume","Volume 7 fan"],
-a_retail_saved:["valeur sauvée","retail rescued","njëg bu ñu musal"],
-a_live_offers:["offres en ligne","live offers","offre ci kaw"],
-a_pending:["Commerces en attente","Shops awaiting approval","Butik yi ci xaar"],
-a_maint:["Lancer la maintenance","Run housekeeping","Tambali maintenance bi"],
-a_maint_done:["Maintenance effectuée","Housekeeping done","Maintenance bi baax na"],
-a_fee_split:["comm. {0} F &middot; net {1} F","fee {0} F &middot; net {1} F","comm. {0} F &middot; net {1} F"],
-a_no_orders_p:["Aucune commande sur ce filtre.","No order for this filter.","Amul commande ci filtre bi."],
-a_pipeline_sub:["{0} commerces cartographiés","{0} shops mapped","{0} butik"],
-a_st_pending:["En attente","Pending","Ci xaar"],
-a_st_active:["Partenaire","Partner","Partenaire"],
-a_st_prospect:["Prospect","Prospect","Prospect"],
-a_st_suspended:["Suspendu","Suspended","Taxaw"],
-a_shop_line:["{0} offres &middot; {1} invitations &middot; {2} F cumulés","{0} offers &middot; {1} invites &middot; {2} F lifetime","{0} offre &middot; {1} woote &middot; {2} F"],
-a_approve:["Activer","Approve","Ubbi"],
-a_suspend:["Suspendre","Suspend","Taxawal"],
-a_approved:["Commerce activé","Shop approved","Butik bi ubbi na"],
-a_suspended:["Commerce suspendu","Shop suspended","Butik bi taxaw na"],
-a_suspended_u:["Compte suspendu","Account suspended","Kont bi taxaw na"],
-a_reactivate:["Réactiver","Reactivate","Ubbiwaat"],
-a_reactivated:["Compte réactivé","Account reactivated","Kont bi ubbiwaat na"],
-a_pipeline_note:["Activer un commerce lui permet de publier. Suspendre retire ses offres en ligne immédiatement.","Approving a shop lets it publish. Suspending pulls its live offers at once.","Ubbi butik dafa ko may jaay. Taxawal dafay jële offre yi."],
-a_people:["Comptes","People","Kont yi"],
-a_people_sub:["{0} comptes","{0} accounts","{0} kont"],
-a_user_line:["{0} commandes &middot; {1} F dépensés","{0} orders &middot; {1} F spent","{0} commande &middot; {1} F"],
-a_you:["vous","you","yow"],
-a_people_note:["Les numéros sont masqués, y compris pour les administrateurs. Suspendre un compte ferme ses sessions.","Numbers are masked, admins included. Suspending an account ends its sessions.","Numero yi ñu leen nëbb, ak admin yi. Taxawal kont dafay tëj session yi."],
-a_finance:["Finance","Finance","Xaalis"],
-a_finance_sub:["Reversements des {0} derniers jours","Payouts over the last {0} days","Xaalis bu {0} fan yi mujj"],
-a_30d:["30 derniers jours","Last 30 days","30 fan yi mujj"],
-a_due_shops:["dû aux commerces","due to shops","li butik yi war a jot"],
-a_by_shop:["Par commerce","By shop","Butik ci butik"],
-a_by_shop_sub:["Base du prochain virement","Basis of the next transfer","Ngir virement bi ñëw"],
-a_orders_w:["commandes","orders","commande"],
-a_fee:["commission","fee","komisiyon"],
-a_no_payouts:["Aucun retrait sur la période","No collected order in the period","Amul retrait ci waxtu wi"],
-a_audit:["Journal des actions","Action log","Journal bi"],
-a_audit_sub:["Qui a fait quoi, et quand","Who did what, and when","Kan moo def lan, kañ"],
-a_system:["système","system","système"],
-a_audit_note:["Chaque action privilégiée est enregistrée avec son auteur. Lecture réservée aux administrateurs.","Every privileged action is recorded with its author. Admin-only.","Ligeey bu am solo dañu koy bind ak ku ko def. Admin rekk."],
 n_got_t:["Retrait confirmé","Pickup confirmed","Retrait bi baax na"],
 /* confort */
 retry:["Réessayer","Retry","Jéemaat"],
@@ -1200,7 +1143,6 @@ give_note_ph:["Je suis coincée au bureau, merci !","Stuck at work, thank you!",
 give_make:["Créer le lien","Create the link","Sos lien bi"],
 give_link:["Lien de retrait","Pickup link","Lien bu retrait"],
 give_copy:["Copier le lien","Copy the link","Copier lien bi"],
-give_share:["Partager","Share","Séddoo"],
 give_wa:["Envoyer sur WhatsApp","Send on WhatsApp","Yónnee ci WhatsApp"],
 give_copied:["Lien copié","Link copied","Lien bi copier na"],
 give_cancel:["Reprendre le panier","Take it back","Delloo panier bi"],
@@ -1229,6 +1171,20 @@ n_back_t:["Retrait annulé","Pickup cancelled","Retrait bi jóg na"],
 n_back_b:["Le panier de {0} vous a été repris.","The bag at {0} was taken back.","Panier bu {0} delloo nañu ko."],
 m_bearer:["Retrait par un proche","A friend is collecting","Ku la jege moo koy jël"],
 m_bearer_n:["Retrait par un proche ({0})","A friend is collecting ({0})","Ku la jege ({0})"],
+/* porte d'entree */
+gate_t:["Se connecter","Sign in","Dugg"],
+gate_p:["AI4Food a deux côtés. Choisissez le vôtre.","AI4Food has two sides. Pick yours.","AI4Food am na ñaari wet. Tannal sa bos."],
+gate_client:["Je suis client","I am a customer","Maa ngi jënd"],
+gate_client_p:["Réserver un panier près de chez moi","Reserve a bag near me","Réserver panier bu jege"],
+gate_merch:["Je suis commerçant","I run a shop","Maa ngi jaay"],
+gate_merch_p:["Mettre mes invendus en vente","Put my surplus up for sale","Jaay li ma jaayul"],
+gate_change:["Ce n'est pas moi","That is not me","Du man"],
+gate_demo_t:["Sans serveur","With no server","Amul serveur"],
+gate_demo_client:["Le code s'affiche ici, aucun SMS n'est envoyé.","The code appears here, no SMS is sent.","Kod bi dina feeñ fii, amul SMS."],
+gate_demo_merch:["Compte de démonstration: {0} / {1}","Demo account: {0} / {1}","Compte démo: {0} / {1}"],
+gate_admin_t:["Le back-office n'est pas ici","The back office is not here","Back-office bi nekkul fii"],
+gate_admin_p:["Cette application est faite pour les clients et les commerçants. La console AI4Food est un outil interne, à part.","This app is for customers and shops. The AI4Food console is an internal tool, kept separate.","App bii ci jënd ak jaaykat la. Console AI4Food outil interne la, wuute."],
+demo_code_is:["Votre code: {0}","Your code: {0}","Sa kod: {0}"],
 /* fenetre de retrait */
 closing_in:["Encore {0} pour retirer","{0} left to collect","Des na {0}"],
 closing_now:["Ça ferme maintenant","Closing now","Mu ngi tëj léegi"],
@@ -1238,7 +1194,6 @@ distance:["Distance","Distance","Sori"],
 price:["Prix","Price","Njëg"],
 
 you:["Vous","You","Yow"],
-open_row:["Ouvrir","Open","Ubbi"],
 sh_shop:["Le commerce","The shop","Butik bi"],
 sh_bags_here:["Ses paniers","Its bags","Panier yi"],
 sh_no_bags:["Rien en ligne pour l'instant","Nothing online right now","Amul dara léegi"],
@@ -1250,14 +1205,7 @@ o_when:["Commandé le","Ordered on","Bés bi ñu ko jënd"],
 m_bag:["Le panier","The bag","Panier bi"],
 m_stock_left:["Reste en stock","Left in stock","Li des"],
 m_taken:["Déjà pris","Already taken","Li ñu jël"],
-a_order:["La commande","The order","Commande bi"],
 a_person:["La personne","The person","Nit ki"],
-a_entry:["L'action","The action","Jëf ji"],
-a_when:["Quand","When","Kañ"],
-a_actor:["Par","By","Ku ko def"],
-a_target:["Sur","On","Ci"],
-a_payout_t:["Ce qu'on lui doit","What we owe them","Li ñu ko war"],
-a_meta:["Détail","Detail","Détail"],
 stat_t:["D'où vient ce chiffre","Where this number comes from","Fu limu bi jóge"],
 sn_meals:["Un panier retiré = un repas sauvé. On ne compte que les paniers réellement récupérés, jamais ceux réservés puis oubliés.","One collected bag = one meal saved. Only bags actually collected are counted, never ones reserved and forgotten.","Panier bu ñu jël = ñam bu mucc. Yi ñu jël rekk lañuy waññ."],
 sn_co2:["1,2 kg d'équivalent CO₂ par panier retiré: ordre de grandeur usuel pour un repas jeté, transport et production compris.","1.2 kg CO₂e per collected bag: the usual order of magnitude for a wasted meal, production and transport included.","1,2 kg CO₂ ci benn panier: lu ñu jàppe ci ñam bu ñu sànni."],
@@ -1284,8 +1232,6 @@ confirm_cancel_p:["Le panier repart en vente et vous êtes remboursé sous 24h."
 keep:["Garder ma commande","Keep it","Bàyyi ko"],
 confirm_pull_t:["Retirer cette offre ?","Pull this offer?","Jële offre bi ?"],
 confirm_pull_p:["Les paniers déjà réservés restent dus. Seul le stock restant est retiré.","Bags already reserved still stand. Only the remaining stock comes off.","Panier yi ñu réserver dinañu des. Li des rekk lañuy jële."],
-confirm_suspend_t:["Suspendre ce commerce ?","Suspend this shop?","Taxawal butik bi ?"],
-confirm_suspend_p:["Ses offres en ligne sont retirées immédiatement.","Its live offers are pulled at once.","Offre yi ci kaw dinañu jóg léegi."],
 undo:["Annuler","Undo","Bàyyi"],
 fav_undone:["Favori rétabli","Favourite restored","Favori bi dellu na"],
 /* scan */
@@ -1376,7 +1322,7 @@ const V=[{"n": "Chez Loutcha", "c": "Restaurants", "z": "Plateau", "r": 3.9, "k"
    Etat + persistance locale
    ========================================================= */
 const SKEY="ai4food.state.v2";
-const PERSIST=["lang","theme","fav","orders","custom","stock","invited","recent","zone","zoneSet","pos","seen","notifs","alerts","reads","follows","gifts"];
+const PERSIST=["lang","theme","fav","orders","custom","stock","invited","recent","zone","zoneSet","pos","seen","notifs","alerts","reads","follows","gifts","demoUser"];
 const el=i=>document.getElementById(i);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const jsq=s=>String(s).replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/"/g,"&quot;");
@@ -1404,12 +1350,12 @@ function seedNotifs(){
 let S={
  role:"client",tab:"home",view:"carte",sel:-1,vfilter:"Tout",filter:"Tout",sort:"reco",seg:"active",
  qty:1,pay:"wave",cur:null,ob:0,q:"",stack:[],
- mode:"demo",remote:{offers:[],orders:[],notifs:[],impact:null,merchants:[],follows:[],forme:[]},desk:null,adm:null,
+ mode:"demo",remote:{offers:[],orders:[],notifs:[],impact:null,merchants:[],follows:[],forme:[]},desk:null,
  favSeg:"bags",
- idMap:{},idSeq:0,auth:{step:"phone",phone:"",hint:"",isNew:false},err:null,aFilter:"",pFilter:"",
+ idMap:{},idSeq:0,auth:{step:"phone",phone:"",hint:"",isNew:false},err:null,
  busy:0,netDown:false,bearer:null,scrollPos:{},haptics:true,
  lang:"fr",theme:"auto",fav:[8,11],orders:seedOrders(),custom:[],stock:{},invited:[],recent:[],
- zone:"Sacré-Cœur",zoneSet:false,pos:null,seen:false,notifs:seedNotifs(),alerts:true,reads:[],follows:[],gifts:{}
+ zone:"Sacré-Cœur",zoneSet:false,pos:null,seen:false,notifs:seedNotifs(),alerts:true,reads:[],follows:[],gifts:{},demoUser:null
 };
 function save(){
  try{const o={};PERSIST.forEach(k=>o[k]=S[k]);localStorage.setItem(SKEY,JSON.stringify(o))}catch(e){}
@@ -1424,10 +1370,17 @@ function resetAll(){
  try{localStorage.removeItem(SKEY)}catch(e){}
  S.fav=[8,11];S.orders=seedOrders();S.custom=[];S.stock={};S.invited=[];S.recent=[];
  S.notifs=seedNotifs();S.zone="Sacré-Cœur";S.zoneSet=false;S.pos=null;S.seen=true;S.role="client";S.tab="home";
- S.follows=[];S.gifts={};
+ S.follows=[];S.gifts={};S.demoUser=null;
  save();applyTheme();render();toast(t("reset_done"));
 }
 
+/* ---------- qui est connecte ----------
+   Le serveur quand il repond, le compte de demonstration sinon. Dans les deux
+   cas il faut s'etre connecte: l'application ne montre rien avant. */
+const me=()=>online()?API.me:S.demoUser;
+const authed=()=>!!me();
+const roleOf=()=>{const u=me();if(!u)return "client";
+ return u.role==="merchant"?"merchant":u.role==="admin"?"admin":"client"};
 /* ---------- catalogue derive ---------- */
 /* En ligne, le serveur est la source de verite; hors ligne, le jeu de demo. */
 const CAT=()=>online()?S.remote.offers:D.concat(S.custom);
@@ -1603,6 +1556,7 @@ function notifText(n){
  if(n.k==="new")return [t("n_new_t",n.a[0]),t("n_new_b",n.a[1],F(n.a[2]),F(n.a[3]))];
  if(n.k==="soon")return [t("n_soon_t",n.a[0]),t("n_soon_b",n.a[1],n.a[2])];
  if(n.k==="ok")return [t("n_ok_t"),t("n_ok_b",n.a[0],n.a[1],n.a[2])];
+ if(n.k==="got")return [t("n_got_t"),t("n_got_b",n.a[0])];
  if(n.k==="give")return [t("n_give_t"),t("n_give_b",n.a[0],n.a[1])];
  if(n.k==="back")return [t("n_back_t"),t("n_back_b",n.a[0])];
  return ["",""];
@@ -1698,6 +1652,9 @@ function whyOf(d){
    distinguer deux commerces voisins, pas a faire un arc-en-ciel. */
 const TILE_HUES=[164,156,171,149,159,168];
 function tileHue(s){let h=0;for(let i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return TILE_HUES[h%TILE_HUES.length]}
+/** "Aïssatou Ndiaye" -> "Aïssatou N.", comme cote comptoir. */
+const shortName=s=>{const p=String(s||"").trim().split(/\s+/).filter(Boolean);
+ return p.length<2?(p[0]||""):p[0]+" "+p[p.length-1][0].toUpperCase()+"."};
 const initials=s=>String(s||"").trim().split(/\s+/).filter(w=>/[A-Za-zÀ-ÿ0-9]/.test(w[0]||""))
  .slice(0,2).map(w=>w[0].toUpperCase()).join("");
 function photoOf(d,big){
@@ -2271,6 +2228,7 @@ const API={
    body:JSON.stringify({refresh_token:rt})}).catch(()=>{});
   S.remote={offers:[],orders:[],notifs:[],impact:null,merchants:[],follows:[],forme:[]};
   S.role="client";S.tab="home";
+  S.auth={kind:"",step:"phone",phone:"",hint:"",isNew:false,err:""};
   if(!silent)toast(t("signed_out"));
   render(true);
  }
@@ -2392,16 +2350,6 @@ async function pullDesk(){
   API.get("/merchant/stats"),API.get("/merchant/forecast")]);
  S.desk={offers:offers.items,orders:orders.items,stats:stats.stats,forecast:forecast.forecast};
 }
-async function pullAdmin(){
- if(!signedIn()||API.me.role!=="admin")return;
- const [overview,orders,pipeline,users,payouts,audit]=await Promise.all([
-  API.get("/admin/overview"),API.get("/admin/orders?limit=40"),
-  API.get("/admin/merchants?limit=60"),API.get("/admin/users?limit=40"),
-  API.get("/admin/payouts?days=30"),API.get("/admin/audit?limit=30")]);
- S.adm={overview:overview.overview,orders:orders.orders||orders.items,ordersTotal:orders.total,
-  pipeline:pipeline.items,pipelineTotal:pipeline.total,users:users.items,usersTotal:users.total,
-  payouts:payouts,audit:audit.items};
-}
 /** Recharge ce que le role courant affiche, puis redessine. */
 async function syncAll(reset){
  if(!online())return;
@@ -2412,7 +2360,6 @@ async function syncAll(reset){
   if(signedIn()){
    jobs.push(pullOrders(),pullNotifs(),pullImpact(),pullFollows());
    if(API.me.role==="merchant")jobs.push(pullDesk());
-   if(API.me.role==="admin")jobs.push(pullAdmin());
   }
   await Promise.all(jobs);
   S.err=null;S.netDown=false;
@@ -2431,78 +2378,93 @@ async function guard(fn,okMsg){
 /* =========================================================
    Connexion (telephone + code)
    ========================================================= */
-function authSheet(){
- const step=S.auth.step;
- return `${shHead(t("signin"),t("signin_sub"),"closeSheet()")}
- <div class="shbody"><div style="padding:20px 22px 22px">
-  ${step==="phone"?`
-   <div class="fld"><label for="aphone">${t("phone")}</label>
-    <input id="aphone" type="tel" inputmode="tel" value="${esc(S.auth.phone)}" placeholder="77 123 45 67"
-      autocomplete="tel" aria-label="${esc(t("phone"))}"></div>
-   <p class="hint">${t("phone_hint")}</p>
-   <button class="btn btn-main" onclick="askCode()">${I("chevR",18)} ${t("get_code")}</button>`
-  :`
-   <p class="hint">${t("code_sent",esc(S.auth.phone))}</p>
-   <div class="fld"><label for="acode">${t("code_label")}</label>
-    <input id="acode" class="codein" inputmode="numeric" maxlength="6" value="${esc(S.auth.hint||"")}"
-      autocomplete="one-time-code" aria-label="${esc(t("code_label"))}"></div>
-   ${S.auth.hint?`<p class="hint">${t("dev_code")}</p>`:""}
-   ${S.auth.isNew?`<div class="fld"><label for="aname">${t("your_name")}</label>
-     <input id="aname" value="" placeholder="${esc(t("name_ph"))}" maxlength="60"></div>`:""}
-   <button class="btn btn-main" onclick="submitCode()">${I("check",18)} ${t("signin_go")}</button>
-   <div style="height:9px"></div>
-   <button class="btn btn-ghost" onclick="backToPhone()">${t("change_number")}</button>`}
-  <div style="height:14px"></div>
-  <div class="why" style="margin:0"><h4>${I("store",16)} ${t("staff_title")}</h4>
-   <p style="margin:0;font-size:12.5px;color:var(--muted);line-height:1.6">${t("staff_hint")}</p>
-   <div style="height:10px"></div>
-   <button class="btn btn-ghost" onclick="openStaff()">${t("staff_signin")}</button></div>
- </div></div>`;
+/* =========================================================
+   Comptes de demonstration: quand aucun serveur ne repond, la porte reste
+   la meme, seule la verification change. Le catalogue local n'a pas de
+   comptes, donc ceux du seed servent de reference.
+   ========================================================= */
+const DEMO_ACCOUNTS={
+ client:{phone:"+221771234567",name:"Aïssatou Ndiaye",role:"customer"},
+ merchant:{phone:"+221770000002",password:"boulangerie-2026",name:"Fatou Sow",role:"merchant",
+  merchant:{name:"Boulangerie Jaune",zone:"Sacré-Cœur"}}
+};
+const digits=s=>String(s||"").replace(/\D/g,"");
+/** 77 123 45 67, 00221..., +221... : le meme numero. */
+function samePhone(a,b){
+ const x=digits(a),y=digits(b);
+ return x.slice(-9)===y.slice(-9)&&x.length>=9&&y.length>=9;
 }
-function staffSheet(){
- return `${shHead(t("staff_signin"),t("staff_sub"),"closeSheet()")}
- <div class="shbody"><div style="padding:20px 22px 22px">
-  <div class="fld"><label for="sid">${t("phone_or_email")}</label>
-   <input id="sid" value="" autocomplete="username" placeholder="+221770000002"></div>
-  <div class="fld"><label for="spw">${t("password")}</label>
-   <input id="spw" type="password" value="" autocomplete="current-password"></div>
-  <button class="btn btn-main" onclick="staffLogin()">${I("check",18)} ${t("signin_go")}</button>
- </div></div>`;
+function demoSignIn(u){
+ S.demoUser=u;S.role=u.role==="merchant"?"merchant":"client";
+ S.tab=tabsFor(S.role)[0][0];S.auth={kind:"",step:"phone",phone:"",hint:"",isNew:false,err:""};
+ save();buzz("ok");render(true);toast(t("welcome_back",esc(u.name||"")));
 }
-function openAuth(){S.auth={step:"phone",phone:S.auth.phone||"",hint:"",isNew:false};pushSheet("auth")}
-function openStaff(){pushSheet("staff")}
-function backToPhone(){S.auth.step="phone";reSheet()}
+function signOutAny(){
+ if(online())return API.signOut();
+ S.demoUser=null;S.role="client";S.tab="home";S.auth={kind:"",step:"phone",phone:"",hint:"",isNew:false,err:""};
+ save();render(true);toast(t("signed_out"));
+}
+
+/** Il n'y a plus de feuille de connexion: tout passe par la porte d'entree. */
+function openAuth(){S.auth={kind:"",step:"phone",phone:"",hint:"",isNew:false,err:""};render(true)}
+function gateKind(k){S.auth.kind=k;S.auth.step="phone";S.auth.err="";render(true);
+ setTimeout(()=>{const n=el(k==="client"?"aphone":"sid");if(n)n.focus()},80)}
+function gateBack(){S.auth.kind="";S.auth.err="";S.auth.step="phone";render(true)}
+function backToPhone(){S.auth.step="phone";S.auth.err="";render(true)}
+/** La porte est un ecran, pas une feuille: on la redessine comme le reste. */
+function redraw(){if(S.stack.length)reSheet();else render()}
 async function askCode(){
  const v=(el("aphone")||{}).value||"";
- if(v.trim().length<6)return toast(t("phone_bad"),true);
- S.auth.phone=v.trim();
+ if(digits(v).length<9){S.auth.err=t("phone_bad");return redraw()}
+ S.auth.phone=v.trim();S.auth.err="";
+ if(!online()){
+  // Pas de SMS a envoyer: le code s'affiche, c'est plus honnete que de
+  // pretendre qu'un message est parti.
+  S.auth.step="code";S.auth.hint=String(Math.floor(100000+Math.random()*900000));
+  return redraw();
+ }
  try{
   const r=await API.raw("POST","/auth/otp/request",{phone:S.auth.phone},false);
-  S.auth.step="code";S.auth.hint=r.dev_code||"";S.auth.isNew=!!r.is_new_account;reSheet();
- }catch(e){toast(e.message,true)}
+  S.auth.step="code";S.auth.hint=r.dev_code||"";S.auth.isNew=!!r.is_new_account;redraw();
+ }catch(e){S.auth.err=e.message;redraw()}
 }
 async function submitCode(){
  const code=((el("acode")||{}).value||"").trim();
  const name=((el("aname")||{}).value||"").trim();
- if(code.length<4)return toast(t("code_bad"),true);
+ if(code.length<4){S.auth.err=t("code_bad");return redraw()}
+ if(!online()){
+  if(code!==S.auth.hint){S.auth.err=t("code_bad");return redraw()}
+  const known=samePhone(S.auth.phone,DEMO_ACCOUNTS.client.phone);
+  return demoSignIn({role:"customer",phone:S.auth.phone,
+   name:known?DEMO_ACCOUNTS.client.name:(name||t("you"))});
+ }
  try{
   const s=await API.raw("POST","/auth/otp/verify",
    Object.assign({phone:S.auth.phone,code:code,locale:S.lang},name?{name:name}:{}),false);
   API.session(s);afterSignIn();
- }catch(e){toast(e.message,true)}
+ }catch(e){S.auth.err=e.message;redraw()}
 }
 async function staffLogin(){
  const id=((el("sid")||{}).value||"").trim(),pw=((el("spw")||{}).value||"");
- if(!id||pw.length<8)return toast(t("creds_bad"),true);
+ // On garde l'identifiant a l'ecran: seul le mot de passe repart a zero.
+ S.auth.id=id;
+ if(!id||pw.length<8){S.auth.err=t("creds_bad");return redraw()}
+ S.auth.err="";
+ if(!online()){
+  const m=DEMO_ACCOUNTS.merchant;
+  if(!samePhone(id,m.phone)||pw!==m.password){S.auth.err=t("creds_bad");return redraw()}
+  return demoSignIn(m);
+ }
  try{
   const s=await API.raw("POST","/auth/login",{identifier:id,password:pw},false);
   API.session(s);afterSignIn();
- }catch(e){toast(e.message,true)}
+ }catch(e){S.auth.err=e.message;redraw()}
 }
 function afterSignIn(){
  closeSheet();
- S.role=API.me.role==="admin"?"admin":API.me.role==="merchant"?"merchant":"client";
- S.tab=TABS[S.role][0][0];
+ S.role=roleOf();
+ S.tab=tabsFor(S.role)[0][0];
+ S.auth={kind:"",step:"phone",phone:"",hint:"",isNew:false,err:""};
  // Le quartier choisi sur cet appareil est la parole la plus recente: il
  // remonte au compte plutot que de se faire ecraser par lui.
  if(S.zoneSet&&S.zone&&S.zone!==API.me.zone){
@@ -2510,7 +2472,8 @@ function afterSignIn(){
   API.raw("PATCH","/auth/me",{zone:S.zone,lat:p.la,lng:p.lo}).catch(()=>{});
  }else if(API.me.zone){S.zone=API.me.zone;S.zoneSet=true}
  if(API.me.locale){const i=LANGS.findIndex(l=>l[0]===API.me.locale);if(i>=0){LI=i;S.lang=API.me.locale}}
- save();toast(t("welcome_back",esc(API.me.name||"")));
+ save();
+ if(roleOf()!=="admin")toast(t("welcome_back",esc(API.me.name||"")));
  syncAll(true);
 }
 
@@ -2723,20 +2686,15 @@ function profile(){
  const act=activeOrders().length;
  return `<div class="head"><div><div class="hi">${t("account")}</div><div class="city">${t("profile")}</div></div>
   ${bellBtn()}</div>
- <div class="prof"><div class="av">AN</div><div><h2>Aïssatou N.</h2><p>${t("member_since",esc(S.zone))}</p></div></div>
- ${signedIn()
-  ?`<div class="roleswap"><div class="rl">${t("signed_as",esc(API.me.name||""))}</div>
-     <p class="rn" style="margin:0 0 11px">${t(API.me.role==="admin"?"role_admin":API.me.role==="merchant"?"role_merchant":"role_client")} &middot; ${esc(API.me.phone||"")}${API.me.merchant?" &middot; "+esc(API.me.merchant.name):""}</p>
-     <button class="btn btn-ghost" onclick="API.signOut()">${I("close",17)} ${t("sign_out")}</button></div>`
-  :online()
-  ?`<div class="roleswap"><div class="rl">${t("online_mode")}</div>
-     <p class="rn" style="margin:0 0 11px">${t("signin_sub")}</p>
-     <button class="btn btn-main" onclick="openAuth()">${I("user",17)} ${t("signin")}</button></div>`
-  :`<div class="roleswap"><div class="rl">${t("demo_switch")}</div><div class="rbtns">
-     ${[["client","role_client"],["merchant","role_merchant"],["admin","role_admin"]].map(([k,l])=>
-      `<button class="rb ${S.role===k?"on":""}" onclick="setRole('${k}')">${t(l)}</button>`).join("")}
-     </div><p class="rn">${t("role_note")}</p></div>`}
- ${S.role==="client"&&(!online()||signedIn())?`<div class="impact grain"><h3>${I("leaf",18)} ${t("impact")}</h3>
+ ${(()=>{const u=me()||{};const n=u.name||"";
+   return `<div class="prof"><div class="av">${esc(initials(n)||"AI")}</div>
+    <div><h2>${esc(shortName(n)||t("you"))}</h2><p>${t("member_since",esc(S.zone))}</p></div></div>`})()}
+ ${(()=>{const u=me();if(!u)return "";
+   return `<div class="roleswap"><div class="rl">${t("signed_as",esc(u.name||""))}</div>
+     <p class="rn" style="margin:0 0 11px">${t(roleOf()==="merchant"?"role_merchant":"role_client")}
+      &middot; ${esc(u.phone||"")}${u.merchant?" &middot; "+esc(u.merchant.name):""}</p>
+     <button class="btn btn-ghost" onclick="signOutAny()">${I("close",17)} ${t("sign_out")}</button></div>`})()}
+ ${roleOf()==="client"?`<div class="impact grain"><h3>${I("leaf",18)} ${t("impact")}</h3>
   <div class="irow">${statTile("meals",im.meals,t("meals_saved"))}
   ${statTile("co2",im.co2+" kg",t("co2_avoided"))}
   ${statTile("saved",Fk(im.saved)+" F",t("money_saved"))}</div>
@@ -2833,58 +2791,6 @@ function mcodes(){
 }
 
 /* =========================================================
-   Ecrans admin
-   ========================================================= */
-function adash(){
- const w=[42,55,38,61,74,88,69],dd=["lun","mar","mer","jeu","ven","sam","dim"],dde=["mon","tue","wed","thu","fri","sat","sun"];
- const lab=LI===1?dde:dd;
- const nLive=V.filter(v=>v.live||offersAt(v).length).length;
- const mine=S.orders.filter(o=>o.status!=="cancel");
- const vol=mine.reduce((a,o)=>{const d=byId(o.id);return a+(d?d.price*o.qty:0)},0);
- const baskets=69+mine.reduce((a,o)=>a+o.qty,0);
- const volume=142500+vol;
- const done=S.orders.filter(o=>o.status==="done").length,tot=S.orders.filter(o=>o.status!=="cancel").length;
- const rate=tot?Math.round(done/tot*100):0;
- return `<div class="head"><div><div class="hi">AI4Food &middot; Dakar</div><div class="city">${t("a_dash")}</div></div>
-  ${bellBtn()}</div>
- <div class="impact grain"><h3>${I("trend",18)} ${t("a_today")}</h3>
-  <div class="irow">${statTile("reserved",baskets,t("a_baskets"))}
-  ${statTile("volume",Fk(volume)+" F",t("a_volume"))}
-  ${statTile("commission",Fk(volume*.15)+" F",t("a_commissions"))}</div>
-  <div class="irow" style="margin-top:9px">${statTile("rate",rate+"%",t("a_rate"))}
-  ${statTile("co2",(83+impact().co2).toFixed(0)+" kg",t("co2_avoided"))}
-  ${statTile("users","1 240",t("a_users"))}</div></div>
- <div class="fc grain"><div class="eye">${I("trend",13)} ${t("a_7d")}</div>
-  <h3>${t("a_perday")}</h3>
-  <div class="bars">${w.map((v,i)=>`<div class="${i===6?"pred":""}" style="height:${v/90*100}%"><small>${lab[i]}</small></div>`).join("")}</div>
-  <div class="conf" style="margin-top:28px"><span>${t("a_growth")}</span><span>+18%</span></div></div>
- <div class="sec"><div><h2>${t("a_network")}</h2><p>${t("a_prospects",nLive,V.length-nLive)}</p></div>
-  <button class="link" onclick="go('places')">${t("a_pipeline")} ${I("chevR",14)}</button></div>
- <div class="panel" style="margin-bottom:22px">
-  <div class="r"><span>${t("a_invites")}</span><b>${34+S.invited.length}</b></div>
-  <div class="r"><span>${t("a_negot")}</span><b>7</b></div>
-  <div class="r"><span>${t("a_signed")}</span><b style="color:var(--emerald)">4</b></div>
-  <div class="r"><span>${t("a_pub_today")}</span><b>${76+S.custom.length}</b></div></div>`;
-}
-const AORD=[{m:"Boulangerie Jaune",c:"AI4-7C2K",a:1000,s:"done"},{m:"Chez Loutcha",c:"AI4-2WQ9",a:1500,s:"done"},
- {m:"Terrou-Bi",c:"AI4-8LM3",a:5000,s:"active"},{m:"Auchan Sacré-Cœur",c:"AI4-5ZK1",a:2500,s:"active"},
- {m:"Marché Kermel",c:"AI4-6TR4",a:1000,s:"expired"},{m:"La Galette",c:"AI4-1BX7",a:1500,s:"done"}];
-function aorders(){
- const mine=S.orders.slice().sort((a,b)=>b.ts-a.ts).map(o=>{const d=byId(o.id);
-   return d?{m:d.merch,c:o.code,a:d.price*o.qty,s:o.status,live:true}:null}).filter(Boolean);
- const rows=mine.concat(AORD);
- return `<div class="head"><div><div class="hi">${t("a_ops")}</div><div class="city">${t("tab_aorders")}</div></div>
-  <button class="round" onclick="go('adash')" aria-label="${esc(t("a_dash"))}">${I("close",20)}</button></div>
- <div class="sec"><div><h2>${t("a_recent",rows.length)}</h2><p>${t("a_live",mine.length)}</p></div></div>
- <div class="list">${rows.map(o=>`<div class="rc vrow"><div class="vtile">${I("receipt",22)}</div>
-  <div class="rc-body"><div class="rc-top"><h3>${esc(o.m)}</h3></div>
-  <p class="mrc" style="font-family:var(--dp);letter-spacing:.03em">${o.c}${o.live?" &middot; démo":""}</p>
-  <p class="prices"><b>${F(o.a)} <i>FCFA</i></b>${statBadge(o.s)}</p>
-  </div></div>`).join("")}</div>
- <p class="legal">${t("a_legal")}</p>`;
-}
-
-/* =========================================================
    Ecrans connectes: comptoir commercant et console AI4Food
    ========================================================= */
 const money=n=>Fk(n||0)+" F";
@@ -2970,156 +2876,13 @@ function mcodesOnline(){
  :`<div class="empty"><div class="ic">${I("scan",28)}</div><h3>${t("m_no_codes")}</h3><p>${t("m_no_codes_p")}</p></div>`}`;
 }
 
-/* ---------- console AI4Food ---------- */
+/* ---------- ecran d'attente partage ---------- */
 function loadingScreen(title){
  return `<div class="head"><div><div class="hi">AI4Food</div><div class="city">${title}</div></div></div>
  <div class="empty"><div style="margin:0 auto 4px">${logoMark(56)}</div>
   <h3>${t("loading")}</h3><p>${t("loading_p")}</p></div>`;
 }
-function ahead(title,sub){
- return `<div class="head"><div><div class="hi">AI4Food &middot; Dakar</div><div class="city">${title}</div></div>
-  ${bellBtn()}</div>${sub?`<p class="sub2">${sub}</p>`:""}`;
-}
-function adashOnline(){
- if(!S.adm)return loadingScreen(t("a_dash"));
- const o=S.adm.overview,ser=o.series,max=Math.max(1,...ser.map(x=>x.baskets));
- const days=["dim","lun","mar","mer","jeu","ven","sam"];
- return `${ahead(t("a_dash"),t("a_live_now"))}
- <div class="impact grain"><h3>${I("trend",18)} ${t("a_today")}</h3>
-  <div class="irow">${statTile("reserved",o.today.baskets_sold,t("a_baskets"))}
-  ${statTile("volume",money(o.today.gross_cfa),t("a_volume"))}
-  ${statTile("commission",money(o.today.commission_cfa),t("a_commissions"))}</div>
-  <div class="irow" style="margin-top:9px">
-  ${statTile("rate",o.all_time.pickup_rate_pct===null?"-":o.all_time.pickup_rate_pct+"%",t("a_rate"))}
-  ${statTile("co2",o.all_time.co2e_kg+" kg",t("co2_avoided"))}
-  ${statTile("users",o.today.active_users,t("a_active_users"))}</div></div>
- <div class="fc grain"><div class="eye">${I("trend",13)} ${t("a_7d")}</div>
-  <h3>${t("a_perday")}</h3>
-  <div class="bars">${ser.map((x,i)=>`<div class="${i===ser.length-1?"pred":""}" style="height:${Math.max(4,x.baskets/max*100)}%"><small>${days[new Date(x.date+"T00:00:00Z").getUTCDay()]}</small></div>`).join("")}</div>
-  <div class="conf" style="margin-top:28px"><span>${t("a_gross_week")}</span>
-   <span>${money(ser.reduce((a,x)=>a+x.gross_cfa,0))}</span></div></div>
- <div class="mini">
-  <button ${tap("openStat('meals','"+o.all_time.meals_saved+"')",t("meals_saved"))}><b>${o.all_time.meals_saved}</b><span>${t("meals_saved")}</span></button>
-  <button ${tap("openStat('saved','"+jsq(money(o.all_time.waste_avoided_cfa))+"')",t("a_retail_saved"))}><b>${money(o.all_time.waste_avoided_cfa)}</b><span>${t("a_retail_saved")}</span></button>
-  <button ${tap("go('apipe')",t("a_live_offers"))}><b>${o.network.offers_live}</b><span>${t("a_live_offers")}</span></button></div>
- <div class="sec"><div><h2>${t("a_network")}</h2>
-  <p>${t("a_prospects",o.network.merchants_active,o.network.merchants_prospect)}</p></div>
-  <button class="link" onclick="go('apipe')">${t("a_pipeline")} ${I("chevR",14)}</button></div>
- <div class="panel" style="margin-bottom:14px">
-  <div class="r tap" ${tap("goPipe('pending')",t("a_pending"))}><span>${t("a_pending")}</span>
-   <b style="color:${o.network.merchants_pending?"var(--amber)":"var(--ink)"}">${o.network.merchants_pending}${I("chevR",14)}</b></div>
-  <div class="r tap" ${tap("goPipe('')",t("a_invites"))}><span>${t("a_invites")}</span>
-   <b>${o.network.invites}${I("chevR",14)}</b></div>
-  <div class="r tap" ${tap("goAOrders('')",t("a_pub_today"))}><span>${t("a_pub_today")}</span>
-   <b>${o.network.offers_today}${I("chevR",14)}</b></div>
-  <div class="r tap" ${tap("goUsers()",t("a_users"))}><span>${t("a_users")}</span>
-   <b>${o.users.customers} &middot; ${o.users.merchants} &middot; ${o.users.admins}${I("chevR",14)}</b></div></div>
- <div style="padding:0 22px 22px"><button class="btn btn-ghost" onclick="runMaintenance()">${I("refresh",18)} ${t("a_maint")}</button></div>`;
-}
-function aordersOnline(){
- if(!S.adm)return loadingScreen(t("tab_aorders"));
- const rows=S.adm.orders;
- const f=S.aFilter||"";
- const chips=[["","cat_all"],["active","st_active"],["picked_up","st_done"],["expired","st_expired"],["cancelled","st_cancel"]];
- return `${ahead(t("tab_aorders"),t("a_recent",S.adm.ordersTotal))}
- <div class="chips">${chips.map(([k,l])=>`<button class="chip ${f===k?"on":""}" onclick="setAFilter('${k}')">${t(l)}</button>`).join("")}</div>
- ${rows.length?`<div class="list">${rows.map(o=>`<div class="rc vrow tap" ${tap("openAOrder('"+o.id+"')",o.merchant.name)}>
-  <div class="vtile">${I("receipt",22)}</div>
-  <div class="rc-body"><div class="rc-top"><h3>${esc(o.merchant.name)}</h3></div>
-  <p class="mrc" style="font-family:var(--dp);letter-spacing:.03em">${o.code} &middot; ${esc(o.customer.name)}</p>
-  <p class="mrc">${o.qty} × ${esc(o.offer.name)}</p>
-  <p class="prices"><b>${F(o.gross_cfa)} <i>FCFA</i></b>${statBadge(ST_IN[o.status]||o.status)}
-   <span style="font-size:11px;color:var(--muted)">${t("a_fee_split",F(o.commission_cfa),F(o.payout_cfa))}</span></p>
-  ${o.status==="active"?`<button class="invite" onclick="${stop}adminCancel('${o.id}')">${I("close",13)} ${t("cancel_order")}</button>`:""}
-  </div>${I("chevR",16)}</div>`).join("")}</div>`
- :`<div class="empty"><div class="ic">${I("receipt",28)}</div><h3>${t("no_orders")}</h3><p>${t("a_no_orders_p")}</p></div>`}
- <p class="legal">${t("a_legal")}</p>`;
-}
-function apipe(){
- if(!S.adm)return loadingScreen(t("a_pipeline"));
- const f=S.pFilter||"";
- const chips=[["","cat_all"],["pending","a_st_pending"],["active","a_st_active"],["prospect","a_st_prospect"],["suspended","a_st_suspended"]];
- const rows=f?S.adm.pipeline.filter(m=>m.status===f):S.adm.pipeline;
- const badge=s=>s==="active"?`<span class="stat">${t("a_st_active")}</span>`
-  :s==="pending"?`<span class="stat wait">${t("a_st_pending")}</span>`
-  :s==="suspended"?`<span class="stat dead">${t("a_st_suspended")}</span>`
-  :`<span class="stat dead">${t("a_st_prospect")}</span>`;
- return `${ahead(t("a_network"),t("a_pipeline_sub",S.adm.pipelineTotal))}
- <div class="chips">${chips.map(([k,l])=>`<button class="chip ${f===k?"on":""}" onclick="setPFilter('${k}')">${t(l)}</button>`).join("")}</div>
- <div class="list">${rows.slice(0,40).map(m=>`<div class="rc vrow tap" ${tap("openAShop('"+m.id+"')",m.name)}>
-  <div class="vtile">${I("store",22)}</div>
-  <div class="rc-body"><div class="rc-top"><h3>${esc(m.name)}</h3></div>
-  <p class="mrc">${esc(m.zone)} &middot; ${esc(m.category)} <span class="rate">${I("star",13)} ${(m.rating||0).toFixed(1)}</span></p>
-  <p class="mrc">${t("a_shop_line",m.live_offers,m.invites,F(m.gross_cfa||0))}</p>
-  <div class="metarow">${badge(m.status)}
-   ${m.status==="active"
-     ?`<button class="invite" onclick="${stop}setShop('${m.id}','suspended')">${I("close",13)} ${t("a_suspend")}</button>`
-     :`<button class="invite" onclick="${stop}setShop('${m.id}','active')">${I("check",13)} ${t("a_approve")}</button>`}
-  </div></div>${I("chevR",16)}</div>`).join("")}</div>
- <p class="legal">${t("a_pipeline_note")}</p>`;
-}
-function ausers(){
- if(!S.adm)return loadingScreen(t("a_people"));
- const rows=S.adm.users;
- return `<div class="head"><div><div class="hi">AI4Food &middot; Dakar</div><div class="city">${t("a_people")}</div></div>
-  <button class="round" onclick="go('adash')" aria-label="${esc(t("a_dash"))}">${I("close",20)}</button></div>
- <p class="sub2">${t("a_people_sub",S.adm.usersTotal)}</p>
- <div class="list">${rows.map(u=>`<div class="rc vrow tap" ${tap("openAUser('"+u.id+"')",u.name||u.phone_masked)}>
-  <div class="vtile">${I(u.role==="admin"?"users":u.role==="merchant"?"store":"user",22)}</div>
-  <div class="rc-body"><div class="rc-top"><h3>${esc(u.name||u.phone_masked)}</h3></div>
-  <p class="mrc">${esc(u.phone_masked)} &middot; ${esc(u.role)} &middot; ${esc(u.zone||"")}</p>
-  <p class="mrc">${t("a_user_line",u.orders||0,F(u.spend_cfa||0))}</p>
-  <div class="metarow">${u.status==="active"?`<span class="stat">${t("a_st_active")}</span>`:`<span class="stat dead">${t("a_st_suspended")}</span>`}
-   ${u.id===(API.me&&API.me.id)?`<span class="dist">${t("a_you")}</span>`
-    :`<button class="invite" onclick="${stop}setUser('${u.id}','${u.status==="active"?"suspended":"active"}')">
-      ${I(u.status==="active"?"close":"check",13)} ${u.status==="active"?t("a_suspend"):t("a_reactivate")}</button>`}
-  </div></div>${I("chevR",16)}</div>`).join("")}</div>
- <p class="legal">${t("a_people_note")}</p>`;
-}
-function apay(){
- if(!S.adm)return loadingScreen(t("a_finance"));
- const p=S.adm.payouts,audit=S.adm.audit;
- return `${ahead(t("a_finance"),t("a_finance_sub",p.days))}
- <div class="impact grain"><h3>${I("wallet",18)} ${t("a_30d")}</h3>
-  <div class="irow">${statTile("volume",money(p.totals.gross_cfa),t("a_volume"))}
-  ${statTile("commission",money(p.totals.commission_cfa),t("a_commissions"))}
-  ${statTile("earned",money(p.totals.payout_cfa),t("a_due_shops"))}</div></div>
- <div class="sec"><div><h2>${t("a_by_shop")}</h2><p>${t("a_by_shop_sub")}</p></div></div>
- <div class="panel">${p.items.length?p.items.slice(0,12).map((r,i)=>`<div class="r tap" ${tap("openPayout("+i+")",r.merchant_name)}>
-   <span>${esc(r.merchant_name)}<br><small style="color:var(--strike)">${r.orders} ${t("a_orders_w")} &middot; ${esc(r.zone)}</small></span>
-   <b>${F(r.payout_cfa)} F<br><small style="color:var(--muted);font-weight:400">${t("a_fee")} ${F(r.commission_cfa)} F</small></b></div>`).join("")
-  :`<div class="r"><span>${t("a_no_payouts")}</span></div>`}</div>
- <div class="sec" style="padding-top:16px"><div><h2>${t("a_audit")}</h2><p>${t("a_audit_sub")}</p></div></div>
- <div class="list">${audit.slice(0,12).map((a,i)=>`<div class="rc vrow tap" ${tap("openAudit("+i+")",a.action)}>
-  <div class="vtile">${I("info",20)}</div>
-  <div class="rc-body"><div class="rc-top"><h3 style="font-size:13.5px">${esc(a.action)}</h3></div>
-  <p class="mrc">${a.actor?esc(a.actor.name||a.actor.role):t("a_system")} &middot; ${ago(a.created_at)}</p>
-  </div>${I("chevR",16)}</div>`).join("")}</div>
- <p class="legal">${t("a_audit_note")}</p>`;
-}
-
-/* ---------- actions console ---------- */
-function setAFilter(v){S.aFilter=v;render(true);
- API.get("/admin/orders?limit=40"+(v?"&status="+v:"")).then(r=>{S.adm.orders=r.items;S.adm.ordersTotal=r.total;render()}).catch(e=>toast(e.message,true))}
-function setPFilter(v){S.pFilter=v;render(true)}
-async function setShop(id,status){
- if(status==="suspended"&&!await ask({title:t("confirm_suspend_t"),body:t("confirm_suspend_p"),
-   confirm:t("a_suspend"),danger:true}))return;
- buzz("ok");
- guard(()=>API.raw("PATCH","/admin/merchants/"+id,{status:status}),
-  status==="active"?t("a_approved"):t("a_suspended")).then(()=>syncAll()).catch(()=>{});
-}
-function setUser(id,status){
- guard(()=>API.raw("PATCH","/admin/users/"+id,{status:status}),
-  status==="active"?t("a_reactivated"):t("a_suspended_u")).then(()=>syncAll()).catch(()=>{});
-}
-function adminCancel(id){
- guard(()=>API.post("/admin/orders/"+id+"/cancel",{reason:"Annulation support AI4Food"}),
-  t("cancelled_toast")).then(()=>syncAll()).catch(()=>{});
-}
-function runMaintenance(){
- guard(()=>API.post("/admin/maintenance/expire"),t("a_maint_done")).then(()=>syncAll()).catch(()=>{});
-}
+/* ---------- actions comptoir ---------- */
 async function pullOffer(id){
  if(!await ask({title:t("confirm_pull_t"),body:t("confirm_pull_p"),confirm:t("m_pull"),danger:true}))return;
  buzz("ok");
@@ -3277,104 +3040,6 @@ function mPickSheet(code){
  });
 }
 function openMPick(code){pushSheet("mpick",code)}
-
-/* ---------- console: commande, commerce, personne, journal ---------- */
-function aOrderSheet(id){
- const o=S.adm?S.adm.orders.find(x=>x.id===id):null;
- if(!o)return infoSheet({title:t("a_order"),rows:[]});
- return infoSheet({
-  title:esc(o.merchant.name),sub:o.code,
-  top:`<div style="margin-bottom:14px">${statBadge(ST_IN[o.status]||o.status)}</div>`,
-  rows:[
-   [t("qty"),o.qty+" × "+esc(o.offer.name)],
-   [t("a_person"),esc(o.customer.name)+" · "+esc(o.customer.phone_masked)],
-   [t("a_volume"),F(o.gross_cfa)+" FCFA"],
-   [t("store_value"),F(o.was_total_cfa)+" FCFA"],
-   [t("a_commissions"),F(o.commission_cfa)+" FCFA"],
-   [t("a_due_shops"),F(o.payout_cfa)+" FCFA","var(--emerald)"],
-   [t("a_when"),new Date(o.created_at).toLocaleString(LOC(),{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})],
-  ],
-  actions:o.status==="active"
-   ?`<button class="btn btn-ghost" style="color:var(--danger)" onclick="adminCancel('${jsq(o.id)}')">
-      ${I("close",18)} ${t("cancel_order")}</button>`:"",
- });
-}
-function openAOrder(id){pushSheet("aorder",id)}
-
-function aShopSheet(id){
- const m=S.adm?S.adm.pipeline.find(x=>x.id===id):null;
- if(!m)return infoSheet({title:t("sh_shop"),rows:[]});
- return infoSheet({
-  title:esc(m.name),sub:esc(m.zone)+" · "+esc(m.category),
-  rows:[
-   [t("a_st_active"),esc(m.status)],
-   [t("a_live_offers"),m.live_offers||0],
-   [t("a_invites"),m.invites||0],
-   [t("a_volume"),F(m.gross_cfa||0)+" FCFA"],
-   [t("rating"),(m.rating||0).toFixed(1)],
-   m.commission_bps!=null?[t("m_commission"),(m.commission_bps/100).toFixed(0)+"%"]:null,
-  ],
-  actions:m.status==="active"
-   ?`<button class="btn btn-ghost" style="color:var(--danger)" onclick="setShop('${jsq(m.id)}','suspended')">
-      ${I("close",18)} ${t("a_suspend")}</button>`
-   :`<button class="btn btn-main" onclick="setShop('${jsq(m.id)}','active')">${I("check",18)} ${t("a_approve")}</button>`,
- });
-}
-function openAShop(id){pushSheet("ashop",id)}
-
-function aUserSheet(id){
- const u=S.adm?S.adm.users.find(x=>x.id===id):null;
- if(!u)return infoSheet({title:t("a_person"),rows:[]});
- const me=u.id===(API.me&&API.me.id);
- return infoSheet({
-  title:esc(u.name||u.phone_masked),sub:esc(u.role),
-  rows:[
-   [t("phone"),esc(u.phone_masked)],
-   [t("your_zone"),esc(u.zone||"—")],
-   [t("row_orders"),u.orders||0],
-   [t("a_volume"),F(u.spend_cfa||0)+" FCFA"],
-   [t("a_st_active"),esc(u.status)],
-  ],
-  actions:me?`<p class="hint">${t("a_you")}</p>`
-   :`<button class="btn btn-ghost" style="${u.status==="active"?"color:var(--danger)":""}"
-      onclick="setUser('${jsq(u.id)}','${u.status==="active"?"suspended":"active"}')">
-      ${I(u.status==="active"?"close":"check",18)} ${u.status==="active"?t("a_suspend"):t("a_reactivate")}</button>`,
- });
-}
-function openAUser(id){pushSheet("auser",id)}
-
-function aAuditSheet(i){
- const a=S.adm?S.adm.audit[i]:null;
- if(!a)return infoSheet({title:t("a_entry"),rows:[]});
- const meta=a.meta&&Object.keys(a.meta).length?a.meta:null;
- return infoSheet({
-  title:esc(a.action),sub:ago(a.created_at),
-  rows:[
-   [t("a_actor"),esc(a.actor?(a.actor.name||a.actor.role):t("a_system"))],
-   [t("a_target"),esc(a.entity||"—")],
-   [t("a_when"),new Date(a.created_at).toLocaleString(LOC(),{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})],
-  ],
-  body:meta?`<div class="good"><h4>${I("info",16)} ${t("a_meta")}</h4>
-   <p style="margin:0;font-size:12px;color:var(--good-ink);line-height:1.6;word-break:break-word">${esc(JSON.stringify(meta))}</p></div>`:"",
- });
-}
-function openAudit(i){pushSheet("audit",String(i))}
-
-function aPayoutSheet(i){
- const r=S.adm?S.adm.payouts.items[i]:null;
- if(!r)return infoSheet({title:t("a_payout_t"),rows:[]});
- return infoSheet({
-  title:esc(r.merchant_name),sub:esc(r.zone||""),
-  rows:[
-   [t("a_orders_w"),r.orders||0],
-   [t("a_volume"),F(r.gross_cfa||0)+" FCFA"],
-   [t("a_commissions"),F(r.commission_cfa||0)+" FCFA"],
-   [t("a_due_shops"),F(r.payout_cfa||0)+" FCFA","var(--emerald)"],
-  ],
-  note:t("sn_commission"),
- });
-}
-function openPayout(i){pushSheet("payout",String(i))}
 
 /** Une notification mene a la chose dont elle parle. */
 function openNotif(nid){
@@ -3565,10 +3230,9 @@ function publishSheet(){
  </div></div>`;
 }
 const SHEETS={detail:detail,why:whySheet,payment:payment,done:done,search:searchSheet,
- notifs:notifSheet,zone:zoneSheet,lang:langSheet,publish:publishSheet,auth:authSheet,staff:staffSheet,
+ notifs:notifSheet,zone:zoneSheet,lang:langSheet,publish:publishSheet,
  scan:scanSheet,qrbig:qrBigSheet,give:giveSheet,pickup:pickupSheet,
- stat:statSheet,shop:shopSheet,order:orderSheet,moffer:mOfferSheet,mpick:mPickSheet,
- aorder:aOrderSheet,ashop:aShopSheet,auser:aUserSheet,audit:aAuditSheet,payout:aPayoutSheet};
+ stat:statSheet,shop:shopSheet,order:orderSheet,moffer:mOfferSheet,mpick:mPickSheet};
 /** Le code de retrait en plein ecran, pour un comptoir mal eclaire. */
 function qrBigSheet(code){
  return `${shHead(t("pickup_code"),t("qr_big_p"),"back()")}
@@ -3726,6 +3390,81 @@ function pickupFromUrl(){
  }catch(e){return null}
 }
 
+
+/* =========================================================
+   La porte d'entree
+   =========================================================
+   Deux publics, deux portes, et rien avant de les avoir passees: un client
+   se connecte avec son numero, un commercant avec le mot de passe de sa
+   maison. Il n'y a pas de bouton pour "faire semblant" d'etre l'autre.
+*/
+function gate(){
+ const a=S.auth||{},kind=a.kind||"";
+ if(roleOf()==="admin")return gateAdmin();
+ const head=`<div class="top">${logoLock(30)}
+   <h1>${kind?t(kind==="client"?"gate_client":"gate_merch"):t("gate_t")}</h1>
+   <p>${kind?t(kind==="client"?"gate_client_p":"gate_merch_p"):t("gate_p")}</p></div>`;
+ const err=a.err?`<p class="err">${I("info",14)} ${esc(a.err)}</p>`:"";
+
+ if(!kind)return `<div class="gate">${head}
+   <button class="grole" onclick="gateKind('client')">
+     <span class="gi">${I("user",22)}</span>
+     <span class="gt"><b>${t("gate_client")}</b><small>${t("gate_client_p")}</small></span>
+     ${I("chevR",17)}</button>
+   <button class="grole" onclick="gateKind('merchant')">
+     <span class="gi">${I("store",22)}</span>
+     <span class="gt"><b>${t("gate_merch")}</b><small>${t("gate_merch_p")}</small></span>
+     ${I("chevR",17)}</button>
+   ${online()?"":`<div class="demo"><b>${t("gate_demo_t")}</b><p>${t("gate_demo_client")}</p></div>`}
+   <div class="foot"><div class="lgrow2">${LANGS.map((l,i)=>
+     `<button class="lgb2 ${LI===i?"on":""}" onclick="setLangIdx(${i})">${l[1]}</button>`).join("")}</div>
+    <p class="legal" style="padding-top:14px">${t("legal_offers")}</p></div>
+  </div>`;
+
+ if(kind==="client")return `<div class="gate">${head}
+   ${a.step==="code"?`
+     <p class="hint" style="margin:0 0 14px">${t("code_sent",esc(a.phone))}</p>
+     ${a.hint&&!online()?`<div class="demo" style="margin:0 0 14px"><b>${t("gate_demo_t")}</b>
+       <p>${t("demo_code_is",esc(a.hint))}</p></div>`:""}
+     ${err}
+     <div class="fld"><label for="acode">${t("code_label")}</label>
+      <input id="acode" class="codein" inputmode="numeric" maxlength="6" value="${esc(a.hint||"")}"
+        autocomplete="one-time-code" aria-label="${esc(t("code_label"))}"></div>
+     ${a.isNew?`<div class="fld"><label for="aname">${t("your_name")}</label>
+       <input id="aname" value="" placeholder="${esc(t("name_ph"))}" maxlength="60"></div>`:""}
+     <button class="btn btn-main" onclick="submitCode()">${I("check",18)} ${t("signin_go")}</button>
+     <div style="height:9px"></div>
+     <button class="btn btn-ghost" onclick="backToPhone()">${t("change_number")}</button>`
+   :`
+     ${err}
+     <div class="fld"><label for="aphone">${t("phone")}</label>
+      <input id="aphone" type="tel" inputmode="tel" value="${esc(a.phone||"")}" placeholder="77 123 45 67"
+        autocomplete="tel" aria-label="${esc(t("phone"))}"></div>
+     <p class="hint">${t("phone_hint")}</p>
+     <button class="btn btn-main" onclick="askCode()">${I("chevR",18)} ${t("get_code")}</button>`}
+   <div class="foot"><button class="btn btn-ghost" onclick="gateBack()">${t("gate_change")}</button></div>
+  </div>`;
+
+ return `<div class="gate">${head}
+   ${err}
+   <div class="fld"><label for="sid">${t("phone_or_email")}</label>
+    <input id="sid" value="${esc(a.id||"")}" autocomplete="username" placeholder="+221770000002"></div>
+   <div class="fld"><label for="spw">${t("password")}</label>
+    <input id="spw" type="password" value="" autocomplete="current-password"></div>
+   <button class="btn btn-main" onclick="staffLogin()">${I("check",18)} ${t("signin_go")}</button>
+   ${online()?"":`<div class="demo"><b>${t("gate_demo_t")}</b>
+     <p>${t("gate_demo_merch","+221770000002","boulangerie-2026")}</p></div>`}
+   <div class="foot"><button class="btn btn-ghost" onclick="gateBack()">${t("gate_change")}</button></div>
+  </div>`;
+}
+/** Un compte AI4Food interne n'a rien a faire dans l'application publique. */
+function gateAdmin(){
+ return `<div class="gate"><div class="top">${logoLock(30)}
+   <h1>${t("gate_admin_t")}</h1><p>${t("gate_admin_p")}</p></div>
+  <button class="btn btn-main" onclick="signOutAny()">${I("close",18)} ${t("sign_out")}</button></div>`;
+}
+function setLangIdx(i){LI=i;S.lang=LANGS[i][0];save();applyTheme();render(true)}
+
 /* ---------- pile de feuilles ---------- */
 let lastFocus=null;
 function pushSheet(name,arg){
@@ -3789,8 +3528,6 @@ function setView(v){S.view=v;render()}
 function setSort(s){S.sort=s;render();if(online())pullCatalog().then(()=>render()).catch(()=>{})}
 function setSeg(s){S.seg=s;render()}
 function selPin(i){S.sel=i;render()}
-function setRole(r){S.role=r;S.tab=tabsFor(r)[0][0];S.sel=-1;save();render(true);
- toast(t(r==="client"?"role_client":r==="merchant"?"role_merchant":"role_admin"))}
 function fav(id){
  id=String(id);
  buzz("tap");
@@ -3849,10 +3586,6 @@ function follow(k){
  toast(was?t("unfollowed_toast",v.n):t("followed_toast",v.n));
 }
 function setFavSeg(s){S.favSeg=s;render(true)}
-/* Les lignes de synthese du tableau de bord menent a l'ecran qui les detaille. */
-function goPipe(f){S.pFilter=f||"";closeSheet();S.tab="apipe";render(true)}
-function goAOrders(f){closeSheet();S.tab="aorders";render(true);setAFilter(f||"")}
-function goUsers(){closeSheet();S.tab="ausers";render(true)}
 function routeTo(id){const d=byId(id);toast(t("route_to",d.addr))}
 function shareOffer(){toast(t("link_copied"))}
 function fromDetailToMap(id){
@@ -4074,25 +3807,31 @@ function pitch(){
 /* =========================================================
    Rendu
    ========================================================= */
-const TABS_ADMIN_ONLINE=[["adash","trend","tab_adash"],["apipe","store","tab_apipe"],
- ["aorders","receipt","tab_aorders"],["apay","wallet","tab_apay"],["profile","user","tab_profile"]];
 const TABS={
  client:[["home","compass","tab_home"],["places","pin","tab_places"],["fav","heart","tab_fav"],["orders","receipt","tab_orders"],["profile","user","tab_profile"]],
- merchant:[["mhome","store","tab_mtoday"],["mai","trend","tab_mfc"],["mcodes","receipt","tab_mcodes"],["profile","user","tab_profile"]],
- admin:[["adash","trend","tab_adash"],["places","pin","tab_places"],["aorders","receipt","tab_aorders"],["profile","user","tab_profile"]]
+ merchant:[["mhome","store","tab_mtoday"],["mai","trend","tab_mfc"],["mcodes","receipt","tab_mcodes"],["profile","user","tab_profile"]]
 };
 const SCREENS_DEMO={home:home,places:places,fav:favs,orders:orders,profile:profile,
- mhome:mhome,mai:mai,mcodes:mcodes,adash:adash,aorders:aorders};
+ mhome:mhome,mai:mai,mcodes:mcodes};
 const SCREENS_ONLINE={home:home,places:places,fav:favs,orders:orders,profile:profile,
- mhome:mhomeOnline,mai:maiOnline,mcodes:mcodesOnline,
- adash:adashOnline,aorders:aordersOnline,apipe:apipe,ausers:ausers,apay:apay};
+ mhome:mhomeOnline,mai:maiOnline,mcodes:mcodesOnline};
 const SCREENS=()=>online()?SCREENS_ONLINE:SCREENS_DEMO;
-const tabsFor=r=>(r==="admin"&&online()?TABS_ADMIN_ONLINE:TABS[r]);
-const EXTRA_SCREENS={admin:["ausers"],client:[],merchant:[]};
-const canShow=(r,tab)=>tabsFor(r).some(x=>x[0]===tab)||(EXTRA_SCREENS[r]||[]).indexOf(tab)>=0;
+const tabsFor=r=>TABS[r]||TABS.client;
+const canShow=(r,tab)=>tabsFor(r).some(x=>x[0]===tab);
 let lastTab=null,swapT=null;
 function render(resetScroll){
  syncOrders();
+ const bar=el("tabs");
+ // Rien de l'application avant de s'etre connecte, et pas d'onglets a une
+ // porte: la barre n'a de sens qu'une fois de l'autre cote.
+ if(S.seen&&(!authed()||roleOf()==="admin")){
+  const g=el("view");
+  g.innerHTML=gate();g.scrollTop=0;
+  bar.innerHTML="";bar.classList.add("hide");
+  lastTab=null;netBanner();pitch();
+  return;
+ }
+ bar.classList.remove("hide");
  const tabs=tabsFor(S.role);
  if(!canShow(S.role,S.tab))S.tab=tabs[0][0];
  const v=el("view"),y=v.scrollTop;
@@ -4120,9 +3859,8 @@ async function boot(){
  initHistory();initPullToRefresh();initSheetDrag();
  await connect();
  if(online()){
-  if(API.token){try{const me=await API.get("/auth/me");API.me=me.user;
-   S.role=API.me.role==="admin"?"admin":API.me.role==="merchant"?"merchant":"client";
-   S.tab=tabsFor(S.role)[0][0];}catch(e){API.signOut(true)}}
+  if(API.token){try{const who=await API.get("/auth/me");API.me=who.user;
+   S.role=roleOf();S.tab=tabsFor(S.role)[0][0];}catch(e){API.signOut(true)}}
   await syncAll(true);
   setInterval(()=>{if(!document.hidden&&!S.stack.length)syncAll()},60000);
  }

@@ -8,14 +8,16 @@ Two pieces:
 
 | | |
 | --- | --- |
-| **`ai4food-app.html`** | The whole app in one file — customer, merchant counter and AI4Food console. Runs from a file:// double-click or behind any static host. |
-| **`server/`** | The backend: catalogue, orders, pickup validation, dashboards. Node + Express + SQLite. |
+| **`ai4food-app.html`** | The app in one file — the customer side and the merchant counter. Runs from a file:// double-click or behind any static host. |
+| **`server/`** | The backend: catalogue, orders, pickup validation, dashboards, and the admin API. Node + Express + SQLite. |
 
 ## Run it
 
-**Just the app** — open `ai4food-app.html` in a browser. With no server in
-reach it runs in demo mode: a seeded Dakar catalogue, local ranking, and state
-kept in `localStorage`. Nothing to install.
+**Just the app** — open `ai4food-app.html` in a browser. You sign in first,
+either as a customer or as a shop; there is no way to browse without choosing
+a side, and no switch that pretends you are the other one. With no server in
+reach the same two doors accept the seeded accounts locally, against a demo
+catalogue kept in `localStorage`. Nothing to install.
 
 **App plus backend:**
 
@@ -52,7 +54,7 @@ Sign-in accounts are printed by the seed:
 | --- | --- |
 | Customer | `+221771234567` — a 6-digit code, returned in the API response outside production |
 | Merchant | `+221770000002` / `boulangerie-2026` |
-| Admin | `+221770000001` / `admin-dakar-2026` |
+| Admin | `+221770000001` / `admin-dakar-2026` — for the API; the app turns this account away |
 
 ## What each role sees
 
@@ -69,7 +71,10 @@ is in **[server/docs/ROLES.md](server/docs/ROLES.md)**.
 - **Admin** — the whole platform: the day's volume and commission, every order
   on both sides, the shop pipeline from prospect to partner, the people
   directory, payouts per shop, and an audit log of who did what. Never a
-  password hash, never an unmasked phone number in a list view.
+  password hash, never an unmasked phone number in a list view. **This one has
+  no screens in `ai4food-app.html`** — it is internal tooling and lives in the
+  API only (`/api/admin/*`, documented and tested). An admin account that signs
+  in to the app is told so and shown the door.
 
 ## The app
 
@@ -79,6 +84,10 @@ recommender, and offline demo mode.
 
 ### How it behaves in the hand
 
+- **Two doors, no costume box.** The first screen asks who you are: a customer
+  signs in with a phone number and a code, a shop with the password AI4Food
+  gave it. Which side you land on comes from the account, not from a toggle —
+  there is no button that turns a customer into a merchant.
 - **The back button works.** Hardware or browser back closes the open sheet,
   then returns to the feed, and only then leaves the app. Sheets also drag down
   to dismiss, and every tab remembers where you had scrolled to.
@@ -110,10 +119,9 @@ recommender, and offline demo mode.
   tabular figures, so a ticking countdown does not shove the line around it.
   An open pickup window shows how much of itself is left.
 - **Every row opens something.** A shop row opens the shop and its bags, a past
-  order opens its receipt, a pickup opens the counter view, and on the consoles
-  every order, shop, person, payout line and audit entry has a detail sheet
-  behind it. Every figure on a dashboard opens a sentence explaining how it is
-  computed. Rows are real buttons: they take keyboard focus and answer Enter,
+  order opens its receipt, and on the counter every bag and every pickup has a
+  detail sheet behind it. Every figure on a dashboard opens a sentence
+  explaining how it is computed. Rows are real buttons: they take keyboard focus and answer Enter,
   and a button inside a row does its own job without opening the row.
 - **A bag you cannot collect can go to a friend.** Send the link, and whoever
   opens it gets the shop, the window and the code — a bearer view with no

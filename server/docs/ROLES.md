@@ -99,6 +99,12 @@ is never taken from the request body.
 AI4Food staff. Signs in with a password. Sees the whole platform, and every
 privileged action they take is written to the audit log with their name on it.
 
+**There is no admin screen in `ai4food-app.html`.** That app serves customers
+and shops; this role is internal tooling and exists here as an API only. An
+admin account that signs in to the app is told as much and shown the door —
+which is a product decision, not a security boundary: the guarantees below are
+enforced server-side and hold for any client.
+
 ### Sees
 
 | Area | Detail |
@@ -144,6 +150,12 @@ privileged action they take is written to the audit log with their name on it.
 Can browse: `GET /api/offers`, `/api/offers/:id`, `/api/merchants`,
 `/api/merchants/:id`, `/api/meta`. Ranking still works, using distance and
 timing only — there is no history to personalise with.
+
+The API allows this; `ai4food-app.html` does not use it. That app asks you to
+sign in before it shows anything, so an anonymous read is available to other
+clients (a website, a widget) rather than to its own users. The one exception
+is a pickup link, `GET /api/pickup/:token`, which is deliberately open to
+whoever holds it.
 
 Cannot: order, favourite, invite a shop, or read anything under `/api/orders`,
 `/api/me`, `/api/notifications`, `/api/merchant`, `/api/admin` — all **401**.
