@@ -19,7 +19,10 @@ export function createApp() {
   app.use(security);
   app.use(loadUser);
 
-  app.get('/health', (_req, res) => res.json({ ok: true, env: config.env, time: Date.now() }));
+  // The service name is not decoration: a client pointed at the wrong origin
+  // needs to tell "AI4Food answered" from "something answered".
+  app.get('/health', (_req, res) =>
+    res.json({ ok: true, service: 'ai4food', env: config.env, time: Date.now() }));
 
   app.use('/api/auth', authRoutes);
   app.use('/api', catalogRoutes);      // offers, merchants, meta  (public reads)

@@ -2194,7 +2194,14 @@ const API={
    this.signOut(true);
   }
   const txt=await r.text();
-  const data=txt?JSON.parse(txt):null;
+  let data=null;
+  try{data=txt?JSON.parse(txt):null}
+  catch(err){
+   // Ce n'est pas notre API: inutile de montrer une erreur d'analyse a
+   // quelqu'un qui voulait juste se connecter.
+   goDemo();
+   const e=new Error(t("offline_p"));e.code="network";e.status=0;throw e;
+  }
   if(!r.ok){
    const e=new Error((data&&data.error&&data.error.message)||"Erreur réseau");
    e.code=data&&data.error?data.error.code:"network";e.status=r.status;throw e;
@@ -2246,6 +2253,12 @@ function apiBase(){
  if(location.protocol.indexOf("http")===0)return location.origin;
  return "http://localhost:4000";
 }
+/**
+ * Un 200 ne prouve rien. Beaucoup d'hebergeurs repondent 200 et une page HTML
+ * a n'importe quelle adresse inconnue: l'application se croyait alors en
+ * ligne, envoyait ses requetes a un site qui n'est pas le sien, et plus
+ * personne ne pouvait se connecter. On exige donc du JSON qui se presente.
+ */
 async function connect(){
  API.base=apiBase();
  if(!API.base)return false;
@@ -2254,10 +2267,21 @@ async function connect(){
   const r=await fetch(API.base+"/health",{signal:c.signal});
   clearTimeout(timer);
   if(!r.ok)throw new Error("health");
+  if((r.headers.get("content-type")||"").indexOf("json")<0)throw new Error("not our api");
+  const h=await r.json();
+  if(!h||h.ok!==true||(h.service&&h.service!=="ai4food"))throw new Error("not our api");
   API.online=true;API.restore();
  }catch(e){API.online=false}
  S.mode=API.online?"online":"demo";
  return API.online;
+}
+/** Le serveur repond n'importe quoi: on repasse en local plutot que d'insister. */
+function goDemo(){
+ if(!API.online)return;
+ API.online=false;API.me=null;S.mode="demo";S.netDown=false;
+ S.remote={offers:[],orders:[],notifs:[],impact:null,merchants:[],follows:[],forme:[]};
+ S.role=roleOf();S.tab=tabsFor(S.role)[0][0];
+ render(true);
 }
 
 /* ---------- conversions serveur -> modele de vue ---------- */
