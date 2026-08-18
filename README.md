@@ -34,6 +34,13 @@ The `?api=` parameter is remembered in `localStorage`; drop it once set, or
 pass `?api=` (empty) to force demo mode. Served from the same origin as the
 API, the app finds it on its own.
 
+**Swapping in a real photo** — drop it in `photos/` named after the image key
+the offer uses (`photos/pastels.jpg`), then
+`python3 tools/grade-photos.py photos/ > blob.js` and paste the `const P = {…}`
+block it prints over the one in `ai4food-app.html`. It applies the same crop,
+grade and sharpening as everything else, so a new photo joins the set instead
+of standing out from it. Needs Pillow.
+
 **Behind a host that supplies its own page wrapper** (an embed, a docs site),
 `node tools/build-artifact.mjs` writes `ai4food-artifact.html`: the same app
 with our `<!doctype>`, `<html>` and `<body>` stripped and the charset, title,
@@ -93,6 +100,15 @@ recommender, and offline demo mode.
   first feed is sorted around you rather than around a default pin. Choose an
   area, sign in later, and the choice you just made travels to the account
   instead of being overwritten by it.
+- **The photography is graded as one set.** Fifteen stock frames shot by
+  different people under different lights read as clip art side by side, so
+  they get one white balance, one contrast curve and one level of sharpening,
+  and crops that put the subject where it belongs. A shop with no photo does
+  not borrow someone else's: it gets a house tile with its initials, which
+  never pretends to be a photograph of food you are not getting.
+- **Numbers hold still.** Prices, codes, distances and countdowns are set in
+  tabular figures, so a ticking countdown does not shove the line around it.
+  An open pickup window shows how much of itself is left.
 - **Every row opens something.** A shop row opens the shop and its bags, a past
   order opens its receipt, a pickup opens the counter view, and on the consoles
   every order, shop, person, payout line and audit entry has a detail sheet
