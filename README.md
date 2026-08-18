@@ -34,6 +34,11 @@ The `?api=` parameter is remembered in `localStorage`; drop it once set, or
 pass `?api=` (empty) to force demo mode. Served from the same origin as the
 API, the app finds it on its own.
 
+**Behind a host that supplies its own page wrapper** (an embed, a docs site),
+`node tools/build-artifact.mjs` writes `ai4food-artifact.html`: the same app
+with our `<!doctype>`, `<html>` and `<body>` stripped and the charset, title,
+font links and stylesheet kept. It is a build output, not a source file.
+
 Sign-in accounts are printed by the seed:
 
 | Role | Credentials |
