@@ -670,6 +670,12 @@ button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,
   padding:22px 22px 6px;opacity:.75}
 
 /* ---------- misc ---------- */
+.demobar{display:flex;align-items:center;gap:7px;margin:0 22px 12px;padding:9px 12px;
+  border-radius:11px;background:#FDEEE0;color:var(--amber);font-size:11.5px;line-height:1.4}
+.demobar b{font-family:var(--dp);font-weight:700}
+.demobar span{color:var(--muted)}
+[data-theme="dark"] .demobar{background:#3A2C18;color:#E9A05C}
+[data-theme="dark"] .demobar span{color:#A9C4BC}
 .stat{display:inline-flex;align-items:center;gap:5px;font-family:var(--dp);font-size:11px;font-weight:700;
   padding:4px 9px;border-radius:8px;background:var(--pale);color:var(--emerald)}
 .stat.wait{background:#FDEEE0;color:var(--amber)}
@@ -927,7 +933,6 @@ pay_with:["À payer avec","To pay with","Fey ak"],
 confirmed:["Commande confirmée","Order confirmed","Commande bi baax na"],
 thanks:["Jërëjëf. Présentez votre code chez {0}, entre {1} et {2}.","Jërëjëf. Show your code at {0}, between {1} and {2}.","Jërëjëf. Wonel sa kod ci {0}, diggante {1} ak {2}."],
 pickup_code:["Code de retrait","Pickup code","Kod bu retrait"],
-co2_line:["Vous venez d'éviter {0} kg de CO₂e.","You just avoided {0} kg CO₂e.","Musal nga {0} kg CO₂e."],
 see_order:["Voir ma commande","See my order","Xool sama commande"],
 /* orders */
 tracking:["Suivi","Tracking","Suivi"],
@@ -978,9 +983,8 @@ role_client:["Client","Customer","Client"],
 role_merchant:["Commerçant","Merchant","Butikkat"],
 impact:["Votre impact","Your impact","Sa impact"],
 meals_saved:["repas sauvés","meals saved","ñam yu mucc"],
-co2_avoided:["CO₂e évités","CO₂e avoided","CO₂e yu musal"],
 money_saved:["économisés","saved","yu nga denc"],
-impact_note:["Chaque panier récupéré évite en moyenne 1,2 kg de CO₂e.","Each basket picked up avoids about 1.2 kg CO₂e.","Panier bu ñu jël dafay musal 1,2 kg CO₂e."],
+impact_note:["Paniers récupérés et écart avec le prix d'origine. Deux chiffres comptés, pas estimés.","Bags collected, and the gap with the original price. Two counted numbers, not estimates.","Panier yi nga jël ak xaajale bi ak njëg bu njëkk. Ñaari limu wóor."],
 pay_methods:["Moyens de paiement","Payment methods","Payement"],
 language:["Langue","Language","Làkk"],
 row_orders:["Mes commandes","My orders","Sama commande yi"],
@@ -1210,6 +1214,69 @@ merch_space:["Espace commerçant","Shop dashboard","Wetu butikkat"],
 merch_space_p:["Gérer mes paniers et mes retraits","Manage my bags and pickups","Toppatoo sama panier ak retrait"],
 become_partner:["Devenir partenaire","Become a partner","Bokk ci AI4Food"],
 become_partner_p:["Vendre vos invendus sur AI4Food","Sell your surplus on AI4Food","Jaay li nga jaayul ci AI4Food"],
+pt_sub:["Dites-nous qui vous êtes, on vous rappelle.","Tell us who you are and we call you back.","Waxal nu kan nga, dinañu la woo."],
+pt_name:["Nom du commerce","Business name","Turu butik bi"],
+pt_cat:["Type de commerce","Kind of business","Xeetu butik"],
+pt_contact:["Votre nom","Your name","Sa tur"],
+pt_email:["E-mail (facultatif)","Email (optional)","E-mail (bu la neexee)"],
+pt_zone:["Quartier","Neighbourhood","Gox"],
+pt_addr:["Adresse","Address","Adress"],
+pt_surplus:["Ce qui vous reste souvent","What tends to be left","Li dul jaay bu baax"],
+pt_surplus_ph:["Pains, viennoiseries…","Bread, pastries…","Mburu, viennoiserie…"],
+pt_hours:["Heures de retrait souhaitées","Preferred pickup hours","Waxtu retrait bi nga bëgg"],
+pt_hours_ph:["19h - 20h","7pm - 8pm","19h - 20h"],
+pt_send:["Envoyer ma candidature","Send my application","Yónnee sama kandidatur"],
+pt_missing:["Nom du commerce, votre nom et un téléphone suffisent pour commencer.","Business name, your name and a phone number are enough to start.","Turu butik, sa tur ak numéro doy na."],
+pt_legal:["Nous vous rappelons pour vérifier. Votre commerce n'apparaît pas dans l'application avant validation.","We call you to check. Your shop does not appear in the app before we approve it.","Dinañu la woo ngir seet. Sa butik du feeñ ci app bi ba ñu ko nangu."],
+pt_sent_t:["Candidature envoyée","Application sent","Kandidatur bi dem na"],
+pt_sent_p:["Nous vous rappelons sous 48h. Votre commerce n'est pas encore visible par les clients.","We call you back within 48h. Your shop is not visible to customers yet.","Dinañu la woo ci 48 waxtu. Sa butik feeñagul ci client yi."],
+
+privacy:["Confidentialité","Privacy","Sutura"],
+terms:["Conditions d'utilisation","Terms of use","Kondisiyon yi"],
+lg_updated:["Mis à jour le 19 août 2026","Updated 19 August 2026","Soppi ci 19 ut 2026"],
+lg_review:["Ce texte décrit fidèlement le fonctionnement de l'application. Il n'a pas encore été relu par un juriste sénégalais.","This text describes honestly how the app works. It has not yet been reviewed by a Senegalese lawyer.","Bataaxal bii dafay wax ni app bi di doxe. Jurist bu Senegaal seetagul ko."],
+
+lg_p1_t:["Ce que nous collectons","What we collect","Lu ñuy jël"],
+lg_p1_p:["Votre numéro de téléphone, votre nom si vous le donnez, le quartier ou la position que vous choisissez, et vos commandes. Rien d'autre.","Your phone number, your name if you give one, the neighbourhood or location you choose, and your orders. Nothing else.","Sa numéro, sa tur boo ko joxee, sa gox walla fu nga nekk, ak sa commande yi. Lu ci des amul."],
+lg_p2_t:["Pourquoi","Why","Lu tax"],
+lg_p2_p:["Le téléphone sert à vous connecter et à vous prévenir d'un retrait. La position sert à trier les paniers autour de vous. Les commandes servent à vous les montrer et à payer les commerces.","Your phone signs you in and warns you about a pickup. Your location sorts bags around you. Your orders let us show them to you and pay the shops.","Numéro bi mooy sa kayit dugg ak xamal la retrait. Fu nga nekk mooy tri panier yi. Commande yi ngir wone la leen te fey butik yi."],
+lg_p3_t:["Ce que le commerce voit","What the shop sees","Li butik bi gis"],
+lg_p3_p:["Votre prénom et les quatre derniers chiffres de votre numéro, pour vous reconnaître au comptoir. Jamais votre numéro complet.","Your first name and the last four digits of your number, so they know you at the counter. Never your full number.","Sa tur bu njëkk ak ñeenti chiffre yu mujj, ngir la xam ci komptuwaar. Numéro bi bépp mukk."],
+lg_p4_t:["Ce que nous ne faisons pas","What we do not do","Lu ñu dul def"],
+lg_p4_p:["Nous ne vendons pas vos données, nous ne les cédons pas à des annonceurs, et nous ne suivons pas votre navigation ailleurs.","We do not sell your data, hand it to advertisers, or follow you around other sites.","Duñu jaay sa données, duñu ko jox publicité, te duñu la topp ci yeneen site."],
+lg_p5_t:["Combien de temps","How long","Ñaata waxtu"],
+lg_p5_p:["Vos commandes restent tant que votre compte existe, parce qu'elles sont aussi la comptabilité du commerce. Le reste part avec le compte.","Your orders stay while your account does, because they are also the shop's books. The rest leaves with the account.","Sa commande yi dinañu des ba sa kont dee, ndax ñooy itam kayitu butik bi. Li ci des dem na ak kont bi."],
+lg_p6_t:["Vos droits","Your rights","Sa yelleef"],
+lg_p6_p:["Vous pouvez exporter vos données et supprimer votre compte depuis Profil, à tout moment, sans nous écrire.","You can export your data and close your account from Profile, any time, without writing to us.","Man nga jële sa données te fey sa kont ci Profil, kañ nga ko bëgg."],
+lg_p7_t:["Nous contacter","Contact us","Jokkoo ak nun"],
+lg_p7_p:["Écrivez à privacy@ai4food.sn. Le responsable du traitement est AI4Food, à Dakar.","Write to privacy@ai4food.sn. The data controller is AI4Food, Dakar.","Bindal privacy@ai4food.sn. AI4Food ci Dakar mooy toppatoo."],
+
+lg_t1_t:["Ce qu'AI4Food fait","What AI4Food does","Lu AI4Food di def"],
+lg_t1_p:["AI4Food met en relation des commerces qui ont des invendus et des clients qui viennent les chercher. Nous ne préparons pas la nourriture et nous ne la livrons pas.","AI4Food connects shops with surplus to customers who come and collect it. We do not prepare the food and we do not deliver it.","AI4Food mooy boole butik yi am lu jaayul ak client yi koy jël. Duñu togg te duñu ko yóbbu."],
+lg_t2_t:["Le panier est une surprise","The bag is a surprise","Panier bi surprise la"],
+lg_t2_p:["Un panier contient les invendus disponibles ce jour-là. Le contenu varie et ne peut pas être choisi. Prévenez le commerce sur place pour toute allergie.","A bag holds whatever was left that day. The contents vary and cannot be chosen. Tell the shop about any allergy when you collect.","Panier bi day am li des ci bés boobu. Du yem te doo ko tann. Wax butik bi bu nga am allergie."],
+lg_t3_t:["Payer et annuler","Paying and cancelling","Fey ak bàyyi"],
+lg_t3_p:["Vous payez au commerce sur place, ou par portefeuille mobile. Une commande payée peut être annulée gratuitement jusqu'à 2h avant le début du retrait, et remboursée.","You pay the shop on collection, or by mobile wallet. A paid order can be cancelled free up to 2h before pickup opens, and refunded.","Fey nga butik bi walla ci telefon. Man nga bàyyi commande bi ba 2 waxtu balaa retrait bi, te ñu la delloo."],
+lg_t4_t:["Venir chercher","Collecting","Jël panier bi"],
+lg_t4_p:["Présentez votre code pendant la fenêtre de retrait. Un code ne sert qu'une fois, et uniquement dans le commerce qui a préparé le panier. Passé la fenêtre, le panier est perdu.","Show your code during the pickup window. A code works once, only at the shop that made the bag. After the window, the bag is gone.","Wonel sa kod ci waxtu retrait bi. Kod bi benn yoon rekk, ci butik bi ko defar. Bu waxtu wi weesoo, panier bi jeex na."],
+lg_t5_t:["Les prix","Prices","Njëg yi"],
+lg_t5_p:["Les prix sont en francs CFA, toutes taxes comprises. AI4Food prélève une commission auprès du commerce, jamais du client.","Prices are in CFA francs, all taxes included. AI4Food takes a commission from the shop, never from the customer.","Njëg yi ci franc CFA lañu, ak taks yi. AI4Food day jël komisiyon ci butik bi, du ci client bi."],
+lg_t6_t:["Votre compte","Your account","Sa kont"],
+lg_t6_p:["Un compte par numéro de téléphone. Nous pouvons suspendre un compte qui ne vient jamais chercher ses paniers, après vous avoir prévenu.","One account per phone number. We can suspend an account that never collects its bags, after telling you.","Benn kont ci benn numéro. Man nañu tëj kont bu dul jël panier yi, bu ñu la xamalee."],
+
+my_data:["Mes données","My data","Sama données"],
+my_data_p:["Emporter ou tout effacer","Take it with you, or erase it","Jël walla far"],
+dt_export_t:["Exporter mes données","Export my data","Jële sama données"],
+dt_export_p:["Un fichier avec votre compte, vos commandes, vos favoris et vos notifications. Rien qui concerne quelqu'un d'autre.","A file with your account, orders, favourites and notifications. Nothing about anybody else.","Fichier bu am sa kont, sa commande, sa favori ak sa xibaar. Dara ci keneen."],
+dt_export_btn:["Télécharger","Download","Yeb"],
+dt_export_ok:["Fichier téléchargé","File downloaded","Fichier bi yeb na"],
+dt_del_t:["Supprimer mon compte","Close my account","Fey sama kont"],
+dt_del_p:["Votre nom, votre numéro et votre position sont effacés. Les montants de vos commandes restent dans la comptabilité des commerces, sans vous.","Your name, number and location are erased. Your order amounts stay in the shops' books, without you attached.","Sa tur, sa numéro ak fu nga nekk dinañu far. Xaalis bi ci commande yi day des ci kayitu butik yi, te sa tur amul ci."],
+dt_del_confirm:["Cette action est définitive. Vous ne pourrez pas récupérer vos commandes ni vos favoris.","This cannot be undone. Your orders and favourites will not come back.","Loolu du dellu gannaaw. Sa commande ak sa favori duñu dellu."],
+dt_del_btn:["Supprimer définitivement","Close it for good","Far ko bu wóor"],
+dt_del_ok:["Compte supprimé","Account closed","Kont bi fey na"],
+demo_badge:["Mode démo","Demo mode","Mode démo"],
+demo_badge_p:["Données de démonstration, sans lien avec de vrais commerces.","Demonstration data, unconnected to any real shop.","Données démo, amul lëkkalook butik yu wóor."],
 gate_demo_t:["Sans serveur","With no server","Amul serveur"],
 gate_demo_client:["Le code s'affiche ici, aucun SMS n'est envoyé.","The code appears here, no SMS is sent.","Kod bi dina feeñ fii, amul SMS."],
 gate_demo_merch:["Compte de démonstration: {0} / {1}","Demo account: {0} / {1}","Compte démo: {0} / {1}"],
@@ -1237,7 +1304,6 @@ m_taken:["Déjà pris","Already taken","Li ñu jël"],
 a_person:["La personne","The person","Nit ki"],
 stat_t:["D'où vient ce chiffre","Where this number comes from","Fu limu bi jóge"],
 sn_meals:["Un panier retiré = un repas sauvé. On ne compte que les paniers réellement récupérés, jamais ceux réservés puis oubliés.","One collected bag = one meal saved. Only bags actually collected are counted, never ones reserved and forgotten.","Panier bu ñu jël = ñam bu mucc. Yi ñu jël rekk lañuy waññ."],
-sn_co2:["1,2 kg d'équivalent CO₂ par panier retiré: ordre de grandeur usuel pour un repas jeté, transport et production compris.","1.2 kg CO₂e per collected bag: the usual order of magnitude for a wasted meal, production and transport included.","1,2 kg CO₂ ci benn panier: lu ñu jàppe ci ñam bu ñu sànni."],
 sn_saved:["La différence entre le prix en boutique et ce que vous avez payé, sur les paniers retirés.","The gap between the shop price and what you paid, on collected bags.","Xaajale bi ci prix bu butik ak li nga fey."],
 sn_published:["Le nombre de paniers encore disponibles sur vos offres du jour.","How many bags are still available across today's offers.","Panier yi des ci offre yi tey."],
 sn_reserved:["Les paniers réservés aujourd'hui, retirés ou non, hors annulations.","Bags reserved today, collected or not, cancellations aside.","Panier yi ñu réserver tey."],
@@ -1290,7 +1356,7 @@ p_i3:["Client, commerçant et admin reliés","Customer, merchant and admin conne
 p_i4:["Français, English, Wolof &middot; thème clair et sombre","Français, English, Wolof &middot; light and dark theme","Français, English, Wolof &middot; melo bu leer ak bu lëndëm"],
 p_i5:["État sauvegardé sur l'appareil","State saved on the device","Data bi ci telefon bi lañu ko denc"],
 p_kv2:["Impact de cette session","Impact of this session","Impact bu session bi"],
-p_impact:["{0} repas &middot; {1} kg CO₂e &middot; {2} FCFA","{0} meals &middot; {1} kg CO₂e &middot; {2} FCFA","{0} ñam &middot; {1} kg CO₂e &middot; {2} FCFA"],
+p_impact:["{0} paniers récupérés &middot; {1} FCFA économisés","{0} bags collected &middot; {1} FCFA saved","{0} panier &middot; {1} FCFA yu nga denc"],
 p_fine:["Prototype de démonstration. Commerces cités à titre d'illustration, sans partenariat existant.","Demo prototype. Shops shown for illustration only, no existing partnership.","Prototype bu démo. Butik yi ci misaal rekk lañu."]
 };
 const t=(k,...a)=>{const e=STR[k];let s=e?(e[LI]!==undefined?e[LI]:e[0]):k;
@@ -1587,12 +1653,12 @@ const pastOrders=()=>ORDERS().filter(o=>o.status!=="active"&&o.status!=="unpaid"
 function impact(){
  if(online()){
   const i=S.remote.impact;
-  return i?{meals:i.meals_saved,co2:i.co2e_kg,saved:i.money_saved_cfa}:{meals:0,co2:0,saved:0};
+  return i?{meals:i.meals_saved,saved:i.money_saved_cfa}:{meals:0,saved:0};
  }
  let meals=0,saved=0;
  ORDERS().filter(o=>o.status==="done").forEach(o=>{
   const d=oOff(o);if(!d)return;meals+=o.qty;saved+=(d.was-d.price)*o.qty});
- return {meals:meals,co2:Math.round(meals*1.2*10)/10,saved:saved};
+ return {meals:meals,saved:saved};
 }
 
 /* =========================================================
@@ -2633,6 +2699,7 @@ function home(){
  const act=activeOrders()[0];
  const actD=act?byId(act.id):null;
  return `
+ ${online()?"":`<div class="demobar">${I("info",14)} <b>${t("demo_badge")}</b> <span>${t("demo_badge_p")}</span></div>`}
  <div class="head"><div><div class="hi">${greet()}</div>
    <button class="city" onclick="openZone()" style="background:none;border:none;padding:0">${esc(S.zone)} ${I("chevD",18)}</button></div>
   ${bellBtn()}</div>
@@ -2764,7 +2831,7 @@ function ticket(o,full){
    <div class="tk-bot">
     <button class="qr" onclick="openQr('${o.code}')" aria-label="${esc(t("qr_big"))}">${qr(o.code)}</button>
     <div><div class="cl">${t("pickup_code")}</div><div class="code">${o.code}</div>
-    <p>${full?t("qr_hint"):t("co2_line",(1.2*o.qty).toFixed(1))}</p></div></div></div>`;
+    <p>${t("qr_hint")}</p></div></div></div>`;
 }
 /* Un panier retenu mais pas paye n'a pas de billet a montrer: il n'y a rien a
    retirer tant que l'argent n'a pas bouge. On montre donc ce qu'il reste de
@@ -2879,7 +2946,6 @@ function profile(){
      <button class="btn btn-ghost" onclick="signOutAny()">${I("close",17)} ${t("sign_out")}</button></div>`})()}
  ${(roleOf()==="client"&&!guest())?`<div class="impact grain"><h3>${I("leaf",18)} ${t("impact")}</h3>
   <div class="irow">${statTile("meals",im.meals,t("meals_saved"))}
-  ${statTile("co2",im.co2+" kg",t("co2_avoided"))}
   ${statTile("saved",Fk(im.saved)+" F",t("money_saved"))}</div>
   <p style="margin:13px 0 0;font-size:10.5px;color:#A9C4BC;line-height:1.5">${t("impact_note")}</p></div>`:""}
  <div class="rows">
@@ -2895,6 +2961,11 @@ function profile(){
  <div class="rows">
   ${roleOf()==="merchant"?"":row("store",t("merch_space"),"","openGate('merchant')")}
   ${row("spark",t("become_partner"),"","openPartner()")}
+ </div>
+ <div class="rows">
+  ${row("info",t("privacy"),"","openLegal('privacy')")}
+  ${row("receipt",t("terms"),"","openLegal('terms')")}
+  ${guest()?"":row("user",t("my_data"),"","openData()")}
  </div>
  <div class="brandline">${logoLock(15)}</div>
  <p class="legal">${online()?t("online_mode"):t("demo_mode")} &middot; ${t("legal_offers")}</p>`;
@@ -3102,7 +3173,7 @@ function infoSheet(a){
 }
 
 /* ---------- un chiffre ---------- */
-const STAT_TITLES={meals:"meals_saved",co2:"co2_avoided",saved:"money_saved",published:"m_published",
+const STAT_TITLES={meals:"meals_saved",saved:"money_saved",published:"m_published",
  reserved:"m_reserved",earned:"m_earned",commission:"m_commission",rate:"a_rate",volume:"a_volume",
  users:"a_users",awaiting:"m_awaiting"};
 function statSheet(a){
@@ -3414,7 +3485,113 @@ function publishSheet(){
 const SHEETS={detail:detail,why:whySheet,payment:payment,done:done,search:searchSheet,
  notifs:notifSheet,zone:zoneSheet,lang:langSheet,publish:publishSheet,
  scan:scanSheet,qrbig:qrBigSheet,give:giveSheet,pickup:pickupSheet,
- stat:statSheet,shop:shopSheet,order:orderSheet,moffer:mOfferSheet,mpick:mPickSheet};
+ stat:statSheet,shop:shopSheet,order:orderSheet,moffer:mOfferSheet,mpick:mPickSheet,
+ partner:partnerSheet,legal:legalSheet,data:dataSheet};
+
+/* ---------- devenir partenaire ----------
+   Un commerce qui entend parler d'AI4Food doit pouvoir lever la main sans
+   connaitre personne. Ce formulaire ne cree pas un commerce: il cree une
+   candidature, que quelqu'un lit. Rien de ce qui est tape ici n'atterrit sur
+   la carte d'un client. */
+function partnerSheet(){
+ const f=S.partner||{};
+ if(f.done)return `${shHead(t("pt_sent_t"),"","closeSheet()")}
+  <div class="shbody"><div class="empty" style="padding-top:8px">
+   <div class="ic">${I("check",28)}</div><h3>${t("pt_sent_t")}</h3><p>${t("pt_sent_p")}</p>
+   <button class="btn btn-main" onclick="closeSheet()">${t("ok_btn")}</button></div></div>`;
+ const fld=(k,label,attrs)=>`<div class="fld"><label for="pt_${k}">${label}</label>
+   <input id="pt_${k}" value="${esc(f[k]||"")}" ${attrs||""} maxlength="120"></div>`;
+ return `${shHead(t("become_partner"),t("pt_sub"),"closeTop()")}
+ <div class="shbody">
+  ${f.err?`<p class="err" style="margin:0 0 12px">${I("info",14)} ${esc(f.err)}</p>`:""}
+  ${fld("business_name",t("pt_name"))}
+  <div class="fld"><label for="pt_category">${t("pt_cat")}</label>
+   <select id="pt_category">${PT_CATS.map(c=>`<option value="${esc(c)}" ${f.category===c?"selected":""}>${esc(c)}</option>`).join("")}</select></div>
+  ${fld("contact_name",t("pt_contact"))}
+  ${fld("phone",t("phone"),'type="tel" inputmode="tel" placeholder="77 123 45 67"')}
+  ${fld("email",t("pt_email"),'type="email" inputmode="email" placeholder="—"')}
+  <div class="fld"><label for="pt_zone">${t("pt_zone")}</label>
+   <select id="pt_zone">${ZONES.map(z=>`<option value="${esc(z[0])}" ${f.zone===z[0]?"selected":""}>${esc(z[0])}</option>`).join("")}</select></div>
+  ${fld("address",t("pt_addr"))}
+  ${fld("surplus_note",t("pt_surplus"),'placeholder="'+esc(t("pt_surplus_ph"))+'"')}
+  ${fld("pickup_note",t("pt_hours"),'placeholder="'+esc(t("pt_hours_ph"))+'"')}
+  <p class="hint">${t("pt_legal")}</p>
+ </div>
+ <div class="bar"><button class="btn btn-main" onclick="sendPartner()">${I("chevR",18)} ${t("pt_send")}</button></div>`;
+}
+const PT_CATS=["Restaurants","Hôtels","Supermarchés","Boulangeries","Marchés"];
+function openPartner(){S.partner={category:"Boulangeries",zone:S.zone,err:"",done:false};pushSheet("partner")}
+async function sendPartner(){
+ const g=k=>((el("pt_"+k)||{}).value||"").trim();
+ const body={business_name:g("business_name"),category:g("category")||"Boulangeries",
+  contact_name:g("contact_name"),phone:g("phone"),email:g("email"),
+  zone:g("zone")||S.zone,address:g("address"),surplus_note:g("surplus_note"),pickup_note:g("pickup_note")};
+ S.partner=Object.assign({},S.partner,body,{err:""});
+ if(body.business_name.length<2||body.contact_name.length<2||body.phone.length<6){
+  S.partner.err=t("pt_missing");return reSheet();
+ }
+ if(!online()){S.partner.done=true;return reSheet()}
+ btnBusy(true);
+ try{
+  await API.post("/partners/apply",body);
+  buzz("ok");S.partner.done=true;reSheet();
+ }catch(e){btnBusy(false);S.partner.err=e.message;reSheet()}
+}
+
+/* ---------- ce que nous faisons de vos donnees ----------
+   Ces textes sont redigés pour etre exacts sur le fonctionnement reel de
+   l'application. Ils n'ont pas encore ete relus par un juriste: voir
+   docs/PRIVACY.md, qui le dit aussi. */
+function legalSheet(which){
+ const keys=which==="terms"
+  ? ["lg_t1","lg_t2","lg_t3","lg_t4","lg_t5","lg_t6"]
+  : ["lg_p1","lg_p2","lg_p3","lg_p4","lg_p5","lg_p6","lg_p7"];
+ return `${shHead(t(which==="terms"?"terms":"privacy"),t("lg_updated"),"closeTop()")}
+ <div class="shbody">
+  ${keys.map(k=>`<div class="good" style="margin:0 0 10px"><h4>${t(k+"_t")}</h4>
+    <p style="margin:0;font-size:13px;color:var(--good-ink);line-height:1.65">${t(k+"_p")}</p></div>`).join("")}
+  <p class="hint">${t("lg_review")}</p>
+ </div>`;
+}
+function openLegal(which){pushSheet("legal",which)}
+
+/* ---------- vos donnees, et la porte de sortie ---------- */
+function dataSheet(){
+ return `${shHead(t("my_data"),t("my_data_p"),"closeTop()")}
+ <div class="shbody">
+  <div class="good" style="margin:0 0 10px"><h4>${I("receipt",16)} ${t("dt_export_t")}</h4>
+   <p style="margin:0 0 10px;font-size:13px;color:var(--good-ink);line-height:1.65">${t("dt_export_p")}</p>
+   <button class="btn btn-ghost" onclick="exportMyData()">${I("chevR",17)} ${t("dt_export_btn")}</button></div>
+  <div class="good" style="margin:0"><h4>${I("trash",16)} ${t("dt_del_t")}</h4>
+   <p style="margin:0 0 10px;font-size:13px;color:var(--good-ink);line-height:1.65">${t("dt_del_p")}</p>
+   <button class="btn btn-ghost" style="color:var(--danger)" onclick="deleteMyAccount()">${t("dt_del_btn")}</button></div>
+ </div>`;
+}
+function openData(){pushSheet("data")}
+
+async function exportMyData(){
+ if(!online()||!signedIn())return openGate("client");
+ try{
+  const data=await API.get("/auth/me/export");
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);a.download="ai4food-mes-donnees.json";
+  document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},1500);
+  toast(t("dt_export_ok"));
+ }catch(e){toast(e.message,true)}
+}
+
+async function deleteMyAccount(){
+ if(!online()||!signedIn())return openGate("client");
+ if(!await ask({title:t("dt_del_t"),body:t("dt_del_confirm"),
+  confirm:t("dt_del_btn"),cancel:t("keep"),danger:true}))return;
+ try{
+  await API.raw("DELETE","/auth/me",{confirm:"DELETE"});
+  toast(t("dt_del_ok"));
+  API.signOut(true);
+ }catch(e){toast(e.message,true)}
+}
 /** Le code de retrait en plein ecran, pour un comptoir mal eclaire. */
 function qrBigSheet(code){
  return `${shHead(t("pickup_code"),t("qr_big_p"),"back()")}
@@ -4052,7 +4229,7 @@ function pitch(){
   <div class="kv">${t("p_kv1")}</div>
   <ul>${["p_i1","p_i2","p_i3","p_i4","p_i5"].map(k=>`<li>${t(k)}</li>`).join("")}</ul>
   <div class="kv">${t("p_kv2")}</div>
-  <p class="sub" style="margin-bottom:18px">${t("p_impact",im.meals,im.co2,F(im.saved))}</p>
+  <p class="sub" style="margin-bottom:18px">${t("p_impact",im.meals,F(im.saved))}</p>
   <p class="fine">${t("p_fine")}</p>`;
 }
 

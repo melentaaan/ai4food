@@ -1,0 +1,72 @@
+name: tests
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+
+jobs:
+  api:
+    name: API
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: server/package-lock.json
+      - run: npm ci
+        working-directory: server
+      - run: npm test
+        working-directory: server
+
+  web:
+    name: App in a browser
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+        working-directory: server
+      - run: npm install --no-save playwright@1.62.1
+      # Only Chromium: the app is one file with no framework, and a second
+      # engine would double the runtime to tell us the same thing.
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:web
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: browser-failures
+          path: /tmp/ai4food-web-*
+          retention-days: 5
+
+  image:
+    name: Docker image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t ai4food-api:ci .
+      # A container that boots and answers /ready has passed the only check
+      # that matters here: the native module built and the schema applied.
+      - name: it boots and serves
+        run: |
+          docker run -d --name ai4food-ci \
+            -e NODE_ENV=production \
+            -e JWT_SECRET=ci-secret-not-for-production \
+            -e SMS_PROVIDER=twilio \
+            -e TWILIO_ACCOUNT_SID=ci -e TWILIO_AUTH_TOKEN=ci -e TWILIO_FROM=+15550000000 \
+            -e PUBLIC_API_URL=http://localhost:4000 \
+            -e CORS_ORIGINS=http://localhost:8080 \
+            -p 4000:4000 ai4food-api:ci
+          for i in $(seq 1 30); do
+            if curl -fsS http://localhost:4000/ready > /dev/null; then
+              echo "ready"; curl -s http://localhost:4000/health; exit 0
+            fi
+            sleep 2
+          done
+          echo "the container never became ready"; docker logs ai4food-ci; exit 1
+      - if: always()
+        run: docker rm -f ai4food-ci || true

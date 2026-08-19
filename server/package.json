@@ -11,7 +11,9 @@
     "start": "node src/server.js",
     "dev": "node --watch src/server.js",
     "seed": "node src/seed.js",
-    "test": "node --test \"test/**/*.test.js\""
+    "test": "node --test \"test/**/*.test.js\"",
+    "backup": "node ops/backup.mjs",
+    "restore": "node ops/restore.mjs"
   },
   "dependencies": {
     "better-sqlite3": "^13.0.3",

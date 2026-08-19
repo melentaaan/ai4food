@@ -1,0 +1,12 @@
+node_modules
+**/node_modules
+server/data
+**/*.db
+**/*.db-wal
+**/*.db-shm
+.git
+.github
+web-test
+ai4food-artifact.html
+*.md
+!server/package.json
