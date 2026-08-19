@@ -4010,7 +4010,13 @@ function endTsOf(d){
  const base=new Date(now.getFullYear(),now.getMonth(),now.getDate()).getTime();
  return base+w.e*6e4;
 }
+let placing=false;
 async function confirm_(){
+ // Le bouton se desactive, mais un double appui, un clavier ou un rendu qui
+ // repasse par la peuvent le contourner. Deux commandes pour un panier, c'est
+ // un client debite deux fois: le verrou est ici, pas seulement a l'ecran.
+ if(placing)return;
+ placing=true;
  buzz("ok");
  const d=byId(S.cur),q=Math.min(S.qty,stockOf(d));
  if(online()){
@@ -4031,10 +4037,11 @@ async function confirm_(){
   }catch(e){
    btnBusy(false);buzz("err");toast(e.message,true);
    if(e.code==="out_of_stock"){await pullCatalog();render()}
-  }
+  }finally{placing=false}
   return;
  }
  const o={oid:uid(),id:d.id,qty:q,pay:S.pay,code:code4(),ts:Date.now(),endTs:endTsOf(d),status:"active"};
+ placing=false;
  S.orders.unshift(o);
  S.stock[d.id]=Math.max(0,stockOf(d)-q);
  notify("ok",[o.qty+" × "+d.name,d.merch,o.code],"checkC");
