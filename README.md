@@ -9,15 +9,16 @@ Two pieces:
 | | |
 | --- | --- |
 | **`ai4food-app.html`** | The app in one file — the customer side and the merchant counter. Runs from a file:// double-click or behind any static host. |
+| **`ai4food-admin.html`** | The internal console: applications, shops, orders, payouts, refunds, audit. |
 | **`server/`** | The backend: catalogue, orders, pickup validation, dashboards, and the admin API. Node + Express + SQLite. |
 
 ## Run it
 
-**Just the app** — open `ai4food-app.html` in a browser. You sign in first,
-either as a customer or as a shop; there is no way to browse without choosing
-a side, and no switch that pretends you are the other one. With no server in
-reach the same two doors accept the seeded accounts locally, against a demo
-catalogue kept in `localStorage`. Nothing to install.
+**Just the app** — open `ai4food-app.html` in a browser. It opens on the
+marketplace: no sign-in, no account, no onboarding. Browse, search, filter, open
+the map, open a bag, put a heart on it. The first thing that needs a name is
+Réserver. With no server in reach it runs against a demo catalogue in
+`localStorage`, and says so in the header. Nothing to install.
 
 **App plus backend:**
 
@@ -30,7 +31,20 @@ npm start                   # http://localhost:4000
 # then serve the page and point it at the API
 npx http-server -p 8080 ..
 open 'http://localhost:8080/ai4food-app.html?api=http://localhost:4000'
+open 'http://localhost:8080/ai4food-admin.html?api=http://localhost:4000'
 ```
+
+**Tests** — `npm test` at the root runs both: the API suite, and the app driven
+in a real browser against a seeded server and a stand-in for Wave.
+
+```bash
+npm install                 # playwright, for the browser suite
+npm test                    # 88 API tests + 28 browser tests
+```
+
+**Deploying** — `docker build -t ai4food-api .`, then
+**[docs/DEPLOY.md](docs/DEPLOY.md)** for the volume, the backups, the wallet
+callbacks and the restore drill.
 
 The `?api=` parameter is remembered in `localStorage`; drop it once set, or
 pass `?api=` (empty) to force demo mode. Served from the same origin as the
@@ -69,12 +83,12 @@ is in **[server/docs/ROLES.md](server/docs/ROLES.md)**.
   tomorrow's surplus forecast. Never another shop, never a full phone number,
   and no publishing until AI4Food approves them.
 - **Admin** — the whole platform: the day's volume and commission, every order
-  on both sides, the shop pipeline from prospect to partner, the people
-  directory, payouts per shop, and an audit log of who did what. Never a
-  password hash, never an unmasked phone number in a list view. **This one has
-  no screens in `ai4food-app.html`** — it is internal tooling and lives in the
-  API only (`/api/admin/*`, documented and tested). An admin account that signs
-  in to the app is told so and shown the door.
+  on both sides, the shop pipeline from prospect to partner, applications from
+  shops that want in, the people directory, payouts, failed refunds, and an
+  audit log of who did what. Never a password hash, never an unmasked phone
+  number in a list view. It has its own page, **`ai4food-admin.html`** — an
+  admin account that signs in to the customer app is told so and shown the door,
+  and the pipeline never appears on a customer's map.
 
 ## The app
 
@@ -84,6 +98,14 @@ recommender, and offline demo mode.
 
 ### How it behaves in the hand
 
+- **The market comes first, the account comes later.** Opening AI4Food shows
+  food, not a login. A visitor with no account browses, searches, filters, uses
+  the map, reads a bag, and hearts one — the heart stays on the device and
+  follows them into their account when they eventually sign in. Réserver is the
+  first thing that genuinely needs a name, so that is where the app asks, and
+  the bag goes with the question: phone, code, and straight back to the same
+  basket. If the last one sold while the code was being typed, the stock still
+  decides and they are told plainly.
 - **It never pretends to take money.** The payment screen lists what the server
   can actually charge — cash always, a wallet only once it has credentials — so
   there is no balance on screen that belongs to nobody. Choosing a wallet sends
@@ -149,7 +171,7 @@ Full documentation in **[server/README.md](server/README.md)** and
 customers and passwords for staff, JWT with rotating refresh tokens, stock
 decremented by a conditional UPDATE inside a transaction so two customers
 cannot take the same last basket, a 2-hour cancellation window, pickup codes
-that validate once at the owning shop only, and 87 end-to-end tests — most of
+that validate once at the owning shop only, and 88 end-to-end tests — most of
 them trying cross-role reads that must fail.
 
 **Sign-in codes are sent, not printed.** The gateway is configured rather than
@@ -165,6 +187,17 @@ booking when the provider's signed callback lands — or the bag goes back on sa
 when the payment window runs out. Cash is the other half: nothing is owed up
 front, so it is a booking from the start and settles at the counter. A wallet
 with no credentials configured is not offered at all.
+
+**Owed and paid are different questions.** What a shop is due is computed from
+collected orders. What has actually left our account is a payout row with a
+state, an event trail and a transfer reference — and marking one paid without
+that reference is refused, because a payout nobody can reconcile against a bank
+statement is not evidence of anything.
+
+**Nothing is closed off without a way back.** A shop that lost its password can
+reset it over SMS. A customer can export everything we hold on them and close
+their account, which empties the person out of the row and keeps the order
+amounts, because those are half a shop's books.
 
 ```bash
 cd server && npm test

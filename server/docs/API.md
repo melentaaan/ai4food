@@ -28,12 +28,16 @@ Authenticate with `Authorization: Bearer <access_token>`. Access tokens last
 | Method | Path | Who | Notes |
 | --- | --- | --- | --- |
 | POST | `/auth/otp/request` | anyone | `{phone, locale?}`. Sends the code by SMS; returns `dev_code` outside production. 502 if the gateway refused, and the code is retired with it |
-| POST | `/auth/otp/verify` | anyone | `{phone, code, name?}`. Creates the account on first use |
+| POST | `/auth/otp/verify` | anyone | `{phone, code, name?}`. Creates the account on first use, and returns `is_new_account` — which the request step deliberately does not |
 | POST | `/auth/login` | staff | `{identifier, password}` for merchant and admin accounts |
 | POST | `/auth/refresh` | anyone | `{refresh_token}` → new pair, old one dies |
+| POST | `/auth/password/reset/request` | staff | `{identifier, locale?}` → code by SMS. Answers identically whether or not the account exists |
+| POST | `/auth/password/reset/confirm` | staff | `{identifier, code, password}` → sets it, and signs every session out |
 | POST | `/auth/logout` | anyone | Revokes the refresh token |
 | GET | `/auth/me` | signed in | Profile, plus the shop for merchant accounts |
 | PATCH | `/auth/me` | signed in | `{name?, zone?, lat?, lng?, locale?}` |
+| GET | `/auth/me/export` | signed in | Everything we hold on the caller, as a file |
+| DELETE | `/auth/me` | customer | `{confirm:"DELETE"}`. Anonymises rather than deletes — see below |
 
 Phone numbers normalise to E.164: `77 123 45 67`, `00221771234567` and
 `+221771234567` are the same account.
@@ -82,6 +86,26 @@ interest by another route.
 | GET | `/me/impact` | Meals, CO₂e, money saved |
 | GET | `/notifications` | Also generates due pickup reminders |
 | POST | `/notifications/read` | `{ids?}`, or all |
+
+### Becoming a partner
+
+| Method | Path | Who | Notes |
+| --- | --- | --- | --- |
+| POST | `/partners/apply` | **anyone** | A shop asking to join. Creates an application, never a merchant |
+| GET | `/partners/categories` | anyone | The categories the form may offer |
+
+Nothing posted here can reach a customer's screen. An admin reviews it, and
+approving creates the shop as `pending` — publishing is a second decision.
+
+### Closing an account
+
+`DELETE /auth/me` empties the person out of the row: name, phone, email,
+coordinates, sessions, notifications, favourites, follows and sign-in codes go;
+bearer links they sent are revoked. The order rows stay, with the person
+removed from them — an order is half a shop's accounting, and deleting it would
+quietly rewrite somebody else's books. The phone is replaced with
+`deleted:<id>` so the number is neither recognisable nor blocking for whoever
+is issued it next. Refused, with a reason, while an order is still live.
 
 ### Paying
 
@@ -158,6 +182,8 @@ shop for support.
 
 ## Admin
 
+Everything below has screens in `ai4food-admin.html`.
+
 | Method | Path | Notes |
 | --- | --- | --- |
 | GET | `/admin/overview` | `days?` — today, all time, network, users, series |
@@ -176,6 +202,26 @@ shop for support.
 | POST | `/admin/maintenance/expire` | Runs the housekeeping pass by hand |
 
 ---
+
+### Payouts
+
+| Method | Path | Notes |
+| --- | --- | --- |
+| GET | `/admin/payouts` | **Owed**, computed from collected orders. Not a record of any transfer |
+| GET | `/admin/payouts/preview` | What a period would draw up, before committing |
+| POST | `/admin/payouts/runs` | Draws them up. Idempotent per shop and period |
+| GET | `/admin/payouts/runs` | What has been drawn up, with totals per state |
+| GET | `/admin/payouts/runs/:id` | One payout and every step it took |
+| POST | `/admin/payouts/runs/:id/status` | `owed → scheduled → processing → paid`. **`paid` needs a `reference`** |
+
+### Applications and refunds
+
+| Method | Path | Notes |
+| --- | --- | --- |
+| GET | `/admin/applications` | Shops that applied, with counts per state |
+| PATCH | `/admin/applications/:id` | `reviewing` · `needs_info` · `rejected` · `approved` (needs `lat`/`lng`, creates a **pending** shop) |
+| GET | `/admin/refunds/failed` | Cancelled, paid, not refunded — the money we still hold |
+| POST | `/admin/refunds/:orderId/retry` | Ask the wallet again |
 
 ## Worked example
 

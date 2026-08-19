@@ -215,3 +215,38 @@ describe('the moment we ask who you are', () => {
     await page.close();
   });
 });
+
+describe('installable, without caching anything that changes', () => {
+  test('the manifest is there and the worker registers', async () => {
+    const page = await open();
+    const manifest = await page.locator('link[rel="manifest"]').getAttribute('href');
+    assert.ok(manifest && manifest.startsWith('data:application/manifest+json'), 'no manifest');
+    assert.match(decodeURIComponent(manifest), /"name":\s*"AI4Food"/);
+    assert.match(decodeURIComponent(manifest), /"display":\s*"standalone"/);
+
+    const controlled = await page.evaluate(() =>
+      navigator.serviceWorker.ready.then(() => true).catch(() => false));
+    assert.equal(controlled, true, 'the service worker never became ready');
+    await page.close();
+  });
+
+  test('the worker refuses to cache anything from the API', async () => {
+    const page = await open();
+    await page.evaluate(() => navigator.serviceWorker.ready);
+    await page.waitForTimeout(1200);
+
+    const cached = await page.evaluate(async () => {
+      const names = await caches.keys();
+      const urls = [];
+      for (const n of names) {
+        const keys = await (await caches.open(n)).keys();
+        for (const r of keys) urls.push(r.url);
+      }
+      return urls;
+    });
+    const live = cached.filter((u) => /\/api\/|\/health|\/ready/.test(u));
+    assert.deepEqual(live, [], `live data was cached: ${live.join(', ')}`);
+    assert.ok(cached.some((u) => /ai4food-app\.html/.test(u)), 'the shell was not cached');
+    await page.close();
+  });
+});
