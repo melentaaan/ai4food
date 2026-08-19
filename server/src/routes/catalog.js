@@ -9,6 +9,8 @@ import { requireAuth } from '../middleware/auth.js';
 import { listOffers, getOfferRow, rankFor, userContext } from '../services/offers.js';
 import { scoreOffer } from '../lib/rank.js';
 import { publicOffer, publicMerchant } from '../presenters.js';
+import { config } from '../config.js';
+import { availablePaymentMethods } from '../lib/payments/providers.js';
 
 export const router = Router();
 
@@ -212,12 +214,11 @@ router.get('/meta', (_req, res) => {
   res.json({
     categories: CATEGORIES,
     zones: zones.map((z) => z.zone),
-    payment_methods: [
-      { id: 'wave', label: 'Wave' },
-      { id: 'om', label: 'Orange Money' },
-      { id: 'cash', label: 'Espèces à la collecte' },
-    ],
+    // Only what there is a working provider for. A wallet without credentials
+    // is not listed, so the app cannot offer a way to pay that does not exist.
+    payment_methods: availablePaymentMethods(),
     locales: ['fr', 'en', 'wo'],
-    cancel_window_minutes: 120,
+    cancel_window_minutes: config.cancelWindowMinutes,
+    payment_window_minutes: config.paymentWindowMinutes,
   });
 });

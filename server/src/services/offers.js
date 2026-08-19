@@ -39,7 +39,7 @@ export function userContext(user) {
       `SELECT o.merchant_id, f.category, SUM(o.qty) AS n
          FROM orders o
          JOIN offers f ON f.id = o.offer_id
-        WHERE o.user_id = ? AND o.status <> 'cancelled'
+        WHERE o.user_id = ? AND o.status NOT IN ('cancelled','pending_payment')
         GROUP BY o.merchant_id, f.category`,
     )
     .all(user.id);

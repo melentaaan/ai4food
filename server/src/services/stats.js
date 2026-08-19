@@ -48,7 +48,7 @@ export function merchantStats(merchantId, days = 7) {
               COALESCE(SUM(total_cfa),0) AS gross,
               COALESCE(SUM(commission_cfa),0) AS commission
          FROM orders
-        WHERE merchant_id = ? AND status <> 'cancelled' AND created_at >= ? AND created_at < ?`,
+        WHERE merchant_id = ? AND status NOT IN ('cancelled','pending_payment') AND created_at >= ? AND created_at < ?`,
     )
     .get(merchantId, from, to);
 
@@ -107,7 +107,7 @@ export function merchantStats(merchantId, days = 7) {
       const r = db
         .prepare(
           `SELECT COALESCE(SUM(qty),0) AS baskets, COALESCE(SUM(total_cfa),0) AS gross
-             FROM orders WHERE merchant_id = ? AND status <> 'cancelled' AND created_at >= ? AND created_at < ?`,
+             FROM orders WHERE merchant_id = ? AND status NOT IN ('cancelled','pending_payment') AND created_at >= ? AND created_at < ?`,
         )
         .get(merchantId, a, b);
       return { baskets: r.baskets, gross_cfa: r.gross };
@@ -197,7 +197,7 @@ export function adminOverview(days = 7) {
               COALESCE(SUM(total_cfa),0) AS gross,
               COALESCE(SUM(commission_cfa),0) AS commission,
               COUNT(*) AS orders
-         FROM orders WHERE status <> 'cancelled' AND created_at >= ? AND created_at < ?`,
+         FROM orders WHERE status NOT IN ('cancelled','pending_payment') AND created_at >= ? AND created_at < ?`,
     )
     .get(from, to);
 
@@ -252,7 +252,7 @@ export function adminOverview(days = 7) {
           `SELECT COALESCE(SUM(qty),0) AS baskets,
                   COALESCE(SUM(total_cfa),0) AS gross,
                   COALESCE(SUM(commission_cfa),0) AS commission
-             FROM orders WHERE status <> 'cancelled' AND created_at >= ? AND created_at < ?`,
+             FROM orders WHERE status NOT IN ('cancelled','pending_payment') AND created_at >= ? AND created_at < ?`,
         )
         .get(a, b);
       return { baskets: r.baskets, gross_cfa: r.gross, commission_cfa: r.commission };

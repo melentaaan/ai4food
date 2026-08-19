@@ -37,11 +37,17 @@ export function normalisePhone(input) {
 export function issueOtp(phone) {
   const code = String(crypto.randomInt(100000, 1000000)); // 6 digits
   const ts = now();
+  const id = uid();
   db.prepare(
     `INSERT INTO otp_codes (id, phone, code_hash, expires_at, created_at)
      VALUES (?, ?, ?, ?, ?)`,
-  ).run(uid(), phone, sha256(`${phone}:${code}`), ts + config.otpTtlSeconds * 1000, ts);
-  return code;
+  ).run(id, phone, sha256(`${phone}:${code}`), ts + config.otpTtlSeconds * 1000, ts);
+  return { id, code };
+}
+
+/** Retires a code that never reached anyone, so it cannot be guessed at later. */
+export function burnOtp(id) {
+  db.prepare('UPDATE otp_codes SET consumed_at = ? WHERE id = ?').run(now(), id);
 }
 
 export function consumeOtp(phone, code) {

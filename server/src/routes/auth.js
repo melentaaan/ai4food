@@ -7,10 +7,12 @@ import { unauthorized, forbidden } from '../lib/errors.js';
 import { audit } from '../lib/audit.js';
 import { notify } from '../lib/notify.js';
 import {
-  normalisePhone, issueOtp, consumeOtp, signAccessToken, issueRefreshToken,
+  normalisePhone, issueOtp, burnOtp, consumeOtp, signAccessToken, issueRefreshToken,
   rotateRefreshToken, revokeRefreshToken, verifyPassword,
 } from '../lib/auth.js';
 import { validate, otpLimiter, loginLimiter } from '../middleware/common.js';
+import { sendSms } from '../lib/sms/index.js';
+import { ApiError } from '../lib/errors.js';
 import { requireAuth } from '../middleware/auth.js';
 import { selfUser } from '../presenters.js';
 
@@ -39,15 +41,31 @@ export function merchantContext(user) {
 /* ---------- customers: phone + one-time code ---------- */
 router.post('/otp/request',
   otpLimiter,
-  validate(z.object({ phone: z.string().min(6) })),
-  (req, res) => {
+  validate(z.object({
+    phone: z.string().min(6),
+    locale: z.enum(['fr', 'en', 'wo']).optional(),
+  })),
+  async (req, res) => {
     const phone = normalisePhone(req.body.phone);
     const user = db.prepare('SELECT * FROM users WHERE phone = ?').get(phone);
     if (user && user.status === 'suspended') throw forbidden('This account is suspended');
 
-    const code = issueOtp(phone);
-    // Wire an SMS gateway here. Until then development echoes the code back.
-    if (config.env !== 'production') console.log(`[otp] ${phone} -> ${code}`);
+    const { id, code } = issueOtp(phone);
+    const locale = req.body.locale || user?.locale || 'fr';
+
+    try {
+      await sendSms({ to: phone, kind: 'otp', locale, args: [code] });
+    } catch (err) {
+      // The code exists but nobody can read it, so retire it rather than leave
+      // a live code nobody asked for, and say plainly that the message is the
+      // part that failed — "wrong number" and "our gateway is down" are very
+      // different problems for the person holding the phone.
+      burnOtp(id);
+      console.error('[auth] could not deliver a sign-in code', { phone, error: err?.message || err });
+      throw new ApiError(502, 'sms_failed',
+        'We could not send the code to that number. Check it, or try again in a moment.');
+    }
+
     res.json({
       sent: true,
       expires_in: config.otpTtlSeconds,

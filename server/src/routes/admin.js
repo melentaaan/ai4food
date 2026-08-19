@@ -7,7 +7,7 @@ import { audit } from '../lib/audit.js';
 import { hashPassword, normalisePhone, revokeAllRefreshTokens } from '../lib/auth.js';
 import { validate, writeLimiter } from '../middleware/common.js';
 import { requireAuth, requireRole } from '../middleware/auth.js';
-import { ORDER_SELECT, cancelOrder, expireStaleOrders } from '../services/orders.js';
+import { ORDER_SELECT, cancelOrderAndRefund, expireStaleOrders } from '../services/orders.js';
 import { OFFER_SELECT, refreshOfferStates } from '../services/offers.js';
 import { adminOverview, adminPayouts } from '../services/stats.js';
 import { adminOrder, adminMerchant, adminUser, merchantOffer } from '../presenters.js';
@@ -28,7 +28,7 @@ router.get('/overview',
 /* ---------- operations: every order on the platform ---------- */
 router.get('/orders',
   validate(z.object({
-    status: z.enum(['active', 'picked_up', 'expired', 'cancelled']).optional(),
+    status: z.enum(['pending_payment', 'active', 'picked_up', 'expired', 'cancelled']).optional(),
     merchant_id: z.string().optional(),
     user_id: z.string().optional(),
     q: z.string().trim().max(40).optional(),
@@ -59,9 +59,11 @@ router.get('/orders',
 router.post('/orders/:id/cancel',
   writeLimiter,
   validate(z.object({ reason: z.string().trim().max(200) })),
-  (req, res) => {
-    const order = cancelOrder({ req, user: req.user, orderId: req.params.id, reason: req.body.reason });
-    res.json({ order: adminOrder(order) });
+  async (req, res) => {
+    const { order, refund } = await cancelOrderAndRefund({
+      req, user: req.user, orderId: req.params.id, reason: req.body.reason,
+    });
+    res.json({ order: adminOrder(order), refund });
   });
 
 /* ---------- growth pipeline ---------- */
@@ -216,7 +218,8 @@ router.get('/users',
 
     const rows = db.prepare(
       `SELECT u.*,
-              (SELECT COUNT(*) FROM orders o WHERE o.user_id = u.id AND o.status <> 'cancelled') AS orders,
+              (SELECT COUNT(*) FROM orders o
+                WHERE o.user_id = u.id AND o.status NOT IN ('cancelled','pending_payment')) AS orders,
               (SELECT COALESCE(SUM(o.total_cfa),0) FROM orders o WHERE o.user_id = u.id AND o.status = 'picked_up') AS spend_cfa
          FROM users u WHERE ${where.join(' AND ')}
         ORDER BY u.created_at DESC LIMIT ? OFFSET ?`).all(...params, p.limit, p.offset);

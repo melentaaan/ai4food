@@ -94,11 +94,24 @@ const orderCore = (o) => ({
   qty: o.qty,
   payment_method: o.payment_method,
   payment_status: o.payment_status,
+  // Set while a wallet order is holding a bag it has not paid for. The app
+  // counts down against it; past it the hold is released.
+  payment_due_at: o.payment_due_at ?? null,
   pickup: { start: o.pickup_start, end: o.pickup_end, from: o.pickup_from, to: o.pickup_to },
   created_at: o.created_at,
   picked_up_at: o.picked_up_at,
   cancelled_at: o.cancelled_at,
 });
+
+/** What the app needs to send someone to a wallet and pick them up after. */
+export const paymentInfo = (p) => (p ? {
+  id: p.id,
+  provider: p.provider,
+  status: p.status,
+  amount_cfa: p.amount_cfa,
+  checkout_url: p.checkout_url,
+  expires_at: p.expires_at,
+} : null);
 
 export function customerOrder(o, extra = {}) {
   return {

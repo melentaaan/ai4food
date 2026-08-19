@@ -4,39 +4,68 @@ import { db, now } from '../db.js';
 import { notFound } from '../lib/errors.js';
 import { validate, writeLimiter } from '../middleware/common.js';
 import { requireAuth } from '../middleware/auth.js';
-import { reserveOffer, cancelOrder, getOrderRow, ORDER_SELECT, sendPickupReminders } from '../services/orders.js';
+import { reserveAndPay, cancelOrderAndRefund, getOrderRow, ORDER_SELECT, sendPickupReminders } from '../services/orders.js';
+import { latestPayment, refreshPayment } from '../services/payments.js';
+import { paymentMethodIds } from '../lib/payments/providers.js';
 import { customerImpact } from '../services/stats.js';
 import {
   claimTransfer, claimedOrders, createTransfer, orderForToken, revokeTransfer,
   transferOfOrder, transfersForOrders,
 } from '../services/transfers.js';
-import { bearerOrder, customerOrder, notification, transferInfo } from '../presenters.js';
+import { bearerOrder, customerOrder, notification, paymentInfo, transferInfo } from '../presenters.js';
 
 export const router = Router();
 
 // requireAuth is attached per route rather than to the whole router: mounted at
 // /api it would otherwise answer 401 for any unknown path under that prefix.
 
+// The accepted methods are whatever has a working provider behind it, so an
+// unconfigured wallet is refused here as well as hidden in the app.
+const paymentMethod = z.string().refine((v) => paymentMethodIds().includes(v), {
+  message: 'That payment method is not available',
+});
+
 router.post('/orders',
   requireAuth, writeLimiter,
   validate(z.object({
     offer_id: z.string().min(1),
     qty: z.number().int().min(1).max(10).default(1),
-    payment_method: z.enum(['wave', 'om', 'cash']),
+    payment_method: paymentMethod,
+    // Where to send the customer back to after the wallet. Only ever used to
+    // build the return link, never trusted as an origin.
+    return_url: z.string().url().max(500).optional(),
   })),
-  (req, res) => {
-    const order = reserveOffer({
+  async (req, res) => {
+    const { order, payment } = await reserveAndPay({
       req, user: req.user,
       offerId: req.body.offer_id, qty: req.body.qty, paymentMethod: req.body.payment_method,
+      appUrl: req.body.return_url,
     });
-    res.status(201).json({ order: customerOrder(order) });
+    res.status(201).json({ order: customerOrder(order), payment: paymentInfo(payment) });
   });
+
+/**
+ * "Did my payment go through?" — asked by the app when the customer comes back
+ * from the wallet, because the callback and the customer race each other and
+ * whichever arrives first should be enough.
+ */
+router.post('/orders/:id/payment/refresh', requireAuth, writeLimiter, async (req, res) => {
+  const order = getOrderRow(req.params.id);
+  if (!order || order.user_id !== req.user.id) throw notFound('Order not found');
+  const payment = latestPayment(order.id);
+  if (!payment) return res.json({ order: customerOrder(order), payment: null });
+  const out = await refreshPayment(payment);
+  res.json({
+    order: customerOrder(getOrderRow(order.id)),
+    payment: paymentInfo(out.payment),
+  });
+});
 
 /** Always filtered to the caller: there is no "all orders" for a customer. */
 router.get('/orders',
   requireAuth,
   validate(z.object({
-    status: z.enum(['active', 'picked_up', 'expired', 'cancelled']).optional(),
+    status: z.enum(['pending_payment', 'active', 'picked_up', 'expired', 'cancelled']).optional(),
     limit: z.coerce.number().int().min(1).max(100).default(50),
   }), 'query'),
   (req, res) => {
@@ -51,6 +80,8 @@ router.get('/orders',
     res.json({
       items: rows.map((o) => customerOrder(o, {
         transfer: transfers[o.id] ? transferInfo(transfers[o.id]) : null,
+        // Only while it is still owed: a settled order has nowhere to go back to.
+        payment: o.status === 'pending_payment' ? paymentInfo(latestPayment(o.id)) : null,
       })),
       // Bags someone else booked and handed to this person. Deliberately the
       // bearer view, not the customer one: accepting a link does not open up
@@ -66,7 +97,12 @@ router.get('/orders/:id', requireAuth, (req, res) => {
   // A stranger's order id is indistinguishable from a wrong one, on purpose.
   if (!order || order.user_id !== req.user.id) throw notFound('Order not found');
   const tr = transferOfOrder(order.id);
-  res.json({ order: customerOrder(order, { transfer: tr ? transferInfo(tr) : null }) });
+  res.json({
+    order: customerOrder(order, {
+      transfer: tr ? transferInfo(tr) : null,
+      payment: order.status === 'pending_payment' ? paymentInfo(latestPayment(order.id)) : null,
+    }),
+  });
 });
 
 /* ---------- handing a reservation to someone else ---------- */
@@ -115,9 +151,11 @@ router.post('/pickup/:token/claim', requireAuth, writeLimiter, (req, res) => {
 router.post('/orders/:id/cancel',
   requireAuth, writeLimiter,
   validate(z.object({ reason: z.string().trim().max(200).optional() })),
-  (req, res) => {
-    const order = cancelOrder({ req, user: req.user, orderId: req.params.id, reason: req.body.reason });
-    res.json({ order: customerOrder(order) });
+  async (req, res) => {
+    const { order, refund } = await cancelOrderAndRefund({
+      req, user: req.user, orderId: req.params.id, reason: req.body.reason,
+    });
+    res.json({ order: customerOrder(order), refund });
   });
 
 /* ---------- the customer's own numbers ---------- */

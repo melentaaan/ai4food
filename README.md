@@ -52,7 +52,7 @@ Sign-in accounts are printed by the seed:
 
 | Role | Credentials |
 | --- | --- |
-| Customer | `+221771234567` — a 6-digit code, returned in the API response outside production |
+| Customer | `+221771234567` — a 6-digit code, sent by SMS; the development gateway prints it to the log and the API returns it |
 | Merchant | `+221770000002` / `boulangerie-2026` |
 | Admin | `+221770000001` / `admin-dakar-2026` — for the API; the app turns this account away |
 
@@ -83,6 +83,12 @@ countdowns, distance from your neighbourhood, an explainable six-factor
 recommender, and offline demo mode.
 
 ### How it behaves in the hand
+
+- **It never pretends to take money.** The payment screen lists what the server
+  can actually charge — cash always, a wallet only once it has credentials — so
+  there is no balance on screen that belongs to nobody. Choosing a wallet sends
+  you to the wallet; the bag is held, with the time left on it, until you come
+  back. Walk away and it goes back on sale, and nothing was charged.
 
 - **Two doors, no costume box.** The first screen asks who you are: a customer
   signs in with a phone number and a code, a shop with the password AI4Food
@@ -143,8 +149,22 @@ Full documentation in **[server/README.md](server/README.md)** and
 customers and passwords for staff, JWT with rotating refresh tokens, stock
 decremented by a conditional UPDATE inside a transaction so two customers
 cannot take the same last basket, a 2-hour cancellation window, pickup codes
-that validate once at the owning shop only, and 65 end-to-end tests — most of
+that validate once at the owning shop only, and 87 end-to-end tests — most of
 them trying cross-role reads that must fail.
+
+**Sign-in codes are sent, not printed.** The gateway is configured rather than
+coded — Orange, Twilio, or any endpoint that takes a POST — and production
+refuses to start without one, because a code nobody receives is a customer who
+cannot sign in. Every attempt is logged, delivery failures included; the code
+itself is never stored.
+
+**A wallet payment is not a sale until the wallet says so.** Reserving with Wave
+or Orange Money holds the bag and leaves the order *pending payment*: not
+collectable, not on the shop's counter, not in anyone's takings. It becomes a
+booking when the provider's signed callback lands — or the bag goes back on sale
+when the payment window runs out. Cash is the other half: nothing is owed up
+front, so it is a booking from the start and settles at the counter. A wallet
+with no credentials configured is not offered at all.
 
 ```bash
 cd server && npm test

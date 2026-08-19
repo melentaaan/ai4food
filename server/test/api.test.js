@@ -201,7 +201,7 @@ describe('ordering', () => {
     const offer = liveOffer();
     const before = offer.qty_left;
     const res = await post('/api/orders',
-      { offer_id: offer.id, qty: 2, payment_method: 'wave' }, customer.access_token);
+      { offer_id: offer.id, qty: 2, payment_method: 'cash' }, customer.access_token);
     assert.equal(res.status, 201, JSON.stringify(res.body));
     assert.match(res.body.order.code, /^AI4-[A-Z0-9]{4}$/);
     assert.equal(res.body.order.status, 'active');
@@ -212,7 +212,7 @@ describe('ordering', () => {
     const offer = liveOffer();
     db.prepare('UPDATE offers SET qty_left = 2 WHERE id = ?').run(offer.id);
     const res = await post('/api/orders',
-      { offer_id: offer.id, qty: 3, payment_method: 'wave' }, customer.access_token);
+      { offer_id: offer.id, qty: 3, payment_method: 'cash' }, customer.access_token);
     assert.equal(res.status, 409);
     assert.equal(res.body.error.code, 'out_of_stock');
   });
@@ -222,8 +222,8 @@ describe('ordering', () => {
     db.prepare('UPDATE offers SET qty_left = 1 WHERE id = ?').run(offer.id);
 
     const [a, b] = await Promise.all([
-      post('/api/orders', { offer_id: offer.id, qty: 1, payment_method: 'wave' }, customer.access_token),
-      post('/api/orders', { offer_id: offer.id, qty: 1, payment_method: 'om' }, otherCustomer.access_token),
+      post('/api/orders', { offer_id: offer.id, qty: 1, payment_method: 'cash' }, customer.access_token),
+      post('/api/orders', { offer_id: offer.id, qty: 1, payment_method: 'cash' }, otherCustomer.access_token),
     ]);
     const statuses = [a.status, b.status].sort();
     assert.deepEqual(statuses, [201, 409]);
@@ -246,7 +246,7 @@ describe('ordering', () => {
   test('cancelling is refused once the window is within two hours', async () => {
     const offer = liveOffer();
     const created = await post('/api/orders',
-      { offer_id: offer.id, qty: 1, payment_method: 'wave' }, customer.access_token);
+      { offer_id: offer.id, qty: 1, payment_method: 'cash' }, customer.access_token);
     db.prepare('UPDATE orders SET pickup_start = ? WHERE id = ?')
       .run(Date.now() + 30 * 60_000, created.body.order.id);
 
@@ -324,7 +324,7 @@ describe('merchant counter', () => {
          SELECT merchant_id FROM merchant_users mu WHERE mu.user_id = ?)
          AND o.status = 'live' AND o.qty_left > 0 LIMIT 1`).get(merchant.user.id);
     const order = await post('/api/orders',
-      { offer_id: other.id, qty: 1, payment_method: 'wave' }, customer.access_token);
+      { offer_id: other.id, qty: 1, payment_method: 'cash' }, customer.access_token);
 
     const res = await post('/api/merchant/pickups/validate',
       { code: order.body.order.code }, merchant.access_token);
@@ -359,7 +359,7 @@ describe('handing a reservation over', () => {
   async function booked(token = customer.access_token) {
     const offer = liveOffer();
     const res = await post('/api/orders',
-      { offer_id: offer.id, qty: 1, payment_method: 'wave' }, token);
+      { offer_id: offer.id, qty: 1, payment_method: 'cash' }, token);
     assert.equal(res.status, 201, JSON.stringify(res.body));
     return res.body.order;
   }
@@ -617,7 +617,7 @@ describe('who sees what', () => {
     assert.equal((await get('/api/offers')).status, 200);
     assert.equal((await get('/api/merchants')).status, 200);
     assert.equal((await get('/api/orders')).status, 401);
-    assert.equal((await post('/api/orders', { offer_id: 'x', qty: 1, payment_method: 'wave' })).status, 401);
+    assert.equal((await post('/api/orders', { offer_id: 'x', qty: 1, payment_method: 'cash' })).status, 401);
     assert.equal((await get('/api/me/impact')).status, 401);
   });
 
@@ -810,7 +810,7 @@ describe('admin operations', () => {
   test('admins can cancel outside the customer window, on the record', async () => {
     const offer = db.prepare(`SELECT * FROM offers WHERE status = 'live' AND qty_left > 0 LIMIT 1`).get();
     const order = await post('/api/orders',
-      { offer_id: offer.id, qty: 1, payment_method: 'wave' }, customer.access_token);
+      { offer_id: offer.id, qty: 1, payment_method: 'cash' }, customer.access_token);
     db.prepare('UPDATE orders SET pickup_start = ? WHERE id = ?')
       .run(Date.now() + 10 * 60_000, order.body.order.id);
 
@@ -821,7 +821,10 @@ describe('admin operations', () => {
       { reason: 'Client a appelé, commerce fermé' }, admin.access_token);
     assert.equal(res.status, 200);
     assert.equal(res.body.order.status, 'cancelled');
-    assert.equal(res.body.order.payment_status, 'refunded');
+    // Cash is collected at the counter, so a cancelled cash order has nothing
+    // to give back. Refunding a wallet order is covered in payments.test.js.
+    assert.equal(res.body.order.payment_status, 'pending');
+    assert.equal(res.body.refund.refunded, false);
   });
 });
 
@@ -830,7 +833,7 @@ describe('housekeeping', () => {
   test('orders left uncollected expire once the window has passed', async () => {
     const offer = db.prepare(`SELECT * FROM offers WHERE status = 'live' AND qty_left > 0 LIMIT 1`).get();
     const order = await post('/api/orders',
-      { offer_id: offer.id, qty: 1, payment_method: 'wave' }, customer.access_token);
+      { offer_id: offer.id, qty: 1, payment_method: 'cash' }, customer.access_token);
     db.prepare('UPDATE orders SET pickup_end = ? WHERE id = ?')
       .run(Date.now() - 3 * 3600_000, order.body.order.id);
 
@@ -846,7 +849,7 @@ describe('housekeeping', () => {
   test('a pickup reminder is created once, not on every poll', async () => {
     const offer = db.prepare(`SELECT * FROM offers WHERE status = 'live' AND qty_left > 0 LIMIT 1`).get();
     const order = await post('/api/orders',
-      { offer_id: offer.id, qty: 1, payment_method: 'wave' }, customer.access_token);
+      { offer_id: offer.id, qty: 1, payment_method: 'cash' }, customer.access_token);
     db.prepare('UPDATE orders SET pickup_start = ?, pickup_end = ? WHERE id = ?')
       .run(Date.now() + 20 * 60_000, Date.now() + 80 * 60_000, order.body.order.id);
 

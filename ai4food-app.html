@@ -906,9 +906,23 @@ service_fee:["Frais de service","Service fee","Frais"],
 total:["Total","Total","Total"],
 pay_btn:["Payer {0} FCFA","Pay {0} FCFA","Fey {0} FCFA"],
 free_cancel:["Annulation gratuite jusqu'à 2h avant le retrait","Free cancellation up to 2h before pickup","Man nga koo bàyyi 2 waxtu balaa retrait bi"],
-pay_wave:["Solde 24 500 FCFA","Balance 24,500 FCFA","Bala 24 500 FCFA"],
-pay_om:["77 ••• 41 08","77 ••• 41 08","77 ••• 41 08"],
+pay_wave:["Vous serez redirigé vers Wave","You will be sent to Wave to pay","Dinañu la yóbbu ci Wave"],
+pay_om:["Vous serez redirigé vers Orange Money","You will be sent to Orange Money","Dinañu la yóbbu ci Orange Money"],
 pay_cash:["Vous payez le commerçant sur place","Pay the shop on pickup","Fey ko fa nga jëndee"],
+pay_redirect:["Ouverture de {0}…","Opening {0}…","Ñuy ubbi {0}…"],
+pay_checking:["Vérification du paiement…","Checking your payment…","Ñuy seet fey bi…"],
+pay_ok_toast:["Paiement confirmé","Payment confirmed","Fey bi wóor na"],
+pay_failed_t:["Paiement non abouti","Payment did not go through","Fey bi antuwul"],
+pay_failed_p:["Rien n'a été débité et le panier est reparti à la vente.","Nothing was charged and the bag is back on sale.","Amuñu dara bu ñu jël, panier bi dellu na ci njaay."],
+pay_hold_t:["Paiement à terminer","Payment not finished","Fey bi matul"],
+pay_hold_p:["Terminez le paiement pour confirmer ce panier. Passé ce délai, il repart à la vente et rien ne vous est débité.","Finish paying to confirm this bag. After that it goes back on sale and you are charged nothing.","Matal fey bi ngir wóor panier bi. Bu waxtu wi weesoo, dina dellu ci njaay te duñu la jël dara."],
+pay_hold_left:["Gardé encore","Held for another","Des na"],
+pay_hold_short:["Gardé encore {0}","Held for another {0}","Des na {0}"],
+pay_resume:["Terminer le paiement","Finish paying","Matal fey bi"],
+pay_recheck:["J'ai déjà payé","I have already paid","Fey naa ba noppi"],
+pay_none:["Aucun moyen de paiement disponible","No payment method available","Amul fu ngay feye"],
+ok_btn:["J'ai compris","Got it","Dégg naa"],
+pay_with:["À payer avec","To pay with","Fey ak"],
 /* done */
 confirmed:["Commande confirmée","Order confirmed","Commande bi baax na"],
 thanks:["Jërëjëf. Présentez votre code chez {0}, entre {1} et {2}.","Jërëjëf. Show your code at {0}, between {1} and {2}.","Jërëjëf. Wonel sa kod ci {0}, diggante {1} ak {2}."],
@@ -925,6 +939,7 @@ st_active:["À récupérer","To pick up","Retrait"],
 st_done:["Retiré","Picked up","Jël na ko"],
 st_expired:["Expiré","Expired","Waxtu wi wees na"],
 st_cancel:["Annulé","Cancelled","Bàyyi na ko"],
+st_unpaid:["À payer","Payment due","War na fey"],
 paid_with:["Payé avec","Paid with","Fey na ak"],
 store_value:["Valeur en magasin","Shop value","Njëg ci butik bi"],
 saving:["Économie","Saving","Yokkute"],
@@ -1308,9 +1323,25 @@ const D=[
  desc:"Les invendus des étals en fin de marché: fruits, légumes ou feuilles selon l'arrivage du jour."}
 ];
 
-const PAY=[{id:"wave",n:"Wave",sk:"pay_wave",bg:"#1AA0F0",k:"W"},
-{id:"om",n:"Orange Money",sk:"pay_om",bg:"#F26522",k:"OM"},
-{id:"cash",n:"Espèces",sk:"pay_cash",bg:"#2F6B4F",k:"F"}];
+/* Les moyens de paiement ne sont pas une liste ecrite ici: le serveur ne
+   propose que ceux qui ont un vrai fournisseur derriere. Ce tableau ne porte
+   que l'habillage, et hors ligne il ne reste que l'espece, qui n'a besoin de
+   personne. */
+const PAYSTYLE={wave:{sk:"pay_wave",bg:"#1AA0F0",k:"W"},
+ om:{sk:"pay_om",bg:"#F26522",k:"OM"},
+ cash:{sk:"pay_cash",bg:"#2F6B4F",k:"F"},
+ sandbox:{sk:"pay_cash",bg:"#6B6B6B",k:"?"}};
+const CASH_ONLY=[{id:"cash",label:"Espèces",online:false}];
+const payMethods=()=>(online()&&S.meta&&S.meta.pay&&S.meta.pay.length?S.meta.pay:CASH_ONLY);
+const payStyle=id=>PAYSTYLE[id]||{sk:"",bg:"#2F6B4F",k:"•"};
+const PAYNAME={wave:"Wave",om:"Orange Money",cash:"Espèces",sandbox:"Démonstration"};
+const payName=id=>{const m=payMethods().find(p=>p.id===id);return m?m.label:(PAYNAME[id]||id||"—")};
+/** Un moyen retire du serveur ne doit pas rester selectionne dans la feuille. */
+function payFix(){
+ const l=payMethods();
+ if(!l.some(p=>p.id===S.pay))S.pay=l.length?l[0].id:"cash";
+ return S.pay;
+}
 
 const ZONES=[["Ngor",-17.508,14.757],["Almadies",-17.520,14.7365],["Yoff",-17.472,14.7555],["Ouakam",-17.494,14.7285],
 ["Mermoz",-17.4795,14.7085],["Sacré-Cœur",-17.4585,14.7195],["Point E",-17.4515,14.6965],["Fann",-17.4755,14.6905],
@@ -1341,7 +1372,7 @@ const code4=()=>"AI4-"+Math.random().toString(36).slice(2,6).toUpperCase();
 
 function seedOrders(){
  const now=Date.now(),day=864e5;
- const mk=(off,d,q,ago)=>({oid:uid(),id:off,qty:q,pay:"wave",code:code4(),ts:now-ago,status:"done",day:d});
+ const mk=(off,d,q,ago)=>({oid:uid(),id:off,qty:q,pay:"cash",code:code4(),ts:now-ago,status:"done",day:d});
  return [mk(8,1,1,2*day),mk(1,1,2,4*day),mk(14,1,1,6*day),mk(16,1,1,9*day),mk(8,1,1,11*day),mk(9,1,2,15*day)];
 }
 function seedNotifs(){
@@ -1349,7 +1380,7 @@ function seedNotifs(){
 }
 let S={
  role:"client",tab:"home",view:"carte",sel:-1,vfilter:"Tout",filter:"Tout",sort:"reco",seg:"active",
- qty:1,pay:"wave",cur:null,ob:0,q:"",stack:[],
+ qty:1,pay:"cash",cur:null,ob:0,q:"",stack:[],meta:null,payWait:null,
  mode:"demo",remote:{offers:[],orders:[],notifs:[],impact:null,merchants:[],follows:[],forme:[]},desk:null,
  favSeg:"bags",
  idMap:{},idSeq:0,auth:{step:"phone",phone:"",hint:"",isNew:false},err:null,
@@ -1529,8 +1560,9 @@ function syncOrders(){
  });
  if(ch)save();
 }
-const activeOrders=()=>ORDERS().filter(o=>o.status==="active");
-const pastOrders=()=>ORDERS().filter(o=>o.status!=="active").sort((a,b)=>b.ts-a.ts);
+// Un panier non paye est vivant, pas archive: c'est celui qui reclame un geste.
+const activeOrders=()=>ORDERS().filter(o=>o.status==="active"||o.status==="unpaid");
+const pastOrders=()=>ORDERS().filter(o=>o.status!=="active"&&o.status!=="unpaid").sort((a,b)=>b.ts-a.ts);
 function impact(){
  if(online()){
   const i=S.remote.impact;
@@ -2058,8 +2090,8 @@ function ask(opts){
     <h3>${opts.title}</h3>
     <p>${opts.body||""}</p>
     <button class="btn ${opts.danger?"btn-danger":"btn-main"}" onclick="dialogAnswer(true)">${opts.confirm||t("confirm_yes")}</button>
-    <div style="height:9px"></div>
-    <button class="btn btn-ghost" onclick="dialogAnswer(false)">${opts.cancel||t("cancel")}</button>
+    ${opts.only?"":`<div style="height:9px"></div>
+    <button class="btn btn-ghost" onclick="dialogAnswer(false)">${opts.cancel||t("cancel")}</button>`}
    </div>`;
   m.classList.add("on");m.setAttribute("aria-hidden","false");
   buzz("warn");
@@ -2296,10 +2328,10 @@ function mapOffer(o){
   la:o.merchant.lat,lo:o.merchant.lng,desc:o.description,
   srvRank:o.rank||null,srvFav:!!o.favourite,srvState:o.state};
 }
-const ST_IN={active:"active",picked_up:"done",expired:"expired",cancelled:"cancel"};
+const ST_IN={pending_payment:"unpaid",active:"active",picked_up:"done",expired:"expired",cancelled:"cancel"};
 function mapOrder(o){
  return {oid:o.id,id:localId(o.offer.id),qty:o.qty,pay:o.payment_method,code:o.code,ts:o.created_at,
-  tr:o.transfer||null,
+  tr:o.transfer||null,dueTs:o.payment_due_at||null,checkout:(o.payment&&o.payment.checkout_url)||null,
   endTs:o.pickup.end,status:ST_IN[o.status]||o.status,
   snap:{id:localId(o.offer.id),name:o.offer.name,img:o.offer.image_key||"pain",merch:o.merchant.name,
    addr:o.merchant.address,price:Math.round(o.total_cfa/o.qty),was:Math.round(o.was_total_cfa/o.qty),
@@ -2358,6 +2390,14 @@ function mapMerchant(m){
   la:m.lat,lo:m.lng,live:!!m.is_partner,srv:m.id,off:m.live_offers||0,inv:!!m.invited,
   fol:!!m.following,nfol:m.followers||0};
 }
+/* Ce que le serveur sait faire, plutot que ce que l'app suppose: la liste des
+   moyens de paiement et la duree pendant laquelle un panier reste garde. */
+async function pullMeta(){
+ const r=await API.get("/meta");
+ S.meta={pay:(r.payment_methods||[]).filter(m=>m&&m.id),
+  payWindow:r.payment_window_minutes||15,cancelWindow:r.cancel_window_minutes||120};
+ payFix();
+}
 async function pullMerchants(){
  const r=await API.get("/merchants?limit=500");
  S.remote.merchants=r.items.map(mapMerchant);
@@ -2380,7 +2420,7 @@ async function syncAll(reset){
  S.busy++;
  if(S.busy===1&&!CAT().length)render();
  try{
-  const jobs=[pullCatalog(),pullMerchants()];
+  const jobs=[pullCatalog(),pullMerchants(),pullMeta()];
   if(signedIn()){
    jobs.push(pullOrders(),pullNotifs(),pullImpact(),pullFollows());
    if(API.me.role==="merchant")jobs.push(pullDesk());
@@ -2448,7 +2488,8 @@ async function askCode(){
   return redraw();
  }
  try{
-  const r=await API.raw("POST","/auth/otp/request",{phone:S.auth.phone},false);
+  // La langue part avec la demande: le SMS arrive dans celle de l'ecran.
+  const r=await API.raw("POST","/auth/otp/request",{phone:S.auth.phone,locale:S.lang},false);
   S.auth.step="code";S.auth.hint=r.dev_code||"";S.auth.isNew=!!r.is_new_account;redraw();
  }catch(e){S.auth.err=e.message;redraw()}
 }
@@ -2623,7 +2664,8 @@ function favs(){
  <div style="height:14px"></div>`;
 }
 function statBadge(s){
- const m={active:["","st_active"],done:["","st_done"],expired:["dead","st_expired"],cancel:["dead","st_cancel"]}[s]||["",""];
+ const m={active:["","st_active"],done:["","st_done"],expired:["dead","st_expired"],
+  cancel:["dead","st_cancel"],unpaid:["wait","st_unpaid"]}[s]||["",""];
  return `<span class="stat ${m[0]}">${t(m[1])}</span>`;
 }
 function ticket(o,full){
@@ -2640,11 +2682,33 @@ function ticket(o,full){
     <div><div class="cl">${t("pickup_code")}</div><div class="code">${o.code}</div>
     <p>${full?t("qr_hint"):t("co2_line",(1.2*o.qty).toFixed(1))}</p></div></div></div>`;
 }
+/* Un panier retenu mais pas paye n'a pas de billet a montrer: il n'y a rien a
+   retirer tant que l'argent n'a pas bouge. On montre donc ce qu'il reste de
+   temps, et les deux seules choses a faire. */
+function unpaidBlock(o){
+ const d=oOff(o);if(!d)return "";
+ const mins=o.dueTs?Math.max(0,Math.round((o.dueTs-Date.now())/6e4)):0;
+ return `<div class="ticket">
+   <div class="tk-top"><h3>${esc(d.merch)}</h3><p>${o.qty} × ${esc(d.name)} &middot; ${esc(d.addr)}</p>
+    <div class="lbl">${I("clock",13)} ${t("pay_hold_left")}</div>
+    <p class="win">${fmtDur(mins)}</p>
+    <p style="margin:14px 0 0;font-size:12.5px;line-height:1.5;color:#A9C4BC">${t("pay_hold_p")}</p></div></div>
+ <div class="panel">
+   <div class="r"><span>${t("pay_with")}</span><b>${esc(payName(o.pay))}</b></div>
+   <div class="r"><span>${t("total")}</span><b>${F(d.price*o.qty)} FCFA</b></div></div>
+ <div style="padding:0 22px 8px">
+   ${o.checkout?`<button class="btn btn-main" onclick="resumePayment('${jsq(o.oid)}')">${I("wallet",18)} ${t("pay_resume")}</button>
+   <div style="height:9px"></div>`:""}
+   <button class="btn btn-ghost" ${S.payWait===o.oid?"disabled":""} onclick="recheckPayment('${jsq(o.oid)}')">${I("refresh",18)} ${S.payWait===o.oid?t("pay_checking"):t("pay_recheck")}</button>
+   <div style="height:9px"></div>
+   <button class="btn btn-ghost" style="color:var(--danger)" onclick="cancelOrder('${jsq(o.oid)}')">${t("cancel_order")}</button></div>`;
+}
 function orderBlock(o){
  const d=oOff(o);if(!d)return "";
+ if(o.status==="unpaid")return unpaidBlock(o);
  return `${ticket(o,true)}
  <div class="panel">
-   <div class="r"><span>${t("paid_with")}</span><b>${(PAY.find(p=>p.id===o.pay)||{n:"—"}).n}</b></div>
+   <div class="r"><span>${t("paid_with")}</span><b>${esc(payName(o.pay))}</b></div>
    <div class="r"><span>${t("total")}</span><b>${F(d.price*o.qty)} FCFA</b></div>
    <div class="r"><span>${t("store_value")}</span><b>${F(d.was*o.qty)} FCFA</b></div>
    <div class="r"><span>${t("saving")}</span><b style="color:var(--emerald)">${F((d.was-d.price)*o.qty)} FCFA</b></div></div>
@@ -3002,7 +3066,7 @@ function orderSheet(oid){
    [t("o_when"),new Date(o.ts).toLocaleDateString(LOC(),{day:"numeric",month:"long",year:"numeric"})],
    [t("qty"),o.qty+" × "+esc(d.name)],
    [t("pickup_code"),`<span style="font-family:var(--dp);letter-spacing:.05em">${esc(o.code)}</span>`],
-   [t("paid_with"),(PAY.find(p=>p.id===o.pay)||{n:"—"}).n],
+   [t("paid_with"),payName(o.pay)],
    [t("total"),F(d.price*o.qty)+" FCFA"],
    [t("store_value"),F(d.was*o.qty)+" FCFA"],
    [t("saving"),F((d.was-d.price)*o.qty)+" FCFA","var(--emerald)"],
@@ -3153,13 +3217,14 @@ function whySheet(id){
 }
 function payment(id){
  const d=byId(id);if(!d)return "";
+ payFix();
  return `<div class="hero" style="height:186px">${photoOf(d,true)}<span class="sc"></span>
   <div class="nav"><button class="circ" onclick="back()" aria-label="${esc(t("cancel"))}">${I("back",19)}</button><div class="g"></div></div></div>
  <div class="detail"><h2>${t("payment")}</h2><p class="by">${S.qty} × ${esc(d.name)} &middot; ${esc(d.merch)}</p>
- ${PAY.map(p=>`<button class="pay ${S.pay===p.id?"on":""}" onclick="setPay('${p.id}')">
-   <span class="lg" style="background:${p.bg}">${p.k}</span>
-   <span class="t"><b>${p.n}</b><span>${t(p.sk)}</span></span>
-   <span class="radio">${S.pay===p.id?I("check",12):""}</span></button>`).join("")}
+ ${payMethods().map(p=>{const st=payStyle(p.id);return `<button class="pay ${S.pay===p.id?"on":""}" onclick="setPay('${jsq(p.id)}')">
+   <span class="lg" style="background:${st.bg}">${st.k}</span>
+   <span class="t"><b>${esc(p.label)}</b><span>${st.sk?t(st.sk):""}</span></span>
+   <span class="radio">${S.pay===p.id?I("check",12):""}</span></button>`}).join("")}
  <div class="info" style="padding:4px 16px">
   <div class="r"><p style="display:flex;justify-content:space-between"><span>${t("subtotal")}</span><b>${F(d.price*S.qty)} FCFA</b></p></div>
   <div class="r"><p style="display:flex;justify-content:space-between"><span>${t("service_fee")}</span><b>0 FCFA</b></p></div>
@@ -3679,7 +3744,16 @@ async function confirm_(){
  if(online()){
   btnBusy(true);
   try{
-   const r=await API.post("/orders",{offer_id:d.srv,qty:q,payment_method:S.pay});
+   const r=await API.post("/orders",{offer_id:d.srv,qty:q,payment_method:S.pay,
+    return_url:location.origin+location.pathname});
+   // Un portefeuille se paie chez lui. On note ou on en etait et on y va: au
+   // retour, l'URL nous ramene sur cette commande.
+   if(r.payment&&r.payment.checkout_url){
+    rememberPayWait(r.order.id);
+    toast(t("pay_redirect",payName(S.pay)));
+    location.href=r.payment.checkout_url;
+    return;
+   }
    await Promise.all([pullOrders(),pullCatalog(),pullNotifs(),pullImpact()]);
    S.stack=[{n:"done",a:r.order.id}];drawSheet();render();
   }catch(e){
@@ -3694,6 +3768,67 @@ async function confirm_(){
  notify("ok",[o.qty+" × "+d.name,d.merch,o.code],"checkC");
  save();S.stack=[{n:"done",a:o.oid}];drawSheet();render();
 }
+/* ---------- retour du portefeuille ----------
+   Partir payer, c'est quitter l'application: le navigateur nous rend la main
+   sur une URL, pas sur un ecran. On garde donc la commande en cours de
+   paiement dans localStorage, parce que la memoire de la page, elle, est
+   partie avec la redirection. */
+const PAYKEY="ai4food.paywait";
+function rememberPayWait(oid){try{localStorage.setItem(PAYKEY,oid)}catch(e){}}
+function forgetPayWait(){try{localStorage.removeItem(PAYKEY)}catch(e){}}
+function payWaitId(){try{return localStorage.getItem(PAYKEY)||null}catch(e){return null}}
+
+/** L'ordre du serveur fait foi: le "payment=done" de l'URL n'est qu'un indice. */
+async function settleReturn(oid){
+ S.payWait=oid;toast(t("pay_checking"));render();
+ let order=null;
+ // Le rappel du portefeuille et le client rentrent en meme temps; s'il n'est
+ // pas encore arrive, on redemande, brievement.
+ for(let i=0;i<4;i++){
+  try{
+   const r=await API.post("/orders/"+oid+"/payment/refresh",{});
+   order=r.order;
+   if(order&&order.status!=="pending_payment")break;
+  }catch(e){break}
+  await new Promise(r=>setTimeout(r,1200));
+ }
+ S.payWait=null;forgetPayWait();
+ await Promise.all([pullOrders(),pullCatalog(),pullNotifs(),pullImpact()]).catch(()=>{});
+ if(order&&order.status==="active"){
+  buzz("ok");toast(t("pay_ok_toast"));
+  S.tab="orders";S.stack=[{n:"done",a:oid}];drawSheet();render();
+  return;
+ }
+ if(order&&order.status==="cancelled"){
+  buzz("err");
+  await ask({title:t("pay_failed_t"),body:t("pay_failed_p"),confirm:t("ok_btn"),only:true,danger:true});
+  S.tab="orders";render();
+  return;
+ }
+ // Toujours en attente: le panier est garde, la commande est dans la liste.
+ S.tab="orders";render();
+}
+
+/** Reprendre un paiement laisse en plan, depuis la liste des commandes. */
+function resumePayment(oid){
+ const o=ORDERS().find(x=>x.oid===oid);
+ if(!o||!o.checkout)return;
+ rememberPayWait(oid);
+ location.href=o.checkout;
+}
+async function recheckPayment(oid){
+ if(!online())return;
+ S.payWait=oid;toast(t("pay_checking"));render();
+ try{await API.post("/orders/"+oid+"/payment/refresh",{})}catch(e){}
+ S.payWait=null;
+ await Promise.all([pullOrders(),pullCatalog(),pullNotifs(),pullImpact()]).catch(()=>{});
+ const o=ORDERS().find(x=>x.oid===oid);
+ if(o&&o.status==="active"){buzz("ok");toast(t("pay_ok_toast"))}
+ else if(o&&o.status==="cancel"){buzz("err");toast(t("pay_failed_t"),true)}
+ else toast(t("pay_hold_t"));
+ render();
+}
+
 async function cancelOrder(oid){
  if(!await ask({title:t("confirm_cancel_t"),body:t("confirm_cancel_p"),
    confirm:t("cancel_order"),cancel:t("keep"),danger:true}))return;
@@ -3890,6 +4025,21 @@ async function boot(){
  }
  const tok=pickupFromUrl();
  if(tok){S.seen=true;save();renderOb();render();openPickup(tok)}
+ // Retour du portefeuille: l'URL nomme la commande, mais c'est le serveur qui
+ // dit si elle est payee. On nettoie l'adresse pour qu'un rafraichissement ne
+ // rejoue pas la scene.
+ if(online()&&signedIn()){
+  const q=new URLSearchParams(location.search);
+  const back=q.get("order")||payWaitId();
+  if(back){
+   if(q.has("order")||q.has("payment")){
+    q.delete("order");q.delete("payment");q.delete("sandbox");
+    const rest=q.toString();
+    try{history.replaceState(history.state,"",location.pathname+(rest?"?"+rest:"")+location.hash)}catch(e){}
+   }
+   settleReturn(back);
+  }
+ }
  setInterval(tickCd,20000);
  document.addEventListener("keydown",e=>{
   if(e.key==="Escape"&&S.stack.length){e.preventDefault();back()}

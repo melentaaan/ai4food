@@ -67,7 +67,8 @@ router.get('/offers',
     const sold = db
       .prepare(
         `SELECT offer_id, SUM(qty) AS qty, SUM(total_cfa) AS revenue
-           FROM orders WHERE merchant_id = ? AND status <> 'cancelled' GROUP BY offer_id`,
+           FROM orders WHERE merchant_id = ? AND status NOT IN ('cancelled','pending_payment')
+          GROUP BY offer_id`,
       )
       .all(req.merchant.id)
       .reduce((a, r) => ({ ...a, [r.offer_id]: r }), {});
@@ -177,7 +178,9 @@ router.get('/orders',
   }), 'query'),
   (req, res) => {
     const p = req.validatedQuery;
-    const where = ['ord.merchant_id = ?'];
+    // An order that has not been paid for is a hold, not a booking: it is the
+    // customer's business with the wallet, and the counter never sees it.
+    const where = ['ord.merchant_id = ?', `ord.status <> 'pending_payment'`];
     const params = [req.merchant.id];
     if (p.status) { where.push('ord.status = ?'); params.push(p.status); }
     const rows = db

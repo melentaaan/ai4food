@@ -40,6 +40,9 @@ export function transfersForOrders(orderIds) {
 
 function assertHandable(order) {
   if (order.status === 'picked_up') throw conflict('already_picked_up', 'That bag has already been collected');
+  if (order.status === 'pending_payment') {
+    throw conflict('not_paid', 'Finish paying for this bag before handing it on');
+  }
   if (order.status !== 'active') throw conflict('not_active', `That order is ${order.status}`);
   if (order.pickup_end <= now()) throw conflict('window_closed', 'The pickup window has closed');
 }
