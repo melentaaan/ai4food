@@ -14,6 +14,30 @@ const paymentRow = (id) => db.prepare('SELECT * FROM payments WHERE id = ?').get
 export const latestPayment = (orderId) =>
   db.prepare('SELECT * FROM payments WHERE order_id = ? ORDER BY created_at DESC LIMIT 1').get(orderId);
 
+/**
+ * Where the wallet sends the customer back to.
+ *
+ * The client asks for this, and the provider will send a person wherever it
+ * says — which makes an unchecked value an open redirect with a payment
+ * confirmation attached to it, the most convincing kind. So a requested URL is
+ * honoured only when it is on the origin we published as ours; anything else
+ * quietly becomes that origin instead of being obeyed or refused.
+ */
+export function safeReturnUrl(requested) {
+  const fallback = config.publicAppUrl;
+  if (!requested) return fallback;
+  try {
+    const want = new URL(requested);
+    const ours = new URL(fallback);
+    const allowed = new Set([ours.origin, ...config.corsOrigins.filter((o) => o !== '*')]);
+    if (allowed.has(want.origin)) return want.toString();
+    console.warn('[payments] refused a return url off our origin', want.origin);
+  } catch {
+    console.warn('[payments] refused a return url that is not a url');
+  }
+  return fallback;
+}
+
 /** A wallet order is only a sale once the wallet says so. */
 export const isSettled = (order) => order.payment_method === 'cash' || order.payment_status === 'paid';
 
@@ -35,7 +59,7 @@ export async function startPayment({ order, appUrl }) {
      VALUES (?, ?, ?, ?, 'pending', ?, ?, ?)`,
   ).run(id, order.id, provider.id, order.total_cfa, reference, now(), order.payment_due_at);
 
-  const back = appUrl || config.publicAppUrl;
+  const back = safeReturnUrl(appUrl);
   const sep = back.includes('?') ? '&' : '?';
   try {
     const out = await provider.createCheckout({

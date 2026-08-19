@@ -47,6 +47,9 @@ const wave = http.createServer((req, res) => {
         id,
         client_reference: parsed.client_reference,
         amount: parsed.amount,
+        // Kept so a test can check what we actually handed the wallet.
+        success_url: parsed.success_url,
+        error_url: parsed.error_url,
         checkout_status: 'open',
         payment_status: 'processing',
         wave_launch_url: `https://pay.example/${id}`,
@@ -415,5 +418,33 @@ describe('paying with a wallet', () => {
     await reserveWithWave(1);
     const afterStats = await get('/api/admin/overview', admin.access_token);
     assert.equal(afterStats.body.overview.today.gross_cfa, beforeGross, 'a hold must not read as revenue');
+  });
+});
+
+describe('where the wallet sends people back to', () => {
+  test('a return url off our origin is ignored, not obeyed', async () => {
+    const offer = liveOffer();
+    const res = await post('/api/orders',
+      { offer_id: offer.id, qty: 1, payment_method: 'wave', return_url: 'https://evil.example/steal' },
+      customer.access_token);
+    assert.equal(res.status, 201, JSON.stringify(res.body));
+
+    // Whatever the provider was handed, it cannot have been the attacker's.
+    const payment = paymentOf(res.body.order.id);
+    const session = sessions.get(payment.provider_ref);
+    assert.ok(!/evil\.example/.test(session.success_url), 'a crafted return url reached the wallet');
+    assert.ok(!/evil\.example/.test(session.error_url));
+  });
+
+  test('our own origin is honoured', async () => {
+    const offer = liveOffer();
+    const mine = process.env.PUBLIC_APP_URL || 'http://localhost:8080/ai4food-app.html';
+    const res = await post('/api/orders',
+      { offer_id: offer.id, qty: 1, payment_method: 'wave', return_url: mine },
+      customer.access_token);
+    assert.equal(res.status, 201);
+    const payment = paymentOf(res.body.order.id);
+    const session = sessions.get(payment.provider_ref);
+    assert.ok(session.success_url.startsWith(new URL(mine).origin), 'our own return url was dropped');
   });
 });
