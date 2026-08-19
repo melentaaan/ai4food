@@ -2508,17 +2508,19 @@ function openAuth(){openGate("")}
    "Reserver" doit retrouver son panier apres le code, pas la page d'accueil. */
 function openGate(kind,after){
  S.gate=true;S.after=after||null;
- S.auth={kind:kind||"",step:"phone",phone:"",hint:"",isNew:false,err:""};
- S.stack=[];drawSheet();render(true);
+ S.auth={kind:kind||"client",step:"phone",phone:"",hint:"",isNew:false,err:""};
+ closeSheet();
+ render(true);
 }
 function closeGate(){
  S.gate=false;S.after=null;S.auth={kind:"",step:"phone",phone:"",hint:"",isNew:false,err:""};
- render(true);
+ hideSheet();render(true);
 }
 /** Apres la connexion: on reprend exactement la ou l'on en etait. */
 async function afterAuth(){
  const want=S.after;
  S.gate=false;S.after=null;
+ hideSheet();
  if(online())await syncAll(true).catch(()=>{});
  else render(true);
  if(!want){render(true);return}

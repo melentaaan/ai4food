@@ -1,2 +1,3 @@
 # Build output: regenerate with node tools/build-artifact.mjs
 ai4food-artifact.html
+node_modules/

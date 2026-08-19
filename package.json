@@ -1,0 +1,19 @@
+{
+  "name": "ai4food",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI4Food: the Dakar surplus-food marketplace — the app, the API, and the tests over both.",
+  "type": "module",
+  "scripts": {
+    "test": "npm --prefix server test && npm run test:web",
+    "test:web": "node --test web-test/*.test.mjs",
+    "test:api": "npm --prefix server test",
+    "build": "node tools/build-artifact.mjs",
+    "seed": "npm --prefix server run seed -- --fresh",
+    "start": "npm --prefix server start"
+  },
+  "devDependencies": {
+    "playwright": "^1.62.1"
+  },
+  "engines": { "node": ">=20" }
+}
