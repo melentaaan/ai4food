@@ -15,6 +15,11 @@ const TEXTS = {
     en: (code) => `AI4Food: your code is ${code}. It expires in ${Math.round(config.otpTtlSeconds / 60)} min. Do not share it.`,
     wo: (code) => `AI4Food: sa kod mooy ${code}. Dina jeex ci ${Math.round(config.otpTtlSeconds / 60)} simili. Bul ko wax kenn.`,
   },
+  reset: {
+    fr: (code) => `AI4Food : code de réinitialisation ${code}. Valable 15 min. Si ce n'est pas vous, ignorez ce message.`,
+    en: (code) => `AI4Food: reset code ${code}. Valid for 15 min. If this was not you, ignore this message.`,
+    wo: (code) => `AI4Food: kodu soppi ${code}. Ci 15 simili. Boo ko defulwoon, bàyyi ko.`,
+  },
 };
 
 export function smsText(kind, locale, ...args) {

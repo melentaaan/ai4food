@@ -964,10 +964,8 @@ n_shops:["{0} commerces à Dakar","{0} shops in Dakar","{0} butik ci Dakar"],
 map:["Carte","Map","Kart"],
 list:["Liste","List","Liste"],
 partner:["Partenaire, offres en ligne","Partner, offers online","Partenaire, offre yi ci kaw"],
-invite_shop:["Inviter ce commerce","Invite this shop","Woo butik bi"],
 invited:["Invitation envoyée","Invitation sent","Yónnee nañu woote bi"],
 tap_pin:["Touchez un point pour voir le commerce","Tap a dot to see the shop","Tëddal point bi ngir gis butik bi"],
-partners_line:["{0} partenaires actifs &middot; {1} à convaincre","{0} active partners &middot; {1} to convince","{0} partenaires &middot; {1} ñu war a woo"],
 offers_here:["{0} offre en ligne","{0} offer online","{0} offre ci kaw"],
 offers_here_n:["{0} offres en ligne","{0} offers online","{0} offre ci kaw"],
 data_src:["Données commerces: Google Maps. Commerces cités à titre d'illustration, sans partenariat existant.","Shop data: Google Maps. Shops shown for illustration only, no existing partnership.","Data yu butik yi: Google Maps. Ci misaal rekk lañu."],
@@ -1188,12 +1186,30 @@ m_bearer:["Retrait par un proche","A friend is collecting","Ku la jege moo koy j
 m_bearer_n:["Retrait par un proche ({0})","A friend is collecting ({0})","Ku la jege ({0})"],
 /* porte d'entree */
 gate_t:["Se connecter","Sign in","Dugg"],
-gate_p:["AI4Food a deux côtés. Choisissez le vôtre.","AI4Food has two sides. Pick yours.","AI4Food am na ñaari wet. Tannal sa bos."],
+gate_p:["Votre numéro suffit pour commencer.","Your number is all you need.","Sa numéro doy na."],
 gate_client:["Je suis client","I am a customer","Maa ngi jënd"],
-gate_client_p:["Réserver un panier près de chez moi","Reserve a bag near me","Réserver panier bu jege"],
+gate_client_p:["Votre numéro suffit. Pas de mot de passe à retenir.","Just your number. No password to remember.","Sa numéro doy na. Amul mot de passe."],
 gate_merch:["Je suis commerçant","I run a shop","Maa ngi jaay"],
 gate_merch_p:["Mettre mes invendus en vente","Put my surplus up for sale","Jaay li ma jaayul"],
 gate_change:["Ce n'est pas moi","That is not me","Du man"],
+gate_reserve:["Connectez-vous pour réserver","Sign in to reserve","Dugg ngir réserver"],
+gate_reserve_p:["Votre numéro suffit. Votre panier vous attend.","Just your number. Your bag is waiting.","Sa numéro doy na. Sa panier mi ngi la xaar."],
+gate_keep_browsing:["Continuer sans compte","Keep browsing","Joxe sans kont"],
+gate_iam_shop:["Je suis un commerce","I run a shop","Maa ngi jaay"],
+gate_iam_customer:["Je suis client","I am a customer","Maa ngi jënd"],
+follow_needs_account:["Connectez-vous pour suivre ce commerce et être prévenu.","Sign in to follow this shop and get told.","Dugg ngir topp butik bi te ñu la xamal."],
+legal_signin:["En continuant, vous acceptez nos conditions et notre politique de confidentialité.","By continuing you accept our terms and privacy policy.","Boo toppee, nangu nga sunu conditions ak politique de confidentialité."],
+gone_while_auth:["Ce panier vient d'être réservé. Voici ce qui reste.","That bag has just been taken. Here is what is left.","Panier boobu ñu ko jël. Lii mooy li des."],
+guest_orders_t:["Retrouvez vos commandes","Find your orders","Gis sa commande yi"],
+guest_orders_p:["Connectez-vous pour voir vos réservations et vos codes de retrait.","Sign in to see your reservations and pickup codes.","Dugg ngir gis sa réservation ak sa kod yi."],
+guest_prof_t:["Bienvenue sur AI4Food","Welcome to AI4Food","Dalal jàmm ci AI4Food"],
+guest_prof_p:["Connectez-vous pour retrouver vos commandes et vos préférences.","Sign in to find your orders and preferences.","Dugg ngir gis sa commande ak sa tànneef yi."],
+guest_fav_p:["Vos favoris sont gardés sur cet appareil. Connectez-vous pour les retrouver partout.","Your favourites stay on this device. Sign in to keep them everywhere.","Sa favori yi ci telefon bi lañu des. Dugg ngir gis leen fu nekk."],
+signin_cta:["Se connecter","Sign in","Dugg"],
+merch_space:["Espace commerçant","Shop dashboard","Wetu butikkat"],
+merch_space_p:["Gérer mes paniers et mes retraits","Manage my bags and pickups","Toppatoo sama panier ak retrait"],
+become_partner:["Devenir partenaire","Become a partner","Bokk ci AI4Food"],
+become_partner_p:["Vendre vos invendus sur AI4Food","Sell your surplus on AI4Food","Jaay li nga jaayul ci AI4Food"],
 gate_demo_t:["Sans serveur","With no server","Amul serveur"],
 gate_demo_client:["Le code s'affiche ici, aucun SMS n'est envoyé.","The code appears here, no SMS is sent.","Kod bi dina feeñ fii, amul SMS."],
 gate_demo_merch:["Compte de démonstration: {0} / {1}","Demo account: {0} / {1}","Compte démo: {0} / {1}"],
@@ -1213,8 +1229,6 @@ sh_shop:["Le commerce","The shop","Butik bi"],
 sh_bags_here:["Ses paniers","Its bags","Panier yi"],
 sh_no_bags:["Rien en ligne pour l'instant","Nothing online right now","Amul dara léegi"],
 sh_no_bags_p:["Suivez-le et vous saurez dès qu'il publie.","Follow it and you will know as soon as it publishes.","Toppal ko, dinga xam bu def."],
-sh_prospect:["Pas encore partenaire","Not a partner yet","Bokkagul ba tey"],
-sh_prospect_p:["Ce commerce n'est pas encore sur AI4Food. Invitez-le, on s'en occupe.","This shop is not on AI4Food yet. Invite it and we take it from there.","Butik bii nekkagul ci AI4Food. Woo ko, nun ñoo koy topptoo."],
 o_receipt:["Le reçu","The receipt","Reçu bi"],
 o_when:["Commandé le","Ordered on","Bés bi ñu ko jënd"],
 m_bag:["Le panier","The bag","Panier bi"],
@@ -1262,7 +1276,11 @@ qr_hint:["Le commerçant scanne ce code","The shop scans this code","Butik bi di
 qr_big:["Afficher en grand","Show it big","Wonel ko bu mag"],
 qr_big_p:["Montrez cet écran au comptoir","Show this screen at the counter","Wonel ekran bi ci komptuwaar bi"],
 n_got_b:["Votre panier a été récupéré chez {0}. Jërëjëf !","Your basket was collected at {0}. Jërëjëf!","Jël nga sa panier ci {0}. Jërëjëf !"],
-lg_prospect:["À convaincre","To convince","Ñu war a woo"],
+lg_no_bags:["Rien ce soir","Nothing tonight","Amul dara tey"],
+lg_bags_here:["Paniers disponibles","Bags available","Panier yu am"],
+none_tonight:["Rien ce soir","Nothing tonight","Amul dara tey"],
+bags_around:["{0} paniers disponibles autour de vous","{0} bags available around you","{0} panier yu am ci sa wet"],
+bags_around1:["1 panier disponible autour de vous","1 bag available around you","1 panier bu am ci sa wet"],
 /* panneau desktop */
 p_sub:["Dakar &middot; {0} commerces cartographiés &middot; {1} paniers","Dakar &middot; {0} shops mapped &middot; {1} baskets","Dakar &middot; {0} butik &middot; {1} panier"],
 p_kv1:["Ce que fait la démo","What the demo does","Lu démo bi di def"],
@@ -1353,7 +1371,7 @@ const V=[{"n": "Chez Loutcha", "c": "Restaurants", "z": "Plateau", "r": 3.9, "k"
    Etat + persistance locale
    ========================================================= */
 const SKEY="ai4food.state.v2";
-const PERSIST=["lang","theme","fav","orders","custom","stock","invited","recent","zone","zoneSet","pos","seen","notifs","alerts","reads","follows","gifts","demoUser"];
+const PERSIST=["lang","theme","fav","guestFav","orders","custom","stock","invited","recent","zone","zoneSet","pos","seen","notifs","alerts","reads","follows","gifts","demoUser"];
 const el=i=>document.getElementById(i);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const jsq=s=>String(s).replace(/\\/g,"\\\\").replace(/'/g,"\\'").replace(/"/g,"&quot;");
@@ -1384,8 +1402,9 @@ let S={
  mode:"demo",remote:{offers:[],orders:[],notifs:[],impact:null,merchants:[],follows:[],forme:[]},desk:null,
  favSeg:"bags",
  idMap:{},idSeq:0,auth:{step:"phone",phone:"",hint:"",isNew:false},err:null,
+ gate:false,after:null,
  busy:0,netDown:false,bearer:null,scrollPos:{},haptics:true,
- lang:"fr",theme:"auto",fav:[8,11],orders:seedOrders(),custom:[],stock:{},invited:[],recent:[],
+ lang:"fr",theme:"auto",fav:[8,11],guestFav:[],orders:seedOrders(),custom:[],stock:{},invited:[],recent:[],
  zone:"Sacré-Cœur",zoneSet:false,pos:null,seen:false,notifs:seedNotifs(),alerts:true,reads:[],follows:[],gifts:{},demoUser:null
 };
 function save(){
@@ -1399,17 +1418,19 @@ function load(){
 }
 function resetAll(){
  try{localStorage.removeItem(SKEY)}catch(e){}
- S.fav=[8,11];S.orders=seedOrders();S.custom=[];S.stock={};S.invited=[];S.recent=[];
+ S.fav=[8,11];S.guestFav=[];S.orders=seedOrders();S.custom=[];S.stock={};S.invited=[];S.recent=[];
  S.notifs=seedNotifs();S.zone="Sacré-Cœur";S.zoneSet=false;S.pos=null;S.seen=true;S.role="client";S.tab="home";
  S.follows=[];S.gifts={};S.demoUser=null;
  save();applyTheme();render();toast(t("reset_done"));
 }
 
 /* ---------- qui est connecte ----------
-   Le serveur quand il repond, le compte de demonstration sinon. Dans les deux
-   cas il faut s'etre connecte: l'application ne montre rien avant. */
+   Le serveur quand il repond, le compte de demonstration sinon. Personne, le
+   plus souvent: on entre dans AI4Food sans compte, et le marche est ouvert.
+   Se connecter sert a reserver, pas a regarder. */
 const me=()=>online()?API.me:S.demoUser;
 const authed=()=>!!me();
+const guest=()=>!authed();
 const roleOf=()=>{const u=me();if(!u)return "client";
  return u.role==="merchant"?"merchant":u.role==="admin"?"admin":"client"};
 /* ---------- catalogue derive ---------- */
@@ -2266,10 +2287,12 @@ const API={
   if(rt)fetch(this.url("/auth/logout"),{method:"POST",headers:{"content-type":"application/json"},
    body:JSON.stringify({refresh_token:rt})}).catch(()=>{});
   S.remote={offers:[],orders:[],notifs:[],impact:null,merchants:[],follows:[],forme:[]};
-  S.role="client";S.tab="home";
+  S.role="client";S.tab="home";S.gate=false;S.after=null;
   S.auth={kind:"",step:"phone",phone:"",hint:"",isNew:false,err:""};
   if(!silent)toast(t("signed_out"));
+  // Se deconnecter rend au marche, pas a une porte fermee.
   render(true);
+  if(this.online)syncAll(true).catch(()=>{});
  }
 };
 const online=()=>API.online;
@@ -2360,7 +2383,12 @@ async function pullCatalog(){
  const qs="?include_sold_out=true&limit=100&sort="+sort+(S.filter!=="Tout"?"&category="+encodeURIComponent(S.filter):"");
  const r=await API.get("/offers"+qs);
  S.remote.offers=r.items.map(mapOffer);
- S.fav=S.remote.offers.filter(o=>o.srvFav).map(o=>o.id);
+ // Connecte: le serveur fait foi. Visiteur: la liste locale est la seule qu'il y ait.
+ if(signedIn())S.fav=S.remote.offers.filter(o=>o.srvFav).map(o=>o.id);
+ else{
+  const g=Array.isArray(S.guestFav)?S.guestFav:[];
+  S.fav=S.remote.offers.filter(o=>g.indexOf(o.srv)>=0).map(o=>o.id);
+ }
 }
 /** Le panier qu'un proche vous confie: juste de quoi entrer et repartir. */
 function mapBearer(p){
@@ -2460,20 +2488,55 @@ function samePhone(a,b){
 }
 function demoSignIn(u){
  S.demoUser=u;S.role=u.role==="merchant"?"merchant":"client";
- S.tab=tabsFor(S.role)[0][0];S.auth={kind:"",step:"phone",phone:"",hint:"",isNew:false,err:""};
- save();buzz("ok");render(true);toast(t("welcome_back",esc(u.name||"")));
+ S.auth={kind:"",step:"phone",phone:"",hint:"",isNew:false,err:""};
+ if(!canShow(S.role,S.tab))S.tab=tabsFor(S.role)[0][0];
+ // Hors ligne les favoris n'ont jamais quitte l'appareil: rien a remonter.
+ save();buzz("ok");toast(t("welcome_back",esc(u.name||"")));
+ afterAuth();
 }
 function signOutAny(){
+ S.gate=false;S.after=null;
  if(online())return API.signOut();
  S.demoUser=null;S.role="client";S.tab="home";S.auth={kind:"",step:"phone",phone:"",hint:"",isNew:false,err:""};
  save();render(true);toast(t("signed_out"));
 }
 
-/** Il n'y a plus de feuille de connexion: tout passe par la porte d'entree. */
-function openAuth(){S.auth={kind:"",step:"phone",phone:"",hint:"",isNew:false,err:""};render(true)}
+/** Ouvre la connexion sans raison particuliere: on revient d'ou l'on venait. */
+function openAuth(){openGate("")}
+/* ---------- la porte ----------
+   On y entre pour une raison, et cette raison est gardee: quelqu'un qui touche
+   "Reserver" doit retrouver son panier apres le code, pas la page d'accueil. */
+function openGate(kind,after){
+ S.gate=true;S.after=after||null;
+ S.auth={kind:kind||"",step:"phone",phone:"",hint:"",isNew:false,err:""};
+ S.stack=[];drawSheet();render(true);
+}
+function closeGate(){
+ S.gate=false;S.after=null;S.auth={kind:"",step:"phone",phone:"",hint:"",isNew:false,err:""};
+ render(true);
+}
+/** Apres la connexion: on reprend exactement la ou l'on en etait. */
+async function afterAuth(){
+ const want=S.after;
+ S.gate=false;S.after=null;
+ if(online())await syncAll(true).catch(()=>{});
+ else render(true);
+ if(!want){render(true);return}
+ if(want.tab){S.tab=want.tab;render(true);return}
+ if(want.offer){
+  // Le panier a pu partir pendant que l'on tapait le code: le stock decide.
+  const d=byId(want.offer);
+  if(!d||stockOf(d)<=0){S.tab="home";render(true);toast(t("gone_while_auth"),true);return}
+  S.cur=want.offer;S.qty=Math.min(want.qty||1,stockOf(d));
+  S.stack=[{n:"payment",a:want.offer}];drawSheet();render(true);
+  return;
+ }
+ render(true);
+}
+
 function gateKind(k){S.auth.kind=k;S.auth.step="phone";S.auth.err="";render(true);
  setTimeout(()=>{const n=el(k==="client"?"aphone":"sid");if(n)n.focus()},80)}
-function gateBack(){S.auth.kind="";S.auth.err="";S.auth.step="phone";render(true)}
+function gateBack(){S.auth.kind="client";S.auth.err="";S.auth.step="phone";render(true)}
 function backToPhone(){S.auth.step="phone";S.auth.err="";render(true)}
 /** La porte est un ecran, pas une feuille: on la redessine comme le reste. */
 function redraw(){if(S.stack.length)reSheet();else render()}
@@ -2528,7 +2591,6 @@ async function staffLogin(){
 function afterSignIn(){
  closeSheet();
  S.role=roleOf();
- S.tab=tabsFor(S.role)[0][0];
  S.auth={kind:"",step:"phone",phone:"",hint:"",isNew:false,err:""};
  // Le quartier choisi sur cet appareil est la parole la plus recente: il
  // remonte au compte plutot que de se faire ecraser par lui.
@@ -2537,9 +2599,25 @@ function afterSignIn(){
   API.raw("PATCH","/auth/me",{zone:S.zone,lat:p.la,lng:p.lo}).catch(()=>{});
  }else if(API.me.zone){S.zone=API.me.zone;S.zoneSet=true}
  if(API.me.locale){const i=LANGS.findIndex(l=>l[0]===API.me.locale);if(i>=0){LI=i;S.lang=API.me.locale}}
+ // Les favoris poses en visiteur suivent la personne dans son compte.
+ mergeGuestFavourites();
  save();
  if(roleOf()!=="admin")toast(t("welcome_back",esc(API.me.name||"")));
- syncAll(true);
+ // Un commerçant n'a que faire du fil client, et inversement: on n'impose un
+ // onglet que si celui ou l'on etait n'existe pas de l'autre cote.
+ if(!canShow(S.role,S.tab))S.tab=tabsFor(S.role)[0][0];
+ afterAuth();
+}
+
+/* Les coeurs poses sans compte ne sont pas perdus a la connexion: ils partent
+   au serveur une fois, puis la liste locale est videe pour qu'un favori retire
+   plus tard ne revienne pas d'entre les morts au prochain login. */
+function mergeGuestFavourites(){
+ if(!online()||!Array.isArray(S.guestFav)||!S.guestFav.length)return;
+ const ids=S.guestFav.slice();
+ S.guestFav=[];save();
+ Promise.all(ids.map(id=>API.put("/offers/"+id+"/favourite").catch(()=>{})))
+  .then(()=>pullCatalog()).then(()=>render()).catch(()=>{});
 }
 
 /* =========================================================
@@ -2601,7 +2679,7 @@ function mapSvg(list){
 }
 function vrow(v){
  const ic=c=>c==="Hôtels"?"bed":c==="Supermarchés"?"cart":c==="Boulangeries"?"bread":c==="Marchés"?"store":"fork";
- const off=offersAt(v),inv=online()?!!v.inv:S.invited.indexOf(v.n)>=0;
+ const off=offersAt(v);
  const d=kmBetween(userPos(),{la:v.la,lo:v.lo});
  const i=MV().indexOf(v),partner=v.live||off.length>0,fol=isFollowing(v),nf=v.nfol||0;
  const k=jsq(vkey(v));
@@ -2613,20 +2691,24 @@ function vrow(v){
      <span class="dist">${I("pin",12)} ${fmtKm(d)}</span></p>
     <div class="vacts">
      ${off.length?`<button class="invite" onclick="${stop}open_('${off[0].id}')">${I("bag",13)} ${off.length===1?t("offers_here",1):t("offers_here_n",off.length)}</button>`
-      :v.live?`<span class="save" style="margin-top:8px">${I("check",13)} ${t("partner")}</span>`
-      :inv?`<span class="stat wait" style="margin-top:8px">${I("check",13)} ${t("invited")}</span>`
-      :`<button class="invite" onclick="${stop}invite(${i})">${I("plus",13)} ${t("invite_shop")}</button>`}
+      :`<span class="stat" style="margin-top:8px">${I("clock",13)} ${t("none_tonight")}</span>`}
      ${partner?`<button class="invite fol ${fol?"on":""}" onclick="${stop}follow('${k}')"
        aria-pressed="${fol?"true":"false"}">${I(fol?"check":"plus",13)} ${fol?t("following_lbl"):t("follow")}</button>`:""}
      ${partner&&nf?`<span class="fcount">${nf===1?t("n_follower1"):t("n_followers",nf)}</span>`:""}
     </div>
    </div>${I("chevR",16)}</div>`;
 }
+/** Paniers reellement disponibles dans les commerces affiches. */
+function bagsAround(){
+ return CAT().filter(d=>statusOf(d)!=="sold").reduce((a,d)=>a+Math.max(0,stockOf(d)),0);
+}
 function places(){
  if(online()&&S.busy>0&&!MV().length)return skelScreen(t("shops"));
  const vl=MV().filter(v=>S.vfilter==="Tout"||v.c===S.vfilter)
    .sort((a,b)=>kmBetween(userPos(),{la:a.la,lo:a.lo})-kmBetween(userPos(),{la:b.la,lo:b.lo}));
- const nLive=MV().filter(v=>v.live||offersAt(v).length).length;
+ // Ce qu'une personne veut savoir en ouvrant la carte: combien de paniers,
+ // pas combien de commerces nous restent a convaincre.
+ const nLive=MV().filter(v=>offersAt(v).length).length;
  const sv=S.sel>=0?MV()[S.sel]:null;
  return `<div class="head"><div><div class="hi">${t("n_shops",MV().length)}</div><div class="city">${t("shops")}</div></div>
   <button class="round" onclick="openZone()" aria-label="${esc(t("your_zone"))}">${I("target",20)}</button></div>
@@ -2636,11 +2718,11 @@ function places(){
  <div class="chips">${CATS.map(c=>`<button class="chip ${S.vfilter===c?"on":""}" onclick="setVF('${jsq(c)}')">${catL(c)}</button>`).join("")}</div>
  ${S.view==="carte"
   ? `<div class="mapwrap">${mapSvg(vl)}
-      <div class="maplg"><span><i class="d live"></i> ${t("lg_partner")}</span>
-       <span><i class="d"></i> ${t("lg_prospect")}</span></div></div>
+      <div class="maplg"><span><i class="d live"></i> ${t("lg_bags_here")}</span>
+       <span><i class="d"></i> ${t("lg_no_bags")}</span></div></div>
      ${sv?`<div class="list">${vrow(sv)}</div>`:`<p class="hintline">${I("pin",14)} ${t("tap_pin")}</p>`}`
   : `<div class="sec"><div><h2>${vl.length} ${t("shops").toLowerCase()}</h2>
-      <p>${t("partners_line",nLive,MV().length-nLive)}</p></div></div>
+      <p>${bagsAround()===1?t("bags_around1"):t("bags_around",bagsAround())}</p></div></div>
      <div class="list">${vl.map(vrow).join("")}</div>`}
  <p class="legal">${t("data_src")}</p>`;
 }
@@ -2764,8 +2846,15 @@ function ordersBody(){
    :`<div class="empty"><div class="ic">${I("receipt",28)}</div><h3>${t("no_orders")}</h3><p>${t("no_orders_p")}</p></div>`)}`;
 }
 function orders(){
+ const body=guest()
+  ? `<div class="empty"><div class="ic">${I("receipt",28)}</div><h3>${t("guest_orders_t")}</h3>
+     <p>${t("guest_orders_p")}</p>
+     <button class="btn btn-main" onclick="openGate('client',{tab:'orders'})">${t("signin_cta")}</button>
+     <div style="height:9px"></div>
+     <button class="btn btn-ghost" onclick="go('home')">${t("discover")}</button></div>`
+  : ordersBody();
  return `<div class="head"><div><div class="hi">${t("tracking")}</div><div class="city">${t("my_orders")}</div></div>
-  ${bellBtn()}</div>${ordersBody()}<div style="height:16px"></div>`;
+  ${bellBtn()}</div>${body}<div style="height:16px"></div>`;
 }
 function profile(){
  const im=impact(),dark=document.documentElement.getAttribute("data-theme")==="dark";
@@ -2774,7 +2863,11 @@ function profile(){
  const act=activeOrders().length;
  return `<div class="head"><div><div class="hi">${t("account")}</div><div class="city">${t("profile")}</div></div>
   ${bellBtn()}</div>
- ${(()=>{const u=me()||{};const n=u.name||"";
+ ${guest()
+  ? `<div class="roleswap"><div class="rl">${t("guest_prof_t")}</div>
+     <p class="rn" style="margin:0 0 12px">${t("guest_prof_p")}</p>
+     <button class="btn btn-main" onclick="openGate('client',{tab:'profile'})">${t("signin_cta")}</button></div>`
+  : (()=>{const u=me()||{};const n=u.name||"";
    return `<div class="prof"><div class="av">${esc(initials(n)||"AI")}</div>
     <div><h2>${esc(shortName(n)||t("you"))}</h2><p>${t("member_since",esc(S.zone))}</p></div></div>`})()}
  ${(()=>{const u=me();if(!u)return "";
@@ -2782,13 +2875,13 @@ function profile(){
      <p class="rn" style="margin:0 0 11px">${t(roleOf()==="merchant"?"role_merchant":"role_client")}
       &middot; ${esc(u.phone||"")}${u.merchant?" &middot; "+esc(u.merchant.name):""}</p>
      <button class="btn btn-ghost" onclick="signOutAny()">${I("close",17)} ${t("sign_out")}</button></div>`})()}
- ${roleOf()==="client"?`<div class="impact grain"><h3>${I("leaf",18)} ${t("impact")}</h3>
+ ${(roleOf()==="client"&&!guest())?`<div class="impact grain"><h3>${I("leaf",18)} ${t("impact")}</h3>
   <div class="irow">${statTile("meals",im.meals,t("meals_saved"))}
   ${statTile("co2",im.co2+" kg",t("co2_avoided"))}
   ${statTile("saved",Fk(im.saved)+" F",t("money_saved"))}</div>
   <p style="margin:13px 0 0;font-size:10.5px;color:#A9C4BC;line-height:1.5">${t("impact_note")}</p></div>`:""}
  <div class="rows">
-  ${row("wallet",t("pay_methods"),"Wave","payToast()")}
+  ${row("wallet",t("pay_methods"),payMethods().map(m=>esc(m.label)).join(" · "),"payToast()")}
   ${row("globe",t("language"),LANGS[LI][2],"openLang()")}
   ${row("pin",t("your_zone"),esc(S.zone),"openZone()")}
   ${row("receipt",t("row_orders"),act?t("n_active",act):t("none_f"),"go('orders')")}
@@ -2796,6 +2889,10 @@ function profile(){
   ${tgl("bell",t("notifs"),S.alerts,"toggleAlerts()")}
   ${row("gift",t("invite_friend"),t("referral"),"referral()")}
   ${online()?"":row("trash",t("reset_demo"),"","resetAll()")}
+ </div>
+ <div class="rows">
+  ${roleOf()==="merchant"?"":row("store",t("merch_space"),"","openGate('merchant')")}
+  ${row("spark",t("become_partner"),"","openPartner()")}
  </div>
  <div class="brandline">${logoLock(15)}</div>
  <p class="legal">${online()?t("online_mode"):t("demo_mode")} &middot; ${t("legal_offers")}</p>`;
@@ -3031,15 +3128,9 @@ function shopSheet(key){
    <div class="r"><span>${t("rating")}</span><b>${I("star",13)} ${v.r.toFixed(1)}</b></div>
    <div class="r"><span>${t("distance")}</span><b>${fmtKm(d)}</b></div>
    ${v.nfol?`<div class="r"><span>${t("following_lbl")}</span><b>${v.nfol===1?t("n_follower1"):t("n_followers",v.nfol)}</b></div>`:""}</div>
-  ${v.live||off.length
-   ?`<button class="btn ${fol?"btn-ghost":"btn-main"}" onclick="follow('${jsq(vkey(v))}')">
-      ${I(fol?"check":"plus",18)} ${fol?t("following_lbl"):t("follow")}</button>
-     <div style="height:9px"></div>`
-   :`<div class="good" style="margin-top:0"><h4>${I("store",16)} ${t("sh_prospect")}</h4>
-     <p style="margin:0 0 10px;font-size:12.5px;color:var(--good-ink);line-height:1.6">${t("sh_prospect_p")}</p>
-     ${(online()?!!v.inv:S.invited.indexOf(v.n)>=0)
-      ?`<span class="stat wait">${I("check",13)} ${t("invited")}</span>`
-      :`<button class="btn btn-main" onclick="invite(${i})">${I("plus",18)} ${t("invite_shop")}</button>`}</div>`}
+  <button class="btn ${fol?"btn-ghost":"btn-main"}" onclick="follow('${jsq(vkey(v))}')">
+     ${I(fol?"check":"plus",18)} ${fol?t("following_lbl"):t("follow")}</button>
+  <div style="height:9px"></div>
   <button class="btn btn-ghost" onclick="shopToMap('${jsq(vkey(v))}')">${I("pin",18)} ${t("see_map")}</button>
  </div>
  ${off.length?`<div class="sec"><div><h2>${t("sh_bags_here")}</h2></div></div>
@@ -3488,27 +3579,17 @@ function pickupFromUrl(){
    maison. Il n'y a pas de bouton pour "faire semblant" d'etre l'autre.
 */
 function gate(){
- const a=S.auth||{},kind=a.kind||"";
+ const a=S.auth||{},kind=a.kind||"client";
  if(roleOf()==="admin")return gateAdmin();
- const head=`<div class="top">${logoLock(30)}
-   <h1>${kind?t(kind==="client"?"gate_client":"gate_merch"):t("gate_t")}</h1>
-   <p>${kind?t(kind==="client"?"gate_client_p":"gate_merch_p"):t("gate_p")}</p></div>`;
+ // Le titre dit pourquoi on est la. Quelqu'un arrete au milieu d'une
+ // reservation ne lit pas "Bienvenue", il lit ce qui le separe de son panier.
+ const why=S.after&&S.after.offer;
+ const head=`<div class="top">
+   <button class="circ gclose" onclick="closeGate()" aria-label="${esc(t("close"))}">${I("back",19)}</button>
+   ${logoLock(30)}
+   <h1>${kind==="merchant"?t("gate_merch"):(why?t("gate_reserve"):t("gate_client"))}</h1>
+   <p>${kind==="merchant"?t("gate_merch_p"):(why?t("gate_reserve_p"):t("gate_client_p"))}</p></div>`;
  const err=a.err?`<p class="err">${I("info",14)} ${esc(a.err)}</p>`:"";
-
- if(!kind)return `<div class="gate">${head}
-   <button class="grole" onclick="gateKind('client')">
-     <span class="gi">${I("user",22)}</span>
-     <span class="gt"><b>${t("gate_client")}</b><small>${t("gate_client_p")}</small></span>
-     ${I("chevR",17)}</button>
-   <button class="grole" onclick="gateKind('merchant')">
-     <span class="gi">${I("store",22)}</span>
-     <span class="gt"><b>${t("gate_merch")}</b><small>${t("gate_merch_p")}</small></span>
-     ${I("chevR",17)}</button>
-   ${online()?"":`<div class="demo"><b>${t("gate_demo_t")}</b><p>${t("gate_demo_client")}</p></div>`}
-   <div class="foot"><div class="lgrow2">${LANGS.map((l,i)=>
-     `<button class="lgb2 ${LI===i?"on":""}" onclick="setLangIdx(${i})">${l[1]}</button>`).join("")}</div>
-    <p class="legal" style="padding-top:14px">${t("legal_offers")}</p></div>
-  </div>`;
 
  if(kind==="client")return `<div class="gate">${head}
    ${a.step==="code"?`
@@ -3531,7 +3612,11 @@ function gate(){
         autocomplete="tel" aria-label="${esc(t("phone"))}"></div>
      <p class="hint">${t("phone_hint")}</p>
      <button class="btn btn-main" onclick="askCode()">${I("chevR",18)} ${t("get_code")}</button>`}
-   <div class="foot"><button class="btn btn-ghost" onclick="gateBack()">${t("gate_change")}</button></div>
+   <div class="foot">
+    ${a.step==="code"?"":`<button class="btn btn-ghost" onclick="gateKind('merchant')">${I("store",17)} ${t("gate_iam_shop")}</button>
+    <div style="height:9px"></div>`}
+    <button class="btn btn-ghost" onclick="closeGate()">${t("gate_keep_browsing")}</button>
+    <p class="legal" style="padding-top:14px">${t("legal_signin")}</p></div>
   </div>`;
 
  return `<div class="gate">${head}
@@ -3543,12 +3628,14 @@ function gate(){
    <button class="btn btn-main" onclick="staffLogin()">${I("check",18)} ${t("signin_go")}</button>
    ${online()?"":`<div class="demo"><b>${t("gate_demo_t")}</b>
      <p>${t("gate_demo_merch","+221770000002","boulangerie-2026")}</p></div>`}
-   <div class="foot"><button class="btn btn-ghost" onclick="gateBack()">${t("gate_change")}</button></div>
+   <div class="foot"><button class="btn btn-ghost" onclick="gateKind('client')">${t("gate_iam_customer")}</button>
+    <div style="height:9px"></div>
+    <button class="btn btn-ghost" onclick="closeGate()">${t("gate_keep_browsing")}</button></div>
   </div>`;
 }
 /** Un compte AI4Food interne n'a rien a faire dans l'application publique. */
 function gateAdmin(){
- return `<div class="gate"><div class="top">${logoLock(30)}
+ return `<div class="gate"><div class="top" style="padding-top:26px">${logoLock(30)}
    <h1>${t("gate_admin_t")}</h1><p>${t("gate_admin_p")}</p></div>
   <button class="btn btn-main" onclick="signOutAny()">${I("close",18)} ${t("sign_out")}</button></div>`;
 }
@@ -3597,7 +3684,12 @@ function open_(id){id=String(id);S.cur=id;const d=byId(id);S.qty=Math.max(1,Math
  if(S.stack.length&&S.stack[S.stack.length-1].n==="detail"){S.stack[S.stack.length-1].a=id;drawSheet()}
  else pushSheet("detail",id)}
 function openWhy(id){pushSheet("why",id)}
-function toPay(){if(online()&&!signedIn()){toast(t("signin_needed"));return openAuth()}pushSheet("payment",S.cur)}
+/* C'est ici, et nulle part avant, que l'on demande qui vous etes: le panier
+   choisi part avec la demande et revient une fois le code entre. */
+function toPay(){
+ if(guest())return openGate("client",{offer:S.cur,qty:S.qty});
+ pushSheet("payment",S.cur);
+}
 function openSearch(){S.q="";pushSheet("search")}
 function openNotifs(){pushSheet("notifs")}
 function openZone(){pushSheet("zone")}
@@ -3625,28 +3717,27 @@ function fav(id){
  save();
  if(i>=0)toastUndo(t("fav_rm"),()=>{fav(id);toast(t("fav_undone"))});
  else toast(t("fav_add"));
- if(online()){
-  if(!signedIn()){const j=S.fav.findIndex(x=>sameId(x,id));if(j>=0)S.fav.splice(j,1);return openAuth()}
+ if(online()&&signedIn()){
   const d=byId(id);
   if(d)API.raw(i>=0?"DELETE":"PUT","/offers/"+d.srv+"/favourite",i>=0?undefined:{})
    .then(()=>{const o=byId(id);if(o)o.srvFav=i<0})
    .catch(e=>toast(e.message,true));
+ }else if(online()){
+  // Sans compte, le coeur reste sur l'appareil. Il rejoindra le compte a la
+  // premiere connexion, mais il n'y a aucune raison d'interrompre la visite
+  // pour ca: on garde l'identifiant serveur, seul stable entre deux sessions.
+  const d=byId(id);
+  if(d&&d.srv){
+   S.guestFav=Array.isArray(S.guestFav)?S.guestFav:[];
+   const j=S.guestFav.indexOf(d.srv);
+   if(i>=0){if(j>=0)S.guestFav.splice(j,1)}else if(j<0)S.guestFav.push(d.srv);
+   save();
+  }
  }
  const top=S.stack[S.stack.length-1];
  if(top&&top.n==="search"){const n=el("sres");if(n)n.innerHTML=searchResults()}
  else if(top)drawSheet();
  render();
-}
-function invite(i){
- const v=MV()[i];
- if(online()){
-  if(!signedIn())return openAuth();
-  v.inv=true;render();
-  guard(()=>API.post("/merchants/"+v.srv+"/invite"),t("invite_sent",v.n)).catch(()=>{});
-  return;
- }
- if(S.invited.indexOf(v.n)<0)S.invited.push(v.n);
- save();render();toast(t("invite_sent",v.n));
 }
 /**
  * Suivre un commerce. Le bouton bascule tout de suite — c'est un geste, pas une
@@ -3661,7 +3752,7 @@ function follow(k){
  const was=isFollowing(v);
  const set=(f,n)=>hits.forEach(x=>{x.fol=f;x.nfol=n});
  if(online()){
-  if(!signedIn())return openAuth();
+  if(!signedIn()){toast(t("follow_needs_account"));return openGate("client")}
   set(!was,Math.max(0,(v.nfol||0)+(was?-1:1)));
   API.raw(was?"DELETE":"PUT","/merchants/"+v.srv+"/follow",was?undefined:{})
    .then(r=>{set(!!r.following,r.followers||0);return pullFollows()})
@@ -3981,9 +4072,11 @@ let lastTab=null,swapT=null;
 function render(resetScroll){
  syncOrders();
  const bar=el("tabs");
- // Rien de l'application avant de s'etre connecte, et pas d'onglets a une
- // porte: la barre n'a de sens qu'une fois de l'autre cote.
- if(S.seen&&(!authed()||roleOf()==="admin")){
+ // La connexion est un ecran ou l'on va, pas un mur que l'on heurte: on ne
+ // l'affiche que si quelqu'un l'a demandee (ou si un compte interne s'est
+ // connecte, auquel cas on le renvoie). Un visiteur sans compte voit le
+ // marche, comme il se doit.
+ if(S.seen&&(S.gate||roleOf()==="admin")){
   const g=el("view");
   g.innerHTML=gate();g.scrollTop=0;
   bar.innerHTML="";bar.classList.add("hide");
@@ -4010,6 +4103,9 @@ function render(resetScroll){
 }
 async function boot(){
  load();
+ // Personne n'a demande a lire une brochure. On entre dans le marche, et le
+ // quartier se change depuis l'en-tete de Decouvrir quand on le souhaite.
+ S.seen=true;
  const i=LANGS.findIndex(l=>l[0]===S.lang);LI=i<0?0:i;
  applyTheme();
  if(window.matchMedia)try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>{if(S.theme==="auto"){applyTheme();render()}})}catch(e){}

@@ -12,14 +12,17 @@ CREATE TABLE IF NOT EXISTS users (
   role          TEXT NOT NULL DEFAULT 'customer'
                 CHECK (role IN ('customer','merchant','admin')),
   password_hash TEXT,                          -- staff only (merchant/admin); customers use OTP
+  -- deleted: the person is gone, the row stays so a shop's takings still add
+  -- up. Nothing identifying is left on it.
   status        TEXT NOT NULL DEFAULT 'active'
-                CHECK (status IN ('active','suspended')),
+                CHECK (status IN ('active','suspended','deleted')),
   zone          TEXT NOT NULL DEFAULT 'Plateau',
   lat           REAL,
   lng           REAL,
   locale        TEXT NOT NULL DEFAULT 'fr' CHECK (locale IN ('fr','en','wo')),
   created_at    INTEGER NOT NULL,
-  last_seen_at  INTEGER
+  last_seen_at  INTEGER,
+  deleted_at    INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS merchants (
@@ -245,3 +248,75 @@ CREATE TABLE IF NOT EXISTS sms_messages (
   settled_at   INTEGER
 );
 CREATE INDEX IF NOT EXISTS idx_sms_phone ON sms_messages(phone, created_at DESC);
+
+-- A shop asking to join, before it is a shop. Kept apart from `merchants` on
+-- purpose: an application is a lead with a phone number attached, and nothing
+-- in it should be able to reach a customer's screen by accident.
+CREATE TABLE IF NOT EXISTS merchant_applications (
+  id            TEXT PRIMARY KEY,
+  business_name TEXT NOT NULL,
+  category      TEXT NOT NULL,
+  contact_name  TEXT NOT NULL,
+  phone         TEXT NOT NULL,
+  email         TEXT,
+  zone          TEXT NOT NULL,
+  address       TEXT,
+  surplus_note  TEXT,                            -- what tends to be left, in their words
+  pickup_note   TEXT,                            -- when they would want people to come
+  status        TEXT NOT NULL DEFAULT 'submitted'
+                CHECK (status IN ('submitted','reviewing','needs_info','approved','rejected')),
+  review_note   TEXT,
+  merchant_id   TEXT REFERENCES merchants(id),   -- set once approved
+  created_at    INTEGER NOT NULL,
+  reviewed_at   INTEGER,
+  reviewed_by   TEXT REFERENCES users(id)
+);
+CREATE INDEX IF NOT EXISTS idx_applications_status ON merchant_applications(status, created_at DESC);
+
+-- What a shop is owed, and what actually left our hands. A report cannot say
+-- "paid" — only a row here can, and only with a reference behind it.
+CREATE TABLE IF NOT EXISTS payouts (
+  id            TEXT PRIMARY KEY,
+  merchant_id   TEXT NOT NULL REFERENCES merchants(id),
+  period_from   INTEGER NOT NULL,
+  period_to     INTEGER NOT NULL,
+  gross_cfa     INTEGER NOT NULL,
+  commission_cfa INTEGER NOT NULL,
+  amount_cfa    INTEGER NOT NULL,                -- what we owe them
+  orders        INTEGER NOT NULL DEFAULT 0,
+  status        TEXT NOT NULL DEFAULT 'owed'
+                CHECK (status IN ('owed','scheduled','processing','paid','failed')),
+  method        TEXT,                            -- wave | om | bank | cash
+  reference     TEXT,                            -- the transfer reference, when there is one
+  note          TEXT,
+  created_at    INTEGER NOT NULL,
+  updated_at    INTEGER NOT NULL,
+  paid_at       INTEGER,
+  confirmed_by  TEXT REFERENCES users(id)
+);
+CREATE INDEX IF NOT EXISTS idx_payouts_merchant ON payouts(merchant_id, period_to DESC);
+CREATE INDEX IF NOT EXISTS idx_payouts_status   ON payouts(status, created_at DESC);
+
+-- Every step a payout took, so "paid" is never a field somebody edited.
+CREATE TABLE IF NOT EXISTS payout_events (
+  id         TEXT PRIMARY KEY,
+  payout_id  TEXT NOT NULL REFERENCES payouts(id) ON DELETE CASCADE,
+  status     TEXT NOT NULL,
+  note       TEXT,
+  actor_id   TEXT REFERENCES users(id),
+  created_at INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_payout_events ON payout_events(payout_id, created_at);
+
+-- Staff password resets. Single-use, short-lived, and the code never lands
+-- here in the clear — only its hash, like the sign-in codes.
+CREATE TABLE IF NOT EXISTS password_resets (
+  id         TEXT PRIMARY KEY,
+  user_id    TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  code_hash  TEXT NOT NULL,
+  expires_at INTEGER NOT NULL,
+  attempts   INTEGER NOT NULL DEFAULT 0,
+  consumed_at INTEGER,
+  created_at INTEGER NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_resets_user ON password_resets(user_id, created_at DESC);

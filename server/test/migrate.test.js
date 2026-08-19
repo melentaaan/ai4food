@@ -15,6 +15,26 @@ import Database from 'better-sqlite3';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const serverRoot = path.resolve(here, '..');
 
+const OLD_USERS = `
+CREATE TABLE users (
+  id            TEXT PRIMARY KEY,
+  phone         TEXT UNIQUE NOT NULL,
+  email         TEXT UNIQUE,
+  name          TEXT NOT NULL DEFAULT '',
+  role          TEXT NOT NULL DEFAULT 'customer'
+                CHECK (role IN ('customer','merchant','admin')),
+  password_hash TEXT,
+  status        TEXT NOT NULL DEFAULT 'active'
+                CHECK (status IN ('active','suspended')),
+  zone          TEXT NOT NULL DEFAULT 'Plateau',
+  lat           REAL,
+  lng           REAL,
+  locale        TEXT NOT NULL DEFAULT 'fr' CHECK (locale IN ('fr','en','wo')),
+  created_at    INTEGER NOT NULL,
+  last_seen_at  INTEGER
+);
+`;
+
 const OLD_ORDERS = `
 CREATE TABLE orders (
   id               TEXT PRIMARY KEY,
@@ -46,16 +66,18 @@ CREATE INDEX idx_orders_status   ON orders(status, pickup_end);
 `;
 
 /** Everything the current schema declares except the orders table itself. */
-function schemaWithoutOrders() {
+function schemaWithoutRebuilt() {
   const sql = fs.readFileSync(path.join(serverRoot, 'src', 'schema.sql'), 'utf8');
   return sql
     .replace(/CREATE TABLE IF NOT EXISTS orders \([\s\S]*?\n\);\n/, '')
-    .replace(/CREATE INDEX IF NOT EXISTS idx_orders_\w+\s+ON orders\([^)]*\);\n/g, '');
+    .replace(/CREATE INDEX IF NOT EXISTS idx_orders_\w+\s+ON orders\([^)]*\);\n/g, '')
+    .replace(/CREATE TABLE IF NOT EXISTS users \([\s\S]*?\n\);\n/, '');
 }
 
 function buildLegacyDb(file) {
   const d = new Database(file);
-  d.exec(schemaWithoutOrders());
+  d.exec(OLD_USERS);
+  d.exec(schemaWithoutRebuilt());
   d.exec(OLD_ORDERS);
   const t = Date.now();
   d.prepare(`INSERT INTO users (id, phone, name, role, created_at) VALUES ('u1','+221770000009','Test','customer',?)`).run(t);
@@ -84,7 +106,7 @@ describe('migrating a database from before payments', () => {
 
     process.env.DB_FILE = file;
     // A fresh module graph so db.js opens this file rather than any earlier one.
-    const { migrate, db } = await import(`../src/db.js?migrate-test=${Date.now()}`);
+    const { migrate, db, SCHEMA_VERSION } = await import(`../src/db.js?migrate-test=${Date.now()}`);
     migrate();
 
     const sql = db.prepare(`SELECT sql FROM sqlite_master WHERE type='table' AND name='orders'`).get().sql;
@@ -109,7 +131,14 @@ describe('migrating a database from before payments', () => {
     assert.equal(db.prepare('SELECT COUNT(*) AS n FROM order_transfers').get().n, 1);
     assert.deepEqual(db.pragma('foreign_key_check'), []);
 
-    for (const table of ['payments', 'sms_messages']) {
+    // users had to be rebuilt as well, for the 'deleted' status.
+    const usersSql = db.prepare(`SELECT sql FROM sqlite_master WHERE type='table' AND name='users'`).get().sql;
+    assert.ok(usersSql.includes("'deleted'"), 'users should accept a closed account');
+    assert.ok(usersSql.includes('deleted_at'), 'users should carry the closure time');
+    assert.equal(db.prepare('SELECT COUNT(*) AS n FROM users').get().n, 1, 'the customer survived');
+    assert.equal(db.prepare('SELECT phone FROM users').get().phone, '+221770000009');
+
+    for (const table of ['payments', 'sms_messages', 'merchant_applications', 'payouts', 'password_resets']) {
       assert.ok(
         db.prepare(`SELECT name FROM sqlite_master WHERE type='table' AND name=?`).get(table),
         `${table} should have been created`,
@@ -119,7 +148,7 @@ describe('migrating a database from before payments', () => {
     // Running it again must be a no-op, not a second rebuild.
     migrate();
     assert.equal(db.prepare('SELECT COUNT(*) AS n FROM orders').get().n, 1);
-    assert.equal(db.pragma('user_version', { simple: true }), 2);
+    assert.equal(db.pragma('user_version', { simple: true }), SCHEMA_VERSION);
     db.close();
     fs.rmSync(dir, { recursive: true, force: true });
   });

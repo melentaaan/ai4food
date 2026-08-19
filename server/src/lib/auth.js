@@ -50,6 +50,47 @@ export function burnOtp(id) {
   db.prepare('UPDATE otp_codes SET consumed_at = ? WHERE id = ?').run(now(), id);
 }
 
+/* ---------- staff password resets ---------- */
+
+/**
+ * Same shape as a sign-in code and for the same reason: a shop that loses its
+ * password should not need an engineer with database access to get back in.
+ * Only the hash is stored, it is single-use, and it dies in fifteen minutes.
+ */
+export function issueReset(userId) {
+  const code = String(crypto.randomInt(100000, 1000000));
+  const ts = now();
+  const id = uid();
+  // One live reset per account: asking again retires the previous code.
+  db.prepare(`UPDATE password_resets SET consumed_at = ? WHERE user_id = ? AND consumed_at IS NULL`)
+    .run(ts, userId);
+  db.prepare(
+    `INSERT INTO password_resets (id, user_id, code_hash, expires_at, created_at)
+     VALUES (?, ?, ?, ?, ?)`,
+  ).run(id, userId, sha256(`${userId}:${code}`), ts + 15 * 60_000, ts);
+  return { id, code };
+}
+
+export function consumeReset(userId, code) {
+  const row = db
+    .prepare(`SELECT * FROM password_resets WHERE user_id = ? AND consumed_at IS NULL
+               ORDER BY created_at DESC LIMIT 1`)
+    .get(userId);
+  if (!row) throw unauthorized('Ask for a new code');
+  if (row.expires_at < now()) throw unauthorized('That code has expired');
+  if (row.attempts >= config.otpMaxAttempts) throw unauthorized('Too many attempts, ask for a new code');
+  if (row.code_hash !== sha256(`${userId}:${String(code).trim()}`)) {
+    db.prepare('UPDATE password_resets SET attempts = attempts + 1 WHERE id = ?').run(row.id);
+    throw unauthorized('Wrong code');
+  }
+  db.prepare('UPDATE password_resets SET consumed_at = ? WHERE id = ?').run(now(), row.id);
+  return true;
+}
+
+export function burnReset(id) {
+  db.prepare('UPDATE password_resets SET consumed_at = ? WHERE id = ?').run(now(), id);
+}
+
 export function consumeOtp(phone, code) {
   const row = db
     .prepare(

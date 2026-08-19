@@ -105,15 +105,22 @@ const merchantQuery = z.object({
   category: z.string().optional(),
   zone: z.string().optional(),
   q: z.string().trim().max(80).optional(),
-  partners_only: z.coerce.boolean().default(false),
+  // Accepted and ignored: partners are all a customer is ever shown.
+  partners_only: z.coerce.boolean().default(true),
   limit: z.coerce.number().int().min(1).max(500).default(200),
 });
 
+/**
+ * The map a customer looks at shows shops they can actually buy from. A shop we
+ * are still trying to sign is a sales lead with a name and an address on it —
+ * it belongs in the admin console, never on a screen where its presence reads
+ * as an endorsement it never gave. Only an admin sees anything else.
+ */
 router.get('/merchants', validate(merchantQuery, 'query'), (req, res) => {
   const p = req.validatedQuery;
-  const where = [`status <> 'suspended'`];
+  const internal = req.user?.role === 'admin';
+  const where = internal ? [`status <> 'suspended'`] : [`status = 'active'`];
   const params = [];
-  if (p.partners_only) where.push(`status = 'active'`);
   if (p.category && p.category !== 'Tout') { where.push('category = ?'); params.push(p.category); }
   if (p.zone) { where.push('zone = ?'); params.push(p.zone); }
   if (p.q) { where.push('(name LIKE ? OR zone LIKE ? OR category LIKE ?)'); params.push(`%${p.q}%`, `%${p.q}%`, `%${p.q}%`); }
@@ -145,7 +152,8 @@ router.get('/merchants', validate(merchantQuery, 'query'), (req, res) => {
 });
 
 router.get('/merchants/:id', (req, res) => {
-  const m = db.prepare(`SELECT * FROM merchants WHERE id = ? AND status <> 'suspended'`).get(req.params.id);
+  const visible = req.user?.role === 'admin' ? `status <> 'suspended'` : `status = 'active'`;
+  const m = db.prepare(`SELECT * FROM merchants WHERE id = ? AND ${visible}`).get(req.params.id);
   if (!m) throw notFound('Shop not found');
   m.followers = db.prepare('SELECT COUNT(*) AS n FROM merchant_follows WHERE merchant_id = ?').get(m.id).n;
   const following = req.user

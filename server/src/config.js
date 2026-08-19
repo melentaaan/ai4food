@@ -118,4 +118,8 @@ if (config.env === 'production') {
     throw new Error('SMS_PROVIDER must be a real gateway in production: without it no customer can sign in');
   }
   if (!env.PUBLIC_API_URL) throw new Error('PUBLIC_API_URL must be set in production: wallets call back to it');
+  if (config.corsOrigins.includes('*')) {
+    throw new Error('CORS_ORIGINS must name your app\'s origins in production, not *');
+  }
+  if (config.payments.sandboxEnabled) throw new Error('PAYMENTS_SANDBOX must be off in production');
 }

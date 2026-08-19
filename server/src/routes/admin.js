@@ -5,9 +5,15 @@ import { uid } from '../lib/util.js';
 import { badRequest, conflict, notFound } from '../lib/errors.js';
 import { audit } from '../lib/audit.js';
 import { hashPassword, normalisePhone, revokeAllRefreshTokens } from '../lib/auth.js';
+import { config } from '../config.js';
 import { validate, writeLimiter } from '../middleware/common.js';
 import { requireAuth, requireRole } from '../middleware/auth.js';
-import { ORDER_SELECT, cancelOrderAndRefund, expireStaleOrders } from '../services/orders.js';
+import { ORDER_SELECT, cancelOrderAndRefund, expireStaleOrders, getOrderRow } from '../services/orders.js';
+import {
+  advancePayout, defaultPeriod, failedRefunds, getPayout, listPayouts,
+  openPayoutRun, payoutEvents, unpaidEarnings,
+} from '../services/payouts.js';
+import { refundOrder } from '../services/payments.js';
 import { OFFER_SELECT, refreshOfferStates } from '../services/offers.js';
 import { adminOverview, adminPayouts } from '../services/stats.js';
 import { adminOrder, adminMerchant, adminUser, merchantOffer } from '../presenters.js';
@@ -65,6 +71,93 @@ router.post('/orders/:id/cancel',
     });
     res.json({ order: adminOrder(order), refund });
   });
+
+
+/* ---------- shops asking to join ---------- */
+router.get('/applications',
+  validate(z.object({
+    status: z.enum(['submitted', 'reviewing', 'needs_info', 'approved', 'rejected']).optional(),
+    limit: z.coerce.number().int().min(1).max(200).default(50),
+  }), 'query'),
+  (req, res) => {
+    const p = req.validatedQuery;
+    const where = [];
+    const params = [];
+    if (p.status) { where.push('a.status = ?'); params.push(p.status); }
+    const rows = db
+      .prepare(`SELECT a.*, u.name AS reviewer_name
+                  FROM merchant_applications a
+                  LEFT JOIN users u ON u.id = a.reviewed_by
+                  ${where.length ? `WHERE ${where.join(' AND ')}` : ''}
+                 ORDER BY a.created_at DESC LIMIT ?`)
+      .all(...params, p.limit);
+    const counts = db
+      .prepare('SELECT status, COUNT(*) AS n FROM merchant_applications GROUP BY status')
+      .all().reduce((a, r) => ({ ...a, [r.status]: r.n }), {});
+    res.json({ counts, items: rows });
+  });
+
+/**
+ * Reviewing one. Approving creates the shop it becomes — as a `pending`
+ * merchant, never an active one, because a shop that can publish is a decision
+ * about the customers' screen and deserves its own deliberate step.
+ */
+router.patch('/applications/:id',
+  writeLimiter,
+  validate(z.object({
+    status: z.enum(['reviewing', 'needs_info', 'approved', 'rejected']),
+    note: z.string().trim().max(400).optional(),
+    lat: z.number().min(-90).max(90).optional(),
+    lng: z.number().min(-180).max(180).optional(),
+  })),
+  (req, res) => {
+    const a = db.prepare('SELECT * FROM merchant_applications WHERE id = ?').get(req.params.id);
+    if (!a) throw notFound('Application not found');
+    if (a.status === 'approved') throw conflict('already_approved', 'That application is already approved');
+
+    let merchantId = a.merchant_id;
+    if (req.body.status === 'approved') {
+      if (req.body.lat == null || req.body.lng == null) {
+        throw badRequest('Approving needs the shop pinned: send lat and lng');
+      }
+      const slug = `${a.business_name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}-${uid().slice(0, 4)}`;
+      merchantId = uid();
+      db.prepare(
+        `INSERT INTO merchants (id, name, slug, category, zone, address, lat, lng, phone, status,
+                                commission_bps, created_at)
+         VALUES (?,?,?,?,?,?,?,?,?,'pending',?,?)`,
+      ).run(merchantId, a.business_name, slug, a.category, a.zone, a.address ?? '',
+        req.body.lat, req.body.lng, a.phone, config.defaultCommissionBps, now());
+    }
+
+    db.prepare(
+      `UPDATE merchant_applications SET status = ?, review_note = COALESCE(?, review_note),
+              merchant_id = COALESCE(?, merchant_id), reviewed_at = ?, reviewed_by = ?
+        WHERE id = ?`,
+    ).run(req.body.status, req.body.note ?? null, merchantId ?? null, now(), req.user.id, a.id);
+
+    audit(req, `application.${req.body.status}`, 'application', a.id, { merchant_id: merchantId ?? null });
+    res.json({ application: db.prepare('SELECT * FROM merchant_applications WHERE id = ?').get(a.id) });
+  });
+
+/* ---------- refunds that did not land ---------- */
+router.get('/refunds/failed', (_req, res) => {
+  const items = failedRefunds();
+  res.json({ total: items.length, owed_cfa: items.reduce((a, r) => a + r.total_cfa, 0), items });
+});
+
+/** Try a stuck refund again, by hand, once whatever broke has been fixed. */
+router.post('/refunds/:orderId/retry', writeLimiter, async (req, res) => {
+  const order = db.prepare('SELECT * FROM orders WHERE id = ?').get(req.params.orderId);
+  if (!order) throw notFound('Order not found');
+  if (order.status !== 'cancelled' || order.payment_status !== 'paid') {
+    throw conflict('nothing_to_refund', 'That order is not waiting on a refund');
+  }
+  const out = await refundOrder(order);
+  audit(req, 'order.refund_retry', 'order', order.id, { refunded: out.refunded });
+  res.json({ refund: out, order: adminOrder(getOrderRow(order.id)) });
+});
 
 /* ---------- growth pipeline ---------- */
 router.get('/merchants',
@@ -286,12 +379,14 @@ router.post('/offers/:id/cancel',
   });
 
 /* ---------- money ---------- */
+/** What we owe, computed from collected orders. Not a record of any transfer. */
 router.get('/payouts',
   validate(z.object({ days: z.coerce.number().int().min(1).max(365).default(30) }), 'query'),
   (req, res) => {
     const rows = adminPayouts(req.validatedQuery.days);
     res.json({
       days: req.validatedQuery.days,
+      note: 'owed, computed from collected orders — see /payouts/runs for what has actually been sent',
       totals: {
         gross_cfa: rows.reduce((a, r) => a + r.gross_cfa, 0),
         commission_cfa: rows.reduce((a, r) => a + r.commission_cfa, 0),
@@ -299,6 +394,69 @@ router.get('/payouts',
       },
       items: rows,
     });
+  });
+
+/* ---------- payout runs: what actually left our account ---------- */
+router.get('/payouts/runs',
+  validate(z.object({
+    status: z.enum(['owed', 'scheduled', 'processing', 'paid', 'failed']).optional(),
+    merchant_id: z.string().optional(),
+    limit: z.coerce.number().int().min(1).max(200).default(100),
+  }), 'query'),
+  (req, res) => {
+    const p = req.validatedQuery;
+    res.json(listPayouts({ status: p.status, merchantId: p.merchant_id, limit: p.limit }));
+  });
+
+/** Draws up payouts for a period. Running it twice does not pay anyone twice. */
+router.post('/payouts/runs',
+  writeLimiter,
+  validate(z.object({
+    days: z.coerce.number().int().min(1).max(365).default(30),
+  })),
+  (req, res) => {
+    const [from, to] = defaultPeriod(req.body.days);
+    const made = openPayoutRun({ req, from, to, actorId: req.user.id });
+    audit(req, 'payout.run', 'payout', 'run', { days: req.body.days, created: made.length });
+    res.status(201).json({ period: { from, to }, created: made.length, items: made });
+  });
+
+router.get('/payouts/runs/:id', (req, res) => {
+  const p = getPayout(req.params.id);
+  if (!p) throw notFound('Payout not found');
+  res.json({ payout: p, events: payoutEvents(p.id) });
+});
+
+/**
+ * Moving a payout along. Marking one paid needs the transfer reference: a
+ * payout nobody can trace against a statement is not evidence of anything.
+ */
+router.post('/payouts/runs/:id/status',
+  writeLimiter,
+  validate(z.object({
+    status: z.enum(['scheduled', 'processing', 'paid', 'failed', 'owed']),
+    reference: z.string().trim().max(120).optional(),
+    method: z.enum(['wave', 'om', 'bank', 'cash']).optional(),
+    note: z.string().trim().max(300).optional(),
+  })),
+  (req, res) => {
+    const p = advancePayout({
+      id: req.params.id, status: req.body.status, reference: req.body.reference,
+      method: req.body.method, note: req.body.note, actorId: req.user.id,
+    });
+    audit(req, `payout.${req.body.status}`, 'payout', p.id, {
+      amount_cfa: p.amount_cfa, reference: req.body.reference ?? null,
+    });
+    res.json({ payout: p, events: payoutEvents(p.id) });
+  });
+
+/** What a period would draw up, before anyone commits to it. */
+router.get('/payouts/preview',
+  validate(z.object({ days: z.coerce.number().int().min(1).max(365).default(30) }), 'query'),
+  (req, res) => {
+    const [from, to] = defaultPeriod(req.validatedQuery.days);
+    const items = unpaidEarnings(from, to);
+    res.json({ period: { from, to }, total_cfa: items.reduce((a, r) => a + r.amount_cfa, 0), items });
   });
 
 /* ---------- paper trail ---------- */
