@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>AI4Food · console</title>
+<style>
+/* Internal tooling. Legible, dense, quick to scan — not the customer app, and
+   deliberately not dressed as it: nobody should confuse the two at a glance. */
+:root{
+  --bg:#F5F6F5;--panel:#fff;--ink:#16211D;--muted:#5F6E68;--line:#DDE3E0;
+  --accent:#17563A;--accent-ink:#0E3D34;
+  --ok:#2F6B4F;--warn:#B26A11;--bad:#A8323F;--info:#2A5B7A;
+  --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#121815;--panel:#19211D;--ink:#E7EEEA;--muted:#93A49C;--line:#2A3630;
+  --accent:#8FC9A4;--accent-ink:#A8D5B5;
+  --ok:#8FC9A4;--warn:#E0A45C;--bad:#E58095;--info:#7FB2D0;
+}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:14px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+header{position:sticky;top:0;z-index:5;background:var(--panel);border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:14px;padding:11px 18px;flex-wrap:wrap}
+header b{font-size:15px;letter-spacing:-.01em}
+header .who{margin-left:auto;color:var(--muted);font-size:12.5px;display:flex;gap:12px;align-items:center}
+nav{display:flex;gap:2px;padding:0 12px;background:var(--panel);border-bottom:1px solid var(--line);
+  overflow-x:auto}
+nav button{border:0;background:none;color:var(--muted);font:inherit;font-size:13px;
+  padding:9px 12px;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap}
+nav button.on{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+nav button:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{
+  outline:2px solid var(--accent);outline-offset:1px}
+main{padding:18px;max-width:1280px;margin:0 auto}
+h2{font-size:16px;margin:0 0 4px}
+.sub{color:var(--muted);font-size:12.5px;margin:0 0 14px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:20px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:13px 15px}
+.card .n{font-size:23px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.card .k{color:var(--muted);font-size:11.5px;margin-top:2px}
+.wrap{background:var(--panel);border:1px solid var(--line);border-radius:9px;overflow:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;font-weight:600;color:var(--muted);font-size:11px;text-transform:uppercase;
+  letter-spacing:.06em;padding:9px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+td.mono,.mono{font-family:var(--mono);font-size:12px}
+.tag{display:inline-block;padding:2px 7px;border-radius:5px;font-size:11px;font-weight:600;
+  background:var(--line);color:var(--muted);white-space:nowrap}
+.tag.ok{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}
+.tag.warn{background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--warn)}
+.tag.bad{background:color-mix(in srgb,var(--bad) 18%,transparent);color:var(--bad)}
+.tag.info{background:color-mix(in srgb,var(--info) 18%,transparent);color:var(--info)}
+button.act{border:1px solid var(--line);background:var(--panel);color:var(--ink);font:inherit;
+  font-size:12px;padding:4px 9px;border-radius:6px;cursor:pointer}
+button.act:hover{border-color:var(--accent)}
+button.act.primary{background:var(--accent);border-color:var(--accent);
+  color:color-mix(in srgb,var(--panel) 88%,var(--ink))}
+@media (prefers-color-scheme:dark){button.act.primary{color:#121815}}
+button.act.danger{color:var(--bad);border-color:color-mix(in srgb,var(--bad) 40%,var(--line))}
+.bar{display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+input,select{font:inherit;font-size:13px;padding:6px 9px;border:1px solid var(--line);
+  border-radius:6px;background:var(--panel);color:var(--ink)}
+.empty{padding:32px;text-align:center;color:var(--muted)}
+.login{max-width:340px;margin:14vh auto;background:var(--panel);border:1px solid var(--line);
+  border-radius:11px;padding:24px}
+.login h1{font-size:17px;margin:0 0 4px}
+.login p{color:var(--muted);font-size:12.5px;margin:0 0 18px}
+.login label{display:block;font-size:12px;color:var(--muted);margin:0 0 4px}
+.login input{width:100%;margin-bottom:12px}
+.login button{width:100%;padding:9px;font-size:14px}
+.err{color:var(--bad);font-size:12.5px;margin:0 0 12px}
+.note{color:var(--muted);font-size:12px;margin:10px 0 0}
+.detail{background:color-mix(in srgb,var(--line) 30%,transparent);font-size:12.5px}
+.detail dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:3px 14px}
+.detail dt{color:var(--muted)}
+.detail dd{margin:0}
+#toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(80px);
+  background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:8px;font-size:13px;
+  opacity:0;transition:.22s;pointer-events:none;z-index:20;max-width:90vw}
+#toast.on{opacity:1;transform:translateX(-50%)}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<script>
+/* =========================================================
+   AI4Food admin console.
+
+   Everything here already existed as an API and was documented and tested;
+   what was missing was a person being able to use it without curl. So this is
+   a thin client over /api/admin and nothing more — no logic of its own, no
+   state worth losing, and no way to do anything the API would refuse.
+   ========================================================= */
+
+const KEY = "ai4food.admin";
+let S = { token: null, me: null, tab: "overview", err: "", data: {}, busy: false, open: null };
+
+const api = () => {
+  const q = new URLSearchParams(location.search).get("api");
+  if (q !== null) { localStorage.setItem("ai4food.api", q); return q.replace(/\/$/, ""); }
+  return localStorage.getItem("ai4food.api") || location.origin;
+};
+
+async function call(method, path, body) {
+  const r = await fetch(api() + "/api" + path, {
+    method,
+    headers: Object.assign(body ? { "content-type": "application/json" } : {},
+      S.token ? { authorization: "Bearer " + S.token } : {}),
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  const text = await r.text();
+  let data = null;
+  try { data = text ? JSON.parse(text) : null; } catch (e) {
+    throw new Error("That endpoint did not answer JSON — is the API URL right?");
+  }
+  if (!r.ok) throw new Error((data && data.error && data.error.message) || ("HTTP " + r.status));
+  return data;
+}
+const get = (p) => call("GET", p);
+const post = (p, b) => call("POST", p, b || {});
+const patch = (p, b) => call("PATCH", p, b || {});
+
+const esc = (v) => String(v == null ? "" : v).replace(/[&<>"']/g, (c) =>
+  ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const F = (n) => (n == null ? "—" : Number(n).toLocaleString("fr-FR"));
+const D = (ts) => (ts ? new Date(ts).toLocaleString("fr-FR", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" }) : "—");
+const el = (id) => document.getElementById(id);
+
+let toastT = null;
+function toast(msg, bad) {
+  const n = el("toast");
+  n.textContent = msg;
+  n.className = "on";
+  n.style.background = bad ? "var(--bad)" : "";
+  clearTimeout(toastT);
+  toastT = setTimeout(() => { n.className = ""; }, 3200);
+}
+
+/* ---------- statuses, coloured by what they mean ---------- */
+const TONE = {
+  active: "ok", paid: "ok", approved: "ok", picked_up: "ok", live: "ok",
+  pending: "warn", pending_payment: "warn", submitted: "warn", reviewing: "warn",
+  scheduled: "warn", processing: "warn", owed: "warn", needs_info: "warn", prospect: "info",
+  cancelled: "bad", failed: "bad", rejected: "bad", expired: "bad", suspended: "bad",
+  refunded: "info", sold_out: "info", draft: "info",
+};
+const tag = (v) => `<span class="tag ${TONE[v] || ""}">${esc(v)}</span>`;
+
+/* =========================================================
+   Sign in
+   ========================================================= */
+function loginView() {
+  return `<div class="login">
+    <h1>AI4Food · console</h1>
+    <p>Interne. Comptes AI4Food uniquement.</p>
+    ${S.err ? `<p class="err">${esc(S.err)}</p>` : ""}
+    <label for="id">Téléphone ou e-mail</label>
+    <input id="id" autocomplete="username" value="+221770000001">
+    <label for="pw">Mot de passe</label>
+    <input id="pw" type="password" autocomplete="current-password">
+    <button class="act primary" onclick="signIn()">Se connecter</button>
+    <p class="note">API : <span class="mono">${esc(api())}</span></p>
+  </div>`;
+}
+
+async function signIn() {
+  S.err = "";
+  try {
+    const r = await call("POST", "/auth/login", {
+      identifier: el("id").value.trim(), password: el("pw").value,
+    });
+    if (r.user.role !== "admin") throw new Error("Ce compte n'est pas un compte AI4Food interne.");
+    S.token = r.access_token; S.me = r.user;
+    localStorage.setItem(KEY, JSON.stringify({ t: r.access_token }));
+    load();
+  } catch (e) { S.err = e.message; render(); }
+}
+function signOut() {
+  S.token = null; S.me = null; S.data = {};
+  localStorage.removeItem(KEY);
+  render();
+}
+
+/* =========================================================
+   Tabs
+   ========================================================= */
+const TABS = [
+  ["overview", "Aujourd'hui"],
+  ["applications", "Candidatures"],
+  ["merchants", "Commerces"],
+  ["orders", "Commandes"],
+  ["payouts", "Versements"],
+  ["refunds", "Remboursements"],
+  ["users", "Personnes"],
+  ["audit", "Journal"],
+];
+
+async function load() {
+  S.busy = true; render();
+  try {
+    if (!S.me) S.me = (await get("/auth/me")).user;
+    const d = S.data;
+    if (S.tab === "overview") d.overview = (await get("/admin/overview?days=14")).overview;
+    if (S.tab === "applications") d.applications = await get("/admin/applications?limit=100");
+    if (S.tab === "merchants") d.merchants = await get("/admin/merchants?limit=200");
+    if (S.tab === "orders") d.orders = await get("/admin/orders?limit=100");
+    if (S.tab === "payouts") {
+      d.payouts = await get("/admin/payouts/runs?limit=100");
+      d.preview = await get("/admin/payouts/preview?days=30");
+    }
+    if (S.tab === "refunds") d.refunds = await get("/admin/refunds/failed");
+    if (S.tab === "users") d.users = await get("/admin/users?limit=100");
+    if (S.tab === "audit") d.audit = await get("/admin/audit?limit=100");
+    S.err = "";
+  } catch (e) {
+    if (/401|Authentication/i.test(e.message)) return signOut();
+    S.err = e.message;
+  } finally { S.busy = false; render(); }
+}
+function go(tab) { S.tab = tab; S.open = null; load(); }
+function toggle(id) { S.open = S.open === id ? null : id; render(); }
+
+/* =========================================================
+   Screens
+   ========================================================= */
+function overview() {
+  const o = S.data.overview;
+  if (!o) return "";
+  const c = (n, k) => `<div class="card"><div class="n">${n}</div><div class="k">${k}</div></div>`;
+  return `<h2>Aujourd'hui</h2><p class="sub">Volume et commission du jour, puis le cumul.</p>
+  <div class="cards">
+    ${c(F(o.today.baskets_sold), "paniers vendus")}
+    ${c(F(o.today.orders), "commandes")}
+    ${c(F(o.today.gross_cfa) + " F", "volume")}
+    ${c(F(o.today.commission_cfa) + " F", "commission")}
+    ${c(F(o.today.active_users), "clients actifs")}
+  </div>
+  <h2>Le réseau</h2><p class="sub">Ce que la plateforme a fait en tout, et où en est le terrain.</p>
+  <div class="cards">
+    ${c(F(o.all_time.meals_saved), "paniers retirés")}
+    ${c(o.all_time.pickup_rate_pct == null ? "—" : o.all_time.pickup_rate_pct + " %", "taux de retrait")}
+    ${c(F(o.network.merchants_active), "commerces partenaires")}
+    ${c(F(o.network.merchants_pending), "en attente d'activation")}
+    ${c(F(o.network.merchants_prospect), "prospects")}
+    ${c(F(o.network.offers_live), "paniers en ligne")}
+    ${c(F(o.users.customers), "clients")}
+  </div>
+  ${series(o.series)}`;
+}
+
+/* Quatorze jours de volume, en barres. Une image vaut le coup ici: on lit
+   d'un coup si la semaine monte ou si elle s'est arrêtée. */
+function series(rows) {
+  if (!rows || !rows.length) return "";
+  const max = Math.max(1, ...rows.map((r) => r.gross_cfa));
+  return `<div class="wrap" style="padding:16px">
+    <div style="display:flex;align-items:flex-end;gap:4px;height:90px">
+      ${rows.map((r) => `<div title="${esc(r.date)} · ${F(r.gross_cfa)} F · ${F(r.baskets)} paniers"
+        style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;height:100%">
+        <div style="background:var(--accent);border-radius:3px 3px 0 0;
+          height:${Math.max(2, Math.round((r.gross_cfa / max) * 100))}%"></div></div>`).join("")}
+    </div>
+    <div style="display:flex;justify-content:space-between;color:var(--muted);font-size:11px;margin-top:6px">
+      <span>${esc(rows[0].date)}</span><span>volume par jour</span><span>${esc(rows[rows.length - 1].date)}</span>
+    </div></div>`;
+}
+
+function applications() {
+  const d = S.data.applications;
+  if (!d) return "";
+  const rows = d.items.map((a) => `
+    <tr>
+      <td><b>${esc(a.business_name)}</b><br><span class="tag">${esc(a.category)}</span></td>
+      <td>${esc(a.contact_name)}<br><span class="mono">${esc(a.phone)}</span>
+        ${a.email ? `<br><span class="mono">${esc(a.email)}</span>` : ""}</td>
+      <td>${esc(a.zone)}${a.address ? `<br><span style="color:var(--muted)">${esc(a.address)}</span>` : ""}</td>
+      <td>${a.surplus_note ? esc(a.surplus_note) : "—"}${a.pickup_note ? `<br><span style="color:var(--muted)">${esc(a.pickup_note)}</span>` : ""}</td>
+      <td>${tag(a.status)}${a.review_note ? `<br><span style="color:var(--muted)">${esc(a.review_note)}</span>` : ""}</td>
+      <td>${D(a.created_at)}</td>
+      <td>${a.status === "approved" ? `<span style="color:var(--muted)">commerce créé</span>` : `
+        <button class="act" onclick="reviewApp('${a.id}','reviewing')">En cours</button>
+        <button class="act" onclick="reviewApp('${a.id}','needs_info')">Infos</button>
+        <button class="act primary" onclick="approveApp('${a.id}')">Approuver</button>
+        <button class="act danger" onclick="reviewApp('${a.id}','rejected')">Refuser</button>`}</td>
+    </tr>`).join("");
+  return `<h2>Candidatures</h2>
+  <p class="sub">Un commerce qui a levé la main. Approuver crée le commerce en
+   <b>pending</b> : il ne publie rien tant qu'il n'est pas activé dans Commerces.</p>
+  ${counts(d.counts)}
+  <div class="wrap">${d.items.length ? `<table>
+    <thead><tr><th>Commerce</th><th>Contact</th><th>Quartier</th><th>Invendus</th>
+      <th>État</th><th>Reçue</th><th></th></tr></thead>
+    <tbody>${rows}</tbody></table>` : `<div class="empty">Aucune candidature.</div>`}</div>`;
+}
+const counts = (c) => {
+  const keys = Object.keys(c || {});
+  if (!keys.length) return "";
+  return `<div class="bar">${keys.map((k) => `${tag(k)} <b>${c[k]}</b>`).join(" &nbsp; ")}</div>`;
+};
+
+async function reviewApp(id, status) {
+  const note = status === "rejected" || status === "needs_info"
+    ? prompt(status === "rejected" ? "Motif du refus (visible en interne)" : "Quelles informations manquent ?") : null;
+  if ((status === "rejected" || status === "needs_info") && note === null) return;
+  try {
+    await patch("/admin/applications/" + id, Object.assign({ status }, note ? { note } : {}));
+    toast("Candidature mise à jour"); load();
+  } catch (e) { toast(e.message, true); }
+}
+
+async function approveApp(id) {
+  // The shop has to go somewhere on the map, and only a person knows where.
+  const lat = prompt("Latitude du commerce (ex. 14.6928)");
+  if (lat === null) return;
+  const lng = prompt("Longitude du commerce (ex. -17.4467)");
+  if (lng === null) return;
+  try {
+    await patch("/admin/applications/" + id, {
+      status: "approved", lat: Number(lat), lng: Number(lng),
+    });
+    toast("Commerce créé, en attente d'activation"); load();
+  } catch (e) { toast(e.message, true); }
+}
+
+function merchants() {
+  const d = S.data.merchants;
+  if (!d) return "";
+  const rows = d.items.map((m) => `
+    <tr>
+      <td><b>${esc(m.name)}</b><br><span style="color:var(--muted)">${esc(m.category)} · ${esc(m.zone)}</span></td>
+      <td>${tag(m.status)}</td>
+      <td class="num">${(m.commission_bps / 100).toFixed(1)} %</td>
+      <td class="mono">${esc(m.phone || "—")}</td>
+      <td>${D(m.created_at)}</td>
+      <td>
+        ${m.status !== "active" ? `<button class="act primary" onclick="setMerchant('${m.id}','active')">Activer</button>` : ""}
+        ${m.status === "active" ? `<button class="act danger" onclick="setMerchant('${m.id}','suspended')">Suspendre</button>` : ""}
+        ${m.status === "suspended" ? `<button class="act" onclick="setMerchant('${m.id}','active')">Réactiver</button>` : ""}
+      </td>
+    </tr>`).join("");
+  return `<h2>Commerces</h2>
+  <p class="sub">Seuls les commerces <b>active</b> apparaissent aux clients. Les prospects restent ici.</p>
+  <div class="wrap"><table>
+    <thead><tr><th>Commerce</th><th>État</th><th>Commission</th><th>Téléphone</th><th>Créé</th><th></th></tr></thead>
+    <tbody>${rows}</tbody></table></div>`;
+}
+async function setMerchant(id, status) {
+  if (status === "suspended" && !confirm("Suspendre ce commerce ? Ses paniers disparaissent de l'application.")) return;
+  try { await patch("/admin/merchants/" + id, { status }); toast("Commerce mis à jour"); load(); }
+  catch (e) { toast(e.message, true); }
+}
+
+function orders() {
+  const d = S.data.orders;
+  if (!d) return "";
+  const rows = d.items.map((o) => `
+    <tr>
+      <td class="mono">${esc(o.code)}</td>
+      <td>${esc(o.merchant.name)}<br><span style="color:var(--muted)">${esc(o.offer.name)}</span></td>
+      <td>${esc(o.customer ? o.customer.name : "—")}</td>
+      <td class="num">${F(o.total_cfa)} F</td>
+      <td>${tag(o.status)} ${tag(o.payment_status)}</td>
+      <td>${esc(o.payment_method)}</td>
+      <td>${D(o.created_at)}</td>
+      <td>${o.status === "active" || o.status === "pending_payment"
+        ? `<button class="act danger" onclick="cancelOrder('${o.id}')">Annuler</button>` : ""}</td>
+    </tr>`).join("");
+  return `<h2>Commandes</h2><p class="sub">Les ${d.items.length} dernières, tous commerces confondus.</p>
+  <div class="wrap"><table>
+    <thead><tr><th>Code</th><th>Commerce</th><th>Client</th><th>Montant</th>
+      <th>État</th><th>Paiement</th><th>Créée</th><th></th></tr></thead>
+    <tbody>${rows}</tbody></table></div>`;
+}
+async function cancelOrder(id) {
+  const reason = prompt("Motif de l'annulation (au dossier)");
+  if (!reason) return;
+  try {
+    const r = await post("/admin/orders/" + id + "/cancel", { reason });
+    toast(r.refund && r.refund.refunded ? "Annulée et remboursée" : "Annulée");
+    load();
+  } catch (e) { toast(e.message, true); }
+}
+
+function payouts() {
+  const d = S.data.payouts, p = S.data.preview;
+  if (!d) return "";
+  const rows = d.items.map((x) => `
+    <tr>
+      <td><b>${esc(x.merchant_name)}</b><br><span style="color:var(--muted)">${esc(x.zone)}</span></td>
+      <td>${D(x.period_from)} → ${D(x.period_to)}</td>
+      <td class="num">${F(x.orders)}</td>
+      <td class="num"><b>${F(x.amount_cfa)} F</b><br><span style="color:var(--muted)">sur ${F(x.gross_cfa)} F</span></td>
+      <td>${tag(x.status)}${x.reference ? `<br><span class="mono">${esc(x.reference)}</span>` : ""}</td>
+      <td>${x.paid_at ? D(x.paid_at) : "—"}</td>
+      <td>
+        ${x.status === "owed" ? `<button class="act" onclick="movePayout('${x.id}','scheduled')">Programmer</button>` : ""}
+        ${x.status === "scheduled" || x.status === "processing" || x.status === "failed"
+          ? `<button class="act primary" onclick="payPayout('${x.id}')">Marquer payé</button>` : ""}
+        ${x.status !== "paid" && x.status !== "owed"
+          ? `<button class="act danger" onclick="movePayout('${x.id}','failed')">Échec</button>` : ""}
+      </td>
+    </tr>`).join("");
+  const totals = Object.entries(d.totals || {}).filter(([k]) => k !== "total_cfa")
+    .map(([k, v]) => `${tag(k)} <b>${F(v)} F</b>`).join(" &nbsp; ");
+  return `<h2>Versements</h2>
+  <p class="sub"><b>Dû</b> est calculé à partir des paniers retirés. <b>Payé</b> n'existe
+   qu'avec une référence de transfert : rien ici ne prétend qu'un virement est parti.</p>
+  <div class="bar">
+    <span>Non versé sur 30 jours : <b>${F(p ? p.total_cfa : 0)} F</b> sur ${p ? p.items.length : 0} commerces</span>
+    <button class="act primary" onclick="runPayouts()">Établir les versements</button>
+  </div>
+  ${totals ? `<div class="bar">${totals}</div>` : ""}
+  <div class="wrap">${d.items.length ? `<table>
+    <thead><tr><th>Commerce</th><th>Période</th><th>Paniers</th><th>Montant</th>
+      <th>État</th><th>Payé le</th><th></th></tr></thead>
+    <tbody>${rows}</tbody></table>` : `<div class="empty">Aucun versement établi.</div>`}</div>`;
+}
+async function runPayouts() {
+  if (!confirm("Établir les versements des 30 derniers jours ? Les périodes déjà établies ne sont pas dupliquées.")) return;
+  try { const r = await post("/admin/payouts/runs", { days: 30 }); toast(r.created + " versement(s) établi(s)"); load(); }
+  catch (e) { toast(e.message, true); }
+}
+async function movePayout(id, status) {
+  try { await post("/admin/payouts/runs/" + id + "/status", { status }); toast("Versement mis à jour"); load(); }
+  catch (e) { toast(e.message, true); }
+}
+async function payPayout(id) {
+  const reference = prompt("Référence du transfert (obligatoire — c'est ce qui permet de rapprocher le relevé)");
+  if (!reference) return;
+  const method = prompt("Moyen : wave, om, bank ou cash", "wave");
+  if (!method) return;
+  try {
+    await post("/admin/payouts/runs/" + id + "/status", { status: "paid", reference, method });
+    toast("Versement marqué payé"); load();
+  } catch (e) { toast(e.message, true); }
+}
+
+function refunds() {
+  const d = S.data.refunds;
+  if (!d) return "";
+  if (!d.items.length) {
+    return `<h2>Remboursements</h2><p class="sub">Commandes annulées dont l'argent est encore chez nous.</p>
+      <div class="wrap"><div class="empty">Rien en attente. Tous les remboursements sont passés.</div></div>`;
+  }
+  const rows = d.items.map((r) => `
+    <tr>
+      <td class="mono">${esc(r.code)}</td>
+      <td>${esc(r.merchant_name)}</td>
+      <td>${esc(r.customer_name)}</td>
+      <td class="num"><b>${F(r.total_cfa)} F</b></td>
+      <td>${esc(r.payment_method)}<br><span class="mono">${esc(r.payment_ref || "—")}</span></td>
+      <td>${D(r.cancelled_at)}<br><span style="color:var(--muted)">${esc(r.cancel_reason || "")}</span></td>
+      <td><button class="act primary" onclick="retryRefund('${r.id}')">Réessayer</button></td>
+    </tr>`).join("");
+  return `<h2>Remboursements en souffrance</h2>
+  <p class="sub">Commande annulée, argent encaissé, remboursement non passé.
+   <b>${F(d.owed_cfa)} F</b> dus à ${d.total} client(s).</p>
+  <div class="wrap"><table>
+    <thead><tr><th>Code</th><th>Commerce</th><th>Client</th><th>Montant</th>
+      <th>Paiement</th><th>Annulée</th><th></th></tr></thead>
+    <tbody>${rows}</tbody></table></div>`;
+}
+async function retryRefund(id) {
+  try {
+    const r = await post("/admin/refunds/" + id + "/retry");
+    toast(r.refund && r.refund.refunded ? "Remboursé" : "Le fournisseur n'a pas remboursé", !(r.refund && r.refund.refunded));
+    load();
+  } catch (e) { toast(e.message, true); }
+}
+
+function users() {
+  const d = S.data.users;
+  if (!d) return "";
+  const rows = d.items.map((u) => `
+    <tr>
+      <td><b>${esc(u.name || "—")}</b></td>
+      <td>${tag(u.role)}</td>
+      <td class="mono">${esc(u.phone)}</td>
+      <td>${esc(u.zone || "—")}</td>
+      <td class="num">${F(u.orders)}</td>
+      <td>${tag(u.status)}</td>
+      <td>${D(u.created_at)}</td>
+      <td>${u.status === "active"
+        ? `<button class="act danger" onclick="setUser('${u.id}','suspended')">Suspendre</button>`
+        : u.status === "suspended" ? `<button class="act" onclick="setUser('${u.id}','active')">Réactiver</button>` : ""}</td>
+    </tr>`).join("");
+  return `<h2>Personnes</h2><p class="sub">Clients et personnel. Les numéros sont masqués dans les listes de l'API.</p>
+  <div class="wrap"><table>
+    <thead><tr><th>Nom</th><th>Rôle</th><th>Téléphone</th><th>Quartier</th>
+      <th>Commandes</th><th>État</th><th>Inscrit</th><th></th></tr></thead>
+    <tbody>${rows}</tbody></table></div>`;
+}
+async function setUser(id, status) {
+  try { await patch("/admin/users/" + id, { status }); toast("Compte mis à jour"); load(); }
+  catch (e) { toast(e.message, true); }
+}
+
+function audit() {
+  const d = S.data.audit;
+  if (!d) return "";
+  const rows = d.items.map((a) => `
+    <tr>
+      <td>${D(a.created_at)}</td>
+      <td class="mono">${esc(a.action)}</td>
+      <td>${esc(a.actor ? (a.actor.name || a.actor.role) : "—")}${a.actor ? ` ${tag(a.actor.role)}` : ""}</td>
+      <td class="mono">${esc(a.entity || "")} ${esc(a.entity_id || "")}</td>
+      <td class="mono" style="max-width:340px;overflow:hidden;text-overflow:ellipsis">${esc(JSON.stringify(a.meta || {}))}</td>
+    </tr>`).join("");
+  return `<h2>Journal</h2><p class="sub">Qui a fait quoi. En lecture seule, par construction.</p>
+  <div class="wrap"><table>
+    <thead><tr><th>Quand</th><th>Action</th><th>Par</th><th>Sur</th><th>Détail</th></tr></thead>
+    <tbody>${rows}</tbody></table></div>`;
+}
+
+const VIEWS = { overview, applications, merchants, orders, payouts, refunds, users, audit };
+
+/* =========================================================
+   Render
+   ========================================================= */
+function render() {
+  const app = el("app");
+  if (!S.token) { app.innerHTML = loginView(); return; }
+  const body = S.err
+    ? `<div class="wrap"><div class="empty">${esc(S.err)}<br><br>
+        <button class="act" onclick="load()">Réessayer</button></div></div>`
+    : S.busy && !S.data[S.tab === "payouts" ? "payouts" : S.tab]
+      ? `<div class="wrap"><div class="empty">Chargement…</div></div>`
+      : (VIEWS[S.tab] || overview)();
+  app.innerHTML = `
+    <header>
+      <b>AI4Food · console</b>
+      <span class="tag info">interne</span>
+      <span class="who">
+        ${S.busy ? "…" : ""}
+        ${esc(S.me ? S.me.name || S.me.phone : "")}
+        <button class="act" onclick="load()">Rafraîchir</button>
+        <button class="act" onclick="signOut()">Quitter</button>
+      </span>
+    </header>
+    <nav>${TABS.map(([k, l]) =>
+      `<button class="${S.tab === k ? "on" : ""}" onclick="go('${k}')">${l}</button>`).join("")}</nav>
+    <main>${body}</main>`;
+}
+
+(function boot() {
+  try {
+    const saved = JSON.parse(localStorage.getItem(KEY) || "null");
+    if (saved && saved.t) { S.token = saved.t; return load(); }
+  } catch (e) { /* nothing saved */ }
+  render();
+})();
+</script>
+</body>
+</html>
